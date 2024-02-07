@@ -10,6 +10,7 @@ import "../globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 import ToasterContext from "../context/ToastContext";
+import { NextUIProvider } from "@nextui-org/react";
 
 export default function RootLayout({
   children,
@@ -19,17 +20,19 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`dark:bg-black ${inter.className}`}>
-        <ThemeProvider
-          enableSystem={false}
-          attribute="class"
-          defaultTheme="light"
-        >
-          <Header />
-          <ToasterContext />
-          {children}
-          <Footer />
-          <ScrollToTop />
-        </ThemeProvider>
+        <NextUIProvider>
+          <ThemeProvider
+            enableSystem={false}
+            attribute="class"
+            defaultTheme="light"
+          >
+            <Header />
+            <ToasterContext />
+            {children}
+            <Footer />
+            <ScrollToTop />
+          </ThemeProvider>
+        </NextUIProvider>
       </body>
     </html>
   );

@@ -6,6 +6,8 @@ import { useEffect, useState } from "react";
 
 import ThemeToggler from "./ThemeToggler";
 import menuData from "./menuData";
+import { Button, Input } from "@nextui-org/react";
+import SearchBox from "../SearchBox";
 
 const Header = () => {
   const [navigationOpen, setNavigationOpen] = useState(false);
@@ -39,21 +41,14 @@ const Header = () => {
         <div className="flex w-full items-center justify-between xl:w-1/4">
           <a href="/">
             <Image
-              src="/images/logo/logo-dark.svg"
+              src="/images/logo/svg_logo.svg"
               alt="logo"
               width={119.03}
               height={30}
-              className="hidden w-full dark:block"
-            />
-            <Image
-              src="/images/logo/logo-light.svg"
-              alt="logo"
-              width={119.03}
-              height={30}
-              className="w-full dark:hidden"
+              className="block w-full"
             />
           </a>
-
+          <SearchBox />
           {/* <!-- Hamburger Toggle BTN --> */}
           <button
             aria-label="hamburger Toggler"
