@@ -1,29 +1,20 @@
 "use client";
 import { Button, Input } from "@nextui-org/react";
 import { useState } from "react";
-import moduleName from "";
 import Image from "next/image";
+import DropDown from "./DropDown";
 
 const SearchBox = () => {
-  // Sticky menu
-  const [dropdownToggler, setDropdownToggler] = useState(false);
-
   return (
     <div className="flex w-full flex-row">
-      <Button
-        radius="none"
-        onClick={() => setDropdownToggler(!dropdownToggler)}
-        className="rounded-l"
-      >
-        Бүгд
-      </Button>
+      <DropDown />
       <Input
         // type="search"
         label=""
         placeholder="0.00"
         startContent={
           <div className="pointer-events-none flex items-center">
-            <span className="text-default-400 text-small"></span>
+            <span className="text-small text-default-400"></span>
           </div>
         }
         radius="none"
@@ -31,6 +22,7 @@ const SearchBox = () => {
         isClearable
         onClear={() => console.log("input cleared")}
         className="h-10"
+        classNames={{ mainWrapper: "contents" }}
       />
       <Button
         radius="none"
@@ -41,8 +33,8 @@ const SearchBox = () => {
         <Image
           src="/search.svg"
           alt="logo"
-          width={20}
-          height={20}
+          width={15}
+          height={15}
           className="block"
         />
       </Button>

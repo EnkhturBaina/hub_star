@@ -1,6 +1,8 @@
 "use client";
 import Image from "next/image";
 import { useState } from "react";
+import SharePost from "../Blog/SharePost";
+import RelatedPost from "../Blog/RelatedPost";
 
 const Hero = () => {
   const [email, setEmail] = useState("");
@@ -11,88 +13,154 @@ const Hero = () => {
 
   return (
     <>
-      <section className="overflow-hidden pb-20 pt-35 md:pt-40 xl:pb-25 xl:pt-46">
-        <div className="mx-auto max-w-c-1390 px-4 md:px-8 2xl:px-0">
-          <div className="flex lg:items-center lg:gap-8 xl:gap-32.5">
-            <div className=" md:w-1/2">
-              <h4 className="mb-4.5 text-lg font-medium text-black dark:text-white">
-                🔥 Solid - A Complete SaaS Web Template
-              </h4>
-              <h1 className="mb-5 pr-16 text-3xl font-bold text-black dark:text-white xl:text-hero ">
-                Free Next.js Template for {"   "}
-                <span className="relative inline-block before:absolute before:bottom-2.5 before:left-0 before:-z-1 before:h-3 before:w-full before:bg-titlebg dark:before:bg-titlebgdark ">
-                  SaaS
-                </span>
-              </h1>
-              <p>
-                Solid Pro - Packed with all the key integrations you need for
-                swift SaaS startup launch, including - Auth, Database, Sanity
-                Blog, Essential Components, Pages and More. Built-winth -
-                Next.js 13, React 18 and TypeScript.
-              </p>
-
-              <div className="mt-10">
-                <form onSubmit={handleSubmit}>
-                  <div className="flex flex-wrap gap-5">
+      <section className="pb-20 pt-35 lg:pb-25 lg:pt-45 xl:pb-30 xl:pt-64">
+        <div className="mx-auto max-w-screen-2xl px-4 md:px-8 2xl:px-0">
+          <div className="flex flex-col-reverse gap-7.5 lg:flex-row xl:gap-12.5">
+            <div className="md:w-1/4 lg:w-[32%]">
+              <div className="animate_top mb-10 rounded-md border border-stroke bg-white p-3.5 shadow-solid-13 dark:border-strokedark dark:bg-blacksection">
+                <form
+                  action="https://formbold.com/s/unique_form_id"
+                  method="POST"
+                >
+                  <div className="relative">
                     <input
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
                       type="text"
-                      placeholder="Enter your email address"
-                      className="rounded-full border border-stroke px-6 py-2.5 shadow-solid-2 focus:border-primary focus:outline-none dark:border-strokedark dark:bg-black dark:shadow-none dark:focus:border-primary"
+                      placeholder="Search Here..."
+                      className="w-full rounded-lg border border-stroke px-6 py-4 shadow-solid-12 focus:border-primary focus:outline-none dark:border-strokedark dark:bg-black dark:shadow-none dark:focus:border-primary"
                     />
+
                     <button
-                      aria-label="get started button"
-                      className="flex rounded-full bg-black px-7.5 py-2.5 text-white duration-300 ease-in-out hover:bg-blackho dark:bg-btndark dark:hover:bg-blackho"
+                      className="absolute right-0 top-0 p-5"
+                      aria-label="search-icon"
                     >
-                      Get Started
+                      <svg
+                        className="fill-black transition-all duration-300 hover:fill-primary dark:fill-white dark:hover:fill-primary"
+                        width="21"
+                        height="21"
+                        viewBox="0 0 21 21"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path d="M16.031 14.617L20.314 18.899L18.899 20.314L14.617 16.031C13.0237 17.3082 11.042 18.0029 9 18C4.032 18 0 13.968 0 9C0 4.032 4.032 0 9 0C13.968 0 18 4.032 18 9C18.0029 11.042 17.3082 13.0237 16.031 14.617ZM14.025 13.875C15.2941 12.5699 16.0029 10.8204 16 9C16 5.132 12.867 2 9 2C5.132 2 2 5.132 2 9C2 12.867 5.132 16 9 16C10.8204 16.0029 12.5699 15.2941 13.875 14.025L14.025 13.875Z" />
+                      </svg>
                     </button>
                   </div>
                 </form>
-
-                <p className="mt-5 text-black dark:text-white">
-                  Try for free no credit card required.
-                </p>
               </div>
+
+              <div className="animate_top mb-10 rounded-md border border-stroke bg-white p-9 shadow-solid-13 dark:border-strokedark dark:bg-blacksection">
+                <h4 className="mb-7.5 text-2xl font-semibold text-black dark:text-white">
+                  Categories
+                </h4>
+
+                <ul>
+                  <li className="mb-3 transition-all duration-300 last:mb-0 hover:text-primary">
+                    <a href="#">Blog</a>
+                  </li>
+                  <li className="mb-3 transition-all duration-300 last:mb-0 hover:text-primary">
+                    <a href="#">Events</a>
+                  </li>
+                  <li className="mb-3 transition-all duration-300 last:mb-0 hover:text-primary">
+                    <a href="#">Grids</a>
+                  </li>
+                  <li className="mb-3 transition-all duration-300 last:mb-0 hover:text-primary">
+                    <a href="#">News</a>
+                  </li>
+                  <li className="mb-3 transition-all duration-300 last:mb-0 hover:text-primary">
+                    <a href="#">Rounded</a>
+                  </li>
+                </ul>
+              </div>
+
+              <RelatedPost />
             </div>
 
-            <div className="animate_right hidden md:w-1/2 lg:block">
-              <div className="relative 2xl:-mr-7.5">
-                <Image
-                  src="/images/shape/shape-01.png"
-                  alt="shape"
-                  width={46}
-                  height={246}
-                  className="absolute -left-11.5 top-0"
-                />
-                <Image
-                  src="/images/shape/shape-02.svg"
-                  alt="shape"
-                  width={36.9}
-                  height={36.7}
-                  className="absolute bottom-0 right-0 z-10"
-                />
-                <Image
-                  src="/images/shape/shape-03.svg"
-                  alt="shape"
-                  width={21.64}
-                  height={21.66}
-                  className="absolute -right-6.5 bottom-0 z-1"
-                />
-                <div className=" relative aspect-[700/444] w-full">
-                  <Image
-                    className="shadow-solid-l dark:hidden"
-                    src="/images/hero/hero-light.svg"
-                    alt="Hero"
-                    fill
-                  />
-                  <Image
-                    className="hidden shadow-solid-l dark:block"
-                    src="/images/hero/hero-dark.svg"
-                    alt="Hero"
-                    fill
-                  />
+            <div className="lg:w-3/4">
+              <div className="animate_top rounded-md border border-stroke bg-white p-7.5 shadow-solid-13 dark:border-strokedark dark:bg-blacksection md:p-10">
+                <div className="mb-10 w-full overflow-hidden ">
+                  <div className="relative aspect-[97/60] w-full sm:aspect-[97/44]">
+                    <Image
+                      src={"/images/blog/blog-01.png"}
+                      alt="Kobe Steel plant that supplied"
+                      fill
+                      className="rounded-md object-cover object-center"
+                    />
+                  </div>
                 </div>
+
+                <h2 className="mb-5 mt-11 text-3xl font-semibold text-black dark:text-white 2xl:text-sectiontitle2">
+                  Kobe Steel plant that supplied
+                </h2>
+
+                <ul className="mb-9 flex flex-wrap gap-5 2xl:gap-7.5">
+                  <li>
+                    <span className="text-black dark:text-white">Author: </span>{" "}
+                    Jhon Doe
+                  </li>
+                  <li>
+                    <span className="text-black dark:text-white">
+                      Published On: July 30, 2023
+                    </span>{" "}
+                  </li>
+                  <li>
+                    <span className="text-black dark:text-white">
+                      Category:
+                    </span>
+                    Events
+                  </li>
+                </ul>
+
+                <div className="blog-details">
+                  <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    Nunc quis nibh lorem. Duis sed odio lorem. In a efficitur
+                    leo. Ut venenatis rhoncus quam sed condimentum. Curabitur
+                    vel turpis in dolor volutpat imperdiet in ut mi. Integer non
+                    volutpat nulla. Nunc elementum elit viverra, tempus quam
+                    non, interdum ipsum.
+                  </p>
+
+                  <p>
+                    Aenean augue ex, condimentum vel metus vitae, aliquam porta
+                    elit. Quisque non metus ac orci mollis posuere. Mauris vel
+                    ipsum a diam interdum ultricies sed vitae neque. Nulla
+                    porttitor quam vitae pulvinar placerat. Nulla fringilla elit
+                    sit amet justo feugiat sodales. Morbi eleifend, enim non
+                    eleifend laoreet, odio libero lobortis lectus, non porttitor
+                    sem urna sit amet metus. In sollicitudin quam est,
+                    pellentesque consectetur felis fermentum vitae.
+                  </p>
+
+                  <div className="flex flex-wrap gap-5">
+                    <Image
+                      src={"/images/blog/blog-01.png"}
+                      width={350}
+                      height={200}
+                      alt="image"
+                    />
+                    <Image
+                      src={"/images/blog/blog-02.png"}
+                      width={350}
+                      height={200}
+                      alt="image"
+                    />
+                  </div>
+
+                  <h3 className="pt-8">
+                    Nunc elementum elit viverra, tempus quam non
+                  </h3>
+
+                  <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    Nunc quis nibh lorem. Duis sed odio lorem. In a efficitur
+                    leo. Ut venenatis rhoncus quam sed condimentum. Curabitur
+                    vel turpis in dolor volutpat imperdiet in ut mi. Integer non
+                    volutpat nulla. Nunc elementum elit viverra, tempus quam
+                    non, interdum ipsum.
+                  </p>
+                </div>
+
+                <SharePost />
               </div>
             </div>
           </div>
