@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   // other metadata
 };
 
-const BlogPage = async () => {
+const BlogPage = () => {
   return (
     <>
       {/* <!-- ===== Blog Grid Start ===== --> */}

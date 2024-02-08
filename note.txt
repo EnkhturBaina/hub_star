@@ -1,3 +1,7 @@
 http://192.82.92.170:8080/admin/login
 username: ulziikhutag.gurensoft@gmail.com
 pass: WETITr
+
+
+
+https://react-slick.neostack.com/docs/example/adaptive-height
