@@ -5,6 +5,8 @@ import SharePost from "../Blog/SharePost";
 import RelatedPost from "../Blog/RelatedPost";
 import { Button } from "@nextui-org/react";
 import menuData from "./menuData";
+import { Popover, PopoverTrigger, PopoverContent } from "@nextui-org/react";
+import { BsChevronRight } from "react-icons/bs";
 
 const Hero = () => {
   const [dropdownToggler, setDropdownToggler] = useState(false);
@@ -33,64 +35,40 @@ const Hero = () => {
                   <h4 className="ml-2 text-2xl font-semibold text-black dark:text-white">
                     Categories
                   </h4>
-                  {menuData.map((menuItem, key) => (
-                    <li
-                      key={key}
-                      className={menuItem.submenu && "group relative"}
-                    >
-                      {menuItem.submenu ? (
-                        <>
-                          <button
-                            onClick={() => setDropdownToggler(!dropdownToggler)}
-                            className="flex cursor-pointer items-center justify-between gap-3 hover:text-primary"
-                          >
-                            {menuItem.title}
-                            <span>
-                              <svg
-                                className="h-3 w-3 cursor-pointer fill-waterloo group-hover:fill-primary"
-                                xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 512 512"
-                              >
-                                <path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z" />
-                              </svg>
-                            </span>
-                          </button>
-
-                          <ul
-                            className={`dropdown ${
-                              dropdownToggler ? "flex" : ""
-                            }`}
-                          >
-                            {menuItem.submenu.map((item, key) => (
-                              <li key={key} className="hover:text-primary">
-                                {item.title}
-                              </li>
-                            ))}
-                          </ul>
-                        </>
-                      ) : (
-                        <div>{menuItem.title}</div>
-                      )}
-                    </li>
-                  ))}
                 </div>
-
                 <ul>
-                  <li className="mb-3 transition-all duration-300 last:mb-0 hover:text-primary">
-                    <a href="#">Blog</a>
-                  </li>
-                  <li className="mb-3 transition-all duration-300 last:mb-0 hover:text-primary">
-                    <a href="#">Events</a>
-                  </li>
-                  <li className="mb-3 transition-all duration-300 last:mb-0 hover:text-primary">
-                    <a href="#">Grids</a>
-                  </li>
-                  <li className="mb-3 transition-all duration-300 last:mb-0 hover:text-primary">
-                    <a href="#">News</a>
-                  </li>
-                  <li className="mb-3 transition-all duration-300 last:mb-0 hover:text-primary">
-                    <a href="#">Rounded</a>
-                  </li>
+                  {menuData.map((el, index) => {
+                    return (
+                      <Popover placement="right" className="w-full" key={index}>
+                        <PopoverTrigger>
+                          <li className="mb-3 cursor-pointer transition-all duration-300 last:mb-0 hover:text-mainColor">
+                            {/* hover:(bg-green-600 text-gray-50) */}
+                            <div className="flex flex-row items-center justify-between">
+                              <span>{el.title}</span>
+                              {el.submenu ? <BsChevronRight /> : null}
+                            </div>
+                          </li>
+                        </PopoverTrigger>
+
+                        {el.submenu ? (
+                          <PopoverContent className="w-40 min-w-max items-start p-4">
+                            <ul>
+                              {el.submenu?.map((sub, index) => {
+                                return (
+                                  <li
+                                    key={index}
+                                    className="mb-3 cursor-pointer transition-all duration-300 last:mb-0 hover:text-mainColor"
+                                  >
+                                    {sub.title}
+                                  </li>
+                                );
+                              })}
+                            </ul>
+                          </PopoverContent>
+                        ) : null}
+                      </Popover>
+                    );
+                  })}
                 </ul>
               </div>
 
