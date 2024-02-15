@@ -9,7 +9,7 @@ const Feature = () => {
       {/* <!-- ===== Features Start ===== --> */}
       <section id="features">
         <div className="mx-auto max-w-c-1315 px-4 md:px-8 xl:px-0">
-          <div className="mt-2 grid grid-cols-6 gap-4">
+          <div className="my-2 grid grid-cols-6 gap-4">
             {/* <!-- Features item Start --> */}
 
             {featuresData.map((feature, key) => (

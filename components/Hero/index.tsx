@@ -1,7 +1,5 @@
 "use client";
 import Image from "next/image";
-import { useState } from "react";
-import SharePost from "../Blog/SharePost";
 import { Button } from "@nextui-org/react";
 import menuData from "./menuData";
 import { Popover, PopoverTrigger, PopoverContent } from "@nextui-org/react";
@@ -9,8 +7,8 @@ import { BsChevronRight } from "react-icons/bs";
 import { Fade } from "react-slideshow-image";
 import "react-slideshow-image/dist/styles.css";
 import { CiCircleChevRight, CiCircleChevLeft } from "react-icons/ci";
-import { GoDotFill } from "react-icons/go";
 import Feature from "../Features";
+import Blog from "../Blog";
 
 const Hero = () => {
   const images = [
@@ -128,81 +126,7 @@ const Hero = () => {
                 </h4>
               </div>
               <Feature />
-              <div className="animate_top rounded-md border border-stroke bg-white p-7.5 shadow-solid-13 dark:border-strokedark dark:bg-blacksection md:p-10">
-                <h2 className="mb-5 mt-11 text-3xl font-semibold text-black dark:text-white 2xl:text-sectiontitle2">
-                  Kobe Steel plant that supplied
-                </h2>
-
-                <ul className="mb-9 flex flex-wrap gap-5 2xl:gap-7.5">
-                  <li>
-                    <span className="text-black dark:text-white">Author: </span>{" "}
-                    Jhon Doe
-                  </li>
-                  <li>
-                    <span className="text-black dark:text-white">
-                      Published On: July 30, 2023
-                    </span>{" "}
-                  </li>
-                  <li>
-                    <span className="text-black dark:text-white">
-                      Category:
-                    </span>
-                    Events
-                  </li>
-                </ul>
-
-                <div className="blog-details">
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Nunc quis nibh lorem. Duis sed odio lorem. In a efficitur
-                    leo. Ut venenatis rhoncus quam sed condimentum. Curabitur
-                    vel turpis in dolor volutpat imperdiet in ut mi. Integer non
-                    volutpat nulla. Nunc elementum elit viverra, tempus quam
-                    non, interdum ipsum.
-                  </p>
-
-                  <p>
-                    Aenean augue ex, condimentum vel metus vitae, aliquam porta
-                    elit. Quisque non metus ac orci mollis posuere. Mauris vel
-                    ipsum a diam interdum ultricies sed vitae neque. Nulla
-                    porttitor quam vitae pulvinar placerat. Nulla fringilla elit
-                    sit amet justo feugiat sodales. Morbi eleifend, enim non
-                    eleifend laoreet, odio libero lobortis lectus, non porttitor
-                    sem urna sit amet metus. In sollicitudin quam est,
-                    pellentesque consectetur felis fermentum vitae.
-                  </p>
-
-                  <div className="flex flex-wrap gap-5">
-                    <Image
-                      src={"/images/blog/blog-01.png"}
-                      width={350}
-                      height={200}
-                      alt="image"
-                    />
-                    <Image
-                      src={"/images/blog/blog-02.png"}
-                      width={350}
-                      height={200}
-                      alt="image"
-                    />
-                  </div>
-
-                  <h3 className="pt-8">
-                    Nunc elementum elit viverra, tempus quam non
-                  </h3>
-
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Nunc quis nibh lorem. Duis sed odio lorem. In a efficitur
-                    leo. Ut venenatis rhoncus quam sed condimentum. Curabitur
-                    vel turpis in dolor volutpat imperdiet in ut mi. Integer non
-                    volutpat nulla. Nunc elementum elit viverra, tempus quam
-                    non, interdum ipsum.
-                  </p>
-                </div>
-
-                <SharePost />
-              </div>
+              <Blog />
             </div>
           </div>
         </div>
