@@ -24,7 +24,7 @@ const SingleFeature = ({ feature }: { feature: Feature }) => {
         whileInView="visible"
         transition={{ duration: 0.5 }}
         viewport={{ once: true }}
-        className="animate_top z-40 flex flex-col items-center justify-center rounded-lg border border-white bg-white p-2 shadow-solid-3 transition-all hover:shadow-solid-4"
+        className="animate_top text-mainBlue z-40 flex cursor-pointer flex-col items-center justify-center rounded-lg border border-white bg-white p-2 shadow-solid-3 transition-all hover:bg-primary hover:text-white  hover:shadow-solid-4"
       >
         <div className="flex h-2/3 w-16 items-center justify-center rounded-[4px] bg-primary">
           <Image
@@ -35,7 +35,7 @@ const SingleFeature = ({ feature }: { feature: Feature }) => {
             className="max-h-14"
           />
         </div>
-        <span className=" text-mainBlue flex h-1/3 items-center justify-center text-center align-middle text-sm leading-none">
+        <span className=" flex h-1/3 items-center justify-center text-center align-middle text-xs font-bold leading-none">
           {title}
         </span>
       </motion.div>
