@@ -148,3 +148,46 @@ pre {
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
+.each-slide-effect {
+  height: 450px;
+  border-radius: 16px;
+  overflow: hidden;
+}
+.each-slide-effect > div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-size: cover;
+  height: 450px;
+}
+
+.each-slide-effect span {
+  padding: 20px;
+  font-size: 20px;
+  background: #efefef;
+  text-align: center;
+}
+.custom-home-indicator {
+  cursor: pointer;
+  text-align: center;
+  margin: 5px;
+  background-color: #ebebeb;
+  width: 10px;
+  height: 10px;
+  border-radius: 10px;
+}
+
+.custom-home-indicator.active {
+  background-color: #f7941d;
+  width: 30px;
+}
+.custom-slider-container > div > .indicators {
+  bottom: 15%;
+  position: absolute;
+  z-index: 9999;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  text-align: center;
+}

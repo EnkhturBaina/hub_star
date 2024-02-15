@@ -2,15 +2,26 @@
 import Image from "next/image";
 import { useState } from "react";
 import SharePost from "../Blog/SharePost";
-import RelatedPost from "../Blog/RelatedPost";
 import { Button } from "@nextui-org/react";
 import menuData from "./menuData";
 import { Popover, PopoverTrigger, PopoverContent } from "@nextui-org/react";
 import { BsChevronRight } from "react-icons/bs";
+import { Fade } from "react-slideshow-image";
+import "react-slideshow-image/dist/styles.css";
+import { CiCircleChevRight, CiCircleChevLeft } from "react-icons/ci";
+import { GoDotFill } from "react-icons/go";
 
 const Hero = () => {
-  const [dropdownToggler, setDropdownToggler] = useState(false);
-
+  const images = [
+    "https://images.unsplash.com/photo-1509721434272-b79147e0e708?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80",
+    "https://images.unsplash.com/photo-1506710507565-203b9f24669b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1536&q=80",
+    "https://images.unsplash.com/photo-1536987333706-fc9adfb10d91?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80",
+  ];
+  const properties = {
+    prevArrow: <CiCircleChevLeft className="m-4 text-4xl text-white" />,
+    nextArrow: <CiCircleChevRight className="m-4 text-4xl text-white" />,
+  };
+  const indicators = (index) => <div className="custom-home-indicator"></div>;
   return (
     <>
       <section className="pb-20 pt-35 lg:pb-25 lg:pt-45 xl:pb-30 xl:pt-56">
@@ -71,23 +82,46 @@ const Hero = () => {
                   })}
                 </ul>
               </div>
-
-              <RelatedPost />
             </div>
 
             <div className="lg:w-3/4">
-              <div className="animate_top rounded-md border border-stroke bg-white p-7.5 shadow-solid-13 dark:border-strokedark dark:bg-blacksection md:p-10">
-                <div className="mb-10 w-full overflow-hidden ">
-                  <div className="relative aspect-[97/60] w-full sm:aspect-[97/44]">
-                    <Image
-                      src={"/images/blog/blog-01.png"}
-                      alt="Kobe Steel plant that supplied"
-                      fill
-                      className="rounded-md object-cover object-center"
-                    />
-                  </div>
+              <div className="w-full overflow-hidden">
+                <div className="custom-slider-container relative aspect-[97/60] w-full rounded-xl sm:aspect-[97/44]">
+                  <Fade
+                    {...properties}
+                    transitionDuration={500}
+                    easing="ease"
+                    indicators={indicators}
+                    autoplay={false}
+                  >
+                    <div className="each-slide-effect rounded-xl">
+                      <div
+                        style={{
+                          backgroundImage: `url(${images[0]})`,
+                          backgroundSize: "100% 100%",
+                        }}
+                      ></div>
+                    </div>
+                    <div className="each-slide-effect rounded-xl">
+                      <div
+                        style={{
+                          backgroundImage: `url(${images[1]})`,
+                          backgroundSize: "100% 100%",
+                        }}
+                      ></div>
+                    </div>
+                    <div className="each-slide-effect rounded-xl">
+                      <div
+                        style={{
+                          backgroundImage: `url(${images[2]})`,
+                          backgroundSize: "100% 100%",
+                        }}
+                      ></div>
+                    </div>
+                  </Fade>
                 </div>
-
+              </div>
+              <div className="animate_top rounded-md border border-stroke bg-white p-7.5 shadow-solid-13 dark:border-strokedark dark:bg-blacksection md:p-10">
                 <h2 className="mb-5 mt-11 text-3xl font-semibold text-black dark:text-white 2xl:text-sectiontitle2">
                   Kobe Steel plant that supplied
                 </h2>
