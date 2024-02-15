@@ -4,7 +4,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 
 const SingleFeature = ({ feature }: { feature: Feature }) => {
-  const { icon, title, description } = feature;
+  const { icon, title } = feature;
 
   return (
     <>
@@ -24,15 +24,20 @@ const SingleFeature = ({ feature }: { feature: Feature }) => {
         whileInView="visible"
         transition={{ duration: 0.5 }}
         viewport={{ once: true }}
-        className="animate_top z-40 rounded-lg border border-white bg-white p-7.5 shadow-solid-3 transition-all hover:shadow-solid-4 dark:border-strokedark dark:bg-blacksection dark:hover:bg-hoverdark xl:p-12.5"
+        className="animate_top z-40 flex flex-col items-center justify-center rounded-lg border border-white bg-white p-2 shadow-solid-3 transition-all hover:shadow-solid-4"
       >
-        <div className="relative flex h-16 w-16 items-center justify-center rounded-[4px] bg-primary">
-          <Image src={icon} width={36} height={36} alt="title" />
+        <div className="flex h-2/3 w-16 items-center justify-center rounded-[4px] bg-primary">
+          <Image
+            src={icon}
+            width={55}
+            height={55}
+            alt="title"
+            className="max-h-14"
+          />
         </div>
-        <h3 className="mb-5 mt-7.5 text-xl font-semibold text-black dark:text-white xl:text-itemtitle">
+        <span className=" text-mainBlue flex h-1/3 items-center justify-center text-center align-middle text-sm leading-none">
           {title}
-        </h3>
-        <p>{description}</p>
+        </span>
       </motion.div>
     </>
   );

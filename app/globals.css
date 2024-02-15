@@ -182,7 +182,7 @@ pre {
   width: 30px;
 }
 .custom-slider-container > div > .indicators {
-  bottom: 15%;
+  bottom: 2%;
   position: absolute;
   z-index: 9999;
   margin-left: auto;

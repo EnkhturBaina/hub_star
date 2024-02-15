@@ -10,6 +10,7 @@ import { Fade } from "react-slideshow-image";
 import "react-slideshow-image/dist/styles.css";
 import { CiCircleChevRight, CiCircleChevLeft } from "react-icons/ci";
 import { GoDotFill } from "react-icons/go";
+import Feature from "../Features";
 
 const Hero = () => {
   const images = [
@@ -18,8 +19,8 @@ const Hero = () => {
     "https://images.unsplash.com/photo-1536987333706-fc9adfb10d91?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80",
   ];
   const properties = {
-    prevArrow: <CiCircleChevLeft className="m-4 text-4xl text-white" />,
-    nextArrow: <CiCircleChevRight className="m-4 text-4xl text-white" />,
+    prevArrow: <CiCircleChevLeft className="m-4 text-6xl text-white" />,
+    nextArrow: <CiCircleChevRight className="m-4 text-6xl text-white" />,
   };
   const indicators = (index) => <div className="custom-home-indicator"></div>;
   return (
@@ -85,8 +86,8 @@ const Hero = () => {
             </div>
 
             <div className="lg:w-3/4">
-              <div className="w-full overflow-hidden">
-                <div className="custom-slider-container relative aspect-[97/60] w-full rounded-xl sm:aspect-[97/44]">
+              <div className="mb-4 w-full overflow-hidden">
+                <div className="custom-slider-container relative w-full rounded-xl">
                   <Fade
                     {...properties}
                     transitionDuration={500}
@@ -121,6 +122,12 @@ const Hero = () => {
                   </Fade>
                 </div>
               </div>
+              <div className="w-full overflow-hidden">
+                <h4 className="ml-2 text-2xl font-semibold text-black">
+                  Онцгой үйлчилгээ
+                </h4>
+              </div>
+              <Feature />
               <div className="animate_top rounded-md border border-stroke bg-white p-7.5 shadow-solid-13 dark:border-strokedark dark:bg-blacksection md:p-10">
                 <h2 className="mb-5 mt-11 text-3xl font-semibold text-black dark:text-white 2xl:text-sectiontitle2">
                   Kobe Steel plant that supplied
