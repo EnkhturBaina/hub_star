@@ -101,7 +101,9 @@ const Header = () => {
           <Divider orientation="vertical" className="mx-5 h-10" />
           <div className="flex flex-row items-center">
             <Avatar name="Junior" />
-            <div className="ml-3 mr-5 font-bold text-black">М.Төмөрсүх</div>
+            <Link href={`/profile`}>
+              <div className="ml-3 mr-5 font-bold text-black">М.Төмөрсүх</div>
+            </Link>
             {1 == 1 ? (
               <Button radius="sm">
                 <span className="font-bold">Нэвтрэх</span>

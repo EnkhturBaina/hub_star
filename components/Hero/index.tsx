@@ -9,6 +9,7 @@ import "react-slideshow-image/dist/styles.css";
 import { CiCircleChevRight, CiCircleChevLeft } from "react-icons/ci";
 import Feature from "../Features";
 import Blog from "../Blog";
+import GridCategory from "../GridCategory";
 
 const Hero = () => {
   const images = [
@@ -126,6 +127,7 @@ const Hero = () => {
                 </h4>
               </div>
               <Feature />
+              <GridCategory />
               <Blog />
             </div>
           </div>
