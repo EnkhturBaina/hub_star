@@ -44,6 +44,7 @@ module.exports = {
         mainGray: "#EBEBEB",
         mainBlue: "#2086D0",
         mainDark: "#212529",
+        mainBgGray: "#DADADA",
       },
       fontSize: {
         metatitle: ["12px", "20px"],

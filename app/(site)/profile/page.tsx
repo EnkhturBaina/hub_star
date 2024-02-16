@@ -1,26 +1,69 @@
+"use client";
+import LeftMenu from "@/components/Profile/LeftMenu";
+import { Badge, Button } from "@nextui-org/react";
 import Image from "next/image";
+import { useState } from "react";
+import { FaCamera } from "react-icons/fa";
 
 const Profile = () => {
+  const [selectedMenu, setSelectedMenu] = useState("1");
   return (
     <>
       {/* <!-- ===== Blog Grid Start ===== --> */}
-      <section className="py-20 lg:py-20 xl:py-20">
+      <section className="bg-gray-100 py-18 lg:py-18 xl:py-18">
         <div className="mx-auto max-w-c-1390 px-4 md:px-8 xl:px-0">
-          <div className="flex flex-col">
-            <Image
-              width={100}
-              height={400}
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              alt="p_bg"
-              src={"/images/profile_bg.png"}
-              className="relative h-auto w-full"
-              loading="lazy"
-            />
-            <div>
-              <span>Б.Батзаяа</span>
-              <p>“Таван-Орд” ХХК - Маркетингийн менежер</p>
+          <div
+            className="relative flex flex-col rounded-xl bg-white"
+            style={{ height: 550 }}
+          >
+            <div className="relative">
+              <Image
+                width={100}
+                height={400}
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                alt="p_bg"
+                src={"/images/profile_bg.png"}
+                className="relative h-96 w-full"
+                loading="lazy"
+              />
+              <Button
+                color="default"
+                radius="full"
+                variant="faded"
+                startContent={<FaCamera className="text-lg" />}
+                className="absolute bottom-8 right-10 bg-gray-300 text-base text-white"
+              >
+                Дэвсгэр зураг солих
+              </Button>
+            </div>
+            <div className="absolute bottom-12 left-30 flex flex-row ">
+              <div className="relative">
+                <img
+                  className="h-60 w-60 rounded-full border-5 border-white"
+                  src="https://i.ibb.co/6YbS9ff/avatar11.png"
+                  alt=""
+                />
+                <div className="absolute bottom-2 right-2 cursor-pointer rounded-full bg-gray-100 p-3 text-black">
+                  <FaCamera className="text-3xl" />
+                </div>
+              </div>
+              <div className="mb-2 ml-14 flex flex-col justify-end">
+                <p className="text-2xl font-bold text-black">Б.Батзаяа</p>
+                <p className="mt-2 text-xl">
+                  “Таван-Орд” ХХК - Маркетингийн менежер
+                </p>
+              </div>
             </div>
           </div>
+        </div>
+        <div className="mx-auto mt-6 flex max-w-c-1390 flex-col-reverse gap-5 lg:flex-row">
+          <div className="md:w-1/4 lg:w-[20%]">
+            <LeftMenu
+              selectedMenu={selectedMenu}
+              setSelectedMenu={setSelectedMenu}
+            />
+          </div>
+          <div className="lg:w-3/4">xaxa</div>
         </div>
       </section>
       {/* <!-- ===== Blog Grid End ===== --> */}
