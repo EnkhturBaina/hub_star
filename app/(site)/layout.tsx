@@ -6,6 +6,7 @@ import ScrollToTop from "@/components/ScrollToTop";
 import { ThemeProvider } from "next-themes";
 import { Inter } from "next/font/google";
 import "../globals.css";
+import "semantic-ui-css/semantic.min.css";
 const inter = Inter({ subsets: ["latin"] });
 
 import ToasterContext from "../context/ToastContext";
