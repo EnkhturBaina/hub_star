@@ -6,7 +6,7 @@ import { useState } from "react";
 import { FaCamera } from "react-icons/fa";
 
 const Profile = () => {
-  const [selectedMenu, setSelectedMenu] = useState("1");
+  const [selectedMenu, setSelectedMenu] = useState("profile");
   return (
     <>
       {/* <!-- ===== Blog Grid Start ===== --> */}
@@ -17,15 +17,18 @@ const Profile = () => {
             style={{ height: 550 }}
           >
             <div className="relative">
-              <Image
-                width={100}
-                height={400}
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              {/* <img
                 alt="p_bg"
-                src={"/images/profile_bg.png"}
+                src={"/images/profile_bg.jpg"}
                 className="relative h-96 w-full"
-                loading="lazy"
-              />
+              /> */}
+              <div
+                style={{
+                  backgroundImage: `url("/images/profile_bg.jpg")`,
+                  backgroundSize: "100% 100%",
+                }}
+                className="relative h-96 w-full bg-cover bg-center"
+              ></div>
               <Button
                 color="default"
                 radius="full"

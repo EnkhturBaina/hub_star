@@ -19,14 +19,19 @@ const LeftMenu = ({
       selectedKeys={selectedMenu}
       onSelectionChange={setSelectedMenu}
       hideSelectedIcon
+      disallowEmptySelection
     >
       <ListboxItem
-        key="1"
-        className={`${selectedMenu === "1" ? "bg-red-600" : "bg-green-600"}`}
+        key="profile"
+        className={`${
+          selectedMenu == "profile" ? "!bg-red-600" : "bg-green-600"
+        }`}
       >
         New file{selectedMenu}
       </ListboxItem>
-      <ListboxItem key="2">Copy link</ListboxItem>
+      <ListboxItem key="2" className="bg-red-600">
+        Copy link
+      </ListboxItem>
       <ListboxItem key="3" showDivider>
         Edit file
       </ListboxItem>
