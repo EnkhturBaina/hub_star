@@ -32,11 +32,9 @@ const Header = () => {
 
   return (
     <header
-      className={`fixed left-0 top-0 z-99999 w-full border-b border-stroke pt-7 shadow ${
-        stickyMenu
-          ? "bg-white !pt-4 shadow transition duration-100 dark:bg-black"
-          : ""
-      }`}
+      className={`fixed left-0 top-0 z-99999 w-full border-b border-stroke bg-white ${
+        pathUrl === "/profile" ? "py-4" : "pt-4"
+      } shadow ${stickyMenu ? "!pt-4 shadow transition duration-100" : ""}`}
     >
       <div className="relative mx-auto max-w-screen-2xl items-center justify-between px-4 md:px-8 xl:flex 2xl:px-0">
         <div className="flex w-full items-center justify-between xl:w-1/4">
@@ -160,11 +158,13 @@ const Header = () => {
           </div>
         </div>
       </div>
-      <div>
-        <nav>
-          <HeaderMenu />
-        </nav>
-      </div>
+      {pathUrl === "/profile" ? null : (
+        <div>
+          <nav>
+            <HeaderMenu />
+          </nav>
+        </div>
+      )}
     </header>
   );
 };

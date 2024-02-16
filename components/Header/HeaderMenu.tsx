@@ -34,7 +34,7 @@ const HeaderMenu = () => {
               onClick={() => setCurrentTab(el.id)}
               className={`relative flex h-full w-full cursor-pointer flex-col items-center border-b border-stroke px-6 py-2 last:border-0 dark:border-strokedark md:w-auto md:border-0 xl:px-13.5 xl:pt-5 ${
                 currentTab === el.id
-                  ? "active before:bg-mainColor before:absolute before:bottom-0 before:left-0 before:h-1 before:w-full before:rounded-tl-[4px] before:rounded-tr-[4px]"
+                  ? "active before:absolute before:bottom-0 before:left-0 before:h-1 before:w-full before:rounded-tl-[4px] before:rounded-tr-[4px] before:bg-mainColor"
                   : ""
               }`}
             >
