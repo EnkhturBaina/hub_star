@@ -14,7 +14,7 @@ const Profile = () => {
         <div className="mx-auto max-w-c-1390 px-4 md:px-8 xl:px-0">
           <div
             className="relative flex flex-col rounded-xl bg-white"
-            style={{ height: 550 }}
+            style={{ height: 480 }}
           >
             <div className="relative">
               {/* <img
@@ -52,7 +52,7 @@ const Profile = () => {
               </div>
               <div className="mb-2 ml-14 flex flex-col justify-end">
                 <p className="text-2xl font-bold text-black">Б.Батзаяа</p>
-                <p className="mt-2 text-xl">
+                <p className="text-xl">
                   “Таван-Орд” ХХК - Маркетингийн менежер
                 </p>
               </div>
