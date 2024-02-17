@@ -22,7 +22,7 @@ const SearchBox = () => {
         isClearable
         onClear={() => console.log("input cleared")}
         className="h-10"
-        classNames={{ mainWrapper: "contents" }}
+        classNames={{ mainWrapper: "contents", innerWrapper: "!pb-0" }}
       />
       <Button
         radius="none"

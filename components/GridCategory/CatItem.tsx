@@ -33,7 +33,7 @@ const CatItem = ({ category }: { category: any }) => {
             className="rounded-lg object-cover object-center"
             fill
           />
-          <span className="absolute left-1/2 top-1/2 z-99999 w-full -translate-x-1/2 -translate-y-1/2 text-center text-2xl uppercase text-white">
+          <span className="absolute left-1/2 top-1/2 z-999 w-full -translate-x-1/2 -translate-y-1/2 text-center text-2xl uppercase text-white">
             {title}
           </span>
         </div>
