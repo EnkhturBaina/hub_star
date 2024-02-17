@@ -4,6 +4,7 @@ import { Badge, Button } from "@nextui-org/react";
 import Image from "next/image";
 import { useState } from "react";
 import { FaCamera } from "react-icons/fa";
+import MenuList from "@/components/Profile/MenuList";
 
 const Profile = () => {
   const [selectedMenu, setSelectedMenu] = useState("profile");
@@ -66,7 +67,13 @@ const Profile = () => {
               setSelectedMenu={setSelectedMenu}
             />
           </div>
-          <div className="lg:w-3/4">xaxa</div>
+          <div className="lg:w-3/4">
+            {MenuList.map((el, index) => {
+              if (el.key === selectedMenu) {
+                return <div key={index}>{el.content}</div>;
+              }
+            })}
+          </div>
         </div>
       </section>
       {/* <!-- ===== Blog Grid End ===== --> */}
