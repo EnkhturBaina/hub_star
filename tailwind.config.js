@@ -45,6 +45,7 @@ module.exports = {
         mainBlue: "#2086D0",
         mainDark: "#212529",
         mainBgGray: "#DADADA",
+        mainProfileCardBg: "#FAFAFA",
       },
       fontSize: {
         metatitle: ["12px", "20px"],

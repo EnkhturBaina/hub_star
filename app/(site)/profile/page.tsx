@@ -67,7 +67,7 @@ const Profile = () => {
               setSelectedMenu={setSelectedMenu}
             />
           </div>
-          <div className="lg:w-3/4">
+          <div className="bg-mainProfileCardBg rounded-xl p-4 lg:w-3/4">
             {MenuList.map((el, index) => {
               if (el.key === selectedMenu) {
                 return <div key={index}>{el.content}</div>;
