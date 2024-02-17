@@ -32,7 +32,7 @@ const BlogItem = ({ blog }: { blog: Blog }) => {
         </Link>
 
         <div className="flex flex-col px-6 pb-2">
-          <h3 className="mt-2 line-clamp-2 inline-block text-lg font-bold text-black duration-300 hover:text-primary ">
+          <h3 className="!mb-1 !mt-2 line-clamp-2 inline-block text-lg font-bold text-black duration-300 hover:text-primary ">
             <Link href={`/blog/blog-details`}>
               {`${title.slice(0, 30)}...`}
             </Link>

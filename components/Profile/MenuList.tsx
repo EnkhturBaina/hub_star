@@ -1,6 +1,14 @@
+import Account from "./Content/Account";
+import Advices from "./Content/Advices";
+import Confirmation from "./Content/Confirmation";
+import DoingServices from "./Content/DoingServices";
 import Messenger from "./Content/Messenger";
+import Notification from "./Content/Notification";
+import Password from "./Content/Password";
 import PostedServices from "./Content/PostedServices";
 import Profile from "./Content/Profile";
+import SavedServices from "./Content/SavedServices";
+import ServiceHistory from "./Content/ServiceHistory";
 
 const MenuList: any[] = [
   {
@@ -25,49 +33,49 @@ const MenuList: any[] = [
     id: "4",
     title: "Хийгдэж буй ажил",
     key: "doing_services",
-    content: <Profile />,
+    content: <DoingServices />,
   },
   {
     id: "5",
     title: "Хадгалагдсан үйлчилгээнүүд",
     key: "saved_services",
-    content: <Profile />,
+    content: <SavedServices />,
   },
   {
     id: "6",
     title: "Үйлчилгээний түүх",
     key: "service_history",
-    content: <Profile />,
+    content: <ServiceHistory />,
   },
   {
     id: "7",
     title: "Дансны мэдээлэл",
     key: "account",
-    content: <Profile />,
+    content: <Account />,
   },
   {
     id: "8",
     title: "Баталгаажуулалт",
     key: "confirmation",
-    content: <Profile />,
+    content: <Confirmation />,
   },
   {
     id: "9",
     title: "Нууц үг",
     key: "password",
-    content: <Profile />,
+    content: <Password />,
   },
   {
     id: "10",
     title: "Мэдэгдэл",
     key: "notification",
-    content: <Profile />,
+    content: <Notification />,
   },
   {
     id: "11",
     title: "Зөвлөмжүүд",
     key: "advices",
-    content: <Profile />,
+    content: <Advices />,
   },
 ];
 
