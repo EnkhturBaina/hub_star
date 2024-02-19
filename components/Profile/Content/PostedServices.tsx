@@ -1,13 +1,8 @@
 "use client";
-import BlogItem from "@/components/Blog/BlogItem";
 import servicesData from "./servicesData";
-import { motion } from "framer-motion";
-import Image from "next/image";
-import Link from "next/link";
 import { Button } from "@nextui-org/react";
 import { CiGrid41, CiGrid2H } from "react-icons/ci";
 import { useState } from "react";
-import { IoAddCircle } from "react-icons/io5";
 import GridServices from "./GridServices";
 import ListServices from "./ListServices";
 
@@ -32,9 +27,17 @@ const PostedServices = () => {
       </div>
       <div className="mx-auto mt-4 max-w-c-1280">
         {isGrid ? (
-          <GridServices servicesData={servicesData} />
+          <GridServices
+            servicesData={servicesData}
+            isAddService={true}
+            isStars={false}
+          />
         ) : (
-          <ListServices servicesData={servicesData} />
+          <ListServices
+            servicesData={servicesData}
+            isAddService={true}
+            isStars={false}
+          />
         )}
       </div>
     </div>

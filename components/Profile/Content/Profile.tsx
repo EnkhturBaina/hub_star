@@ -1,12 +1,30 @@
 "use client";
 
+import { motion } from "framer-motion";
 import { Button, Input, Textarea } from "@nextui-org/react";
 
 const Profile = () => {
   return (
-    <div className="mb-4 grid w-full grid-cols-1 gap-y-4 overflow-hidden">
+    <motion.div
+      variants={{
+        hidden: {
+          opacity: 0,
+          y: -20,
+        },
+
+        visible: {
+          opacity: 1,
+          y: 0,
+        },
+      }}
+      initial="hidden"
+      whileInView="visible"
+      transition={{ duration: 1, delay: 0.5 }}
+      viewport={{ once: true }}
+      className="mb-4 grid w-full grid-cols-1 gap-y-4 overflow-hidden"
+    >
       <Input
-        key="outside"
+        key="lName"
         type="text"
         label="Овог"
         labelPlacement="outside"
@@ -20,7 +38,7 @@ const Profile = () => {
         }}
       />
       <Input
-        key="outside"
+        key="fName"
         type="text"
         label="Нэр"
         labelPlacement="outside"
@@ -34,7 +52,7 @@ const Profile = () => {
         }}
       />
       <Input
-        key="outside"
+        key="position"
         type="text"
         label="Албан тушаал"
         labelPlacement="outside"
@@ -48,7 +66,7 @@ const Profile = () => {
         }}
       />
       <Input
-        key="outside"
+        key="mobileNumber"
         type="text"
         label="Утасны дугаар"
         labelPlacement="outside"
@@ -62,7 +80,7 @@ const Profile = () => {
         }}
       />
       <Input
-        key="outside"
+        key="email"
         type="email"
         label="И-мэйл хаяг"
         labelPlacement="outside"
@@ -100,7 +118,7 @@ const Profile = () => {
           Цуцлах
         </Button>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

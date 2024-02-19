@@ -194,3 +194,12 @@ pre {
 .custom-input-wrapper:focus-within {
   border-color: #f7941d !important;
 }
+.custom-select-trigger:focus {
+  border-color: #e4e4e7 !important;
+}
+.custom-select-trigger:focus-within {
+  border-color: #e4e4e7 !important;
+}
+.custom-select-trigger[data-open="true"] {
+  border-color: #f7941d !important;
+}
