@@ -61,13 +61,13 @@ const Profile = () => {
           </div>
         </div>
         <div className="mx-auto mt-6 flex max-w-c-1390 flex-col-reverse gap-5 lg:flex-row">
-          <div className="md:w-1/4 lg:w-[20%]">
+          <div className="md:w-1/4">
             <LeftMenu
               selectedMenu={selectedMenu}
               setSelectedMenu={setSelectedMenu}
             />
           </div>
-          <div className="bg-mainProfileCardBg rounded-xl p-4 lg:w-3/4">
+          <div className="rounded-xl bg-mainProfileCardBg p-4 lg:w-3/4">
             {MenuList.map((el, index) => {
               if (el.key === selectedMenu) {
                 return <div key={index}>{el.content}</div>;

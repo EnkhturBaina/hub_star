@@ -17,7 +17,7 @@ const LeftMenu = ({
   };
 
   return (
-    <div className="w-full max-w-[260px] rounded-xl bg-white px-1 py-2 dark:border-default-100">
+    <div className="w-full rounded-xl bg-white px-1 py-2 dark:border-default-100">
       <Menu vertical borderless fluid className="!border-0 !shadow-none">
         {MenuList.map((el, index) => {
           return (
