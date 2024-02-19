@@ -4,7 +4,8 @@ const BlogData: Blog[] = [
   {
     _id: 1,
     mainImage: "/images/blog/blog-01.png",
-    title: "Free advertising for your online business",
+    title:
+      "Free advertising for your online business Free advertising for your online business Free advertising for your online business",
     metadata: "Lorem ipsum dolor sit amet",
   },
   {
