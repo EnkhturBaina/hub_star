@@ -191,3 +191,6 @@ pre {
   right: 0;
   text-align: center;
 }
+.custom-input-wrapper:focus-within {
+  border-color: #f7941d !important;
+}

@@ -1,25 +1,105 @@
 "use client";
 
-import { Input } from "@nextui-org/react";
+import { Button, Input, Textarea } from "@nextui-org/react";
 
 const Profile = () => {
   return (
-    <div className="mb-4 w-full overflow-hidden">
+    <div className="mb-4 grid w-full grid-cols-1 gap-y-4 overflow-hidden">
       <Input
         key="outside"
-        type="email"
-        label="Email"
+        type="text"
+        label="Овог"
         labelPlacement="outside"
-        placeholder="Enter your email"
+        placeholder="Овог"
         radius="sm"
         size="lg"
         variant="bordered"
         classNames={{
           label: "font-bold",
-          inputWrapper:
-            "bg-white !focus:outline-none !focus-visible:ring-2 !focus-visible:ring-rose-500",
+          inputWrapper: ["custom-input-wrapper", "bg-white"],
         }}
       />
+      <Input
+        key="outside"
+        type="text"
+        label="Нэр"
+        labelPlacement="outside"
+        placeholder="Нэр"
+        radius="sm"
+        size="lg"
+        variant="bordered"
+        classNames={{
+          label: "font-bold",
+          inputWrapper: ["custom-input-wrapper", "bg-white"],
+        }}
+      />
+      <Input
+        key="outside"
+        type="text"
+        label="Албан тушаал"
+        labelPlacement="outside"
+        placeholder="Албан тушаал"
+        radius="sm"
+        size="lg"
+        variant="bordered"
+        classNames={{
+          label: "font-bold",
+          inputWrapper: ["custom-input-wrapper", "bg-white"],
+        }}
+      />
+      <Input
+        key="outside"
+        type="text"
+        label="Утасны дугаар"
+        labelPlacement="outside"
+        placeholder="Утасны дугаар"
+        radius="sm"
+        size="lg"
+        variant="bordered"
+        classNames={{
+          label: "font-bold",
+          inputWrapper: ["custom-input-wrapper", "bg-white"],
+        }}
+      />
+      <Input
+        key="outside"
+        type="email"
+        label="И-мэйл хаяг"
+        labelPlacement="outside"
+        placeholder="И-мэйл хаяг"
+        radius="sm"
+        size="lg"
+        variant="bordered"
+        classNames={{
+          label: "font-bold",
+          inputWrapper: ["custom-input-wrapper", "bg-white"],
+        }}
+      />
+      <Textarea
+        variant="bordered"
+        label="Хаяг"
+        labelPlacement="outside"
+        radius="sm"
+        placeholder="Хаяг"
+        classNames={{
+          base: "w-full",
+          label: "font-bold",
+          inputWrapper: ["custom-input-wrapper", "bg-white"],
+        }}
+      />
+      <div className="flex flex-row justify-end">
+        <Button className="mr-4 bg-mainColor !text-white" radius="sm" size="md">
+          Хадгалах
+        </Button>
+        <Button
+          variant="bordered"
+          radius="sm"
+          className="border-mainGray !bg-white !text-black"
+          size="md"
+        >
+          Цуцлах
+        </Button>
+      </div>
     </div>
   );
 };
