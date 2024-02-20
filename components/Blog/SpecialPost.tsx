@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 
-const RelatedPost = ({ blog }: { blog: Blog }) => {
+const SpecialPost = ({ blog }: { blog: Blog }) => {
   const { mainImage, title, metadata } = blog;
 
   return (
@@ -25,7 +25,7 @@ const RelatedPost = ({ blog }: { blog: Blog }) => {
         whileInView="visible"
         transition={{ duration: 1, delay: 0.5 }}
         viewport={{ once: true }}
-        className="animate_top shadow-solid- rounded-lg bg-white"
+        className="animate_top rounded-lg bg-white shadow-solid-13"
       >
         <Link href={`/blog/`} className="relative block aspect-[368/239]">
           <Image src={mainImage} alt={title} fill />
@@ -44,4 +44,4 @@ const RelatedPost = ({ blog }: { blog: Blog }) => {
   );
 };
 
-export default RelatedPost;
+export default SpecialPost;

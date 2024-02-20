@@ -37,6 +37,24 @@ const BlogData: Blog[] = [
     title: "Tips to quickly improve your coding speed.",
     metadata: "Lorem ipsum dolor sit amet",
   },
+  {
+    _id: 2,
+    mainImage: "/images/blog/blog-01.png",
+    title: "Tips to quickly improve your coding speed.",
+    metadata: "Lorem ipsum dolor sit amet",
+  },
+  {
+    _id: 2,
+    mainImage: "/images/blog/blog-01.png",
+    title: "Tips to quickly improve your coding speed.",
+    metadata: "Lorem ipsum dolor sit amet",
+  },
+  {
+    _id: 2,
+    mainImage: "/images/blog/blog-01.png",
+    title: "Tips to quickly improve your coding speed.",
+    metadata: "Lorem ipsum dolor sit amet",
+  },
 ];
 
 export default BlogData;
