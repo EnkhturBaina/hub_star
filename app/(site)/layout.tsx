@@ -28,7 +28,9 @@ export default function RootLayout({
             attribute="class"
             defaultTheme="light"
           >
-            {pathUrl === "/auth/signin" ? null : <Header />}
+            {pathUrl === "/auth/signin" || pathUrl === "/auth/signup" ? null : (
+              <Header />
+            )}
             <ToasterContext />
             {children}
             <Footer />

@@ -40,8 +40,8 @@ const Footer = () => {
       <footer className="border-stroke bg-mainDark ">
         <div className="mx-auto max-w-c-1390 px-4 md:px-8 2xl:px-0">
           {/* <!-- Footer Top --> */}
-          {pathUrl === "/auth/signin" ? null : (
-            <div className="py-10 lg:py-15">
+          {pathUrl === "/auth/signin" || pathUrl === "/auth/signup" ? null : (
+            <div className="border-b py-10 lg:py-15">
               <div className="flex flex-wrap gap-8 lg:justify-between lg:gap-0">
                 <div className="flex w-full flex-col gap-8 md:flex-row md:justify-between md:gap-0">
                   <motion.div

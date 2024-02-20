@@ -15,16 +15,16 @@ const Signin = () => {
   return (
     <>
       {/* <!-- ===== SignIn Form Start ===== --> */}
-      <section className="flex h-[calc(100vh-90px)] flex-wrap">
+      <section className="flex h-[calc(100vh-100px)] flex-wrap">
         <div className="relative flex h-full w-full flex-row">
           <div className="w-1/2">
             <Image
               src="/signin_bg.png"
               alt="Dotted"
               className="h-full w-full"
-              height="800"
-              sizes="(max-width: 768px) 100vw, 33vw"
-              width="800"
+              height="1000"
+              sizes="(max-width: 768px) 100vw, 100vw"
+              width="1000"
               objectFit="contain"
             />
           </div>
@@ -46,7 +46,7 @@ const Signin = () => {
             viewport={{ once: true }}
             className="animate_top flex w-1/2 items-center justify-center"
           >
-            <div className="mx-auto mb-10 grid w-[350px] grid-cols-1 rounded-md border border-stroke bg-white p-6 shadow-solid-13">
+            <div className="mx-auto mb-10 grid w-[350px] grid-cols-1 rounded-md border border-stroke bg-gray-50 p-6 shadow-solid-13">
               <Input
                 key="username"
                 type="text"
@@ -63,7 +63,7 @@ const Signin = () => {
                 }}
               />
               <Input
-                key="username"
+                key="password"
                 type="password"
                 label="Нууц үг"
                 labelPlacement="outside"
@@ -77,12 +77,14 @@ const Signin = () => {
                   inputWrapper: ["custom-input-wrapper", "bg-white"],
                 }}
               />
-              <Button
-                radius="full"
-                className="mb-2 w-full rounded-md bg-mainColor font-bold text-white"
-              >
-                Нэвтрэх
-              </Button>
+              <Link className="text-primary" href="/">
+                <Button
+                  radius="full"
+                  className="mb-2 w-full rounded-md bg-mainColor font-bold leading-none text-white"
+                >
+                  Нэвтрэх
+                </Button>
+              </Link>
               <div className="text-center text-sm">
                 Та бүртгэлтэй юу?{" "}
                 <Link className="text-primary" href="/auth/signup">
@@ -91,10 +93,40 @@ const Signin = () => {
               </div>
               <Divider
                 horizontal
-                className="!font-normal !normal-case !text-gray-400"
+                className="!my-6 !text-xs !font-normal !normal-case !text-gray-400"
               >
                 Эсвэл
               </Divider>
+              <Button
+                startContent={
+                  <Image
+                    src="/facebook.png"
+                    alt="google"
+                    height="20"
+                    width="20"
+                    objectFit="contain"
+                  />
+                }
+                radius="full"
+                className="mb-2 flex w-full items-center justify-start rounded-md bg-primary font-bold leading-none text-white"
+              >
+                Continue with Facebook
+              </Button>
+              <Button
+                startContent={
+                  <Image
+                    src="/google.png"
+                    alt="facebook"
+                    height="20"
+                    width="20"
+                    objectFit="contain"
+                  />
+                }
+                radius="full"
+                className="mb-2 flex w-full justify-start rounded-md bg-white font-bold leading-none text-gray-400 shadow-solid-13"
+              >
+                Continue with Google
+              </Button>
             </div>
           </motion.div>
         </div>
