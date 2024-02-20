@@ -12,7 +12,7 @@ const Profile = () => {
     <>
       {/* <!-- ===== Blog Grid Start ===== --> */}
       <section className="bg-gray-100 py-18 lg:py-18 xl:py-18">
-        <div className="mx-auto max-w-c-1390 px-4 md:px-8 xl:px-0">
+        <div className="mx-auto max-w-screen-xl px-4 md:px-8 xl:px-0">
           <div
             className="relative flex flex-col rounded-xl bg-white"
             style={{ height: 480 }}
@@ -60,7 +60,7 @@ const Profile = () => {
             </div>
           </div>
         </div>
-        <div className="mx-auto mt-6 flex max-w-c-1390 flex-col-reverse gap-5 lg:flex-row">
+        <div className="mx-auto mt-6 flex max-w-screen-xl flex-col-reverse gap-5 lg:flex-row">
           <div className="md:w-1/4">
             <LeftMenu
               selectedMenu={selectedMenu}

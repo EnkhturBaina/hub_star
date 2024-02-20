@@ -38,7 +38,7 @@ const Footer = () => {
   return (
     <>
       <footer className="border-stroke bg-mainDark ">
-        <div className="mx-auto max-w-c-1390 px-4 md:px-8 2xl:px-0">
+        <div className="mx-auto max-w-screen-xl px-4 md:px-8 2xl:px-0">
           {/* <!-- Footer Top --> */}
           {pathUrl === "/auth/signin" || pathUrl === "/auth/signup" ? null : (
             <div className="border-b py-10 lg:py-15">

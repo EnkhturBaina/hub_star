@@ -25,7 +25,7 @@ const Hero = () => {
   return (
     <>
       <section className="pb-20 pt-35 lg:pb-25 lg:pt-45 xl:pb-30 xl:pt-56">
-        <div className="mx-auto max-w-screen-2xl px-4 md:px-8 2xl:px-0">
+        <div className="mx-auto max-w-screen-xl px-4 md:px-8 2xl:px-0">
           <div className="flex flex-col-reverse gap-7.5 lg:flex-row xl:gap-12.5">
             <div className="w-1/4">
               <div className="animate_top mb-10 rounded-md border border-stroke bg-white p-6 shadow-solid-13">

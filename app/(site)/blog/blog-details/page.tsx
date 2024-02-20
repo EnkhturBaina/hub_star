@@ -20,7 +20,7 @@ const SingleBlogPage = () => {
     <>
       <section className="pt-35 lg:pt-40 xl:pt-42.5">
         <div className="bg-gray-100 px-4 md:px-8 2xl:px-0 ">
-          <div className="mx-auto flex max-w-c-1390 flex-row justify-between gap-7.5 py-18 lg:flex-row xl:gap-12.5">
+          <div className="mx-auto flex max-w-screen-xl flex-row justify-between gap-7.5 py-18 lg:flex-row xl:gap-12.5">
             <div className="flex flex-col">
               <span className="text-xl font-bold">
                 Барилгын дотор заслын үндсэн ажилтан авна.
@@ -46,7 +46,7 @@ const SingleBlogPage = () => {
             </div>
           </div>
         </div>
-        <div className="mx-auto flex max-w-c-1390 gap-4 px-4 py-6 md:px-8 2xl:px-0">
+        <div className="mx-auto flex max-w-screen-xl gap-4 px-4 py-6 md:px-8 2xl:px-0">
           <div className="lg:w-3/4">
             <div className="animate_top">
               <div className="mb-10 w-full overflow-hidden ">
@@ -144,7 +144,7 @@ const SingleBlogPage = () => {
           </div>
         </div>
         <div className="bg-gray-100 px-4 md:px-8 2xl:px-0 ">
-          <div className="mx-auto flex max-w-c-1390 flex-row justify-between gap-7.5 py-10 lg:flex-row xl:gap-12.5">
+          <div className="mx-auto flex max-w-screen-xl flex-row justify-between gap-7.5 py-10 lg:flex-row xl:gap-12.5">
             <div className="flex flex-col">
               <span className="mb-4 font-bold">ТӨРӨЛ</span>
               <div>
@@ -165,7 +165,7 @@ const SingleBlogPage = () => {
             </div>
           </div>
         </div>
-        <div className="mx-auto my-14 max-w-c-1390">
+        <div className="mx-auto my-14 max-w-screen-xl">
           <span className="text-xl font-bold">
             Таны авсан үйлчилгээтэй холбоотой зөвлөмжүүд
           </span>
@@ -192,7 +192,7 @@ const SingleBlogPage = () => {
           </div>
         </div>
         <div className="bg-gray-100 px-4 md:px-8 2xl:px-0">
-          <div className="mx-auto max-w-c-1390 py-10">
+          <div className="mx-auto max-w-screen-xl py-10">
             <span className="text-xl font-bold">Онцгой үйлчилгээ</span>
             <div className="my-4 grid grid-cols-1 gap-7.5 md:grid-cols-2 lg:grid-cols-4 xl:gap-10">
               {BlogData?.splice(0, 4).map((blog, key) => (
