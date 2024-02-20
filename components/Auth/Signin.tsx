@@ -25,7 +25,6 @@ const Signin = () => {
               height="1000"
               sizes="(max-width: 768px) 100vw, 100vw"
               width="1000"
-              objectFit="contain"
             />
           </div>
           <motion.div
@@ -104,7 +103,6 @@ const Signin = () => {
                     alt="google"
                     height="20"
                     width="20"
-                    objectFit="contain"
                   />
                 }
                 radius="full"
@@ -119,7 +117,6 @@ const Signin = () => {
                     alt="facebook"
                     height="20"
                     width="20"
-                    objectFit="contain"
                   />
                 }
                 radius="full"

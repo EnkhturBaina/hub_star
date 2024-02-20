@@ -43,7 +43,7 @@ const Hero = () => {
                     width={30}
                     className="rounded-md object-contain object-center"
                   />
-                  <h4 className="ml-2 text-2xl font-semibold text-black">
+                  <h4 className="!mt-0 ml-2 text-2xl font-semibold text-black">
                     Categories
                   </h4>
                 </div>
