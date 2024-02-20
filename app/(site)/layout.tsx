@@ -8,6 +8,7 @@ import { Inter } from "next/font/google";
 import "../globals.css";
 import "semantic-ui-css/semantic.min.css";
 const inter = Inter({ subsets: ["latin"] });
+import { usePathname } from "next/navigation";
 
 import ToasterContext from "../context/ToastContext";
 import { NextUIProvider } from "@nextui-org/react";
@@ -17,6 +18,7 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const pathUrl = usePathname();
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`dark:bg-black ${inter.className}`}>
@@ -26,7 +28,7 @@ export default function RootLayout({
             attribute="class"
             defaultTheme="light"
           >
-            <Header />
+            {pathUrl === "/auth/signin" ? null : <Header />}
             <ToasterContext />
             {children}
             <Footer />

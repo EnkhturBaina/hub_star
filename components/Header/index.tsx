@@ -103,9 +103,14 @@ const Header = () => {
               <div className="ml-3 mr-5 font-bold text-black">М.Төмөрсүх</div>
             </Link>
             {1 == 1 ? (
-              <Button radius="sm">
-                <span className="font-bold">Нэвтрэх</span>
-              </Button>
+              <Link
+                className="text-black hover:text-primary dark:text-white dark:hover:text-primary"
+                href="/auth/signin"
+              >
+                <Button radius="sm">
+                  <span className="font-bold">Нэвтрэх</span>
+                </Button>
+              </Link>
             ) : (
               <div className="flex w-30 flex-row justify-around">
                 <span>
