@@ -25,7 +25,7 @@ const SpecialPost = ({ blog }: { blog: Blog }) => {
         whileInView="visible"
         transition={{ duration: 1, delay: 0.5 }}
         viewport={{ once: true }}
-        className="animate_top rounded-lg bg-white shadow-solid-13"
+        className="animate_top rounded-lg bg-white shadow-md"
       >
         <Link href={`/blog/`} className="relative block aspect-[368/239]">
           <Image src={mainImage} alt={title} fill />

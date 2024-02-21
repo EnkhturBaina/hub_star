@@ -45,7 +45,7 @@ const Signin = () => {
             viewport={{ once: true }}
             className="animate_top flex w-1/2 items-center justify-center"
           >
-            <div className="mx-auto mb-10 grid w-[350px] grid-cols-1 rounded-md border border-stroke bg-gray-50 p-6 shadow-solid-13">
+            <div className="mx-auto mb-10 grid w-[350px] grid-cols-1 rounded-md border border-stroke bg-gray-50 p-6 shadow-md">
               <Input
                 key="username"
                 type="text"
@@ -120,7 +120,7 @@ const Signin = () => {
                   />
                 }
                 radius="full"
-                className="mb-2 flex w-full justify-start rounded-md bg-white font-bold leading-none text-gray-400 shadow-solid-13"
+                className="mb-2 flex w-full justify-start rounded-md bg-white font-bold leading-none text-gray-400 shadow-md"
               >
                 Continue with Google
               </Button>

@@ -10,6 +10,7 @@ import { CiCircleChevRight, CiCircleChevLeft } from "react-icons/ci";
 import Feature from "../Features";
 import Blog from "../Blog";
 import GridCategory from "../GridCategory";
+import PaginationComp from "../Pagination";
 
 const Hero = () => {
   const images = [
@@ -24,11 +25,11 @@ const Hero = () => {
   const indicators = (index) => <div className="custom-home-indicator"></div>;
   return (
     <>
-      <section className="pb-20 pt-35 lg:pb-25 lg:pt-45 xl:pb-30 xl:pt-56">
+      <section className="pb-2 pt-35 lg:pb-2 lg:pt-45 xl:pb-4 xl:pt-56">
         <div className="mx-auto max-w-screen-xl px-4 md:px-8 2xl:px-0">
           <div className="flex flex-col-reverse gap-7.5 lg:flex-row xl:gap-12.5">
             <div className="w-1/4">
-              <div className="animate_top mb-10 rounded-md border border-stroke bg-white p-6 shadow-solid-13">
+              <div className="animate_top mb-10 rounded-md border border-stroke bg-white p-6 shadow-md">
                 <Button
                   radius="full"
                   className="mb-6 w-full bg-gradient-to-tr from-yellow-500 to-pink-500 font-bold uppercase tracking-widest text-white"
@@ -43,7 +44,7 @@ const Hero = () => {
                     width={30}
                     className="rounded-md object-contain object-center"
                   />
-                  <h4 className="!mt-0 ml-2 text-2xl font-semibold text-black">
+                  <h4 className="!mt-0 ml-2 self-center text-xl font-semibold text-black">
                     Categories
                   </h4>
                 </div>
@@ -122,13 +123,14 @@ const Hero = () => {
                 </div>
               </div>
               <div className="w-full overflow-hidden">
-                <h4 className="ml-2 text-2xl font-semibold text-black">
+                <h4 className="ml-2 text-xl font-semibold text-black">
                   Онцгой үйлчилгээ
                 </h4>
               </div>
               <Feature />
               <GridCategory />
               <Blog />
+              <PaginationComp />
             </div>
           </div>
         </div>

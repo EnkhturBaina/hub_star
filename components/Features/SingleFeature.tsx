@@ -25,7 +25,7 @@ const SingleFeature = ({ feature }: { feature: Feature }) => {
         whileInView="visible"
         transition={{ duration: 0.5 }}
         viewport={{ once: true }}
-        className="animate_top z-40 flex h-30 cursor-pointer flex-col items-center justify-center rounded-lg border border-white bg-white text-mainBlue shadow-solid-3 transition-all hover:bg-primary  hover:text-white hover:shadow-solid-4"
+        className="animate_top z-40 flex h-30 cursor-pointer flex-col items-center justify-center rounded-lg border border-white bg-white text-mainBlue shadow-md transition-all hover:bg-primary  hover:text-white hover:shadow-solid-4"
       >
         <Link
           href={`/blog/`}
