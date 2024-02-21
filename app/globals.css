@@ -205,6 +205,7 @@ pre {
 }
 .custom-checkbox::after {
   background: transparent !important;
+  transition-duration: 75ms !important;
 }
 .custom-checkbox > svg {
   color: #f7941d !important;
