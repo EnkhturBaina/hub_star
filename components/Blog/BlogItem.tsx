@@ -27,7 +27,7 @@ const BlogItem = ({ blog }: { blog: Blog }) => {
         viewport={{ once: true }}
         className="animate_top rounded-lg bg-white shadow-md"
       >
-        <Link href={`/blog/`} className="relative block aspect-video">
+        <Link href={`/blog/`} className="relative block h-56 w-full">
           <Image src={mainImage} alt={title} fill />
         </Link>
 
