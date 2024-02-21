@@ -32,7 +32,7 @@ const Hero = () => {
               <div className="animate_top mb-10 rounded-md border border-stroke bg-white p-6 shadow-md">
                 <Button
                   radius="full"
-                  className="mb-6 w-full bg-gradient-to-tr from-yellow-500 to-pink-500 font-bold uppercase tracking-widest text-white"
+                  className="mb-6 h-8 w-full bg-gradient-to-tr from-yellow-500 to-pink-500 font-bold uppercase leading-none tracking-widest text-white"
                 >
                   Үйлчилгээнүүд
                 </Button>
@@ -123,9 +123,12 @@ const Hero = () => {
                 </div>
               </div>
               <div className="w-full overflow-hidden">
-                <h4 className="ml-2 text-xl font-semibold text-black">
+                <Button
+                  radius="full"
+                  className="h-8 w-50 bg-gradient-to-r from-blue-500 to-blue-900 font-bold uppercase leading-none tracking-wide text-white"
+                >
                   Онцгой үйлчилгээ
-                </h4>
+                </Button>
               </div>
               <Feature />
               <GridCategory />
