@@ -11,6 +11,8 @@ import Feature from "../Features";
 import Blog from "../Blog";
 import GridCategory from "../GridCategory";
 import PaginationComp from "../Pagination";
+import { useEffect } from "react";
+import { getQuotes } from "../../services/index";
 
 const Hero = () => {
   const images = [
@@ -22,6 +24,11 @@ const Hero = () => {
     prevArrow: <CiCircleChevLeft className="m-4 text-6xl text-white" />,
     nextArrow: <CiCircleChevRight className="m-4 text-6xl text-white" />,
   };
+
+  useEffect(() => {
+    getQuotes();
+  }, []);
+
   const indicators = (index) => <div className="custom-home-indicator"></div>;
   return (
     <>
@@ -34,7 +41,7 @@ const Hero = () => {
                   radius="full"
                   className="mb-6 h-8 w-full bg-gradient-to-tr from-yellow-500 to-pink-500 font-bold uppercase leading-none tracking-widest text-white"
                 >
-                  Үйлчилгээнүүд {process.env.API_KEY}
+                  Үйлчилгээнүүд
                 </Button>
                 <div className="mb-7.5 flex flex-row ">
                   <Image
