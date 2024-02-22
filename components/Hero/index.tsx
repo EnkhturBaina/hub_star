@@ -34,7 +34,7 @@ const Hero = () => {
                   radius="full"
                   className="mb-6 h-8 w-full bg-gradient-to-tr from-yellow-500 to-pink-500 font-bold uppercase leading-none tracking-widest text-white"
                 >
-                  Үйлчилгээнүүд
+                  Үйлчилгээнүүд {process.env.API_KEY}
                 </Button>
                 <div className="mb-7.5 flex flex-row ">
                   <Image
