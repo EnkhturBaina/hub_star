@@ -210,3 +210,10 @@ pre {
 .custom-checkbox > svg {
   color: #f7941d !important;
 }
+.custom-progress > .bar {
+  background: #f7941d !important;
+}
+.custom-progress > .bar > .progress {
+  font-size: 10px !important;
+  font-weight: normal !important;
+}

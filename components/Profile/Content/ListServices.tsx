@@ -8,12 +8,16 @@ import { FaStar } from "react-icons/fa";
 
 const ListServices = ({
   servicesData,
-  isAddService,
+  showAddBtn,
   isStars,
+  isAddService,
+  setIsAddService,
 }: {
   servicesData: any;
-  isAddService: boolean;
+  showAddBtn: boolean;
   isStars: boolean;
+  isAddService?: boolean;
+  setIsAddService?: any;
 }) => {
   return (
     <motion.div
@@ -72,8 +76,11 @@ const ListServices = ({
           ) : null}
         </div>
       ))}
-      {isAddService ? (
-        <div className="flex h-25 cursor-pointer items-center justify-center rounded-lg bg-mainGray">
+      {showAddBtn ? (
+        <div
+          className="flex h-25 cursor-pointer items-center justify-center rounded-lg bg-mainGray"
+          onClick={() => setIsAddService(true)}
+        >
           <IoAddCircle className="text-[70px] text-mainBgGray" />
         </div>
       ) : null}

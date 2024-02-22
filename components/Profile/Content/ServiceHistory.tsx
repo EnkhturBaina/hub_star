@@ -29,13 +29,13 @@ const ServiceHistory = () => {
         {isGrid ? (
           <GridServices
             servicesData={servicesData}
-            isAddService={false}
+            showAddBtn={false}
             isStars={true}
           />
         ) : (
           <ListServices
             servicesData={servicesData}
-            isAddService={false}
+            showAddBtn={false}
             isStars={true}
           />
         )}

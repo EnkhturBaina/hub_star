@@ -29,13 +29,13 @@ const SavedServices = () => {
         {isGrid ? (
           <GridServices
             servicesData={servicesData}
-            isAddService={false}
+            showAddBtn={false}
             isStars={false}
           />
         ) : (
           <ListServices
             servicesData={servicesData}
-            isAddService={false}
+            showAddBtn={false}
             isStars={false}
           />
         )}

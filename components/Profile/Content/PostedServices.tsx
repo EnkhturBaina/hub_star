@@ -5,43 +5,62 @@ import { CiGrid41, CiGrid2H } from "react-icons/ci";
 import { useState } from "react";
 import GridServices from "./GridServices";
 import ListServices from "./ListServices";
+import AddService from "./AddService";
 
 const PostedServices = () => {
   const [isGrid, setIsGrid] = useState(true);
-  return (
-    <div className="mb-4 w-full overflow-hidden ">
-      <div className="flex justify-end">
-        <Button
-          className="min-w-unit-12 !px-0"
-          radius="sm"
-          onClick={() => {
-            setIsGrid(!isGrid);
-          }}
-        >
+  const [isAddService, setIsAddService] = useState(false);
+  if (!isAddService) {
+    return (
+      <div className="mb-4 w-full overflow-hidden ">
+        <div className="flex justify-end">
+          <Button
+            className="min-w-unit-12 !px-0"
+            radius="sm"
+            onClick={() => {
+              setIsGrid(!isGrid);
+            }}
+          >
+            {isGrid ? (
+              <CiGrid2H className="text-4xl" />
+            ) : (
+              <CiGrid41 className="text-4xl" />
+            )}
+          </Button>
+        </div>
+        <div className="mx-auto mt-4 max-w-c-1280">
           {isGrid ? (
-            <CiGrid2H className="text-4xl" />
+            <GridServices
+              servicesData={servicesData}
+              showAddBtn={true}
+              isStars={false}
+              setIsAddService={setIsAddService}
+              isAddService={isAddService}
+            />
           ) : (
-            <CiGrid41 className="text-4xl" />
+            <ListServices
+              servicesData={servicesData}
+              showAddBtn={true}
+              isStars={false}
+              setIsAddService={setIsAddService}
+              isAddService={isAddService}
+            />
           )}
-        </Button>
+        </div>
       </div>
-      <div className="mx-auto mt-4 max-w-c-1280">
-        {isGrid ? (
-          <GridServices
-            servicesData={servicesData}
-            isAddService={true}
-            isStars={false}
+    );
+  } else {
+    return (
+      <div className="mb-4 w-full overflow-hidden ">
+        <div className="flex justify-end">
+          <AddService
+            setIsAddService={setIsAddService}
+            isAddService={isAddService}
           />
-        ) : (
-          <ListServices
-            servicesData={servicesData}
-            isAddService={true}
-            isStars={false}
-          />
-        )}
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 };
 
 export default PostedServices;
