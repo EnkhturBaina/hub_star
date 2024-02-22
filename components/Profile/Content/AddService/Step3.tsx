@@ -1,8 +1,15 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Button, Input } from "@nextui-org/react";
+import {
+  Button,
+  Checkbox,
+  CheckboxGroup,
+  Input,
+  Textarea,
+} from "@nextui-org/react";
 import { Progress } from "semantic-ui-react";
+import { BsImage } from "react-icons/bs";
 
 const Step3 = () => {
   return (
@@ -24,62 +31,118 @@ const Step3 = () => {
       viewport={{ once: true }}
       className="mb-4 grid w-full grid-cols-1 gap-y-4 overflow-hidden"
     >
-      <Input
-        key="bankName"
-        type="text"
-        label="Банкны нэр"
-        labelPlacement="outside"
-        placeholder="Банкны нэр"
-        radius="sm"
-        size="lg"
-        variant="bordered"
-        classNames={{
-          label: "font-bold",
-          inputWrapper: ["custom-input-wrapper", "bg-white"],
-        }}
-      />
-      <Input
-        key="accountNumber"
-        type="number"
-        label="Дансны дугаар"
-        labelPlacement="outside"
-        placeholder="Дансны дугаар"
-        radius="sm"
-        size="lg"
-        variant="bordered"
-        classNames={{
-          label: "font-bold",
-          inputWrapper: ["custom-input-wrapper", "bg-white"],
-        }}
-      />
-      <Input
-        key="accountHolder"
-        type="text"
-        label="Эзэмшигчийн нэр"
-        labelPlacement="outside"
-        placeholder="Эзэмшигчийн нэр"
-        radius="sm"
-        size="lg"
-        variant="bordered"
-        classNames={{
-          label: "font-bold",
-          inputWrapper: ["custom-input-wrapper", "bg-white"],
-        }}
-      />
-
-      <div className="flex flex-row justify-end">
-        <Button className="mr-4 bg-mainColor !text-white" radius="sm" size="md">
-          Хадгалах
-        </Button>
-        <Button
-          variant="bordered"
+      <div className="grid grid-cols-2 gap-4">
+        <Input
+          key="negj"
+          type="text"
+          label="Хэмжих нэгж"
+          labelPlacement="outside"
+          placeholder="--"
           radius="sm"
-          className="border-mainGray !bg-white !text-black"
-          size="md"
-        >
-          Цуцлах
-        </Button>
+          size="lg"
+          variant="bordered"
+          classNames={{
+            label: "font-bold",
+            inputWrapper: ["custom-input-wrapper", "bg-white"],
+          }}
+        />
+        <Input
+          key="too"
+          type="text"
+          label="Ажлын тоо хэмжээ"
+          labelPlacement="outside"
+          placeholder="--"
+          radius="sm"
+          size="lg"
+          variant="bordered"
+          classNames={{
+            label: "font-bold",
+            inputWrapper: ["custom-input-wrapper", "bg-white"],
+          }}
+        />
       </div>
+      <span className="font-bold">Зураг оруулах</span>
+      <div className="grid grid-cols-3 gap-4">
+        {[...new Array(6)].map((element, i) => {
+          return (
+            <div
+              className="flex h-40 cursor-pointer items-center justify-center rounded-lg bg-mainGray"
+              key={i}
+            >
+              <BsImage className="text-2xl text-gray-500" />
+            </div>
+          );
+        })}
+      </div>
+      <Textarea
+        variant="bordered"
+        label="Тайлбар"
+        labelPlacement="outside"
+        radius="sm"
+        placeholder="Тайлбар"
+        classNames={{
+          base: "w-full",
+          label: "font-bold",
+          inputWrapper: ["custom-input-wrapper", "bg-white"],
+        }}
+      />
+      <div className="grid grid-cols-2 gap-4">
+        <Input
+          key="email"
+          type="email"
+          label="Имэйл"
+          labelPlacement="outside"
+          placeholder="--"
+          radius="sm"
+          size="lg"
+          variant="bordered"
+          classNames={{
+            label: "font-bold",
+            inputWrapper: ["custom-input-wrapper", "bg-white"],
+          }}
+        />
+        <Input
+          key="utas"
+          type="text"
+          label="Утас"
+          labelPlacement="outside"
+          placeholder="--"
+          radius="sm"
+          size="lg"
+          variant="bordered"
+          classNames={{
+            label: "font-bold",
+            inputWrapper: ["custom-input-wrapper", "bg-white"],
+          }}
+        />
+      </div>
+      <CheckboxGroup
+        label=""
+        defaultValue={["buenos-aires", "london"]}
+        color="warning"
+        className="my-4"
+      >
+        <Checkbox
+          value="buenos-aires"
+          classNames={{
+            base: "w-full",
+            label: "w-full",
+            wrapper: "custom-checkbox w-6 h-6",
+          }}
+        >
+          Мессэнжер нээх
+        </Checkbox>
+        <Checkbox
+          value="buenos-aires"
+          classNames={{
+            base: "w-full",
+            label: "w-full",
+            wrapper: "custom-checkbox w-6 h-6",
+          }}
+        >
+          Үйлчилгээний нөхцөл зөвшөөрөх
+        </Checkbox>
+      </CheckboxGroup>
     </motion.div>
   );
 };

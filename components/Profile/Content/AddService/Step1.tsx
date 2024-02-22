@@ -1,8 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Button, Input } from "@nextui-org/react";
-import { Progress } from "semantic-ui-react";
+import { Select, SelectItem } from "@nextui-org/react";
+import { animals } from "../animals";
 
 const Step1 = () => {
   return (
@@ -24,62 +24,79 @@ const Step1 = () => {
       viewport={{ once: true }}
       className="mb-4 grid w-full grid-cols-1 gap-y-4 overflow-hidden"
     >
-      <Input
-        key="bankName"
-        type="text"
-        label="Банкны нэр"
+      <Select
+        label="Хэрэглэгчийн төрөл"
         labelPlacement="outside"
-        placeholder="Банкны нэр"
+        placeholder="Сонгох"
         radius="sm"
         size="lg"
         variant="bordered"
         classNames={{
           label: "font-bold",
-          inputWrapper: ["custom-input-wrapper", "bg-white"],
+          trigger: "custom-select-trigger bg-white",
         }}
-      />
-      <Input
-        key="accountNumber"
-        type="number"
-        label="Дансны дугаар"
+      >
+        {animals.map((animal) => (
+          <SelectItem key={animal.value} value={animal.value}>
+            {animal.label}
+          </SelectItem>
+        ))}
+      </Select>
+      <Select
+        label="Үйл ажиллагааны үндсэн чиглэл"
         labelPlacement="outside"
-        placeholder="Дансны дугаар"
+        placeholder="Сонгох"
         radius="sm"
         size="lg"
         variant="bordered"
         classNames={{
           label: "font-bold",
-          inputWrapper: ["custom-input-wrapper", "bg-white"],
+          trigger: "custom-select-trigger bg-white",
         }}
-      />
-      <Input
-        key="accountHolder"
-        type="text"
-        label="Эзэмшигчийн нэр"
-        labelPlacement="outside"
-        placeholder="Эзэмшигчийн нэр"
-        radius="sm"
-        size="lg"
-        variant="bordered"
-        classNames={{
-          label: "font-bold",
-          inputWrapper: ["custom-input-wrapper", "bg-white"],
-        }}
-      />
+      >
+        {animals.map((animal) => (
+          <SelectItem key={animal.value} value={animal.value}>
+            {animal.label}
+          </SelectItem>
+        ))}
+      </Select>
 
-      <div className="flex flex-row justify-end">
-        <Button className="mr-4 bg-mainColor !text-white" radius="sm" size="md">
-          Хадгалах
-        </Button>
-        <Button
-          variant="bordered"
-          radius="sm"
-          className="border-mainGray !bg-white !text-black"
-          size="md"
-        >
-          Цуцлах
-        </Button>
-      </div>
+      <Select
+        label="Үйл ажиллагааны чиглэл"
+        labelPlacement="outside"
+        placeholder="Сонгох"
+        radius="sm"
+        size="lg"
+        variant="bordered"
+        classNames={{
+          label: "font-bold",
+          trigger: "custom-select-trigger bg-white",
+        }}
+      >
+        {animals.map((animal) => (
+          <SelectItem key={animal.value} value={animal.value}>
+            {animal.label}
+          </SelectItem>
+        ))}
+      </Select>
+      <Select
+        label="Үйл ажиллагааны нэр"
+        labelPlacement="outside"
+        placeholder="Сонгох"
+        radius="sm"
+        size="lg"
+        variant="bordered"
+        classNames={{
+          label: "font-bold",
+          trigger: "custom-select-trigger bg-white",
+        }}
+      >
+        {animals.map((animal) => (
+          <SelectItem key={animal.value} value={animal.value}>
+            {animal.label}
+          </SelectItem>
+        ))}
+      </Select>
     </motion.div>
   );
 };

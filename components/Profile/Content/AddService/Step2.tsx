@@ -1,8 +1,9 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Button, Input } from "@nextui-org/react";
+import { Button, Input, Select, SelectItem, Textarea } from "@nextui-org/react";
 import { Progress } from "semantic-ui-react";
+import { animals } from "../animals";
 
 const Step2 = () => {
   return (
@@ -25,11 +26,11 @@ const Step2 = () => {
       className="mb-4 grid w-full grid-cols-1 gap-y-4 overflow-hidden"
     >
       <Input
-        key="bankName"
+        key="postTitle"
         type="text"
-        label="Банкны нэр"
+        label="Зарын гарчиг"
         labelPlacement="outside"
-        placeholder="Банкны нэр"
+        placeholder="--"
         radius="sm"
         size="lg"
         variant="bordered"
@@ -38,48 +39,108 @@ const Step2 = () => {
           inputWrapper: ["custom-input-wrapper", "bg-white"],
         }}
       />
-      <Input
-        key="accountNumber"
-        type="number"
-        label="Дансны дугаар"
-        labelPlacement="outside"
-        placeholder="Дансны дугаар"
-        radius="sm"
-        size="lg"
-        variant="bordered"
-        classNames={{
-          label: "font-bold",
-          inputWrapper: ["custom-input-wrapper", "bg-white"],
-        }}
-      />
-      <Input
-        key="accountHolder"
-        type="text"
-        label="Эзэмшигчийн нэр"
-        labelPlacement="outside"
-        placeholder="Эзэмшигчийн нэр"
-        radius="sm"
-        size="lg"
-        variant="bordered"
-        classNames={{
-          label: "font-bold",
-          inputWrapper: ["custom-input-wrapper", "bg-white"],
-        }}
-      />
-
-      <div className="flex flex-row justify-end">
-        <Button className="mr-4 bg-mainColor !text-white" radius="sm" size="md">
-          Хадгалах
-        </Button>
-        <Button
-          variant="bordered"
+      <div className="grid grid-cols-2 gap-4">
+        <Select
+          label="Хэрэглэгчийн ангилал"
+          labelPlacement="outside"
+          placeholder="Сонгох"
           radius="sm"
-          className="border-mainGray !bg-white !text-black"
-          size="md"
+          size="lg"
+          variant="bordered"
+          classNames={{
+            label: "font-bold",
+            trigger: "custom-select-trigger bg-white",
+          }}
         >
-          Цуцлах
-        </Button>
+          {animals.map((animal) => (
+            <SelectItem key={animal.value} value={animal.value}>
+              {animal.label}
+            </SelectItem>
+          ))}
+        </Select>
+        <Input
+          key="price"
+          type="text"
+          label="Үнэ"
+          labelPlacement="outside"
+          placeholder="--"
+          radius="sm"
+          size="lg"
+          variant="bordered"
+          classNames={{
+            label: "font-bold",
+            inputWrapper: ["custom-input-wrapper", "bg-white"],
+          }}
+        />
       </div>
+      <div className="grid grid-cols-3 gap-4">
+        <Select
+          label="Аймаг, Хот"
+          labelPlacement="outside"
+          placeholder="Сонгох"
+          radius="sm"
+          size="lg"
+          variant="bordered"
+          classNames={{
+            label: "font-bold",
+            trigger: "custom-select-trigger bg-white",
+          }}
+        >
+          {animals.map((animal) => (
+            <SelectItem key={animal.value} value={animal.value}>
+              {animal.label}
+            </SelectItem>
+          ))}
+        </Select>
+        <Select
+          label="Сум, Дүүрэг"
+          labelPlacement="outside"
+          placeholder="Сонгох"
+          radius="sm"
+          size="lg"
+          variant="bordered"
+          classNames={{
+            label: "font-bold",
+            trigger: "custom-select-trigger bg-white",
+          }}
+        >
+          {animals.map((animal) => (
+            <SelectItem key={animal.value} value={animal.value}>
+              {animal.label}
+            </SelectItem>
+          ))}
+        </Select>
+        <Select
+          label="Баг, Хороо"
+          labelPlacement="outside"
+          placeholder="Сонгох"
+          radius="sm"
+          size="lg"
+          variant="bordered"
+          classNames={{
+            label: "font-bold",
+            trigger: "custom-select-trigger bg-white",
+          }}
+        >
+          {animals.map((animal) => (
+            <SelectItem key={animal.value} value={animal.value}>
+              {animal.label}
+            </SelectItem>
+          ))}
+        </Select>
+      </div>
+      <Textarea
+        variant="bordered"
+        label="Байршил"
+        labelPlacement="outside"
+        radius="sm"
+        placeholder="Байршил"
+        classNames={{
+          base: "w-full",
+          label: "font-bold",
+          inputWrapper: ["custom-input-wrapper", "bg-white"],
+        }}
+      />
     </motion.div>
   );
 };
