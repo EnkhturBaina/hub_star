@@ -23,7 +23,7 @@ const Step2 = () => {
       whileInView="visible"
       transition={{ duration: 1, delay: 0.5 }}
       viewport={{ once: true }}
-      className="mb-4 grid w-full grid-cols-1 gap-y-4 overflow-hidden"
+      className="p-2 mb-4 grid w-full grid-cols-1 gap-y-4 overflow-hidden"
     >
       <Input
         key="postTitle"

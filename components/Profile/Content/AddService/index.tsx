@@ -41,7 +41,7 @@ const AddService = ({
         progress
         active
         size="small"
-        className="custom-progress"
+        className="custom-progress !mb-2"
       />
       {step === 1 ? <Step1 /> : null}
       {step === 2 ? <Step2 /> : null}

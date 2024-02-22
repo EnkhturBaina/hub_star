@@ -29,7 +29,7 @@ const Step3 = () => {
       whileInView="visible"
       transition={{ duration: 1, delay: 0.5 }}
       viewport={{ once: true }}
-      className="mb-4 grid w-full grid-cols-1 gap-y-4 overflow-hidden"
+      className="mb-4 grid w-full grid-cols-1 gap-y-4 overflow-hidden p-2"
     >
       <div className="grid grid-cols-2 gap-4">
         <Input
