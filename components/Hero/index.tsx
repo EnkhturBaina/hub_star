@@ -27,7 +27,9 @@ const Hero = () => {
     nextArrow: <CiCircleChevRight className="m-4 text-6xl text-white" />,
   };
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    console.log("{state?.direction", state?.direction);
+  }, []);
 
   const indicators = (index) => <div className="custom-home-indicator"></div>;
   return (
@@ -54,6 +56,13 @@ const Hero = () => {
                   <h4 className="!mt-0 ml-2 self-center text-xl font-semibold text-black">
                     Categories
                   </h4>
+                  {state?.direction?.map((el: any, index: number) => {
+                    return (
+                      <div key={index} className="bg-mainColor">
+                        1{el.name}
+                      </div>
+                    );
+                  })}
                 </div>
                 <ul>
                   {menuData.map((el, index) => {
