@@ -1,9 +1,5 @@
 export interface CurrentContextType {
-  mainDirection: [
-    {
-      title: string;
-    },
-  ];
+  mainDirection: [];
   direction: [];
   subDirection: [];
   username: string;
