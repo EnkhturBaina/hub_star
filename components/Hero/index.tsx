@@ -122,7 +122,7 @@ const Hero = () => {
                   mainDirection?.map((md: any, index: number) => {
                     return (
                       <div key={index}>
-                        <div className="mb-7.5 flex flex-row ">
+                        <div className="mb-5 flex flex-row">
                           <Image
                             src={process.env.IMG_PATH + md?.logo?.path}
                             alt="add"
@@ -145,7 +145,7 @@ const Hero = () => {
                                 <PopoverTrigger>
                                   <li className="mb-3 cursor-pointer transition-all duration-300 last:mb-0 hover:text-mainColor">
                                     <div className="flex flex-row items-center justify-between">
-                                      <span>{d.name}</span>
+                                      <span className="text-sm">{d.name}</span>
                                       {d.sub_children?.length !== 0 ? (
                                         <BsChevronRight />
                                       ) : null}
@@ -174,6 +174,7 @@ const Hero = () => {
                             );
                           })}
                         </ul>
+                        <Divider className="my-4" />
                       </div>
                     );
                   })
