@@ -111,7 +111,8 @@ const Hero = () => {
               <div className="animate_top mb-10 rounded-md border border-stroke bg-white p-6 shadow-md">
                 <Button
                   radius="full"
-                  className="mb-6 h-8 w-full bg-gradient-to-tr from-yellow-500 to-pink-500 font-bold uppercase leading-none tracking-widest text-white"
+                  className="mb-6 h-8 w-full bg-gradient-to-tr from-yellow-500 to-pink-500 font-bold uppercase leading-none tracking-widest text-white !opacity-100"
+                  isDisabled
                 >
                   Үйлчилгээнүүд
                 </Button>
@@ -143,7 +144,7 @@ const Hero = () => {
                                 key={index}
                               >
                                 <PopoverTrigger>
-                                  <li className="mb-3 cursor-pointer transition-all duration-300 last:mb-0 hover:text-mainColor">
+                                  <li className="mb-3 !scale-100 cursor-pointer !opacity-100 transition-all duration-300 last:mb-0 hover:text-mainColor">
                                     <div className="flex flex-row items-center justify-between">
                                       <span className="text-sm">{d.name}</span>
                                       {d.sub_children?.length !== 0 ? (
