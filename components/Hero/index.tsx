@@ -28,7 +28,7 @@ const Hero = () => {
   };
 
   useEffect(() => {
-    console.log("{state?.direction", state?.direction);
+    
   }, []);
 
   const indicators = (index) => <div className="custom-home-indicator"></div>;
@@ -56,7 +56,7 @@ const Hero = () => {
                   <h4 className="!mt-0 ml-2 self-center text-xl font-semibold text-black">
                     Categories
                   </h4>
-                  {state?.direction?.map((el: any, index: number) => {
+                  {state?.mainDirection?.map((el: any, index: number) => {
                     return (
                       <div key={index} className="bg-mainColor">
                         1{el.name}
