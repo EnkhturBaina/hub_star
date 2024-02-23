@@ -11,10 +11,13 @@ const HeaderMenu = () => {
 
   const [data, setData] = useState<CustomerType[] | null>([]);
   useEffect(() => {
+    getCatData();
+  }, []);
+  const getCatData = () => {
     client
       .get("reference/category")
       .then((response) => {
-        console.log("response", response);
+        // console.log("response", response);
 
         setData(response.data.response);
         setCurrentTab(response.data.response[0].id);
@@ -22,7 +25,7 @@ const HeaderMenu = () => {
       .catch((error) => {
         console.error("Error fetching dog images:", error);
       });
-  }, []);
+  };
   return (
     <div className="flex w-full flex-row justify-center">
       <motion.div
@@ -60,6 +63,7 @@ const HeaderMenu = () => {
                 width={50}
                 height={50}
                 className="block"
+                sizes="100vw"
               />
               <div className="md:w-3/5 lg:w-auto">
                 <button className="text-xs font-semibold text-black xl:text-sm">

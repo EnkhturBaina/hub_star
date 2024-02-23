@@ -12,6 +12,7 @@ import { usePathname } from "next/navigation";
 
 import ToasterContext from "../context/ToastContext";
 import { NextUIProvider } from "@nextui-org/react";
+import { MainContextComp } from "../context/MainContext";
 
 export default function RootLayout({
   children,
@@ -28,13 +29,16 @@ export default function RootLayout({
             attribute="class"
             defaultTheme="light"
           >
-            {pathUrl === "/auth/signin" || pathUrl === "/auth/signup" ? null : (
-              <Header />
-            )}
-            <ToasterContext />
-            {children}
-            <Footer />
-            <ScrollToTop />
+            <MainContextComp>
+              {pathUrl === "/auth/signin" ||
+              pathUrl === "/auth/signup" ? null : (
+                <Header />
+              )}
+              <ToasterContext />
+              {children}
+              <Footer />
+              <ScrollToTop />
+            </MainContextComp>
           </ThemeProvider>
         </NextUIProvider>
       </body>

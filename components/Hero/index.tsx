@@ -11,10 +11,12 @@ import Feature from "../Features";
 import Blog from "../Blog";
 import GridCategory from "../GridCategory";
 import PaginationComp from "../Pagination";
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { getQuotes } from "../../services/index";
+import MainContext from "@/app/context/MainContext";
 
 const Hero = () => {
+  const state = useContext(MainContext);
   const images = [
     "https://images.unsplash.com/photo-1509721434272-b79147e0e708?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80",
     "https://images.unsplash.com/photo-1506710507565-203b9f24669b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1536&q=80",
@@ -25,9 +27,7 @@ const Hero = () => {
     nextArrow: <CiCircleChevRight className="m-4 text-6xl text-white" />,
   };
 
-  useEffect(() => {
-    getQuotes();
-  }, []);
+  useEffect(() => {}, []);
 
   const indicators = (index) => <div className="custom-home-indicator"></div>;
   return (
@@ -41,7 +41,7 @@ const Hero = () => {
                   radius="full"
                   className="mb-6 h-8 w-full bg-gradient-to-tr from-yellow-500 to-pink-500 font-bold uppercase leading-none tracking-widest text-white"
                 >
-                  Үйлчилгээнүүд
+                  Үйлчилгээнүүд {state?.username}
                 </Button>
                 <div className="mb-7.5 flex flex-row ">
                   <Image
