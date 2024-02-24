@@ -18,67 +18,7 @@ import axiosClient from "@/services/axiosInstance";
 const Hero = () => {
   const client = axiosClient();
   const state = useContext(MainContext);
-  const [directionLoading, setDirectionLoading] = useState<boolean>(true);
 
-  const [mainDirection, setMainDirection] = useState<[]>([]);
-  const [direction, setDirection] = useState<[]>([]);
-  const [subDirection, setSubDirection] = useState<[]>([]);
-
-  const getMainDirection = () => {
-    client
-      .get("reference/main-direction")
-      .then((response) => {
-        // console.log("getMain Direction response", response);
-        const result = response.data?.response?.map((item: any) => {
-          return {
-            ...item,
-            children: direction.filter(
-              (el: any) => el.mainDirectionId === item.id,
-            ),
-          };
-        });
-
-        setMainDirection(result);
-      })
-      .then(() => {
-        setDirectionLoading(false);
-      })
-      .catch((error) => {
-        console.error("Error fetching :", error);
-      });
-  };
-  const getDirection = () => {
-    client
-      .get("reference/main-direction/direction")
-      .then((response) => {
-        // console.log("get Direction response", response);
-        const result = response.data?.response?.map((item: any) => {
-          return {
-            ...item,
-            sub_children: subDirection.filter(
-              (el: any) => el.directionId === item.id,
-            ),
-          };
-        });
-
-        // console.log("get Direction result ===>", result);
-        setDirection(result);
-      })
-      .catch((error) => {
-        console.error("Error fetching :", error);
-      });
-  };
-  const getSubDirection = () => {
-    client
-      .get("reference/main-direction/direction/sub-direction")
-      .then((response) => {
-        // console.log("getSubDirection response", response);
-        setSubDirection(response.data.response);
-      })
-      .catch((error) => {
-        console.error("Error fetching :", error);
-      });
-  };
   const images = [
     "https://images.unsplash.com/photo-1509721434272-b79147e0e708?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80",
     "https://images.unsplash.com/photo-1506710507565-203b9f24669b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1536&q=80",
@@ -88,18 +28,6 @@ const Hero = () => {
     prevArrow: <CiCircleChevLeft className="m-4 text-6xl text-white" />,
     nextArrow: <CiCircleChevRight className="m-4 text-6xl text-white" />,
   };
-
-  useEffect(() => {
-    getSubDirection();
-  }, []);
-
-  useEffect(() => {
-    getDirection();
-  }, [subDirection]);
-
-  useEffect(() => {
-    getMainDirection();
-  }, [direction]);
 
   const indicators = (index) => <div className="custom-home-indicator"></div>;
   return (
@@ -116,11 +44,11 @@ const Hero = () => {
                 >
                   Үйлчилгээнүүд
                 </Button>
-                {directionLoading ? (
+                {state?.directionLoading ? (
                   <LeftDirections />
                 ) : (
-                  mainDirection &&
-                  mainDirection?.map((md: any, index: number) => {
+                  state?.mainDirection &&
+                  state?.mainDirection?.map((md: any, index: number) => {
                     return (
                       <div key={index}>
                         <div className="mb-5 flex flex-row">

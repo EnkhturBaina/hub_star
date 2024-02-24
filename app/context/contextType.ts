@@ -3,4 +3,5 @@ export interface CurrentContextType {
   direction: [];
   subDirection: [];
   username: string;
+  directionLoading: boolean;
 }
