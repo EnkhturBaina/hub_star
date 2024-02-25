@@ -1,12 +1,6 @@
 import React, { useContext, useState } from "react";
 import {
-  Dropdown,
-  DropdownTrigger,
-  DropdownMenu,
-  DropdownSection,
-  DropdownItem,
   Button,
-  cn,
   Popover,
   PopoverTrigger,
   PopoverContent,
@@ -14,7 +8,6 @@ import {
 import MainContext from "@/app/context/MainContext";
 import Image from "next/image";
 import { BsChevronRight } from "react-icons/bs";
-import { Divider } from "semantic-ui-react";
 
 export default function DropDown() {
   // Sticky menu
