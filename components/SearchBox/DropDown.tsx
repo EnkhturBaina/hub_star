@@ -54,7 +54,7 @@ export default function DropDown() {
                           key={index}
                         >
                           <PopoverTrigger>
-                            <li className="mb-3 !scale-100 cursor-pointer !opacity-100 transition-all duration-300 last:mb-0 hover:text-mainColor">
+                            <li className="mb-2 !scale-100 cursor-pointer !opacity-100 transition-all duration-300 last:mb-0 hover:text-mainColor">
                               <div className="flex flex-row items-center justify-between">
                                 <span className="text-sm">{d.name}</span>
                                 {d.sub_children?.length !== 0 ? (
