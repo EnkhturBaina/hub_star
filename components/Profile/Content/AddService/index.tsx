@@ -2,12 +2,14 @@
 import { motion } from "framer-motion";
 import { Button } from "@nextui-org/react";
 import { Progress } from "semantic-ui-react";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Step1 from "./Step1";
 import Step2 from "./Step2";
 import Step3 from "./Step3";
 import { CreateAdType } from "@/types/createAd";
 import MainContext from "@/app/context/MainContext";
+import axiosClient from "@/services/axiosInstance";
+import { AddressType } from "@/types/addressType";
 
 const AddService = ({
   isAddService,
@@ -16,6 +18,9 @@ const AddService = ({
   isAddService?: boolean;
   setIsAddService?: any;
 }) => {
+  const client = axiosClient();
+
+  const [addressList, setAddressList] = useState<AddressType>();
   const [step, setStep] = useState(1);
   const [maxStep, setMaxStep] = useState(3);
   const [createAd, setCreateAd] = useState<CreateAdType>({
@@ -37,6 +42,20 @@ const AddService = ({
     isTermOfService: null,
   });
   const state = useContext(MainContext);
+
+  const getAddress = () => {
+    client
+      .get("reference/address")
+      .then((response) => {
+        setAddressList(response.data.response);
+      })
+      .catch((error) => {
+        console.error("Error fetching :", error);
+      });
+  };
+  useEffect(() => {
+    getAddress();
+  }, []);
 
   return (
     <motion.div
@@ -67,7 +86,7 @@ const AddService = ({
       {step === 1 ? (
         <Step1 adData={createAd} setCreateAd={setCreateAd} />
       ) : null}
-      {step === 2 ? <Step2 /> : null}
+      {step === 2 ? <Step2 addressData={addressList} /> : null}
       {step === 3 ? <Step3 /> : null}
       <div className="flex flex-row justify-between">
         <Button

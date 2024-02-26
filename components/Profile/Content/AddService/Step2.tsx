@@ -4,8 +4,16 @@ import { motion } from "framer-motion";
 import { Button, Input, Select, SelectItem, Textarea } from "@nextui-org/react";
 import { Progress } from "semantic-ui-react";
 import { animals } from "../animals";
+import { AddressType } from "@/types/addressType";
 
-const Step2 = () => {
+interface Step2Props {
+  addressData: string;
+  setCreateAd: React.Dispatch<React.SetStateAction<any>>;
+}
+
+const Step2: React.FC<Step2Props> = ({ addressData, setCreateAd }) => {
+  console.log("addressData", addressData);
+
   return (
     <motion.div
       variants={{
@@ -23,7 +31,7 @@ const Step2 = () => {
       whileInView="visible"
       transition={{ duration: 1, delay: 0.5 }}
       viewport={{ once: true }}
-      className="p-2 mb-4 grid w-full grid-cols-1 gap-y-4 overflow-hidden"
+      className="mb-4 grid w-full grid-cols-1 gap-y-4 overflow-hidden p-2"
     >
       <Input
         key="postTitle"
