@@ -36,19 +36,19 @@ const Header = () => {
         pathUrl === "/profile" ? "py-4" : "pt-4"
       } shadow ${stickyMenu ? "!pt-4 shadow transition duration-100" : ""}`}
     >
-      <div className="relative mx-auto max-w-screen-xl items-center justify-between px-4 md:px-8 xl:flex 2xl:px-0">
-        <div className="flex w-full items-center justify-between xl:w-1/4">
+      <div className="relative mx-auto flex max-w-screen-xl flex-row items-center justify-between px-4 md:px-8 xl:flex 2xl:px-0">
+        <div className="mr-4 flex items-center justify-between">
           <a href="/">
             <Image
               src="/images/logo/svg_logo.svg"
               alt="logo"
-              width={100}
-              height={30}
+              width={120}
+              height={40}
               className="block w-full"
             />
           </a>
           {/* <!-- Hamburger Toggle BTN --> */}
-          <button
+          {/* <button
             aria-label="hamburger Toggler"
             className="block xl:hidden"
             onClick={() => setNavigationOpen(!navigationOpen)}
@@ -56,47 +56,50 @@ const Header = () => {
             <span className="relative block h-5.5 w-5.5 cursor-pointer">
               <span className="absolute right-0 block h-full w-full">
                 <span
-                  className={`relative left-0 top-0 my-1 block h-0.5 rounded-sm bg-black delay-[0] duration-200 ease-in-out dark:bg-white ${
+                  className={`relative left-0 top-0 my-1 block h-0.5 rounded-sm bg-black delay-[0] duration-200 ease-in-out ${
                     !navigationOpen ? "!w-full delay-300" : "w-0"
                   }`}
                 ></span>
                 <span
-                  className={`relative left-0 top-0 my-1 block h-0.5 rounded-sm bg-black delay-150 duration-200 ease-in-out dark:bg-white ${
+                  className={`relative left-0 top-0 my-1 block h-0.5 rounded-sm bg-black delay-150 duration-200 ease-in-out ${
                     !navigationOpen ? "delay-400 !w-full" : "w-0"
                   }`}
                 ></span>
                 <span
-                  className={`relative left-0 top-0 my-1 block h-0.5 rounded-sm bg-black delay-200 duration-200 ease-in-out dark:bg-white ${
+                  className={`relative left-0 top-0 my-1 block h-0.5 rounded-sm bg-black delay-200 duration-200 ease-in-out ${
                     !navigationOpen ? "!w-full delay-500" : "w-0"
                   }`}
                 ></span>
               </span>
               <span className="du-block absolute right-0 h-full w-full rotate-45">
                 <span
-                  className={`absolute left-2.5 top-0 block h-full w-0.5 rounded-sm bg-black delay-300 duration-200 ease-in-out dark:bg-white ${
+                  className={`absolute left-2.5 top-0 block h-full w-0.5 rounded-sm bg-black delay-300 duration-200 ease-in-out ${
                     !navigationOpen ? "!h-0 delay-[0]" : "h-full"
                   }`}
                 ></span>
                 <span
-                  className={`delay-400 absolute left-0 top-2.5 block h-0.5 w-full rounded-sm bg-black duration-200 ease-in-out dark:bg-white ${
+                  className={`delay-400 absolute left-0 top-2.5 block h-0.5 w-full rounded-sm bg-black duration-200 ease-in-out ${
                     !navigationOpen ? "!h-0 delay-200" : "h-0.5"
                   }`}
                 ></span>
               </span>
             </span>
-          </button>
+          </button> */}
           {/* <!-- Hamburger Toggle BTN --> */}
         </div>
+        <SearchBox />
 
         {/* Nav Menu Start   */}
         <div
-          className={`invisible h-0 w-full items-center justify-between xl:visible xl:flex xl:h-auto xl:w-full ${
+          className={`visible flex h-auto w-full max-w-fit items-center justify-between ${
             navigationOpen &&
-            "navbar !visible mt-4 h-auto max-h-[400px] rounded-md bg-white p-7.5 shadow-solid-5 dark:bg-blacksection xl:h-auto xl:p-0 xl:shadow-none xl:dark:bg-transparent"
+            "navbar !visible mt-4 h-auto max-h-[400px] rounded-md p-7.5 xl:h-auto xl:p-0 xl:shadow-none"
           }`}
         >
-          <SearchBox />
-          <Divider orientation="vertical" className="mx-5 h-10" />
+          <Divider
+            orientation="vertical"
+            className="mx-5 h-10 sm:mx-1 md:mx-2 xl:mx-5 xl:block"
+          />
           <div className="flex flex-row items-center">
             <Avatar name="Junior" />
             <Link href={`/profile`}>
@@ -104,7 +107,7 @@ const Header = () => {
             </Link>
             {1 == 1 ? (
               <Link
-                className="text-black hover:text-primary dark:text-white dark:hover:text-primary"
+                className="text-black hover:text-primary "
                 href="/auth/signin"
               >
                 <Button radius="sm">
