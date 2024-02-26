@@ -9,7 +9,7 @@ const HeaderMenu = () => {
   const state = useContext(MainContext);
 
   return (
-    <div className="flex w-full flex-row justify-center">
+    <div className="flex flex-row justify-center xl:w-full">
       <motion.div
         variants={{
           hidden: {
@@ -26,7 +26,7 @@ const HeaderMenu = () => {
         whileInView="visible"
         transition={{ duration: 0.5, delay: 0.1 }}
         viewport={{ once: true }}
-        className="animate_top flex flex-wrap justify-center overflow-x-auto md:flex-nowrap md:items-center lg:gap-7.5 xl:gap-12.5"
+        className="animate_top flex flex-wrap justify-center overflow-x-auto  md:flex-nowrap md:items-center lg:gap-7.5 xl:gap-12.5"
       >
         {state?.custTypeData?.map((el: any, index: number) => {
           return (
@@ -42,12 +42,12 @@ const HeaderMenu = () => {
               <Image
                 src={process.env.IMG_PATH + el.logo?.path}
                 alt="logo"
-                width={50}
-                height={50}
+                width={40}
+                height={40}
                 className="block"
                 sizes="100vw"
               />
-              <div className="md:w-3/5 lg:w-auto">
+              <div className="w-auto">
                 <button className="text-xs font-semibold text-black xl:text-sm">
                   {el.name}
                 </button>
