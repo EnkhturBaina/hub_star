@@ -57,7 +57,7 @@ const Step3 = ({ adData, setCreateAd }) => {
           onValueChange={(e) => {
             setCreateAd((prevState: CreateAdType) => ({
               ...prevState,
-              counter: e,
+              counter: parseInt(e),
             }));
           }}
         />

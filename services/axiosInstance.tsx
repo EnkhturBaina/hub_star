@@ -1,17 +1,11 @@
 import axios, { AxiosInstance, AxiosError, AxiosResponse } from "axios";
 
 const axiosClient = (token: string | null = null): AxiosInstance => {
-  const headers = token
-    ? {
-        "Content-Type": "multipart/form-data",
-        "x-api-key": process.env.API_KEY,
-        Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjcsImlhdCI6MTcwODkxMjI0MCwiZXhwIjoxNzA4OTk4NjQwfQ.6S0yRr59CWg9Ub9BTkksFjPrNfY7n8qUkUmStaf_094`,
-      }
-    : {
-        "Content-Type": "multipart/form-data",
-        "x-api-key": process.env.API_KEY,
-        Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjcsImlhdCI6MTcwODkxMjI0MCwiZXhwIjoxNzA4OTk4NjQwfQ.6S0yRr59CWg9Ub9BTkksFjPrNfY7n8qUkUmStaf_094`,
-      };
+  const headers = {
+    "Content-Type": "application/json; charset=utf-8",
+    "x-api-key": process.env.API_KEY,
+    Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjcsImlhdCI6MTcwODkxMjI0MCwiZXhwIjoxNzA4OTk4NjQwfQ.6S0yRr59CWg9Ub9BTkksFjPrNfY7n8qUkUmStaf_094`,
+  };
 
   const client = axios.create({
     baseURL: process.env.PUBLIC_URL,

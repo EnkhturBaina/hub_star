@@ -17,7 +17,7 @@ const Step2 = ({ adData, addressData, setCreateAd }) => {
 
     setCreateAd((prevState: CreateAdType) => ({
       ...prevState,
-      provinceId: e.target.value,
+      provinceId: parseInt(e.target.value),
     }));
 
     addressData?.filter((val: any) => {
@@ -30,7 +30,7 @@ const Step2 = ({ adData, addressData, setCreateAd }) => {
     setKhoroo([]);
     setCreateAd((prevState: CreateAdType) => ({
       ...prevState,
-      districtId: e.target.value,
+      districtId: parseInt(e.target.value),
     }));
 
     addressData?.filter((val: any) => {
@@ -42,7 +42,7 @@ const Step2 = ({ adData, addressData, setCreateAd }) => {
   const changeKhoroo = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setCreateAd((prevState: CreateAdType) => ({
       ...prevState,
-      khorooId: e.target.value,
+      khorooId: parseInt(e.target.value),
     }));
   };
 
@@ -122,7 +122,7 @@ const Step2 = ({ adData, addressData, setCreateAd }) => {
           onValueChange={(e) => {
             setCreateAd((prevState: CreateAdType) => ({
               ...prevState,
-              price: e,
+              price: parseInt(e),
             }));
           }}
         />
@@ -139,7 +139,7 @@ const Step2 = ({ adData, addressData, setCreateAd }) => {
             label: "font-bold",
             trigger: "custom-select-trigger bg-white",
           }}
-          selectedKeys={adData?.provinceId}
+          selectedKeys={adData?.provinceId?.toString()}
           onChange={changeAimag}
         >
           {addressData
@@ -161,7 +161,7 @@ const Step2 = ({ adData, addressData, setCreateAd }) => {
             label: "font-bold",
             trigger: "custom-select-trigger bg-white",
           }}
-          selectedKeys={adData?.districtId}
+          selectedKeys={adData?.districtId?.toString()}
           onChange={changeDuureg}
         >
           {duureg?.map((data: AddressType, index: number) => (
@@ -181,7 +181,7 @@ const Step2 = ({ adData, addressData, setCreateAd }) => {
             label: "font-bold",
             trigger: "custom-select-trigger bg-white",
           }}
-          selectedKeys={adData?.khorooId}
+          selectedKeys={adData?.khorooId?.toString()}
           onChange={changeKhoroo}
         >
           {khoroo?.map((data: AddressType, index: number) => (

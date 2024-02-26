@@ -18,14 +18,14 @@ const Step1 = ({ adData, setCreateAd }) => {
   const changeCustType = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setCreateAd((prevState: CreateAdType) => ({
       ...prevState,
-      categoryId: e.target.value,
+      categoryId: parseInt(e.target.value),
     }));
   };
 
   const changeMainDirection = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setCreateAd((prevState: CreateAdType) => ({
-      ...prevState,
-      mainDirectionId: e.target.value,
+    setCreateAd((adData: CreateAdType) => ({
+      ...adData,
+      mainDirectionId: parseInt(e.target.value),
     }));
 
     state?.mainDirection?.filter((val: any) => {
@@ -36,9 +36,9 @@ const Step1 = ({ adData, setCreateAd }) => {
   };
 
   const changeDirection = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setCreateAd((prevState: CreateAdType) => ({
-      ...prevState,
-      directionId: e.target.value,
+    setCreateAd((adData: CreateAdType) => ({
+      ...adData,
+      directionId: parseInt(e.target.value),
     }));
 
     direction?.filter((val: any) => {
@@ -49,9 +49,9 @@ const Step1 = ({ adData, setCreateAd }) => {
   };
 
   const changeSubDirection = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setCreateAd((prevState: CreateAdType) => ({
-      ...prevState,
-      subDirectionId: e.target.value,
+    setCreateAd((adData: CreateAdType) => ({
+      ...adData,
+      subDirectionId: parseInt(e.target.value),
     }));
   };
 
@@ -85,7 +85,7 @@ const Step1 = ({ adData, setCreateAd }) => {
           label: "font-bold",
           trigger: "custom-select-trigger bg-white",
         }}
-        selectedKeys={adData?.categoryId}
+        selectedKeys={adData?.categoryId?.toString()}
         onChange={changeCustType}
       >
         {state?.custTypeData?.map((data: any, index: number) => (
@@ -105,7 +105,7 @@ const Step1 = ({ adData, setCreateAd }) => {
           label: "font-bold",
           trigger: "custom-select-trigger bg-white",
         }}
-        selectedKeys={adData?.mainDirectionId}
+        selectedKeys={adData?.mainDirectionId?.toString()}
         onChange={changeMainDirection}
       >
         {state?.mainDirection?.map((data: any) => (
@@ -126,7 +126,7 @@ const Step1 = ({ adData, setCreateAd }) => {
           label: "font-bold",
           trigger: "custom-select-trigger bg-white",
         }}
-        selectedKeys={adData?.directionId}
+        selectedKeys={adData?.directionId?.toString()}
         onChange={changeDirection}
       >
         {direction?.map((data: any) => (
@@ -146,7 +146,7 @@ const Step1 = ({ adData, setCreateAd }) => {
           label: "font-bold",
           trigger: "custom-select-trigger bg-white",
         }}
-        selectedKeys={adData?.subDirectionId}
+        selectedKeys={adData?.subDirectionId?.toString()}
         onChange={changeSubDirection}
       >
         {subDirection?.map((data: any) => (

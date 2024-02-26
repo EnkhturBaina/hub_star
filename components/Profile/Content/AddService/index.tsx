@@ -10,6 +10,7 @@ import { CreateAdType } from "@/types/createAd";
 import MainContext from "@/app/context/MainContext";
 import axiosClient from "@/services/axiosInstance";
 import { AddressType } from "@/types/addressType";
+import toast, { Toaster } from "react-hot-toast";
 
 const AddService = ({
   isAddService,
@@ -43,6 +44,10 @@ const AddService = ({
   });
   const state = useContext(MainContext);
 
+  const [toastMsg, setToastMsg] = useState<string>("asd");
+
+  const notify = () => toast(toastMsg);
+
   const getAddress = () => {
     client
       .get("reference/address")
@@ -59,16 +64,31 @@ const AddService = ({
 
   const createAdRequest = () => {
     console.log("createAd", createAd);
-    client
-      .post("advertisement", createAd)
-      .then((response) => {
-        console.log("response", response);
-      })
-      .catch((error) => {
-        console.error("Error fetching :", error);
-      });
+    // client
+    //   .post("advertisement", createAd)
+    //   .then((response) => {
+    //     console.log("response", response);
+    //   })
+    //   .catch((error) => {
+    //     console.error("Error fetching :", error);
+    //   });
   };
 
+  const stepFnc = (type: string) => {
+    if (type == "back") {
+      if (step === 1) {
+        setIsAddService(false);
+      } else {
+        setStep(step - 1);
+      }
+    } else if (type == "next") {
+      if (maxStep > step) {
+        setStep(step + 1);
+      } else if (maxStep == step) {
+        createAdRequest();
+      }
+    }
+  };
   return (
     <motion.div
       variants={{
@@ -95,6 +115,17 @@ const AddService = ({
         size="small"
         className="custom-progress !mb-2"
       />
+      <button onClick={notify}>Make me a toast</button>
+      <Toaster
+        position="top-center"
+        reverseOrder={false}
+        gutter={8}
+        containerClassName=""
+        containerStyle={{}}
+        toastOptions={{
+          duration: 5000,
+        }}
+      />
       {step === 1 ? (
         <Step1 adData={createAd} setCreateAd={setCreateAd} />
       ) : null}
@@ -114,13 +145,7 @@ const AddService = ({
           radius="sm"
           className="border-mainGray !bg-white !text-black"
           size="md"
-          onClick={() => {
-            if (step === 1) {
-              setIsAddService(false);
-            } else {
-              setStep(step - 1);
-            }
-          }}
+          onClick={() => stepFnc("back")}
         >
           Буцах
         </Button>
@@ -128,13 +153,7 @@ const AddService = ({
           className="mr-4 bg-mainColor !text-white"
           radius="sm"
           size="md"
-          onClick={() => {
-            if (maxStep > step) {
-              setStep(step + 1);
-            } else if (maxStep == step) {
-              createAdRequest();
-            }
-          }}
+          onClick={() => stepFnc("next")}
         >
           Хадгалах {`${step}/${maxStep}`}
         </Button>

@@ -1,5 +1,5 @@
 export interface CreateAdType {
-  mainDirectionId?: number | null;
+  mainDirectionId: number | null;
   directionId: number | null;
   subDirectionId: number | null;
   categoryId: number | null;
