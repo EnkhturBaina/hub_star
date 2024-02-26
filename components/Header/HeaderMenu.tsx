@@ -1,31 +1,13 @@
 "use client";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { motion } from "framer-motion";
-import { CustomerType } from "@/types/customerType";
-import axiosClient from "@/services/axiosInstance";
+import MainContext from "@/app/context/MainContext";
 
 const HeaderMenu = () => {
-  const client = axiosClient();
   const [currentTab, setCurrentTab] = useState();
+  const state = useContext(MainContext);
 
-  const [data, setData] = useState<CustomerType[] | null>([]);
-  useEffect(() => {
-    getCatData();
-  }, []);
-  const getCatData = () => {
-    client
-      .get("reference/category")
-      .then((response) => {
-        // console.log("response", response);
-
-        setData(response.data.response);
-        setCurrentTab(response.data.response[0].id);
-      })
-      .catch((error) => {
-        console.error("Error fetching dog images:", error);
-      });
-  };
   return (
     <div className="flex w-full flex-row justify-center">
       <motion.div
@@ -46,7 +28,7 @@ const HeaderMenu = () => {
         viewport={{ once: true }}
         className="animate_top flex flex-wrap justify-center overflow-x-auto md:flex-nowrap md:items-center lg:gap-7.5 xl:gap-12.5"
       >
-        {data?.map((el: any, index: number) => {
+        {state?.custTypeData?.map((el: any, index: number) => {
           return (
             <div
               key={index}

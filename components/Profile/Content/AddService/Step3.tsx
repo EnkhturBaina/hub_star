@@ -118,12 +118,12 @@ const Step3 = () => {
       </div>
       <CheckboxGroup
         label=""
-        defaultValue={["buenos-aires", "london"]}
+        defaultValue={[]}
         color="warning"
         className="my-4"
       >
         <Checkbox
-          value="buenos-aires"
+          value="isMessenger"
           classNames={{
             base: "w-full",
             label: "w-full",
@@ -133,7 +133,7 @@ const Step3 = () => {
           Мессэнжер нээх
         </Checkbox>
         <Checkbox
-          value="buenos-aires"
+          value="isTermOfService"
           classNames={{
             base: "w-full",
             label: "w-full",

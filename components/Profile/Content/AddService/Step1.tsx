@@ -2,9 +2,62 @@
 
 import { motion } from "framer-motion";
 import { Select, SelectItem } from "@nextui-org/react";
-import { animals } from "../animals";
+import { CreateAdType } from "@/types/createAd";
+import React, { useContext, useState } from "react";
+import MainContext from "@/app/context/MainContext";
+import { Direction } from "@/types/directions";
 
-const Step1 = () => {
+interface Step1Props {
+  adData: CreateAdType;
+  setCreateAd: React.Dispatch<React.SetStateAction<any>>;
+}
+
+const Step1: React.FC<Step1Props> = ({ setCreateAd }) => {
+  const state = useContext(MainContext);
+  const [direction, setDirection] = useState<Direction[]>([]);
+  const [subDirection, setSubDirection] = useState<string[]>([]);
+
+  if (!state?.custTypeData) return null;
+  const changeCustType = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setCreateAd((prevState: CreateAdType) => ({
+      ...prevState,
+      categoryId: e.target.value,
+    }));
+  };
+
+  const changeMainDirection = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setCreateAd((prevState: CreateAdType) => ({
+      ...prevState,
+      mainDirectionId: e.target.value,
+    }));
+
+    state?.mainDirection?.filter((val: any) => {
+      if (val.id == e.target.value) {
+        setDirection(val.children);
+      }
+    });
+  };
+
+  const changeDirection = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setCreateAd((prevState: CreateAdType) => ({
+      ...prevState,
+      directionId: e.target.value,
+    }));
+
+    direction?.filter((val: any) => {
+      if (val.id == e.target.value) {
+        setSubDirection(val.sub_children);
+      }
+    });
+  };
+
+  const changeSubDirection = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setCreateAd((prevState: CreateAdType) => ({
+      ...prevState,
+      subDirectionId: e.target.value,
+    }));
+  };
+
   return (
     <motion.div
       variants={{
@@ -35,10 +88,11 @@ const Step1 = () => {
           label: "font-bold",
           trigger: "custom-select-trigger bg-white",
         }}
+        onChange={changeCustType}
       >
-        {animals.map((animal) => (
-          <SelectItem key={animal.value} value={animal.value}>
-            {animal.label}
+        {state?.custTypeData?.map((data: any, index: number) => (
+          <SelectItem key={index} value={data.id}>
+            {data.name}
           </SelectItem>
         ))}
       </Select>
@@ -53,10 +107,11 @@ const Step1 = () => {
           label: "font-bold",
           trigger: "custom-select-trigger bg-white",
         }}
+        onChange={changeMainDirection}
       >
-        {animals.map((animal) => (
-          <SelectItem key={animal.value} value={animal.value}>
-            {animal.label}
+        {state?.mainDirection?.map((data: any) => (
+          <SelectItem key={data?.id} value={data.id}>
+            {data.name}
           </SelectItem>
         ))}
       </Select>
@@ -72,10 +127,11 @@ const Step1 = () => {
           label: "font-bold",
           trigger: "custom-select-trigger bg-white",
         }}
+        onChange={changeDirection}
       >
-        {animals.map((animal) => (
-          <SelectItem key={animal.value} value={animal.value}>
-            {animal.label}
+        {direction?.map((data: any) => (
+          <SelectItem key={data?.id} value={data.id}>
+            {data.name}
           </SelectItem>
         ))}
       </Select>
@@ -90,10 +146,11 @@ const Step1 = () => {
           label: "font-bold",
           trigger: "custom-select-trigger bg-white",
         }}
+        onChange={changeSubDirection}
       >
-        {animals.map((animal) => (
-          <SelectItem key={animal.value} value={animal.value}>
-            {animal.label}
+        {subDirection?.map((data: any) => (
+          <SelectItem key={data?.id} value={data.id}>
+            {data.name}
           </SelectItem>
         ))}
       </Select>

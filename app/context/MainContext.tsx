@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { CurrentContextType } from "./contextType";
 import axiosClient from "@/services/axiosInstance";
+import { CustomerType } from "@/types/customerType";
 
 export const MainContext = React.createContext<CurrentContextType | null>(null);
 
@@ -12,6 +13,8 @@ export const MainContextComp = (props: any) => {
   const [mainDirection, setMainDirection] = useState<[]>([]);
   const [direction, setDirection] = useState<[]>([]);
   const [subDirection, setSubDirection] = useState<[]>([]);
+
+  const [custTypeData, setCustTypeData] = useState<[] | null>([]);
 
   const getMainDirection = () => {
     client
@@ -68,7 +71,21 @@ export const MainContextComp = (props: any) => {
         console.error("Error fetching :", error);
       });
   };
+  const getCatData = () => {
+    client
+      .get("reference/category")
+      .then((response) => {
+        // console.log("response", response);
+
+        setCustTypeData(response.data.response);
+      })
+      .catch((error) => {
+        console.error("Error fetching dog images:", error);
+      });
+  };
+
   useEffect(() => {
+    getCatData();
     getSubDirection();
   }, []);
 
@@ -88,6 +105,7 @@ export const MainContextComp = (props: any) => {
         direction,
         subDirection,
         directionLoading,
+        custTypeData,
       }}
     >
       {props.children}
