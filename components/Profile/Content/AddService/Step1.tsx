@@ -7,15 +7,12 @@ import React, { useContext, useState } from "react";
 import MainContext from "@/app/context/MainContext";
 import { Direction } from "@/types/directions";
 
-interface Step1Props {
-  adData: CreateAdType;
-  setCreateAd: React.Dispatch<React.SetStateAction<any>>;
-}
-
-const Step1: React.FC<Step1Props> = ({ setCreateAd }) => {
+const Step1 = ({ adData, setCreateAd }) => {
   const state = useContext(MainContext);
   const [direction, setDirection] = useState<Direction[]>([]);
   const [subDirection, setSubDirection] = useState<string[]>([]);
+
+  console.log("adData", adData);
 
   if (!state?.custTypeData) return null;
   const changeCustType = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -88,6 +85,7 @@ const Step1: React.FC<Step1Props> = ({ setCreateAd }) => {
           label: "font-bold",
           trigger: "custom-select-trigger bg-white",
         }}
+        selectedKeys={adData?.categoryId}
         onChange={changeCustType}
       >
         {state?.custTypeData?.map((data: any, index: number) => (
@@ -107,6 +105,7 @@ const Step1: React.FC<Step1Props> = ({ setCreateAd }) => {
           label: "font-bold",
           trigger: "custom-select-trigger bg-white",
         }}
+        selectedKeys={adData?.mainDirectionId}
         onChange={changeMainDirection}
       >
         {state?.mainDirection?.map((data: any) => (
@@ -127,6 +126,7 @@ const Step1: React.FC<Step1Props> = ({ setCreateAd }) => {
           label: "font-bold",
           trigger: "custom-select-trigger bg-white",
         }}
+        selectedKeys={adData?.directionId}
         onChange={changeDirection}
       >
         {direction?.map((data: any) => (
@@ -146,6 +146,7 @@ const Step1: React.FC<Step1Props> = ({ setCreateAd }) => {
           label: "font-bold",
           trigger: "custom-select-trigger bg-white",
         }}
+        selectedKeys={adData?.subDirectionId}
         onChange={changeSubDirection}
       >
         {subDirection?.map((data: any) => (

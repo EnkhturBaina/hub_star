@@ -1,18 +1,50 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Button, Input, Select, SelectItem, Textarea } from "@nextui-org/react";
-import { Progress } from "semantic-ui-react";
+import { Input, Select, SelectItem, Textarea } from "@nextui-org/react";
 import { animals } from "../animals";
 import { AddressType } from "@/types/addressType";
+import { useState } from "react";
+import { CreateAdType } from "@/types/createAd";
 
-interface Step2Props {
-  addressData: string;
-  setCreateAd: React.Dispatch<React.SetStateAction<any>>;
-}
+const Step2 = ({ adData, addressData, setCreateAd }) => {
+  const [duureg, setDuureg] = useState<AddressType[]>([]);
+  const [khoroo, setKhoroo] = useState<AddressType[]>([]);
 
-const Step2: React.FC<Step2Props> = ({ addressData, setCreateAd }) => {
-  console.log("addressData", addressData);
+  const changeAimag = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setDuureg([]);
+    setKhoroo([]);
+
+    setCreateAd((prevState: CreateAdType) => ({
+      ...prevState,
+      provinceId: e.target.value,
+    }));
+
+    addressData?.filter((val: any) => {
+      if (val.parentId == e.target.value) {
+        setDuureg((duureg) => [...duureg, val]);
+      }
+    });
+  };
+  const changeDuureg = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setKhoroo([]);
+    setCreateAd((prevState: CreateAdType) => ({
+      ...prevState,
+      districtId: e.target.value,
+    }));
+
+    addressData?.filter((val: any) => {
+      if (val.parentId == e.target.value) {
+        setKhoroo((khoroo) => [...khoroo, val]);
+      }
+    });
+  };
+  const changeKhoroo = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setCreateAd((prevState: CreateAdType) => ({
+      ...prevState,
+      khorooId: e.target.value,
+    }));
+  };
 
   return (
     <motion.div
@@ -45,6 +77,13 @@ const Step2: React.FC<Step2Props> = ({ addressData, setCreateAd }) => {
         classNames={{
           label: "font-bold",
           inputWrapper: ["custom-input-wrapper", "bg-white"],
+        }}
+        value={adData?.title}
+        onValueChange={(e) => {
+          setCreateAd((prevState: CreateAdType) => ({
+            ...prevState,
+            title: e,
+          }));
         }}
       />
       <div className="grid grid-cols-2 gap-4">
@@ -79,6 +118,13 @@ const Step2: React.FC<Step2Props> = ({ addressData, setCreateAd }) => {
             label: "font-bold",
             inputWrapper: ["custom-input-wrapper", "bg-white"],
           }}
+          value={adData?.price}
+          onValueChange={(e) => {
+            setCreateAd((prevState: CreateAdType) => ({
+              ...prevState,
+              price: e,
+            }));
+          }}
         />
       </div>
       <div className="grid grid-cols-3 gap-4">
@@ -93,12 +139,16 @@ const Step2: React.FC<Step2Props> = ({ addressData, setCreateAd }) => {
             label: "font-bold",
             trigger: "custom-select-trigger bg-white",
           }}
+          selectedKeys={adData?.provinceId}
+          onChange={changeAimag}
         >
-          {animals.map((animal) => (
-            <SelectItem key={animal.value} value={animal.value}>
-              {animal.label}
-            </SelectItem>
-          ))}
+          {addressData
+            ?.filter((val: any) => val.parentId == null)
+            ?.map((data: AddressType, index: number) => (
+              <SelectItem key={data.id} value={data.id}>
+                {data.name}
+              </SelectItem>
+            ))}
         </Select>
         <Select
           label="Сум, Дүүрэг"
@@ -111,10 +161,12 @@ const Step2: React.FC<Step2Props> = ({ addressData, setCreateAd }) => {
             label: "font-bold",
             trigger: "custom-select-trigger bg-white",
           }}
+          selectedKeys={adData?.districtId}
+          onChange={changeDuureg}
         >
-          {animals.map((animal) => (
-            <SelectItem key={animal.value} value={animal.value}>
-              {animal.label}
+          {duureg?.map((data: AddressType, index: number) => (
+            <SelectItem key={data.id} value={data.id}>
+              {data.name}
             </SelectItem>
           ))}
         </Select>
@@ -129,10 +181,12 @@ const Step2: React.FC<Step2Props> = ({ addressData, setCreateAd }) => {
             label: "font-bold",
             trigger: "custom-select-trigger bg-white",
           }}
+          selectedKeys={adData?.khorooId}
+          onChange={changeKhoroo}
         >
-          {animals.map((animal) => (
-            <SelectItem key={animal.value} value={animal.value}>
-              {animal.label}
+          {khoroo?.map((data: AddressType, index: number) => (
+            <SelectItem key={data.id} value={data.id}>
+              {data.name}
             </SelectItem>
           ))}
         </Select>
@@ -147,6 +201,13 @@ const Step2: React.FC<Step2Props> = ({ addressData, setCreateAd }) => {
           base: "w-full",
           label: "font-bold",
           inputWrapper: ["custom-input-wrapper", "bg-white"],
+        }}
+        value={adData?.address}
+        onValueChange={(e) => {
+          setCreateAd((prevState: CreateAdType) => ({
+            ...prevState,
+            address: e,
+          }));
         }}
       />
     </motion.div>

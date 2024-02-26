@@ -38,8 +38,8 @@ const AddService = ({
     counter: null,
     email: null,
     phone: null,
-    isMessenger: null,
-    isTermOfService: null,
+    isMessenger: false,
+    isTermOfService: false,
   });
   const state = useContext(MainContext);
 
@@ -56,6 +56,18 @@ const AddService = ({
   useEffect(() => {
     getAddress();
   }, []);
+
+  const createAdRequest = () => {
+    console.log("createAd", createAd);
+    client
+      .post("advertisement", createAd)
+      .then((response) => {
+        console.log("response", response);
+      })
+      .catch((error) => {
+        console.error("Error fetching :", error);
+      });
+  };
 
   return (
     <motion.div
@@ -86,8 +98,16 @@ const AddService = ({
       {step === 1 ? (
         <Step1 adData={createAd} setCreateAd={setCreateAd} />
       ) : null}
-      {step === 2 ? <Step2 addressData={addressList} /> : null}
-      {step === 3 ? <Step3 /> : null}
+      {step === 2 ? (
+        <Step2
+          adData={createAd}
+          addressData={addressList}
+          setCreateAd={setCreateAd}
+        />
+      ) : null}
+      {step === 3 ? (
+        <Step3 adData={createAd} setCreateAd={setCreateAd} />
+      ) : null}
       <div className="flex flex-row justify-between">
         <Button
           variant="bordered"
@@ -111,6 +131,8 @@ const AddService = ({
           onClick={() => {
             if (maxStep > step) {
               setStep(step + 1);
+            } else if (maxStep == step) {
+              createAdRequest();
             }
           }}
         >

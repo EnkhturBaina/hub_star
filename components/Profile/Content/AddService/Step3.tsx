@@ -1,17 +1,11 @@
 "use client";
 
 import { motion } from "framer-motion";
-import {
-  Button,
-  Checkbox,
-  CheckboxGroup,
-  Input,
-  Textarea,
-} from "@nextui-org/react";
-import { Progress } from "semantic-ui-react";
+import { Checkbox, Input, Textarea } from "@nextui-org/react";
 import { BsImage } from "react-icons/bs";
+import { CreateAdType } from "@/types/createAd";
 
-const Step3 = () => {
+const Step3 = ({ adData, setCreateAd }) => {
   return (
     <motion.div
       variants={{
@@ -59,6 +53,13 @@ const Step3 = () => {
             label: "font-bold",
             inputWrapper: ["custom-input-wrapper", "bg-white"],
           }}
+          value={adData?.counter}
+          onValueChange={(e) => {
+            setCreateAd((prevState: CreateAdType) => ({
+              ...prevState,
+              counter: e,
+            }));
+          }}
         />
       </div>
       <span className="font-bold">Зураг оруулах</span>
@@ -85,6 +86,13 @@ const Step3 = () => {
           label: "font-bold",
           inputWrapper: ["custom-input-wrapper", "bg-white"],
         }}
+        value={adData?.desciption}
+        onValueChange={(e) => {
+          setCreateAd((prevState: CreateAdType) => ({
+            ...prevState,
+            desciption: e,
+          }));
+        }}
       />
       <div className="grid grid-cols-2 gap-4">
         <Input
@@ -100,6 +108,13 @@ const Step3 = () => {
             label: "font-bold",
             inputWrapper: ["custom-input-wrapper", "bg-white"],
           }}
+          value={adData?.email}
+          onValueChange={(e) => {
+            setCreateAd((prevState: CreateAdType) => ({
+              ...prevState,
+              email: e,
+            }));
+          }}
         />
         <Input
           key="utas"
@@ -114,35 +129,49 @@ const Step3 = () => {
             label: "font-bold",
             inputWrapper: ["custom-input-wrapper", "bg-white"],
           }}
+          value={adData?.phone}
+          onValueChange={(e) => {
+            setCreateAd((prevState: CreateAdType) => ({
+              ...prevState,
+              phone: e,
+            }));
+          }}
         />
       </div>
-      <CheckboxGroup
-        label=""
-        defaultValue={[]}
-        color="warning"
-        className="my-4"
-      >
+      <div className="flex flex-col gap-y-2">
         <Checkbox
-          value="isMessenger"
+          value={adData?.isMessenger}
           classNames={{
             base: "w-full",
             label: "w-full",
             wrapper: "custom-checkbox w-6 h-6",
+          }}
+          onValueChange={(e) => {
+            setCreateAd((prevState: CreateAdType) => ({
+              ...prevState,
+              isMessenger: e,
+            }));
           }}
         >
           Мессэнжер нээх
         </Checkbox>
         <Checkbox
-          value="isTermOfService"
+          value={adData?.isTermOfService}
           classNames={{
             base: "w-full",
             label: "w-full",
             wrapper: "custom-checkbox w-6 h-6",
           }}
+          onValueChange={(e) => {
+            setCreateAd((prevState: CreateAdType) => ({
+              ...prevState,
+              isTermOfService: e,
+            }));
+          }}
         >
           Үйлчилгээний нөхцөл зөвшөөрөх
         </Checkbox>
-      </CheckboxGroup>
+      </div>
     </motion.div>
   );
 };
