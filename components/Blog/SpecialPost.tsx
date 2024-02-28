@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 const SpecialPost = ({ blog }: { blog: Blog }) => {
-  const { mainImage, title, desciption } = blog;
+  const { id, mainImage, title, desciption } = blog;
 
   return (
     <>
@@ -33,9 +33,7 @@ const SpecialPost = ({ blog }: { blog: Blog }) => {
 
         <div className="flex flex-col px-6 pb-2">
           <h3 className="!mb-1 !mt-2 line-clamp-2 inline-block text-lg font-bold text-black duration-300 hover:text-primary ">
-            <Link href={`/blog/blog-details`}>
-              {`${title.slice(0, 20)}...`}
-            </Link>
+            <Link href={`/blog/${blog?.id}`}>{`${title.slice(0, 20)}...`}</Link>
           </h3>
           <span className="line-clamp-3">{desciption}</span>
         </div>

@@ -64,7 +64,7 @@ const GridServices = ({
 
           <div className="flex flex-col px-6 pb-2">
             <h3 className="!mb-1 !mt-2 line-clamp-2 inline-block text-lg font-bold  duration-300 hover:text-primary ">
-              <Link href={`/blog/blog-details`} className="!text-black">
+              <Link href={`/blog/${blog?.id}`} className="!text-black">
                 {`${blog.title.slice(0, 25)}...`}
               </Link>
             </h3>

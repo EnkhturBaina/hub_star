@@ -55,7 +55,7 @@ const ListServices = ({
             </Link>
             <div className="flex max-w-2xl flex-col px-3 pb-2">
               <h3 className="!mb-1 !mt-2 line-clamp-2 inline-block text-lg font-bold  duration-300 hover:text-primary ">
-                <Link href={`/blog/blog-details`} className="!text-black">
+                <Link href={`/blog/${blog?.id}`} className="!text-black">
                   {`${blog.title.slice(0, 100)}...`}
                 </Link>
               </h3>

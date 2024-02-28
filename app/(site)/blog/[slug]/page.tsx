@@ -1,3 +1,4 @@
+"use client";
 import RelatedPost from "@/components/Blog/RelatedPost";
 import SpecialPost from "@/components/Blog/SpecialPost";
 import { animals } from "@/components/Profile/Content/animals";
@@ -8,14 +9,18 @@ import { PiFlagThin } from "react-icons/pi";
 import BlogData from "@/components/Blog/blogData";
 import BreadCrumbs from "@/components/BreadCrumbs";
 import { FaStar } from "react-icons/fa";
+import { useRouter } from "next/navigation";
 
-export const metadata: Metadata = {
-  title: "Blog Details Page - Solid SaaS Boilerplate",
-  description: "This is Blog details page for Solid Pro",
-  // other metadata
-};
+// export const metadata: Metadata = {
+//   title: "Blog Details Page - Solid SaaS Boilerplate",
+//   description: "This is Blog details page for Solid Pro",
+//   // other metadata
+// };
 
-const SingleBlogPage = () => {
+const SingleBlogPage = ({ params: { slug } }) => {
+  const router = useRouter();
+  console.log("router", router);
+
   return (
     <>
       <section className="pt-35 lg:pt-40 xl:pt-42.5">
