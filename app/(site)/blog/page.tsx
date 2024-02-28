@@ -1,8 +1,10 @@
 "use client";
+import MainContext from "@/app/context/MainContext";
 import BlogData from "@/components/Blog/blogData";
 import BlogItem from "@/components/Blog/BlogItem";
 import BreadCrumbs from "@/components/BreadCrumbs";
 import PaginationComp from "@/components/Pagination";
+import LeftFilter from "@/components/Skeleton/LeftFilter";
 import {
   Button,
   Checkbox,
@@ -10,10 +12,13 @@ import {
   Select,
   SelectItem,
 } from "@nextui-org/react";
+import { useContext, useState } from "react";
 import { IoIosAddCircleOutline } from "react-icons/io";
 import { LuChevronLeft, LuSettings2 } from "react-icons/lu";
 
 const BlogPage = () => {
+  const state = useContext(MainContext);
+  const [selectedFilters, setSelectedFilters] = useState<string[]>([]);
   return (
     <>
       <section className="pt-35 lg:pt-40 xl:pt-42.5">
@@ -38,66 +43,48 @@ const BlogPage = () => {
               </div>
               <LuChevronLeft className="text-2xl" />
             </div>
-            <CheckboxGroup
-              label="Үндсэн бүтээц"
-              defaultValue={["buenos-aires", "london"]}
-              color="warning"
-              className="my-4"
-            >
-              <Checkbox
-                value="buenos-aires"
-                classNames={{
-                  base: "w-full",
-                  label: "w-full",
-                  wrapper: "custom-checkbox w-6 h-6",
-                }}
-              >
-                <div className="flex flex-row items-center justify-between">
-                  <span>Buenos Aires</span>
-                  <span>350</span>
-                </div>
-              </Checkbox>
-              <Checkbox
-                value="sydney"
-                classNames={{
-                  base: "w-full",
-                  label: "w-full",
-                  wrapper: "custom-checkbox w-6 h-6",
-                }}
-              >
-                Sydney
-              </Checkbox>
-              <Checkbox
-                value="san-francisco"
-                classNames={{
-                  base: "w-full",
-                  label: "w-full",
-                  wrapper: "custom-checkbox w-6 h-6",
-                }}
-              >
-                San Francisco
-              </Checkbox>
-              <Checkbox
-                value="london"
-                classNames={{
-                  base: "w-full",
-                  label: "w-full",
-                  wrapper: "custom-checkbox w-6 h-6",
-                }}
-              >
-                London
-              </Checkbox>
-              <Checkbox
-                value="tokyo"
-                classNames={{
-                  base: "w-full",
-                  label: "w-full",
-                  wrapper: "custom-checkbox w-6 h-6",
-                }}
-              >
-                Tokyo
-              </Checkbox>
-            </CheckboxGroup>
+            {state?.directionLoading ? (
+              <LeftFilter />
+            ) : (
+              state?.mainDirection &&
+              state?.mainDirection?.map((md: any, index: number) => {
+                return (
+                  <CheckboxGroup
+                    label={md.name}
+                    defaultValue={[]}
+                    color="warning"
+                    key={index}
+                    classNames={{
+                      base: "my-4",
+                      label: "font-bold text-black text-base",
+                    }}
+                    value={selectedFilters}
+                    onValueChange={setSelectedFilters}
+                  >
+                    {md?.children?.map((d: any, index: number) => {
+                      return (
+                        <Checkbox
+                          value={d.id}
+                          classNames={{
+                            base: "w-full max-w-full",
+                            label: "w-full",
+                            wrapper: "custom-checkbox w-6 h-6",
+                          }}
+                          key={index}
+                        >
+                          <div className="flex w-full flex-row items-center justify-between">
+                            <span className="text-sm leading-none">
+                              {d.name}
+                            </span>
+                            <span className="text-sm">350</span>
+                          </div>
+                        </Checkbox>
+                      );
+                    })}
+                  </CheckboxGroup>
+                );
+              })
+            )}
           </div>
           <div className="px-6 pb-6 lg:w-3/4">
             <div className="my-4 flex flex-row justify-between">

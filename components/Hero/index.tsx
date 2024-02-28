@@ -55,8 +55,8 @@ const Hero = () => {
                           <Image
                             src={process.env.IMG_PATH + md?.logo?.path}
                             alt="add"
-                            height={30}
-                            width={30}
+                            height={25}
+                            width={25}
                             className="rounded-md object-contain object-center"
                           />
                           <h4 className="!mt-0 ml-2 self-center text-lg font-semibold text-black">
