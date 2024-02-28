@@ -16,6 +16,9 @@ export const MainContextComp = (props: any) => {
 
   const [custTypeData, setCustTypeData] = useState<[] | null>([]);
 
+  const [adsData, setAdsData] = useState<[]>([]);
+  const [adsLoading, setAdsLoading] = useState<boolean>(true);
+
   const getMainDirection = () => {
     client
       .get("reference/main-direction")
@@ -84,6 +87,23 @@ export const MainContextComp = (props: any) => {
       });
   };
 
+  const getAds = () => {
+    client
+      .get("advertisement", {
+        params: {
+          page: 1,
+          limit: 10,
+        },
+      })
+      .then((response) => {
+        setAdsData(response.data.response.data);
+        setAdsLoading(false);
+      })
+      .catch((error) => {
+        console.error("Error fetching dog images:", error);
+      });
+  };
+
   useEffect(() => {
     getCatData();
     getSubDirection();
@@ -106,6 +126,9 @@ export const MainContextComp = (props: any) => {
         subDirection,
         directionLoading,
         custTypeData,
+        getAds,
+        adsData,
+        adsLoading,
       }}
     >
       {props.children}

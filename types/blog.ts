@@ -10,7 +10,7 @@ export type Blog = {
   _id: number;
   title: string;
   slug?: any;
-  metadata?: string;
+  desciption?: string | null;
   body?: string;
   mainImage?: any;
   author?: Author;

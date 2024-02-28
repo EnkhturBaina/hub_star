@@ -14,6 +14,7 @@ import { useContext, useEffect, useState } from "react";
 import MainContext from "@/app/context/MainContext";
 import LeftDirections from "../Skeleton/LeftDirections";
 import axiosClient from "@/services/axiosInstance";
+import BlogItemSkeleton from "../Skeleton/BlogItemSkeleton";
 
 const Hero = () => {
   const client = axiosClient();
@@ -28,6 +29,7 @@ const Hero = () => {
     prevArrow: <CiCircleChevLeft className="m-4 text-6xl text-white" />,
     nextArrow: <CiCircleChevRight className="m-4 text-6xl text-white" />,
   };
+  state?.getAds();
 
   const indicators = (index) => <div className="custom-home-indicator"></div>;
   return (
@@ -158,7 +160,8 @@ const Hero = () => {
               </div>
               <Feature />
               <GridCategory />
-              <Blog />
+              {state?.directionLoading ? <BlogItemSkeleton /> : <Blog />}
+              {/* <Blog /> */}
               <PaginationComp />
             </div>
           </div>

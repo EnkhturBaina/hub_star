@@ -68,7 +68,7 @@ const GridServices = ({
                 {`${blog.title.slice(0, 25)}...`}
               </Link>
             </h3>
-            <span className="line-clamp-3">{blog.metadata}</span>
+            <span className="line-clamp-3">{blog.desciption}</span>
           </div>
         </div>
       ))}

@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 const RelatedPost = ({ blog }: { blog: Blog }) => {
-  const { mainImage, title, metadata } = blog;
+  const { mainImage, title, desciption } = blog;
 
   return (
     <>
@@ -37,7 +37,7 @@ const RelatedPost = ({ blog }: { blog: Blog }) => {
               {`${title.slice(0, 20)}...`}
             </Link>
           </h3>
-          <span className="line-clamp-3">{metadata}</span>
+          <span className="line-clamp-3">{desciption}</span>
         </div>
       </motion.div>
     </>

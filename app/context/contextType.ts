@@ -7,4 +7,7 @@ export interface CurrentContextType {
   username: string;
   directionLoading: boolean;
   custTypeData: [] | null;
+  getAds: () => void;
+  adsData: [];
+  adsLoading: boolean;
 }
