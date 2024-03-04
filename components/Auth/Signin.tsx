@@ -78,15 +78,15 @@ const Signin = () => {
         }}
       />
       <section className="flex h-[calc(100vh-100px)] flex-wrap">
-        <div className="relative flex h-full w-full flex-row">
-          <div className="w-1/2">
+        <div className="relative flex h-full w-full flex-col lg:flex-row">
+          <div className="relative h-1/3 max-h-80 sm:w-full md:h-full md:max-h-full md:w-1/2 lg:h-full lg:max-h-full lg:w-1/2">
             <Image
               src="/signin_bg.png"
               alt="Dotted"
-              className="h-full w-full"
-              height="1000"
-              sizes="(max-width: 768px) 100vw, 100vw"
-              width="1000"
+              quality={100}
+              fill
+              sizes="100vw"
+              className=""
             />
           </div>
           <motion.div
@@ -105,7 +105,7 @@ const Signin = () => {
             whileInView="visible"
             transition={{ duration: 1, delay: 0.5 }}
             viewport={{ once: true }}
-            className="animate_top flex w-1/2 items-center justify-center"
+            className="animate_top flex h-2/3 items-center justify-center sm:w-full md:h-full md:w-1/2 lg:h-full lg:w-1/2"
           >
             <div className="mx-auto mb-10 grid w-[350px] grid-cols-1 rounded-md border border-stroke bg-gray-50 p-6 shadow-md">
               <Input
