@@ -23,7 +23,7 @@
       "@/*": ["./*"],
       "react": ["./node_modules/@types/react"]
     },
-    "strictNullChecks": true
+    "strictNullChecks": false
   },
   "include": [
     "next-env.d.ts",

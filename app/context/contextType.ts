@@ -1,4 +1,5 @@
 import { CustomerType } from "@/types/customerType";
+import { UserData } from "@/types/userData";
 
 export interface CurrentContextType {
   mainDirection: [];
@@ -10,4 +11,6 @@ export interface CurrentContextType {
   getAds: () => void;
   adsData: [];
   adsLoading: boolean;
+  authUserData: UserData;
+  setAuthUserData: (todo: UserData) => void;
 }

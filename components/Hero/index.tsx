@@ -29,9 +29,13 @@ const Hero = () => {
     prevArrow: <CiCircleChevLeft className="m-4 text-6xl text-white" />,
     nextArrow: <CiCircleChevRight className="m-4 text-6xl text-white" />,
   };
-  state?.getAds();
 
   const indicators = (index) => <div className="custom-home-indicator"></div>;
+
+  useEffect(() => {
+    state?.getAds();
+  }, []);
+
   return (
     <>
       <section className="pb-2 pt-35 lg:pb-2 lg:pt-45 xl:pb-4 xl:pt-56">

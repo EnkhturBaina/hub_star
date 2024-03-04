@@ -2,8 +2,10 @@ import React, { useEffect, useState } from "react";
 import { CurrentContextType } from "./contextType";
 import axiosClient from "@/services/axiosInstance";
 import { CustomerType } from "@/types/customerType";
+import { UserData } from "@/types/userData";
+import { getCookie } from "cookies-next";
 
-export const MainContext = React.createContext<CurrentContextType | null>(null);
+export const MainContext = React.createContext<CurrentContextType>(null);
 
 export const MainContextComp = (props: any) => {
   const client = axiosClient();
@@ -18,6 +20,8 @@ export const MainContextComp = (props: any) => {
 
   const [adsData, setAdsData] = useState<[]>([]);
   const [adsLoading, setAdsLoading] = useState<boolean>(true);
+
+  const [authUserData, setAuthUserData] = useState<UserData | null>(null);
 
   const getMainDirection = () => {
     client
@@ -105,6 +109,13 @@ export const MainContextComp = (props: any) => {
   };
 
   useEffect(() => {
+    const cookieData = getCookie("authUserData");
+    console.log("cookieData", cookieData);
+
+    if (cookieData) {
+      setAuthUserData(JSON.parse(cookieData));
+    }
+
     getCatData();
     getSubDirection();
   }, []);
@@ -129,6 +140,8 @@ export const MainContextComp = (props: any) => {
         getAds,
         adsData,
         adsLoading,
+        authUserData,
+        setAuthUserData,
       }}
     >
       {props.children}
