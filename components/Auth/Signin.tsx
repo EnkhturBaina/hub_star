@@ -46,9 +46,13 @@ const Signin = () => {
         client
           .post("authentication/login", { email, password })
           .then((response) => {
-            console.log("response", response);
+            // console.log("response", response);
+
             state.setAuthUserData(response.data.response.user);
             setCookie("authUserData", response.data.response.user);
+            setCookie("accessToken", response.data.response.accessToken);
+            setCookie("refreshToken", response.data.response.refreshToken);
+
             router.push("/");
           })
           .catch((error) => {
