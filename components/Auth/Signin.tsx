@@ -31,7 +31,6 @@ const Signin = () => {
   }, [email]);
 
   const login = () => {
-    console.log("AAA", email, password, isInvalid);
     if (email == "") {
       notify();
       setToastMsg("И-Мэйл хаягаа оруулна уу.");

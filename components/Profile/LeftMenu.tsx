@@ -1,9 +1,21 @@
 "use client";
-import React from "react";
+import React, { useContext } from "react";
 import { MenuItem, Menu, Label } from "semantic-ui-react";
 import MenuList from "./MenuList";
 import { Divider } from "@nextui-org/react";
 import { CiLogout } from "react-icons/ci";
+import { useRouter } from "next/navigation";
+import {
+  Modal,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  Button,
+  useDisclosure,
+} from "@nextui-org/react";
+import { deleteCookie } from "cookies-next";
+import MainContext from "@/app/context/MainContext";
 
 const LeftMenu = ({
   selectedMenu,
@@ -15,6 +27,10 @@ const LeftMenu = ({
   const handleItemClick = (e, { name }) => {
     setSelectedMenu(name);
   };
+  const router = useRouter();
+  const state = useContext(MainContext);
+
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   return (
     <div className="w-full rounded-xl bg-white px-1 py-2 dark:border-default-100">
@@ -39,8 +55,7 @@ const LeftMenu = ({
         <Divider className="mx-auto w-11/12" />
         <MenuItem
           name="logout"
-          active={selectedMenu === "logout"}
-          onClick={handleItemClick}
+          onClick={onOpen}
           className={`!m-2 !flex !items-center !justify-between !rounded-xl !py-2 !leading-loose ${
             selectedMenu == "logout"
               ? "!bg-mainColor !text-white"
@@ -53,6 +68,41 @@ const LeftMenu = ({
           </Label>
         </MenuItem>
       </Menu>
+      <Modal
+        backdrop="opaque"
+        isOpen={isOpen}
+        onOpenChange={onOpenChange}
+        classNames={{
+          backdrop:
+            "bg-gradient-to-t from-zinc-900 to-zinc-900/10 backdrop-opacity-20",
+        }}
+      >
+        <ModalContent>
+          {(onClose) => (
+            <>
+              <ModalHeader className="flex flex-col gap-1">
+                Та системээс гарах уу?
+              </ModalHeader>
+              <ModalFooter>
+                <Button color="default" variant="light" onPress={onClose}>
+                  Хаах
+                </Button>
+                <Button
+                  className="rounded-xl bg-mainColor font-bold leading-none text-white"
+                  onPress={() => {
+                    onClose();
+                    deleteCookie("authUserData");
+                    state.setAuthUserData(null);
+                    router.push("/");
+                  }}
+                >
+                  Гарах
+                </Button>
+              </ModalFooter>
+            </>
+          )}
+        </ModalContent>
+      </Modal>
     </div>
   );
 };

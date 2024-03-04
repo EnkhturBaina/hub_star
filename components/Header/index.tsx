@@ -117,8 +117,13 @@ const Header = () => {
                 <Avatar name={state?.authUserData?.firstName} />
                 <Link href={`/profile`}>
                   <div className="ml-3 mr-5 font-bold text-black">
-                    {`${state?.authUserData?.lastName?.substring(0, 1)}. ${state
-                      ?.authUserData?.firstName}`}
+                    {state?.authUserData?.lastName != null &&
+                    state?.authUserData?.firstName != null
+                      ? `${state?.authUserData?.lastName?.substring(
+                          0,
+                          1,
+                        )}. ${state?.authUserData?.firstName}`
+                      : "Хэрэглэгч"}
                   </div>
                 </Link>
                 <div className="flex w-30 flex-row justify-around">
