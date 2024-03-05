@@ -3,17 +3,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useContext, useEffect, useState } from "react";
-
-import ThemeToggler from "./ThemeToggler";
-import menuData from "./menuData";
-import { Avatar, Button, Divider, Input } from "@nextui-org/react";
+import { Avatar, Button, Divider } from "@nextui-org/react";
 import SearchBox from "../SearchBox";
 import HeaderMenu from "./HeaderMenu";
 import MainContext from "@/app/context/MainContext";
 
 const Header = () => {
   const [navigationOpen, setNavigationOpen] = useState(false);
-  const [dropdownToggler, setDropdownToggler] = useState(false);
   const [stickyMenu, setStickyMenu] = useState(false);
   const state = useContext(MainContext);
 
@@ -49,47 +45,10 @@ const Header = () => {
               className="block w-full"
             />
           </a>
-          {/* <!-- Hamburger Toggle BTN --> */}
-          {/* <button
-            aria-label="hamburger Toggler"
-            className="block xl:hidden"
-            onClick={() => setNavigationOpen(!navigationOpen)}
-          >
-            <span className="relative block h-5.5 w-5.5 cursor-pointer">
-              <span className="absolute right-0 block h-full w-full">
-                <span
-                  className={`relative left-0 top-0 my-1 block h-0.5 rounded-sm bg-black delay-[0] duration-200 ease-in-out ${
-                    !navigationOpen ? "!w-full delay-300" : "w-0"
-                  }`}
-                ></span>
-                <span
-                  className={`relative left-0 top-0 my-1 block h-0.5 rounded-sm bg-black delay-150 duration-200 ease-in-out ${
-                    !navigationOpen ? "delay-400 !w-full" : "w-0"
-                  }`}
-                ></span>
-                <span
-                  className={`relative left-0 top-0 my-1 block h-0.5 rounded-sm bg-black delay-200 duration-200 ease-in-out ${
-                    !navigationOpen ? "!w-full delay-500" : "w-0"
-                  }`}
-                ></span>
-              </span>
-              <span className="du-block absolute right-0 h-full w-full rotate-45">
-                <span
-                  className={`absolute left-2.5 top-0 block h-full w-0.5 rounded-sm bg-black delay-300 duration-200 ease-in-out ${
-                    !navigationOpen ? "!h-0 delay-[0]" : "h-full"
-                  }`}
-                ></span>
-                <span
-                  className={`delay-400 absolute left-0 top-2.5 block h-0.5 w-full rounded-sm bg-black duration-200 ease-in-out ${
-                    !navigationOpen ? "!h-0 delay-200" : "h-0.5"
-                  }`}
-                ></span>
-              </span>
-            </span>
-          </button> */}
-          {/* <!-- Hamburger Toggle BTN --> */}
         </div>
-        <SearchBox />
+        <div className="hidden w-full md:block">
+          <SearchBox />
+        </div>
 
         {/* Nav Menu Start   */}
         <div
@@ -178,8 +137,11 @@ const Header = () => {
           </div>
         </div>
       </div>
+      <div className="mx-4 mt-2 block md:hidden">
+        <SearchBox />
+      </div>
       {pathUrl === "/profile" ? null : (
-        <div>
+        <div className="no-scrollbar mt-2 flex overflow-y-scroll md:justify-center">
           <nav>
             <HeaderMenu />
           </nav>

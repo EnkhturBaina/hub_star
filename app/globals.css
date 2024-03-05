@@ -148,29 +148,33 @@ pre {
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
-@media (max-width: 640px) {
+@media (max-width: 600px) {
   .each-slide-effect {
-    height: 250px !important;
+    height: 200px;
   }
 }
-@media (max-width: 768px) {
+@media (min-width: 600px) {
   .each-slide-effect {
-    height: 330px !important;
+    height: 250px;
   }
 }
-@media (max-width: 1024px) {
+@media (min-width: 768px) {
   .each-slide-effect {
-    height: 370px !important;
+    height: 330px;
   }
 }
-@media (max-width: 1280px) {
+@media (min-width: 1024px) {
   .each-slide-effect {
-    height: 400px !important;
+    height: 370px;
+  }
+}
+@media (min-width: 1280px) {
+  .each-slide-effect {
+    height: 400px;
   }
 }
 
 .each-slide-effect {
-  height: 450px;
   border-radius: 16px;
   overflow: hidden;
 }
@@ -179,7 +183,7 @@ pre {
   align-items: center;
   justify-content: center;
   background-size: cover;
-  height: 450px;
+  height: 100%;
 }
 
 .each-slide-effect span {

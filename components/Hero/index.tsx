@@ -38,7 +38,7 @@ const Hero = () => {
 
   return (
     <>
-      <section className="pb-2 pt-35 lg:pb-2 lg:pt-45 xl:pb-4 xl:pt-56">
+      <section className="pb-2 pt-45 md:pt-30 lg:pb-2 lg:pt-35 xl:pb-4 xl:pt-45">
         <div className="mx-auto max-w-screen-xl px-4 md:px-8 2xl:px-0">
           <div className="flex flex-row gap-7.5 xl:gap-12.5">
             <div className="hidden md:block md:w-1/4">
@@ -117,7 +117,7 @@ const Hero = () => {
               </div>
             </div>
 
-            <div className="w-3/4">
+            <div className="w-full md:w-3/4">
               <div className="mb-4 w-full overflow-hidden">
                 <div className="custom-slider-container relative w-full rounded-xl">
                   <Fade

@@ -25,7 +25,7 @@ export default function DropDown() {
         </Button>
       </PopoverTrigger>
       <PopoverContent className="bg-mainGray !p-4">
-        <div className="w-[800px] columns-3 gap-y-8 space-y-8">
+        <div className="w-full columns-3 gap-y-8 space-y-8 md:w-[600px] lg:w-[800px]">
           {state?.mainDirection &&
             state?.mainDirection?.map((md: any, index: number) => {
               return (
