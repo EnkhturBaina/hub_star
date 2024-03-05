@@ -5,8 +5,22 @@ import Image from "next/image";
 import { useState } from "react";
 import { FaCamera } from "react-icons/fa";
 import MenuList from "@/components/Profile/MenuList";
+import {
+  SidebarPusher,
+  SidebarPushable,
+  MenuItem,
+  GridColumn,
+  Checkbox,
+  Grid,
+  Header,
+  Icon,
+  Menu,
+  Segment,
+  Sidebar,
+} from "semantic-ui-react";
 
 const Profile = () => {
+  const [visible, setVisible] = useState(false);
   const [selectedMenu, setSelectedMenu] = useState("profile");
   return (
     <>
@@ -15,21 +29,16 @@ const Profile = () => {
         <div className="mx-auto max-w-screen-xl px-4 md:px-8 xl:px-0">
           <div
             className="relative flex flex-col rounded-xl bg-white"
-            style={{ height: 480 }}
+            style={{ height: 330 }}
           >
             <div className="relative">
-              {/* <img
-                alt="p_bg"
-                src={"/images/profile_bg.jpg"}
-                className="relative h-96 w-full"
-              /> */}
               <div
                 style={{
                   backgroundImage: `url("/images/profile_bg.jpg")`,
                   backgroundSize: "100% 100%",
                 }}
-                className="relative h-96 w-full bg-cover bg-center"
-              ></div>
+                className="relative h-64 w-full bg-cover bg-center"
+              />
               <Button
                 color="default"
                 radius="full"
@@ -39,44 +48,72 @@ const Profile = () => {
               >
                 Дэвсгэр зураг солих
               </Button>
-            </div>
-            <div className="absolute bottom-12 left-30 flex flex-row ">
-              <div className="relative">
-                <img
-                  className="h-60 w-60 rounded-full border-5 border-white"
-                  src="https://i.ibb.co/6YbS9ff/avatar11.png"
-                  alt=""
-                />
-                <div className="absolute bottom-2 right-2 cursor-pointer rounded-full bg-gray-100 p-3 text-black">
-                  <FaCamera className="text-3xl" />
+              <div className="absolute -bottom-12 left-2 flex flex-row justify-between md:-bottom-28 md:bottom-12 md:left-30">
+                <div className="relative md:mr-6">
+                  <img
+                    className="h-28 w-28 rounded-full border-5 border-white md:h-60 md:w-60"
+                    src="https://i.ibb.co/6YbS9ff/avatar11.png"
+                    alt=""
+                  />
+                  <div className="bottom-2 right-2 hidden cursor-pointer rounded-full bg-gray-100 p-3 text-black md:absolute">
+                    <FaCamera className="text-3xl" />
+                  </div>
                 </div>
-              </div>
-              <div className="mb-2 ml-14 flex flex-col justify-end">
-                <p className="text-2xl font-bold text-black">Б.Батзаяа</p>
-                <p className="text-xl">
-                  “Таван-Орд” ХХК - Маркетингийн менежер
-                </p>
+                <div className="-mb-12 flex flex-col justify-end md:mb-2">
+                  <p className="mb-0 text-2xl font-bold text-black md:mb-2">
+                    Б.Батзаяа
+                  </p>
+                  <p className="text-xl">
+                    “Таван-Орд” ХХК - Маркетингийн менежер
+                  </p>
+                </div>
               </div>
             </div>
           </div>
         </div>
-        <div className="mx-auto mt-6 flex max-w-screen-xl flex-col-reverse gap-5 lg:flex-row">
+        <div className="mx-auto mt-2 flex max-w-screen-xl flex-col-reverse gap-5 md:mt-6 lg:flex-row">
           <div className="md:w-1/4">
+            <Checkbox
+              checked={visible}
+              label="visible"
+              onChange={(e, data) => setVisible(data.checked)}
+            />
             <LeftMenu
               selectedMenu={selectedMenu}
               setSelectedMenu={setSelectedMenu}
             />
           </div>
-          <div className="rounded-xl bg-mainProfileCardBg p-4 lg:w-3/4">
-            {MenuList.map((el, index) => {
-              if (el.key === selectedMenu) {
-                return <div key={index}>{el.content}</div>;
-              }
-            })}
-          </div>
+          <SidebarPushable as={Segment}>
+            <Sidebar
+              as={Menu}
+              animation="overlay"
+              icon="labeled"
+              inverted
+              onHide={() => setVisible(false)}
+              vertical
+              visible={visible}
+              width="thin"
+            >
+              <LeftMenu
+                selectedMenu={selectedMenu}
+                setSelectedMenu={setSelectedMenu}
+              />
+            </Sidebar>
+            <SidebarPusher>
+              <Segment basic>
+                <div className="rounded-xl bg-mainProfileCardBg p-4 lg:w-3/4">
+                  {MenuList.map((el, index) => {
+                    if (el.key === selectedMenu) {
+                      return <div key={index}>{el.content}</div>;
+                    }
+                  })}
+                </div>
+                <Header as="h3">Application Content</Header>
+              </Segment>
+            </SidebarPusher>
+          </SidebarPushable>
         </div>
       </section>
-      {/* <!-- ===== Blog Grid End ===== --> */}
     </>
   );
 };
