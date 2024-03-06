@@ -2,8 +2,20 @@
 
 import { motion } from "framer-motion";
 import { Button, Input, Textarea } from "@nextui-org/react";
+import MainContext from "@/app/context/MainContext";
+import { useContext, useEffect, useState } from "react";
+import { getCookie } from "cookies-next";
+import { UserData } from "@/types/userData";
 
 const Profile = () => {
+  const state = useContext(MainContext);
+  // const cookieData = getCookie("authUserData");
+  console.log("state", state?.authUserData);
+  const [profileData, setProfileData] = useState<UserData>(null);
+  useEffect(() => {
+    setProfileData(state?.authUserData);
+  }, []);
+
   return (
     <motion.div
       variants={{
@@ -35,6 +47,13 @@ const Profile = () => {
         classNames={{
           label: "font-bold",
           inputWrapper: ["custom-input-wrapper", "bg-white"],
+        }}
+        value={profileData?.lastName}
+        onValueChange={(e) => {
+          setProfileData((prevState: UserData) => ({
+            ...prevState,
+            lastName: e,
+          }));
         }}
       />
       <Input
