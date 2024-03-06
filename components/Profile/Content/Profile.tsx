@@ -69,6 +69,13 @@ const Profile = () => {
           label: "font-bold",
           inputWrapper: ["custom-input-wrapper", "bg-white"],
         }}
+        value={profileData?.firstName}
+        onValueChange={(e) => {
+          setProfileData((prevState: UserData) => ({
+            ...prevState,
+            firstName: e,
+          }));
+        }}
       />
       <Input
         key="position"
@@ -82,6 +89,13 @@ const Profile = () => {
         classNames={{
           label: "font-bold",
           inputWrapper: ["custom-input-wrapper", "bg-white"],
+        }}
+        value={profileData?.jobPosition}
+        onValueChange={(e) => {
+          setProfileData((prevState: UserData) => ({
+            ...prevState,
+            jobPosition: e,
+          }));
         }}
       />
       <Input
@@ -97,6 +111,13 @@ const Profile = () => {
           label: "font-bold",
           inputWrapper: ["custom-input-wrapper", "bg-white"],
         }}
+        value={profileData?.phone}
+        onValueChange={(e) => {
+          setProfileData((prevState: UserData) => ({
+            ...prevState,
+            phone: e,
+          }));
+        }}
       />
       <Input
         key="email"
@@ -111,6 +132,13 @@ const Profile = () => {
           label: "font-bold",
           inputWrapper: ["custom-input-wrapper", "bg-white"],
         }}
+        value={profileData?.email}
+        onValueChange={(e) => {
+          setProfileData((prevState: UserData) => ({
+            ...prevState,
+            email: e,
+          }));
+        }}
       />
       <Textarea
         variant="bordered"
@@ -122,6 +150,13 @@ const Profile = () => {
           base: "w-full",
           label: "font-bold",
           inputWrapper: ["custom-input-wrapper", "bg-white"],
+        }}
+        value={profileData?.address}
+        onValueChange={(e) => {
+          setProfileData((prevState: UserData) => ({
+            ...prevState,
+            address: e,
+          }));
         }}
       />
       <div className="flex flex-row justify-end">

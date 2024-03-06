@@ -8,4 +8,5 @@ export type UserData = {
   isActive: boolean;
   avatarId: number;
   address: string;
+  jobPosition?: string;
 };
