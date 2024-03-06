@@ -44,10 +44,6 @@ const AddService = ({
   });
   const state = useContext(MainContext);
 
-  const [toastMsg, setToastMsg] = useState<string>("");
-
-  const notify = () => toast.error(toastMsg);
-
   const getAddress = () => {
     client
       .get("reference/address")
@@ -85,55 +81,41 @@ const AddService = ({
       if (maxStep > step) {
         if (step === 1) {
           if (createAd?.categoryId == null) {
-            setToastMsg("Хэрэглэгчийн төрөл сонгоно уу.");
-            notify();
+            toast.error("Хэрэглэгчийн төрөл сонгоно уу.");
           } else if (createAd?.mainDirectionId == null) {
-            setToastMsg("Үйл ажиллагааны үндсэн чиглэл сонгоно уу.");
-            notify();
+            toast.error("Үйл ажиллагааны үндсэн чиглэл сонгоно уу.");
           } else if (createAd?.directionId == null) {
-            setToastMsg("Үйл ажиллагааны чиглэл сонгоно уу.");
-            notify();
+            toast.error("Үйл ажиллагааны чиглэл сонгоно уу.");
           } else if (createAd?.subDirectionId == null) {
-            setToastMsg("Үйл ажиллагааны нэр сонгоно уу.");
-            notify();
+            toast.error("Үйл ажиллагааны нэр сонгоно уу.");
           } else {
             setStep(step + 1);
           }
         } else if (step == 2) {
           if (createAd?.title == null) {
-            setToastMsg("Зарын гарчиг оруулна уу.");
-            notify();
+            toast.error("Зарын гарчиг оруулна уу.");
           } else if (createAd?.price == null) {
-            setToastMsg("Үнэ оруулна уу.");
-            notify();
+            toast.error("Үнэ оруулна уу.");
           } else if (createAd?.provinceId == null) {
-            setToastMsg("Аймаг, Хот сонгоно уу.");
-            notify();
+            toast.error("Аймаг, Хот сонгоно уу.");
           } else if (createAd?.districtId == null) {
-            setToastMsg("Сум, Дүүрэг сонгоно уу.");
-            notify();
+            toast.error("Сум, Дүүрэг сонгоно уу.");
           } else if (createAd?.khorooId == null) {
-            setToastMsg("Баг, Хороо сонгоно уу.");
-            notify();
+            toast.error("Баг, Хороо сонгоно уу.");
           } else if (createAd?.address == null) {
-            setToastMsg("Байршил оруулна уу.");
-            notify();
+            toast.error("Байршил оруулна уу.");
           } else {
             setStep(step + 1);
           }
         } else if (step == 3) {
           if (createAd?.counter == null) {
-            setToastMsg("Ажлын тоо хэмжээ оруулна уу.");
-            notify();
+            toast.error("Ажлын тоо хэмжээ оруулна уу.");
           } else if (createAd?.desciption == null) {
-            setToastMsg("Тайлбар оруулна уу.");
-            notify();
+            toast.error("Тайлбар оруулна уу.");
           } else if (createAd?.email == null) {
-            setToastMsg("Имэйл оруулна уу.");
-            notify();
+            toast.error("Имэйл оруулна уу.");
           } else if (createAd?.phone == null) {
-            setToastMsg("Утас оруулна уу.");
-            notify();
+            toast.error("Утас оруулна уу.");
           } else {
             setStep(step + 1);
           }

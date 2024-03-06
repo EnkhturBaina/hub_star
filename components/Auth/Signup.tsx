@@ -18,9 +18,6 @@ const Signup = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [password2, setPassword2] = useState<string>("");
-  const [toastMsg, setToastMsg] = useState<string>("");
-
-  const notify = () => toast.error(toastMsg);
 
   const validateEmail = (value) =>
     value.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}$/i);
@@ -33,20 +30,15 @@ const Signup = () => {
 
   const register = () => {
     if (email == "") {
-      notify();
-      setToastMsg("И-Мэйл хаягаа оруулна уу.");
+      toast.error("И-Мэйл хаягаа оруулна уу.");
     } else if (isInvalid) {
-      notify();
-      setToastMsg("И-Мэйл хаяг буруу байна.");
+      toast.error("И-Мэйл хаяг буруу байна.");
     } else if (password == "") {
-      notify();
-      setToastMsg("Нууц үгээ оруулна уу.");
+      toast.error("Нууц үгээ оруулна уу.");
     } else if (password2 == "") {
-      notify();
-      setToastMsg("Нууц үгээ давтан оруулна уу.");
+      toast.error("Нууц үгээ давтан оруулна уу.");
     } else if (password != password2) {
-      notify();
-      setToastMsg("Нууц тохирохгүй байна.");
+      toast.error("Нууц тохирохгүй байна.");
     } else {
       try {
         client
@@ -56,8 +48,7 @@ const Signup = () => {
           })
           .catch((error) => {
             console.error("Error fetching :", error);
-            notify();
-            setToastMsg(error.response?.data?.message);
+            toast.error(error.response?.data?.message);
           });
       } catch (error) {
         console.error("catch error :", error);

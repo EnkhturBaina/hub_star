@@ -8,5 +8,8 @@ export type UserData = {
   isActive: boolean;
   avatarId: number;
   address: string;
-  jobPosition?: string;
+  jobPosition?: string | "";
+  bank: string;
+  bankAccount: string;
+  bankAccountNo: string;
 };

@@ -18,9 +18,7 @@ const Signin = () => {
 
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const [toastMsg, setToastMsg] = useState<string>("");
 
-  const notify = () => toast.error(toastMsg);
   const validateEmail = (value) =>
     value.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}$/i);
 
@@ -32,14 +30,11 @@ const Signin = () => {
 
   const login = () => {
     if (email == "") {
-      notify();
-      setToastMsg("И-Мэйл хаягаа оруулна уу.");
+      toast.error("И-Мэйл хаягаа оруулна уу.");
     } else if (isInvalid) {
-      notify();
-      setToastMsg("И-Мэйл хаяг буруу байна.");
+      toast.error("И-Мэйл хаяг буруу байна.");
     } else if (password == "") {
-      notify();
-      setToastMsg("Нууц үгээ оруулна уу.");
+      toast.error("Нууц үгээ оруулна уу.");
     } else {
       try {
         client
@@ -56,8 +51,7 @@ const Signin = () => {
           })
           .catch((error) => {
             console.error("Error fetching :", error);
-            notify();
-            setToastMsg("Нэвтрэх нэр эсвэл нууц үг буруу байна.");
+            toast.error("Нэвтрэх нэр эсвэл нууц үг буруу байна.");
           });
       } catch (error) {
         console.error("catch error :", error);

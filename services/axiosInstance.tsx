@@ -1,10 +1,11 @@
 import axios, { AxiosInstance, AxiosError, AxiosResponse } from "axios";
+import { getCookie } from "cookies-next";
 
 const axiosClient = (token: string | null = null): AxiosInstance => {
   const headers = {
     "Content-Type": "application/json; charset=utf-8",
     "x-api-key": process.env.API_KEY,
-    Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjcsImlhdCI6MTcwODkxMjI0MCwiZXhwIjoxNzA4OTk4NjQwfQ.6S0yRr59CWg9Ub9BTkksFjPrNfY7n8qUkUmStaf_094`,
+    // Authorization: `Bearer ${token}`,
   };
 
   const client = axios.create({
@@ -15,11 +16,11 @@ const axiosClient = (token: string | null = null): AxiosInstance => {
   });
 
   client.interceptors.request.use((config: any) => {
-    // const token = localStorage.getItem("ACCESS_TOKEN");
+    const token = getCookie("accessToken");
     config.headers = config.headers || {};
-    // if (token) {
-    //   config.headers.Authorization = `Bearer ${token}`;
-    // }
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
     return config;
   });
 
