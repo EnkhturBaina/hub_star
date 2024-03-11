@@ -43,7 +43,7 @@ const GridServices = ({
           className="rounded-lg bg-white shadow-solid-8"
           key={"grid" + index}
         >
-          <Link href={`/blog/`} className="relative block aspect-[368/239]">
+          <Link href={`/adv/`} className="relative block aspect-[368/239]">
             <Image
               src={blog.mainImage}
               alt={blog.title}
@@ -64,7 +64,7 @@ const GridServices = ({
 
           <div className="flex flex-col px-6 pb-2">
             <h3 className="!mb-1 !mt-2 line-clamp-2 inline-block text-lg font-bold  duration-300 hover:text-primary ">
-              <Link href={`/blog/${blog?.id}`} className="!text-black">
+              <Link href={`/adv/${blog?.id}`} className="!text-black">
                 {`${blog.title.slice(0, 25)}...`}
               </Link>
             </h3>

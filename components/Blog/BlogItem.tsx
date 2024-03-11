@@ -27,13 +27,13 @@ const BlogItem = ({ blog }: { blog: Blog }) => {
         viewport={{ once: true }}
         className="animate_top rounded-lg bg-white shadow-md"
       >
-        <Link href={`/blog/`} className="relative block h-56 w-full">
+        <Link href={`/adv/`} className="relative block h-56 w-full">
           {/* <Image src={mainImage} alt={title} fill /> */}
         </Link>
 
         <div className="flex flex-col px-6 pb-2">
           <h3 className="!mb-1 !mt-2 line-clamp-2 inline-block text-base font-bold text-black duration-300 hover:text-primary">
-            <Link href={`/blog/${id}`}>{`${title.slice(0, 30)}...`}</Link>
+            <Link href={`/adv/${id}`}>{`${title.slice(0, 30)}...`}</Link>
           </h3>
           <span className="line-clamp-3">{`${desciption?.slice(
             0,

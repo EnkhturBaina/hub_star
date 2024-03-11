@@ -15,6 +15,7 @@ import MainContext from "@/app/context/MainContext";
 import LeftDirections from "../Skeleton/LeftDirections";
 import axiosClient from "@/services/axiosInstance";
 import BlogItemSkeleton from "../Skeleton/BlogItemSkeleton";
+import Link from "next/link";
 
 const Hero = () => {
   const client = axiosClient();
@@ -80,10 +81,23 @@ const Hero = () => {
                                 <PopoverTrigger>
                                   <li className="mb-3 !scale-100 cursor-pointer !opacity-100 transition-all duration-300 last:mb-0 hover:text-mainColor">
                                     <div className="flex flex-row items-center justify-between">
-                                      <span className="text-sm">{d.name}</span>
-                                      {d.sub_children?.length !== 0 ? (
-                                        <BsChevronRight />
-                                      ) : null}
+                                      <Link
+                                        className="text-black hover:text-mainColor"
+                                        href={{
+                                          pathname: "/adv",
+                                          query: {
+                                            direction: d?.id,
+                                            directionName: d?.name,
+                                          },
+                                        }}
+                                      >
+                                        <span className="text-sm">
+                                          {d.name}
+                                        </span>
+                                        {d.sub_children?.length !== 0 ? (
+                                          <BsChevronRight />
+                                        ) : null}
+                                      </Link>
                                     </div>
                                   </li>
                                 </PopoverTrigger>
@@ -95,9 +109,14 @@ const Hero = () => {
                                           return (
                                             <li
                                               key={index}
-                                              className="mb-3 cursor-pointer transition-all duration-300 last:mb-0 hover:text-mainColor"
+                                              className="mb-3 cursor-pointer transition-all duration-300 last:mb-0 "
                                             >
-                                              {sub.name}
+                                              <Link
+                                                href={`/adv/`}
+                                                className="text-black hover:text-mainColor"
+                                              >
+                                                {sub.name}
+                                              </Link>
                                             </li>
                                           );
                                         },

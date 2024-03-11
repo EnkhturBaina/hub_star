@@ -12,11 +12,17 @@ import {
   Select,
   SelectItem,
 } from "@nextui-org/react";
+import { useSearchParams } from "next/navigation";
 import { useContext, useState } from "react";
 import { IoIosAddCircleOutline } from "react-icons/io";
 import { LuChevronLeft, LuSettings2 } from "react-icons/lu";
 
 const BlogPage = () => {
+  const searchParams = useSearchParams();
+  const direction = searchParams.get("direction");
+  const directionName = searchParams.get("directionName");
+  console.log("direction", direction);
+  console.log("directionName", directionName);
   const state = useContext(MainContext);
   const [selectedFilters, setSelectedFilters] = useState<string[]>([]);
   return (
