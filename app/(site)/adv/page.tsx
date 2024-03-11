@@ -21,8 +21,6 @@ const BlogPage = () => {
   const searchParams = useSearchParams();
   const direction = searchParams.get("direction");
   const directionName = searchParams.get("directionName");
-  console.log("direction", direction);
-  console.log("directionName", directionName);
   const state = useContext(MainContext);
   const [selectedFilters, setSelectedFilters] = useState<string[]>([]);
   return (
