@@ -47,7 +47,7 @@ const SingleBlogPage = ({ params: { slug } }) => {
         ) : (
           <>
             <div className="bg-gray-100 px-4 md:px-8 2xl:px-0 ">
-              <div className="mx-auto flex max-w-screen-xl flex-row justify-between gap-7.5 py-18 lg:flex-row xl:gap-12.5">
+              <div className="mx-auto flex max-w-screen-xl flex-col justify-between gap-7.5 py-10 md:flex-row md:py-18 lg:flex-row xl:gap-12.5">
                 <div className="flex flex-col">
                   <span className="text-xl font-bold">{adData?.title}</span>
                   <div>
@@ -61,7 +61,7 @@ const SingleBlogPage = ({ params: { slug } }) => {
                 <div className="flex flex-row">
                   <Button
                     radius="full"
-                    className="mb-2 w-72 rounded-md bg-mainColor font-bold leading-none text-white"
+                    className="mb-2 w-full rounded-md bg-mainColor font-bold leading-none text-white md:w-72"
                   >
                     Үйлчилгээг захиалах
                   </Button>
@@ -75,7 +75,7 @@ const SingleBlogPage = ({ params: { slug } }) => {
                 </div>
               </div>
             </div>
-            <div className="mx-auto flex max-w-screen-xl gap-4 px-4 py-6 md:px-8 2xl:px-0">
+            <div className="mx-auto flex max-w-screen-xl flex-col gap-4 px-4 py-6 md:flex-row md:px-8 2xl:px-0">
               <div className="lg:w-3/4">
                 <div className="animate_top">
                   <div className="mb-10 w-full overflow-hidden ">
@@ -126,7 +126,7 @@ const SingleBlogPage = ({ params: { slug } }) => {
                   <span className="">{adData?.address}</span>
                   <Button
                     radius="full"
-                    className="mb-2 w-72 rounded-md bg-mainColor font-bold leading-none text-white"
+                    className="mb-2 w-full rounded-md bg-mainColor font-bold leading-none text-white md:w-72"
                   >
                     Профайл үзэх
                   </Button>
@@ -155,11 +155,11 @@ const SingleBlogPage = ({ params: { slug } }) => {
                 </div>
               </div>
             </div>
-            <div className="mx-auto my-14 max-w-screen-xl">
+            <div className="mx-4 my-14 max-w-screen-xl md:mx-auto">
               <span className="text-xl font-bold">
                 Таны авсан үйлчилгээтэй холбоотой зөвлөмжүүд
               </span>
-              <div className="grid grid-cols-7 gap-3">
+              <div className="grid grid-cols-2 gap-3 md:grid-cols-7">
                 {[...new Array(4)].map((element, i) => {
                   return (
                     <div
