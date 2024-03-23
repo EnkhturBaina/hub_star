@@ -1,5 +1,6 @@
 export type Services = {
+  id: string;
   title: string;
   mainImage: string;
-  metadata: string;
+  desciption: string;
 };

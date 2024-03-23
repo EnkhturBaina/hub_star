@@ -15,23 +15,22 @@ const Footer = () => {
     lat: -3.745,
     lng: -38.523,
   };
-  const { isLoaded } = useJsApiLoader({
-    id: "google-map-script",
-    googleMapsApiKey: "YOUR_API_KEY",
-  });
-  const [map, setMap] = useState(null);
+  // const { isLoaded } = useJsApiLoader({
+  //   id: "google-map-script",
+  //   googleMapsApiKey: "YOUR_API_KEY",
+  // });
+  // const [map, setMap] = useState(null);
 
-  const onLoad = useCallback(function callback(map) {
-    // This is just an example of getting and using the map instance!!! don't just blindly copy!
-    const bounds = new window.google.maps.LatLngBounds(center);
-    map.fitBounds(bounds);
+  // const onLoad = useCallback(function callback(map) {
+  //   const bounds = new window.google.maps.LatLngBounds(center);
+  //   map.fitBounds(bounds);
 
-    setMap(map);
-  }, []);
+  //   setMap(map);
+  // }, []);
 
-  const onUnmount = useCallback(function callback(map) {
-    setMap(null);
-  }, []);
+  // const onUnmount = useCallback(function callback(map) {
+  //   setMap(null);
+  // }, []);
 
   const pathUrl = usePathname();
 
