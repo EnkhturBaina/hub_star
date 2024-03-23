@@ -1,47 +1,26 @@
-"use server";
-import { GetServerSideProps, NextPage } from "next";
-import Image from "next/image";
-import { useState } from "react";
-
-interface SSRProps {
-  serverRenderedData: string;
-}
-
-const SSRExample: NextPage<SSRProps> = ({ serverRenderedData }) => {
-  return (
-    <div>
-      <h1>Server-Side Rendering Example</h1>
-      <p>Server-side rendered data:{serverRenderedData}</p>
-    </div>
-  );
+import { api, setContext } from "@/service/api.service";
+import { GetServerSideProps } from "next";
+import React from "react";
+const Post: React.FC<any> = ({ posts }) => {
+  return <ul>{JSON.stringify(posts)}</ul>;
 };
 
-export const getServerSideProps: GetServerSideProps<SSRProps> = async () => {
-  // Simulate fetching data from an API
-  const headers = new Headers({
-    "Content-Type": "application/json",
-    "x-api-key": `${process.env.API_KEY}`,
-  });
+// export const getServerSideProps: GetServerSideProps = async (context) => {
+//   setContext(context);
 
-  const response = await fetch(
-    `${process.env.PUBLIC_URL}/reference/main-direction`,
-    {
-      method: "GET",
-      headers: headers,
-      redirect: "follow",
-    },
-  );
-  const data = await response.json();
-  console.log("data", data);
+//   let posts = [];
+//   try {
+//     const { data } = await api.get("posts");
+//     posts = data;
+//   } catch (error) {
+//     throw error;
+//   }
 
-  const serverRenderedData = data[0]?.url || "No data";
+//   return {
+//     props: {
+//       posts,
+//     },
+//   };
+// };
 
-  // The returned object will be passed as props to the component
-  return {
-    props: {
-      serverRenderedData,
-    },
-  };
-};
-
-export default SSRExample;
+export default Post;

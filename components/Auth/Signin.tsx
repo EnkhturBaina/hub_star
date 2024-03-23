@@ -1,17 +1,33 @@
 "use client";
+import { setAccessToken } from "@/service/api.service";
+import { AuthService } from "@/service/authentication/authentication.service";
+import { setUser } from "@/utils/redux/slice/user.slice";
+import { AppDispatch } from "@/utils/redux/store";
 import { Button, Input } from "@nextui-org/react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { Divider } from "semantic-ui-react";
 
 const Signin = () => {
+  const router = useRouter();
+  const dispatch = useDispatch<AppDispatch>();
   const [data, setData] = useState({
-    email: "",
-    password: "",
+    email: "ulziikhutag.gurensoft@gmail.com",
+    password: "WETITr",
   });
-
+  const login = () => {
+    AuthService.login(data).then((res) => {
+      if (res.success) {
+        setAccessToken(res.response.accessToken);
+        dispatch(setUser(res.response.user));
+        router.push("/");
+      }
+    });
+  };
   return (
     <>
       {/* <!-- ===== SignIn Form Start ===== --> */}
@@ -76,14 +92,15 @@ const Signin = () => {
                   inputWrapper: ["custom-input-wrapper", "bg-white"],
                 }}
               />
-              <Link className="text-primary" href="/">
-                <Button
-                  radius="full"
-                  className="mb-2 w-full rounded-md bg-mainColor font-bold leading-none text-white"
-                >
-                  Нэвтрэх
-                </Button>
-              </Link>
+              {/* <Link className="text-primary" href="/"> */}
+              <Button
+                radius="full"
+                className="mb-2 w-full rounded-md bg-mainColor font-bold leading-none text-white"
+                onClick={() => login()}
+              >
+                Нэвтрэх
+              </Button>
+              {/* </Link> */}
               <div className="text-center text-sm">
                 Та бүртгэлтэй юу?{" "}
                 <Link className="text-primary" href="/auth/signup">

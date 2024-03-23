@@ -11,8 +11,11 @@ import Feature from "../Features";
 import Blog from "../Blog";
 import GridCategory from "../GridCategory";
 import PaginationComp from "../Pagination";
+import { useEffect } from "react";
+import { useAppContext } from "@/utils/context/app-context";
 
 const Hero = () => {
+  const { mainDirections, categories } = useAppContext();
   const images = [
     "https://images.unsplash.com/photo-1509721434272-b79147e0e708?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80",
     "https://images.unsplash.com/photo-1506710507565-203b9f24669b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1536&q=80",
@@ -34,7 +37,7 @@ const Hero = () => {
                   radius="full"
                   className="mb-6 h-8 w-full bg-gradient-to-tr from-yellow-500 to-pink-500 font-bold uppercase leading-none tracking-widest text-white"
                 >
-                  Үйлчилгээнүүд {process.env.API_KEY}
+                  Үйлчилгээнүүд
                 </Button>
                 <div className="mb-7.5 flex flex-row ">
                   <Image
@@ -49,29 +52,31 @@ const Hero = () => {
                   </h4>
                 </div>
                 <ul>
-                  {menuData.map((el, index) => {
+                  {mainDirections.map((el, index) => {
                     return (
                       <Popover placement="right" className="w-full" key={index}>
                         <PopoverTrigger>
                           <li className="mb-3 cursor-pointer transition-all duration-300 last:mb-0 hover:text-mainColor">
                             {/* hover:(bg-green-600 text-gray-50) */}
                             <div className="flex flex-row items-center justify-between">
-                              <span>{el.title}</span>
-                              {el.submenu ? <BsChevronRight /> : null}
+                              <span>{el.name}</span>
+                              {el.directions ? (
+                                <BsChevronRight />
+                              ) : null}
                             </div>
                           </li>
                         </PopoverTrigger>
 
-                        {el.submenu ? (
+                        {el.directions ? (
                           <PopoverContent className="w-40 min-w-max items-start p-4">
                             <ul>
-                              {el.submenu?.map((sub, index) => {
+                              {el.directions?.map((sub, index) => {
                                 return (
                                   <li
                                     key={index}
                                     className="mb-3 cursor-pointer transition-all duration-300 last:mb-0 hover:text-mainColor"
                                   >
-                                    {sub.title}
+                                    {sub.name}
                                   </li>
                                 );
                               })}

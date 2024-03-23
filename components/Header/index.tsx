@@ -9,8 +9,10 @@ import menuData from "./menuData";
 import { Avatar, Button, Divider, Input } from "@nextui-org/react";
 import SearchBox from "../SearchBox";
 import HeaderMenu from "./HeaderMenu";
+import { useTypedSelector } from "@/utils/redux/reducer";
 
 const Header = () => {
+  const { user } = useTypedSelector((state) => state);
   const [navigationOpen, setNavigationOpen] = useState(false);
   const [dropdownToggler, setDropdownToggler] = useState(false);
   const [stickyMenu, setStickyMenu] = useState(false);
@@ -100,7 +102,10 @@ const Header = () => {
           <div className="flex flex-row items-center">
             <Avatar name="Junior" />
             <Link href={`/profile`}>
-              <div className="ml-3 mr-5 font-bold text-black">М.Төмөрсүх</div>
+              <div className="ml-3 mr-5 font-bold text-black">{`${user.lastName?.substring(
+                0,
+                1,
+              )}.${user.firstName}`}</div>
             </Link>
             {1 == 1 ? (
               <Link
