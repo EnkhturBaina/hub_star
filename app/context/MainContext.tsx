@@ -4,7 +4,6 @@ import axiosClient from "@/services/axiosInstance";
 import { CustomerType } from "@/types/customerType";
 import { UserData } from "@/types/userData";
 import { getCookie } from "cookies-next";
-
 export const MainContext = React.createContext<CurrentContextType>(null);
 
 export const MainContextComp = (props: any) => {
@@ -27,7 +26,6 @@ export const MainContextComp = (props: any) => {
     client
       .get("reference/main-direction")
       .then((response) => {
-        // console.log("getMain Direction response", response);
         const result = response.data?.response?.map((item: any) => {
           return {
             ...item,
@@ -110,7 +108,7 @@ export const MainContextComp = (props: any) => {
 
   useEffect(() => {
     const cookieData = getCookie("authUserData");
-    console.log("cookieData", cookieData);
+    // console.log("cookieData", cookieData);
 
     if (cookieData) {
       setAuthUserData(JSON.parse(cookieData));

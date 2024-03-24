@@ -1,5 +1,5 @@
 import axios, { AxiosInstance, AxiosError, AxiosResponse } from "axios";
-import { getCookie } from "cookies-next";
+// import { getCookie } from "cookies-next";
 
 const axiosClient = (token: string | null = null): AxiosInstance => {
   const headers = {
@@ -16,7 +16,7 @@ const axiosClient = (token: string | null = null): AxiosInstance => {
   });
 
   client.interceptors.request.use((config: any) => {
-    const token = getCookie("accessToken");
+    // const token = getCookie("accessToken");
     config.headers = config.headers || {};
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;

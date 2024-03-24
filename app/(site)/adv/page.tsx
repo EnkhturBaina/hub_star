@@ -5,6 +5,13 @@ import BlogItem from "@/components/Blog/BlogItem";
 import BreadCrumbs from "@/components/BreadCrumbs";
 import PaginationComp from "@/components/Pagination";
 import LeftFilter from "@/components/Skeleton/LeftFilter";
+import { AdvertisementService } from "@/service/advertisement/advertisement.service";
+import { Advertisement } from "@/types/advertisement";
+import { Direction, MainDirection, PageMeta } from "@/types/reference";
+import { useAppContext } from "@/utils/context/app-context";
+import { useTypedSelector } from "@/utils/redux/reducer";
+import { setAdParam } from "@/utils/redux/slice/ad-param";
+import { AppDispatch } from "@/utils/redux/store";
 import {
   Button,
   Checkbox,
@@ -12,17 +19,38 @@ import {
   Select,
   SelectItem,
 } from "@nextui-org/react";
-import { useSearchParams } from "next/navigation";
-import { useContext, useState } from "react";
+import { useEffect, useState } from "react";
 import { IoIosAddCircleOutline } from "react-icons/io";
 import { LuChevronLeft, LuSettings2 } from "react-icons/lu";
+import { useDispatch } from "react-redux";
 
 const BlogPage = () => {
-  const searchParams = useSearchParams();
-  const direction = searchParams.get("direction");
-  const directionName = searchParams.get("directionName");
-  const state = useContext(MainContext);
-  const [selectedFilters, setSelectedFilters] = useState<string[]>([]);
+  const { mainDirections } = useAppContext();
+  const dispatch = useDispatch<AppDispatch>();
+  const { adParam } = useTypedSelector((state) => state);
+  const [advertisements, setAdvertisements] = useState<Advertisement[]>([]);
+  const [meta, setMeta] = useState<PageMeta>();
+  const onChangeFilter = (selectedDirectionIds: string[]) => {
+    dispatch(
+      setAdParam({
+        order: "DESC",
+        page: 1,
+        limit: 10,
+        categoryIds: adParam.categoryIds,
+        mainDirectionIds: adParam.mainDirectionIds,
+        directionIds: selectedDirectionIds.map((item) => Number(item)),
+        subDirectionIds: adParam.subDirectionIds,
+      }),
+    );
+  };
+  useEffect(() => {
+    AdvertisementService.get(adParam).then((response) => {
+      if (response.success) {
+        setAdvertisements(response.response.data);
+        setMeta(response.response.meta);
+      }
+    });
+  }, [adParam]);
   return (
     <>
       <section className="pt-35 lg:pt-40 xl:pt-42.5">
@@ -30,7 +58,7 @@ const BlogPage = () => {
           <div className="mx-auto flex max-w-screen-xl flex-row justify-between gap-7.5 py-18 lg:flex-row xl:gap-12.5">
             <div className="flex flex-col">
               <span className="text-xl">
-                Нийт утга: <span className="font-bold">7,284</span>
+                Нийт утга: <span className="font-bold">{meta?.itemCount}</span>
               </span>
               <div>
                 <BreadCrumbs />
@@ -47,28 +75,27 @@ const BlogPage = () => {
               </div>
               <LuChevronLeft className="text-2xl" />
             </div>
-            {state?.directionLoading ? (
+            {mainDirections.length == 0 ? (
               <LeftFilter />
             ) : (
-              state?.mainDirection &&
-              state?.mainDirection?.map((md: any, index: number) => {
+              mainDirections &&
+              mainDirections.map((md: MainDirection, index: number) => {
                 return (
                   <CheckboxGroup
                     label={md.name}
-                    defaultValue={[]}
                     color="warning"
                     key={index}
+                    value={adParam.directionIds?.map((item) => item.toString())}
                     classNames={{
                       base: "my-4",
                       label: "font-bold text-black text-base",
                     }}
-                    value={selectedFilters}
-                    onValueChange={setSelectedFilters}
+                    onChange={(e) => onChangeFilter(e)}
                   >
-                    {md?.children?.map((d: any, index: number) => {
+                    {md.directions.map((d: Direction, index: number) => {
                       return (
                         <Checkbox
-                          value={d.id}
+                          value={String(d.id)}
                           classNames={{
                             base: "w-full max-w-full",
                             label: "w-full",
@@ -80,7 +107,9 @@ const BlogPage = () => {
                             <span className="text-sm leading-none">
                               {d.name}
                             </span>
-                            <span className="text-sm">350</span>
+                            <span className="text-sm">
+                              {md.directions.length}
+                            </span>
                           </div>
                         </Checkbox>
                       );
@@ -93,9 +122,8 @@ const BlogPage = () => {
           <div className="px-6 pb-6 lg:w-3/4">
             <div className="my-4 flex flex-row justify-between">
               <Select
-                label=""
+                label="Эрэмбэлэлт"
                 labelPlacement="outside"
-                placeholder="Эрэмбэлэлт"
                 radius="sm"
                 size="md"
                 variant="bordered"
@@ -104,9 +132,13 @@ const BlogPage = () => {
                   label: "font-bold",
                   trigger: "custom-select-trigger bg-white",
                 }}
+                value="DESC"
               >
-                <SelectItem value="date" key="date">
-                  Огноогоор
+                <SelectItem value="DESC" key="desc">
+                  Огноогоор (Z-A)
+                </SelectItem>
+                <SelectItem value="ASC" key="asc">
+                  Огноогоор (A-Z)
                 </SelectItem>
               </Select>
               <Button
@@ -118,7 +150,7 @@ const BlogPage = () => {
               </Button>
             </div>
             <div className="grid grid-cols-2 gap-6">
-              {BlogData.map((blog, key) => (
+              {advertisements.map((blog, key) => (
                 <BlogItem blog={blog} key={key} />
               ))}
             </div>

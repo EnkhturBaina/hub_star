@@ -8,18 +8,15 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useContext, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Divider } from "semantic-ui-react";
 import toast, { Toaster } from "react-hot-toast";
-import MainContext from "@/app/context/MainContext";
-import axiosClient from "@/services/axiosInstance";
 import { setCookie } from "cookies-next";
 
 const Signin = () => {
-  const state = useContext(MainContext);
-  const client = axiosClient();
   const router = useRouter();
+  const dispatch = useDispatch<AppDispatch>();
 
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -42,22 +39,15 @@ const Signin = () => {
       toast.error("Нууц үгээ оруулна уу.");
     } else {
       try {
-        client
-          .post("authentication/login", { email, password })
-          .then((response) => {
-            // console.log("response", response);
-
-            state.setAuthUserData(response.data.response.user);
-            setCookie("authUserData", response.data.response.user);
-            setCookie("accessToken", response.data.response.accessToken);
-            setCookie("refreshToken", response.data.response.refreshToken);
-
+        AuthService.login({ email, password }).then((response) => {
+          if (response.success) {
+            setAccessToken(response.response.accessToken);
             router.push("/");
-          })
-          .catch((error) => {
-            console.error("Error fetching :", error);
+          } else {
             toast.error("Нэвтрэх нэр эсвэл нууц үг буруу байна.");
-          });
+            dispatch(setUser(response.response.user));
+          }
+        });
       } catch (error) {
         console.error("catch error :", error);
       }

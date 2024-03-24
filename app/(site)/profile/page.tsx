@@ -1,7 +1,7 @@
 "use client";
 import LeftMenu from "@/components/Profile/LeftMenu";
 import { Button } from "@nextui-org/react";
-import { useContext, useLayoutEffect, useState } from "react";
+import { useLayoutEffect, useState } from "react";
 import { FaCamera } from "react-icons/fa";
 import MenuList from "@/components/Profile/MenuList";
 import {
@@ -11,19 +11,19 @@ import {
   Sidebar,
 } from "semantic-ui-react";
 import { LuChevronLeft, LuLayoutGrid, LuMenu } from "react-icons/lu";
-import MainContext from "@/app/context/MainContext";
 import { redirect } from "next/navigation";
+import { useTypedSelector } from "@/utils/redux/reducer";
 
 const Profile = () => {
-  const state = useContext(MainContext);
+  const { user } = useTypedSelector((state) => state);
   const [visible, setVisible] = useState(false);
   const [selectedMenu, setSelectedMenu] = useState("profile");
   useLayoutEffect(() => {
-    if (!state.authUserData) {
+    if (!user) {
       redirect("/");
     }
   }, []);
-  if (!state.authUserData) {
+  if (!user) {
     return null;
   } else {
     return (

@@ -1,13 +1,14 @@
+import { Advertisement } from "@/types/advertisement";
 import {
   Address,
   Category,
   Direction,
   MainDirection,
+  PageMeta,
   SubDirection,
 } from "@/types/reference";
 import { Users } from "@/types/user";
-
-export interface IResponse {
+interface IResponse {
   success: boolean;
   message: string;
   statusCode: number;
@@ -33,4 +34,13 @@ export interface IResponseCategories extends IResponse {
 }
 export interface IResponseAddresses extends IResponse {
   response: Address[];
+}
+export interface IResponseAdvertisements extends IResponse {
+  response: {
+    data: Advertisement[];
+    meta: PageMeta;
+  };
+}
+export interface IResponseAdvertisement extends IResponse {
+  response: Advertisement;
 }

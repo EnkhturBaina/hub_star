@@ -1,3 +1,14 @@
+export interface IPageOptions {
+  order: "ASC" | "DESC";
+  page: number;
+  limit: number;
+}
+export interface IAdParam extends IPageOptions {
+  mainDirectionIds?: number[];
+  directionIds?: number[];
+  subDirectionIds?: number[];
+  categoryIds?: number[];
+}
 export interface IFile {
   key: string;
   bucket: string;

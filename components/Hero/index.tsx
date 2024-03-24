@@ -10,17 +10,20 @@ import Feature from "../Features";
 import Blog from "../Blog";
 import GridCategory from "../GridCategory";
 import PaginationComp from "../Pagination";
-import { useContext, useEffect, useState } from "react";
-import MainContext from "@/app/context/MainContext";
 import LeftDirections from "../Skeleton/LeftDirections";
-import axiosClient from "@/services/axiosInstance";
 import BlogItemSkeleton from "../Skeleton/BlogItemSkeleton";
 import Link from "next/link";
+import { useAppContext } from "@/utils/context/app-context";
+import { Direction, MainDirection, SubDirection } from "@/types/reference";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "@/utils/redux/store";
+import { setAdParam } from "@/utils/redux/slice/ad-param";
+import { useRouter } from "next/navigation";
 
 const Hero = () => {
-  const client = axiosClient();
-  const state = useContext(MainContext);
-
+  const { mainDirections } = useAppContext();
+  const dispatch = useDispatch<AppDispatch>();
+  const router = useRouter();
   const images = [
     "https://images.unsplash.com/photo-1509721434272-b79147e0e708?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80",
     "https://images.unsplash.com/photo-1506710507565-203b9f24669b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1536&q=80",
@@ -30,12 +33,18 @@ const Hero = () => {
     prevArrow: <CiCircleChevLeft className="m-4 text-6xl text-white" />,
     nextArrow: <CiCircleChevRight className="m-4 text-6xl text-white" />,
   };
-
   const indicators = (index) => <div className="custom-home-indicator"></div>;
-
-  useEffect(() => {
-    state?.getAds();
-  }, []);
+  const getAds = (subDirectionId: number) => {
+    dispatch(
+      setAdParam({
+        subDirectionIds: [subDirectionId],
+        order: "DESC",
+        page: 1,
+        limit: 10,
+      }),
+    );
+    router.push("/adv");
+  };
 
   return (
     <>
@@ -51,16 +60,15 @@ const Hero = () => {
                 >
                   Үйлчилгээнүүд
                 </Button>
-                {state?.directionLoading ? (
+                {mainDirections.length == 0 ? (
                   <LeftDirections />
                 ) : (
-                  state?.mainDirection &&
-                  state?.mainDirection?.map((md: any, index: number) => {
+                  mainDirections.map((md: MainDirection, index: number) => {
                     return (
                       <div key={index}>
                         <div className="mb-5 flex flex-row">
                           <Image
-                            src={process.env.IMG_PATH + md?.logo?.path}
+                            src={process.env.IMG_PATH + md.logo}
                             alt="add"
                             height={25}
                             width={25}
@@ -71,7 +79,7 @@ const Hero = () => {
                           </h4>
                         </div>
                         <ul>
-                          {md?.children?.map((d: any, index: number) => {
+                          {md.directions.map((d: Direction, index: number) => {
                             return (
                               <Popover
                                 placement="right"
@@ -81,49 +89,32 @@ const Hero = () => {
                                 <PopoverTrigger>
                                   <li className="mb-3 !scale-100 cursor-pointer !opacity-100 transition-all duration-300 last:mb-0 hover:text-mainColor">
                                     <div className="flex flex-row items-center justify-between">
-                                      <Link
-                                        className="text-black hover:text-mainColor"
-                                        href={{
-                                          pathname: "/adv",
-                                          query: {
-                                            direction: d?.id,
-                                            directionName: d?.name,
-                                          },
-                                        }}
-                                      >
-                                        <span className="text-sm">
-                                          {d.name}
-                                        </span>
-                                        {d.sub_children?.length !== 0 ? (
-                                          <BsChevronRight />
-                                        ) : null}
-                                      </Link>
+                                      <span className="text-sm">{d.name}</span>
+                                      {d.subDirections.length > 0 && (
+                                        <BsChevronRight />
+                                      )}
                                     </div>
                                   </li>
                                 </PopoverTrigger>
-                                {d.sub_children?.length !== 0 ? (
+                                {d.subDirections.length !== 0 && (
                                   <PopoverContent className="w-40 min-w-max items-start p-4">
                                     <ul>
-                                      {d.sub_children?.map(
-                                        (sub: any, index: number) => {
+                                      {d.subDirections?.map(
+                                        (sub: SubDirection, index: number) => {
                                           return (
                                             <li
                                               key={index}
-                                              className="mb-3 cursor-pointer transition-all duration-300 last:mb-0 "
+                                              className="mb-3 cursor-pointer text-black transition-all duration-300 last:mb-0 hover:text-mainColor"
+                                              onClick={() => getAds(sub.id)}
                                             >
-                                              <Link
-                                                href={`/adv/`}
-                                                className="text-black hover:text-mainColor"
-                                              >
-                                                {sub.name}
-                                              </Link>
+                                              {sub.name}
                                             </li>
                                           );
                                         },
                                       )}
                                     </ul>
                                   </PopoverContent>
-                                ) : null}
+                                )}
                               </Popover>
                             );
                           })}
@@ -184,7 +175,7 @@ const Hero = () => {
               </div>
               <Feature />
               <GridCategory />
-              {state?.directionLoading ? <BlogItemSkeleton /> : <Blog />}
+              {mainDirections.length == 0 ? <BlogItemSkeleton /> : <Blog />}
               {/* <Blog /> */}
               <PaginationComp />
             </div>

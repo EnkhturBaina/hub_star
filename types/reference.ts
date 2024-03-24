@@ -1,5 +1,14 @@
 import { IFile } from "@/interfaces/request.interface";
 import { Advertisement } from "./advertisement";
+/** Хуудаслалт  */
+export type PageMeta = {
+  page: number;
+  limit: number;
+  itemCount: number;
+  pageCount: number;
+  hasPreviousPage: boolean;
+  hasNextPage: boolean;
+};
 /** Үйл ажиллагааны үндсэн чиглэл */
 export type MainDirection = {
   id: number;
@@ -44,8 +53,8 @@ export type Address = {
 };
 /** Encrypted files */
 export type LocalFile = {
-    id: number;
-    filename: string;
-    path: string;
-    mimetype: string;
-}
+  id: number;
+  filename: string;
+  path: string;
+  mimetype: string;
+};
