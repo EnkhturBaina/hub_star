@@ -19,38 +19,27 @@ import {
   Select,
   SelectItem,
 } from "@nextui-org/react";
-import { useEffect, useState } from "react";
 import { IoIosAddCircleOutline } from "react-icons/io";
 import { LuChevronLeft, LuSettings2 } from "react-icons/lu";
 import { useDispatch } from "react-redux";
 
 const BlogPage = () => {
-  const { mainDirections } = useAppContext();
+  const { mainDirections, advertisements, adMeta } = useAppContext();
   const dispatch = useDispatch<AppDispatch>();
   const { adParam } = useTypedSelector((state) => state);
-  const [advertisements, setAdvertisements] = useState<Advertisement[]>([]);
-  const [meta, setMeta] = useState<PageMeta>();
   const onChangeFilter = (selectedDirectionIds: string[]) => {
     dispatch(
       setAdParam({
         order: "DESC",
         page: 1,
         limit: 10,
-        categoryIds: adParam.categoryIds,
-        mainDirectionIds: adParam.mainDirectionIds,
+        categoryId: adParam.categoryId,
+        mainDirectionId: adParam.mainDirectionId,
         directionIds: selectedDirectionIds.map((item) => Number(item)),
         subDirectionIds: adParam.subDirectionIds,
       }),
     );
   };
-  useEffect(() => {
-    AdvertisementService.get(adParam).then((response) => {
-      if (response.success) {
-        setAdvertisements(response.response.data);
-        setMeta(response.response.meta);
-      }
-    });
-  }, [adParam]);
   return (
     <>
       <section className="pt-35 lg:pt-40 xl:pt-42.5">
@@ -58,7 +47,8 @@ const BlogPage = () => {
           <div className="mx-auto flex max-w-screen-xl flex-row justify-between gap-7.5 py-18 lg:flex-row xl:gap-12.5">
             <div className="flex flex-col">
               <span className="text-xl">
-                Нийт утга: <span className="font-bold">{meta?.itemCount}</span>
+                Нийт утга:{" "}
+                <span className="font-bold">{adMeta?.itemCount}</span>
               </span>
               <div>
                 <BreadCrumbs />
@@ -90,7 +80,7 @@ const BlogPage = () => {
                       base: "my-4",
                       label: "font-bold text-black text-base",
                     }}
-                    onChange={(e) => onChangeFilter(e)}
+                    onChange={(e: any) => onChangeFilter(e)}
                   >
                     {md.directions.map((d: Direction, index: number) => {
                       return (
@@ -133,13 +123,24 @@ const BlogPage = () => {
                   trigger: "custom-select-trigger bg-white",
                 }}
                 value="DESC"
+                onChange={(e) => {
+                  if (e.target.value == ("ASC" || "DESC")) {
+                    dispatch(
+                      setAdParam({
+                        order: e.target.value,
+                        page: 1,
+                        limit: 10,
+                        categoryId: adParam.categoryId,
+                        mainDirectionId: adParam.mainDirectionId,
+                        directionIds: adParam.directionIds,
+                        subDirectionIds: adParam.subDirectionIds,
+                      }),
+                    );
+                  }
+                }}
               >
-                <SelectItem value="DESC" key="desc">
-                  Огноогоор (Z-A)
-                </SelectItem>
-                <SelectItem value="ASC" key="asc">
-                  Огноогоор (A-Z)
-                </SelectItem>
+                <SelectItem key="DESC">Огноогоор (Z-A)</SelectItem>
+                <SelectItem key="ASC">Огноогоор (A-Z)</SelectItem>
               </Select>
               <Button
                 radius="full"
@@ -154,7 +155,7 @@ const BlogPage = () => {
                 <BlogItem blog={blog} key={key} />
               ))}
             </div>
-            <PaginationComp />
+            <PaginationComp page={adMeta.page} pageCount={adMeta.pageCount} />
           </div>
         </div>
       </section>

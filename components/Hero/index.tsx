@@ -12,16 +12,17 @@ import GridCategory from "../GridCategory";
 import PaginationComp from "../Pagination";
 import LeftDirections from "../Skeleton/LeftDirections";
 import BlogItemSkeleton from "../Skeleton/BlogItemSkeleton";
-import Link from "next/link";
 import { useAppContext } from "@/utils/context/app-context";
 import { Direction, MainDirection, SubDirection } from "@/types/reference";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/utils/redux/store";
 import { setAdParam } from "@/utils/redux/slice/ad-param";
 import { useRouter } from "next/navigation";
+import { useTypedSelector } from "@/utils/redux/reducer";
 
 const Hero = () => {
   const { mainDirections } = useAppContext();
+  const { adParam } = useTypedSelector((state) => state);
   const dispatch = useDispatch<AppDispatch>();
   const router = useRouter();
   const images = [
@@ -34,9 +35,16 @@ const Hero = () => {
     nextArrow: <CiCircleChevRight className="m-4 text-6xl text-white" />,
   };
   const indicators = (index) => <div className="custom-home-indicator"></div>;
-  const getAds = (subDirectionId: number) => {
+  const getAds = (
+    mainDirectionId: number,
+    directionId: number,
+    subDirectionId: number,
+  ) => {
     dispatch(
       setAdParam({
+        categoryId: adParam.categoryId,
+        mainDirectionId: mainDirectionId,
+        directionIds: [directionId],
         subDirectionIds: [subDirectionId],
         order: "DESC",
         page: 1,
@@ -105,7 +113,9 @@ const Hero = () => {
                                             <li
                                               key={index}
                                               className="mb-3 cursor-pointer text-black transition-all duration-300 last:mb-0 hover:text-mainColor"
-                                              onClick={() => getAds(sub.id)}
+                                              onClick={() =>
+                                                getAds(md.id, d.id, sub.id)
+                                              }
                                             >
                                               {sub.name}
                                             </li>
@@ -177,7 +187,7 @@ const Hero = () => {
               <GridCategory />
               {mainDirections.length == 0 ? <BlogItemSkeleton /> : <Blog />}
               {/* <Blog /> */}
-              <PaginationComp />
+              <PaginationComp page={0} pageCount={0} />
             </div>
           </div>
         </div>

@@ -11,16 +11,16 @@ const getMainDirection = (): Promise<IResponseMainDirections> => {
   return api.get("/reference/main-direction");
 };
 const getDirection = (): Promise<IResponseDirections> => {
-  return api.get("/reference/main-direction");
+  return api.get("/reference/main-direction/direction");
 };
 const getSubDirection = (): Promise<IResponseSubDirections> => {
-  return api.get("/reference/main-direction");
+  return api.get("/reference/main-direction/direction/sub-direction");
 };
 const getCategory = (): Promise<IResponseCategories> => {
-  return api.get("/reference/main-direction");
+  return api.get("/reference/category");
 };
 const getAddress = (): Promise<IResponseAddresses> => {
-  return api.get("/reference/main-direction");
+  return api.get("/reference/address");
 };
 export const ReferenceService = {
   getMainDirection,

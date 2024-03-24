@@ -4,10 +4,10 @@ export interface IPageOptions {
   limit: number;
 }
 export interface IAdParam extends IPageOptions {
-  mainDirectionIds?: number[];
+  categoryId?: number;
+  mainDirectionId?: number;
   directionIds?: number[];
   subDirectionIds?: number[];
-  categoryIds?: number[];
 }
 export interface IFile {
   key: string;

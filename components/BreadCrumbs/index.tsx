@@ -1,80 +1,57 @@
 "use client";
-import MainContext from "@/app/context/MainContext";
+import { useAppContext } from "@/utils/context/app-context";
+import { useTypedSelector } from "@/utils/redux/reducer";
 import { BreadcrumbItem, Breadcrumbs } from "@nextui-org/react";
-import { usePathname, useSearchParams } from "next/navigation";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
-const BreadCrumbs = (props: any) => {
-  const state = useContext(MainContext);
+const BreadCrumbs: React.FC = () => {
+  const { adParam } = useTypedSelector((state) => state);
+  const { mainDirections } = useAppContext();
+  const [items, setItems] = useState<string[]>([]);
 
-  const [mainDirName, setMainDirName] = useState<string>(null);
-  const [dirName, setDirName] = useState<string>(null);
-  const [subDirName, setSubDirName] = useState<string>(null);
-
-  const router = usePathname();
-  const searchParams = useSearchParams();
-  const direction = searchParams.get("direction");
-  const directionName = searchParams.get("directionName");
-  const directionName2 = searchParams.get("directionName2");
-  // console.log("BreadCrumbs direction", direction);
-  // console.log("BreadCrumbs directionName", directionName);
-  const value = router
-    .toLowerCase()
-    .split("/")
-    .filter((item) => item);
-  const path = value.map(
-    (value) => value.charAt(0).toUpperCase() + value.substring(1).toLowerCase(),
-  );
-
-  const getMainDirName = () => {
-    state?.mainDirection?.map((el: any, index: any) => {
-      if (el?.id == props.mainDir) {
-        setMainDirName(el?.name);
-        getDirName();
-      }
-    });
-  };
-  const getDirName = () => {
-    state?.direction?.map((el: any, index: any) => {
-      if (el?.id == props.dir) {
-        setDirName(el?.name);
-        getSubDirName();
-      }
-    });
-  };
-  const getSubDirName = () => {
-    state?.subDirection?.map((el: any, index: any) => {
-      if (el?.id == props.subDir) {
-        setSubDirName(el?.name);
-      }
-    });
-  };
+  // const items = [mDir.toString(), "item2", "item3"];
   useEffect(() => {
-    getMainDirName();
+    const { mainDirectionId, directionIds, subDirectionIds } = adParam;
+    const mainDir = mainDirections.find((item) => mainDirectionId === item.id);
+    const directions = mainDir.directions.filter((item) =>
+      directionIds.includes(item.id),
+    );
+    const subDirNames: string[] = [];
+    directions.map((direction) => {
+      subDirNames.push(
+        ...direction.subDirections
+          .filter((item) => subDirectionIds.includes(item.id))
+          .map((item) => item.name),
+      );
+    });
+    setItems([
+      mainDir.name,
+      String(directions.map((item) => item.name)),
+      String(subDirNames),
+    ]);
   }, []);
-
   return (
-    <div className="mt-2">
-      {/* <span className="font-bold">{directionName ? directionName : null}</span>
-      <span className="font-bold">
-        {" / " + directionName2 ? directionName2 : null}
-      </span> */}
-      <span className="font-bold">{props.mainDir ? mainDirName : null}</span>
-      <span className="font-bold">{props.dir ? " / " + dirName : null}</span>
-      <span className="font-bold">
-        {props.subDir ? " / " + subDirName : null}
-      </span>
-    </div>
-    // <Breadcrumbs
-    //   separator="/"
-    //   itemClasses={{
-    //     separator: "px-2",
-    //   }}
-    // >
-    //   {path?.map((el, index) => {
-    //     return <BreadcrumbItem key={index}>{el}</BreadcrumbItem>;
-    //   })}
-    // </Breadcrumbs>
+    // <div className="mt-2">
+    //   <span className="font-bold">{"item1"}</span>
+    //   <span className="font-bold">
+    //     {" / " + "item2"}
+    //   </span>
+    //   <span className="font-bold">{props.mainDir ? mainDirName : null}</span>
+    //   <span className="font-bold">{props.dir ? " / " + dirName : null}</span>
+    //   <span className="font-bold">
+    //     {props.subDir ? " / " + subDirName : null}
+    //   </span>
+    // </div>
+    <Breadcrumbs
+      separator="/"
+      itemClasses={{
+        separator: "px-2",
+      }}
+    >
+      {items?.map((item, index) => {
+        return <BreadcrumbItem key={index}>{item}</BreadcrumbItem>;
+      })}
+    </Breadcrumbs>
   );
 };
 
