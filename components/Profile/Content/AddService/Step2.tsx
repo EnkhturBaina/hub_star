@@ -3,49 +3,60 @@
 import { motion } from "framer-motion";
 import { Input, Select, SelectItem, Textarea } from "@nextui-org/react";
 import { animals } from "../animals";
-import { AddressType } from "@/types/addressType";
-import { useState } from "react";
-import { CreateAdType } from "@/types/createAd";
-
-const Step2 = ({ adData, addressData, setCreateAd }) => {
-  const [duureg, setDuureg] = useState<AddressType[]>([]);
-  const [khoroo, setKhoroo] = useState<AddressType[]>([]);
+import { useEffect, useState } from "react";
+import { IAddressParam, ICreateAd } from "@/interfaces/request.interface";
+import { Address } from "@/types/reference";
+import { ReferenceService } from "@/service/reference/reference.service";
+interface IProps {
+  adData: ICreateAd;
+  setAdData: React.Dispatch<React.SetStateAction<ICreateAd>>;
+}
+const Step2: React.FC<IProps> = ({ adData, setAdData }) => {
+  const [provinces, setProvinces] = useState<Address[]>([]);
+  const [districts, setDistricts] = useState<Address[]>([]);
+  const [khoroos, setKhoroos] = useState<Address[]>([]);
 
   const changeAimag = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setDuureg([]);
-    setKhoroo([]);
-
-    setCreateAd((prevState: CreateAdType) => ({
+    setAdData((prevState: ICreateAd) => ({
       ...prevState,
       provinceId: parseInt(e.target.value),
     }));
-
-    addressData?.filter((val: any) => {
-      if (val.parentId == e.target.value) {
-        setDuureg((duureg) => [...duureg, val]);
-      }
-    });
   };
   const changeDuureg = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setKhoroo([]);
-    setCreateAd((prevState: CreateAdType) => ({
+    setAdData((prevState: ICreateAd) => ({
       ...prevState,
       districtId: parseInt(e.target.value),
     }));
 
-    addressData?.filter((val: any) => {
-      if (val.parentId == e.target.value) {
-        setKhoroo((khoroo) => [...khoroo, val]);
-      }
-    });
   };
   const changeKhoroo = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setCreateAd((prevState: CreateAdType) => ({
+    setAdData((prevState: ICreateAd) => ({
       ...prevState,
       khorooId: parseInt(e.target.value),
     }));
   };
-
+  const getAddress = (params: IAddressParam) => {
+    ReferenceService.getAddress(params).then((response) => {
+      if (response.success) {
+        params.type == "PROVINCE" && setProvinces(response.response);
+        params.type == "DISTRICT" && setDistricts(response.response);
+        params.type == "KHOROO" && setKhoroos(response.response);
+      }
+    });
+  };
+  useEffect(() => {
+    getAddress({ type: "PROVINCE" });
+  }, []);
+  useEffect(() => {
+    if (adData.provinceId) {
+      getAddress({ type: "DISTRICT", parentId: adData.provinceId });
+    }
+  }, [adData.provinceId]);
+  useEffect(() => {
+    if (adData.districtId) {
+      getAddress({ type: "KHOROO", parentId: adData.districtId });
+    }
+  }, [adData.districtId]);
   return (
     <motion.div
       variants={{
@@ -80,7 +91,7 @@ const Step2 = ({ adData, addressData, setCreateAd }) => {
         }}
         value={adData?.title}
         onValueChange={(e) => {
-          setCreateAd((prevState: CreateAdType) => ({
+          setAdData((prevState: ICreateAd) => ({
             ...prevState,
             title: e,
           }));
@@ -107,7 +118,7 @@ const Step2 = ({ adData, addressData, setCreateAd }) => {
         </Select>
         <Input
           key="price"
-          type="text"
+          type="number"
           label="Үнэ"
           labelPlacement="outside"
           placeholder="--"
@@ -118,9 +129,9 @@ const Step2 = ({ adData, addressData, setCreateAd }) => {
             label: "font-bold",
             inputWrapper: ["custom-input-wrapper", "bg-white"],
           }}
-          value={adData?.price}
+          value={adData.price}
           onValueChange={(e) => {
-            setCreateAd((prevState: CreateAdType) => ({
+            setAdData((prevState: ICreateAd) => ({
               ...prevState,
               price: parseInt(e),
             }));
@@ -142,13 +153,11 @@ const Step2 = ({ adData, addressData, setCreateAd }) => {
           selectedKeys={adData?.provinceId?.toString()}
           onChange={changeAimag}
         >
-          {addressData
-            ?.filter((val: any) => val.parentId == null)
-            ?.map((data: AddressType, index: number) => (
-              <SelectItem key={data.id} value={data.id}>
-                {data.name}
-              </SelectItem>
-            ))}
+          {provinces.map((data: Address) => (
+            <SelectItem key={data.id} value={data.id}>
+              {data.name}
+            </SelectItem>
+          ))}
         </Select>
         <Select
           label="Сум, Дүүрэг"
@@ -164,7 +173,7 @@ const Step2 = ({ adData, addressData, setCreateAd }) => {
           selectedKeys={adData?.districtId?.toString()}
           onChange={changeDuureg}
         >
-          {duureg?.map((data: AddressType, index: number) => (
+          {districts.map((data: Address) => (
             <SelectItem key={data.id} value={data.id}>
               {data.name}
             </SelectItem>
@@ -184,7 +193,7 @@ const Step2 = ({ adData, addressData, setCreateAd }) => {
           selectedKeys={adData?.khorooId?.toString()}
           onChange={changeKhoroo}
         >
-          {khoroo?.map((data: AddressType, index: number) => (
+          {khoroos.map((data: Address) => (
             <SelectItem key={data.id} value={data.id}>
               {data.name}
             </SelectItem>
@@ -204,7 +213,7 @@ const Step2 = ({ adData, addressData, setCreateAd }) => {
         }}
         value={adData?.address}
         onValueChange={(e) => {
-          setCreateAd((prevState: CreateAdType) => ({
+          setAdData((prevState: ICreateAd) => ({
             ...prevState,
             address: e,
           }));

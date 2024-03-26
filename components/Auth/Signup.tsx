@@ -3,15 +3,13 @@ import { Button, Input } from "@nextui-org/react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { useContext, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { Divider } from "semantic-ui-react";
-import MainContext from "@/app/context/MainContext";
 import axiosClient from "@/services/axiosInstance";
 import { useRouter } from "next/navigation";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 
 const Signup = () => {
-  const state = useContext(MainContext);
   const client = axiosClient();
   const router = useRouter();
 

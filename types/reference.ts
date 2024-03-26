@@ -38,6 +38,8 @@ export type Category = {
   name: string;
   isSpecial: boolean;
 };
+/** Хаягийн төрөл */
+export type AddressType = "COUNTRY" | "PROVINCE" | "DISTRICT" | "KHOROO";
 /** Хаяг */
 export type Address = {
   id: number;
@@ -45,7 +47,7 @@ export type Address = {
   parentId: number;
   parent: Address;
   position: number;
-  type: "COUNTRY" | "PROVINCE" | "DISTRICT" | "KHOROO";
+  type: AddressType;
   childrens: Address[];
   provinceAds: Advertisement[];
   districtAds: Advertisement[];

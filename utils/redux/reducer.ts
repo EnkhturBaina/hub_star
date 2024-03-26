@@ -1,10 +1,8 @@
 import { TypedUseSelectorHook, useSelector } from "react-redux";
 import { combineReducers } from "redux";
-import UserReducer from "./slice/user.slice";
 import AdParamReducer from "./slice/ad-param";
 
 const rootReducer = combineReducers({
-  user: UserReducer,
   adParam: AdParamReducer,
 });
 

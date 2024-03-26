@@ -1,7 +1,6 @@
 "use client";
 import LeftMenu from "@/components/Profile/LeftMenu";
-import { Button } from "@nextui-org/react";
-import { useLayoutEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import { FaCamera } from "react-icons/fa";
 import MenuList from "@/components/Profile/MenuList";
 import {
@@ -12,17 +11,44 @@ import {
 } from "semantic-ui-react";
 import { LuChevronLeft, LuLayoutGrid, LuMenu } from "react-icons/lu";
 import { redirect } from "next/navigation";
-import { useTypedSelector } from "@/utils/redux/reducer";
+import { useAppContext } from "@/utils/context/app-context";
+import AuthName from "@/components/Auth/auth-name";
+import Image from "next/image";
+import ImageUpload from "@/components/Image/image-upload";
+import { Users } from "@/types/user";
+import { AuthService } from "@/service/authentication/authentication.service";
+import toast from "react-hot-toast";
 
 const Profile = () => {
-  const { user } = useTypedSelector((state) => state);
+  const { user } = useAppContext();
+  const [userImage, setUserImage] = useState<Users>();
   const [visible, setVisible] = useState(false);
   const [selectedMenu, setSelectedMenu] = useState("profile");
+  const saveUserImage = () => {
+    console.log("is working ========>", userImage);
+    AuthService.updateById(userImage.id, {
+      avatarId: userImage.avatarId,
+      coverId: userImage.coverId,
+    }).then((response) => {
+      if (response.success) {
+        toast.success("Амжилттай хадгаллаа");
+      }
+    });
+  }
+  useEffect(() => {
+    if (user && !userImage) {
+      setUserImage(user);
+    }
+  }, []);
+  useEffect(() => {
+    console.log("useEffect working ========>", userImage);
+  }, [userImage]);
   useLayoutEffect(() => {
     if (!user) {
       redirect("/");
     }
   }, []);
+  
   if (!user) {
     return null;
   } else {
@@ -34,40 +60,78 @@ const Profile = () => {
             style={{ height: 330 }}
           >
             <div className="relative">
-              <div
-                style={{
-                  backgroundImage: `url("/images/profile_bg.jpg")`,
-                  backgroundSize: "100% 100%",
-                }}
-                className="relative h-64 w-full bg-cover bg-center"
-              />
-              <Button
+              <div className="relative h-64 w-full bg-cover bg-center">
+                <Image
+                  src={
+                    user.coverId
+                      ? `${process.env.BASE_API_URL}local-files/${user.coverId}`
+                      : 'url("/images/profile_bg.jpg")'
+                  }
+                  alt={"ковер"}
+                  width={1280}
+                  height={224}
+                />
+              </div>
+              {/* <Button
                 color="default"
                 radius="full"
                 variant="faded"
                 startContent={<FaCamera className="text-lg" />}
                 className="absolute bottom-8 right-10 bg-gray-300 text-base text-white"
               >
+                <input {...getInputProps()} />
                 Дэвсгэр зураг солих
-              </Button>
+              </Button> */}
+              <ImageUpload
+                className="absolute bottom-8 right-10 cursor-pointer bg-gray-300 text-base text-white"
+                setFileId={(fileId) => {
+                  setUserImage((prevState: Users) => ({
+                    ...prevState,
+                    coverId: fileId,
+                  }));
+                  saveUserImage();
+                }}
+              >
+                <FaCamera className="text-lg" />
+                Дэвсгэр зураг солих
+              </ImageUpload>
               <div className="absolute -bottom-12 left-2 flex flex-row justify-between md:-bottom-28 md:left-30">
                 <div className="relative md:mr-6">
-                  <img
-                    className="h-28 w-28 rounded-full border-5 border-white md:h-60 md:w-60"
-                    src="https://i.ibb.co/6YbS9ff/avatar11.png"
-                    alt=""
-                  />
-                  <div className="bottom-2 right-2 hidden cursor-pointer rounded-full bg-gray-100 p-3 text-black md:absolute">
+                  {user.avatarId == null ? (
+                    <Image
+                      className="h-28 w-28 rounded-full border-5 border-white md:h-60 md:w-60"
+                      src="/images/user/user-01.png"
+                      alt=""
+                      width={400}
+                      height={400}
+                    />
+                  ) : (
+                    <Image
+                      className="h-28 w-28 rounded-full border-5 border-white md:h-60 md:w-60"
+                      src={`${process.env.BASE_API_URL}local-files/${user.avatarId}`}
+                      alt=""
+                      width={400}
+                      height={400}
+                    />
+                  )}
+                  <ImageUpload
+                    className="bottom-2 right-2 cursor-pointer rounded-full bg-gray-100 p-3 text-black md:absolute"
+                    setFileId={(fileId) => {
+                      setUserImage((prevState: Users) => ({
+                        ...prevState,
+                        avatarId: fileId,
+                      }));
+                      saveUserImage();
+                    }}
+                  >
                     <FaCamera className="text-3xl" />
-                  </div>
+                  </ImageUpload>
                 </div>
                 <div className="-mb-12 flex flex-col justify-end md:mb-2">
                   <p className="mb-0 text-2xl font-bold text-black md:mb-2">
-                    Б.Батзаяа
+                    <AuthName user={user} />
                   </p>
-                  <p className="text-xl">
-                    “Таван-Орд” ХХК - Маркетингийн менежер
-                  </p>
+                  <p className="text-xl">{user.jobPosition}</p>
                 </div>
               </div>
             </div>

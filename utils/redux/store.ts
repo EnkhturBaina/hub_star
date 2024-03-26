@@ -42,7 +42,7 @@ const encryptedTransForm = encryptTransform({
 const persistConfig = {
   key: "root",
   storage: storageConfig as any, // Type assertion to `any` to bypass the type check
-  whitelist: ["user", "ad-param"],
+  whitelist: ["ad-param"],
   blacklist: [],
   transforms: [encryptedTransForm],
 };

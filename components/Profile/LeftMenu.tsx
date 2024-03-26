@@ -9,13 +9,12 @@ import {
   Modal,
   ModalContent,
   ModalHeader,
-  ModalBody,
   ModalFooter,
   Button,
   useDisclosure,
 } from "@nextui-org/react";
-import { deleteCookie } from "cookies-next";
-import MainContext from "@/app/context/MainContext";
+import { AuthService } from "@/service/authentication/authentication.service";
+import { setAccessToken } from "@/service/api.service";
 
 const LeftMenu = ({
   selectedMenu,
@@ -28,7 +27,6 @@ const LeftMenu = ({
     setSelectedMenu(name);
   };
   const router = useRouter();
-  const state = useContext(MainContext);
 
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
@@ -91,9 +89,12 @@ const LeftMenu = ({
                   className="rounded-xl bg-mainColor font-bold leading-none text-white"
                   onPress={() => {
                     onClose();
-                    deleteCookie("authUserData");
-                    state.setAuthUserData(null);
-                    router.push("/");
+                    AuthService.logout().then((response) => {
+                      if (response.success) {
+                        setAccessToken("");
+                        router.push("/");
+                      }
+                    });
                   }}
                 >
                   Гарах

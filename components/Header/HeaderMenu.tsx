@@ -1,6 +1,5 @@
 "use client";
 import Image from "next/image";
-import { useState } from "react";
 import { motion } from "framer-motion";
 import { useAppContext } from "@/utils/context/app-context";
 import { Category } from "@/types/reference";
@@ -47,7 +46,7 @@ const HeaderMenu = () => {
                         page: 1,
                         limit: 10,
                         categoryId: item.id,
-                        mainDirectionIds: adParam.mainDirectionIds,
+                        mainDirectionId: adParam.mainDirectionId,
                         directionIds: adParam.directionIds,
                         subDirectionIds: adParam.subDirectionIds,
                       }),

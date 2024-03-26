@@ -10,7 +10,11 @@ import {
 } from "react";
 import { useTypedSelector } from "../redux/reducer";
 import { AdvertisementService } from "@/service/advertisement/advertisement.service";
+import { Users } from "@/types/user";
+import { AuthService } from "@/service/authentication/authentication.service";
+import { getAccessToken } from "@/service/api.service";
 interface IAppContextProps {
+  user: Users;
   mainDirections: MainDirection[];
   categories: Category[];
   advertisements: Advertisement[];
@@ -24,6 +28,7 @@ interface IProps {
 }
 const AppProvider: React.FC<IProps> = ({ children }) => {
   const { adParam } = useTypedSelector((state) => state);
+  const [user, setUser] = useState<Users>();
   const [mainDirections, setMainDirections] = useState<MainDirection[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
   const [advertisements, setAdvertisements] = useState<Advertisement[]>([]);
@@ -35,6 +40,16 @@ const AppProvider: React.FC<IProps> = ({ children }) => {
     itemCount: 1,
     limit: 10,
   });
+  const accessToken = getAccessToken();
+  const getUser = () => {
+    AuthService.profile().then((response) => {
+      if (response.statusCode == 200 && response.success) {
+        setUser(response.response.user);
+      }
+    }).catch(() => {
+      setUser(undefined);
+    });
+  };
   const getMainDirection = () => {
     ReferenceService.getMainDirection().then((res) => {
       if (res.success) {
@@ -50,6 +65,9 @@ const AppProvider: React.FC<IProps> = ({ children }) => {
     });
   };
   useEffect(() => {
+    getUser();
+  }, [accessToken]);
+  useEffect(() => {
     getMainDirection();
     getCategory();
   }, []);
@@ -62,6 +80,7 @@ const AppProvider: React.FC<IProps> = ({ children }) => {
     });
   }, [adParam]);
   const value: IAppContextProps = {
+    user,
     mainDirections,
     categories,
     advertisements,

@@ -3,8 +3,7 @@ import {
   IResponseAdvertisements,
 } from "@/interfaces/response.interface";
 import { api } from "../api.service";
-import { IAdParam } from "@/interfaces/request.interface";
-import { Advertisement } from "@/types/advertisement";
+import { IAdParam, ICreateAd } from "@/interfaces/request.interface";
 
 const get = (params: IAdParam): Promise<IResponseAdvertisements> => {
   return api.get("/advertisement", { params });
@@ -12,9 +11,7 @@ const get = (params: IAdParam): Promise<IResponseAdvertisements> => {
 const getById = (id: number): Promise<IResponseAdvertisement> => {
   return api.get(`/advertisement/${id}`);
 };
-const create = (
-  advertisement: Advertisement,
-): Promise<IResponseAdvertisement> => {
+const create = (advertisement: ICreateAd): Promise<IResponseAdvertisement> => {
   return api.post("/advertisement", advertisement);
 };
 const save = (id: number): Promise<IResponseAdvertisement> => {

@@ -8,7 +8,7 @@ import {
   SubDirection,
 } from "@/types/reference";
 import { Users } from "@/types/user";
-interface IResponse {
+export interface IResponse {
   success: boolean;
   message: string;
   statusCode: number;
@@ -19,6 +19,19 @@ export interface IResponseLogin extends IResponse {
     refreshToken: string;
     user: Users;
   };
+}
+export interface IResponseProfile extends IResponse {
+  response: {
+    user: Users;
+  };
+}
+export interface IResponseLocalFile extends IResponse {
+  response: {
+    id: number;
+    filename: string;
+    path: string;
+    mimetype: string;
+  }
 }
 export interface IResponseMainDirections extends IResponse {
   response: MainDirection[];

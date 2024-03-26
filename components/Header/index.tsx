@@ -6,11 +6,11 @@ import { useEffect, useState } from "react";
 import { Avatar, Button, Divider } from "@nextui-org/react";
 import SearchBox from "../SearchBox";
 import HeaderMenu from "./HeaderMenu";
-import { useTypedSelector } from "@/utils/redux/reducer";
-import MainContext from "@/app/context/MainContext";
+import { useAppContext } from "@/utils/context/app-context";
+import AuthName from "../Auth/auth-name";
 
 const Header = () => {
-  const { user } = useTypedSelector((state) => state);
+  const { user } = useAppContext();
   const [navigationOpen, setNavigationOpen] = useState(false);
   const [stickyMenu, setStickyMenu] = useState(false);
 
@@ -28,7 +28,6 @@ const Header = () => {
   useEffect(() => {
     window.addEventListener("scroll", handleStickyMenu);
   });
-
   return (
     <header
       className={`fixed left-0 top-0 z-99999 w-full bg-white ${
@@ -76,11 +75,7 @@ const Header = () => {
               <>
                 <Avatar name={user?.firstName} />
                 <Link href={`/profile`}>
-                  <div className="ml-3 mr-5 font-bold text-black">
-                    {user?.lastName != null && user?.firstName != null
-                      ? `${user?.lastName?.substring(0, 1)}. ${user?.firstName}`
-                      : "Хэрэглэгч"}
-                  </div>
+                  <AuthName user={user} />
                 </Link>
                 <div className="flex w-30 flex-row justify-around">
                   <span>

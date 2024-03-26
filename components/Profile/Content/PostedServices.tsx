@@ -6,8 +6,10 @@ import { useState } from "react";
 import GridServices from "./GridServices";
 import ListServices from "./ListServices";
 import AddService from "./AddService";
+import { useAppContext } from "@/utils/context/app-context";
 
 const PostedServices = () => {
+  const { advertisements } = useAppContext();
   const [isGrid, setIsGrid] = useState(true);
   const [isAddService, setIsAddService] = useState(false);
   if (!isAddService) {
@@ -31,7 +33,7 @@ const PostedServices = () => {
         <div className="mx-auto mt-4 max-w-c-1280">
           {isGrid ? (
             <GridServices
-              servicesData={servicesData}
+              servicesData={advertisements}
               showAddBtn={true}
               isStars={false}
               setIsAddService={setIsAddService}
@@ -39,7 +41,7 @@ const PostedServices = () => {
             />
           ) : (
             <ListServices
-              servicesData={servicesData}
+              servicesData={advertisements}
               showAddBtn={true}
               isStars={false}
               setIsAddService={setIsAddService}

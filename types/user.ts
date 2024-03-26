@@ -14,6 +14,8 @@ export type Users = {
     isActive?: boolean;
     avatarId?: number;
     avatar?: LocalFile;
+    coverId?: number;
+    cover?: LocalFile;
     address?: string;
     saveAdvertisements?: Advertisement[];
 }

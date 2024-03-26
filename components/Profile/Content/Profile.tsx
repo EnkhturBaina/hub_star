@@ -1,18 +1,16 @@
 "use client";
-
 import { motion } from "framer-motion";
 import { Button, Input, Textarea } from "@nextui-org/react";
-import MainContext from "@/app/context/MainContext";
-import { useContext, useEffect, useMemo, useState } from "react";
-import { UserData } from "@/types/userData";
-import axiosClient from "@/services/axiosInstance";
+import { useEffect, useMemo, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import ProfileFields from "@/components/Skeleton/ProfileFields";
+import { useAppContext } from "@/utils/context/app-context";
+import { Users } from "@/types/user";
+import { AuthService } from "@/service/authentication/authentication.service";
 
 const Profile = () => {
-  const state = useContext(MainContext);
-  const client = axiosClient();
-  const [profileData, setProfileData] = useState<UserData>(null);
+  const { user } = useAppContext();
+  const [profileData, setProfileData] = useState<Users>(null);
   const [isSaving, setIsSaving] = useState<boolean>(false);
 
   const validateEmail = (value) =>
@@ -20,7 +18,7 @@ const Profile = () => {
 
   useEffect(() => {
     if (profileData == null) {
-      setProfileData(state?.authUserData);
+      setProfileData(user);
     }
   }, []);
 
@@ -47,19 +45,17 @@ const Profile = () => {
       toast.error("Хаяг оруулна уу.");
     } else {
       setIsSaving(true);
-      console.log("profileData", profileData);
       try {
-        client
-          .patch("users/" + profileData?.id, {
-            lastName: profileData?.lastName,
-            firstName: profileData?.firstName,
-            jobPosition: profileData?.jobPosition,
-            phone: profileData?.phone,
-            email: profileData?.email,
-            address: profileData?.address,
-          })
+        AuthService.updateById(profileData.id, {
+          email: profileData.email,
+          firstName: profileData.firstName,
+          lastName: profileData.lastName,
+          phone: profileData.phone,
+          jobPosition: profileData.jobPosition,
+          address: profileData.address,
+        })
           .then((response) => {
-            state?.setAuthUserData(response?.data?.response);
+            // setAuthUserData(response?.data?.response);
             setIsSaving(false);
             toast.success("Амжилттай хадгаллаа");
           })
@@ -120,7 +116,7 @@ const Profile = () => {
             }}
             value={profileData?.lastName || ""}
             onValueChange={(e) => {
-              setProfileData((prevState: UserData) => ({
+              setProfileData((prevState: Users) => ({
                 ...prevState,
                 lastName: e,
               }));
@@ -141,7 +137,7 @@ const Profile = () => {
             }}
             value={profileData?.firstName || ""}
             onValueChange={(e) => {
-              setProfileData((prevState: UserData) => ({
+              setProfileData((prevState: Users) => ({
                 ...prevState,
                 firstName: e,
               }));
@@ -162,7 +158,7 @@ const Profile = () => {
             }}
             value={profileData?.jobPosition || ""}
             onValueChange={(e) => {
-              setProfileData((prevState: UserData) => ({
+              setProfileData((prevState: Users) => ({
                 ...prevState,
                 jobPosition: e,
               }));
@@ -183,7 +179,7 @@ const Profile = () => {
             }}
             value={profileData?.phone || ""}
             onValueChange={(e) => {
-              setProfileData((prevState: UserData) => ({
+              setProfileData((prevState: Users) => ({
                 ...prevState,
                 phone: e,
               }));
@@ -207,7 +203,7 @@ const Profile = () => {
             errorMessage={isInvalid && "И-Мэйл хаягаа зөв оруулна уу."}
             value={profileData?.email || ""}
             onValueChange={(e) => {
-              setProfileData((prevState: UserData) => ({
+              setProfileData((prevState: Users) => ({
                 ...prevState,
                 email: e,
               }));
@@ -226,7 +222,7 @@ const Profile = () => {
             }}
             value={profileData?.address || ""}
             onValueChange={(e) => {
-              setProfileData((prevState: UserData) => ({
+              setProfileData((prevState: Users) => ({
                 ...prevState,
                 address: e,
               }));

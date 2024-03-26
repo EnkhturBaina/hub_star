@@ -1,5 +1,4 @@
 "use client";
-import MainContext from "@/app/context/MainContext";
 import BlogData from "@/components/Blog/blogData";
 import BlogItem from "@/components/Blog/BlogItem";
 import BreadCrumbs from "@/components/BreadCrumbs";

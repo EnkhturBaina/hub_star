@@ -1,20 +1,24 @@
 import axios, { AxiosError } from "axios";
 import { GetServerSidePropsContext } from "next";
-import Router from "next/router";
+import { usePathname, useRouter } from "next/navigation";
+import { deleteCookie, getCookie, setCookie } from "cookies-next";
 
 const isServer = () => {
   return typeof window === "undefined";
 };
 
-let accessToken = "";
+// let accessToken = "";
 let context = <GetServerSidePropsContext>{};
-const baseURL = process.env.NEXT_PUBLIC_BASEURL!;
+const baseURL = process.env.NEXT_PUBLIC_BASE_API_URL!;
 
 export const setAccessToken = (_accessToken: string) => {
-  accessToken = _accessToken;
+  if (_accessToken == "") {
+    deleteCookie("access-token");
+  }
+  setCookie("access-token", _accessToken);
 };
 
-export const getAccessToken = () => accessToken;
+export const getAccessToken = () => getCookie("access-token");
 
 export const setContext = (_context: GetServerSidePropsContext) => {
   context = _context;
@@ -24,13 +28,13 @@ export const api = axios.create({
   baseURL,
   headers: {
     "Content-Type": "application/json",
-    "x-api-key": process.env.NEXT_PUBLIC_API_KEY
+    "x-api-key": process.env.NEXT_PUBLIC_X_API_KEY,
   },
 });
 
 api.interceptors.request.use((config) => {
-  if (accessToken) {
-    config.headers.Authorization = `Bearer ${accessToken}`;
+  if (getCookie("access-token")) {
+    config.headers.Authorization = `Bearer ${getCookie("access-token")}`;
   }
 
   if (isServer() && context?.req?.cookies) {
@@ -45,13 +49,13 @@ api.interceptors.response.use(
   },
   (error: AxiosError) => {
     // check conditions to refresh token
-    if (
-      error.response?.status === 401 &&
-      !error.response?.config?.url?.includes("authentication/refresh") &&
-      !error.response?.config?.url?.includes("signin")
-    ) {
-      return refreshToken(error);
-    }
+    // if (
+    //   error.response?.status === 401 &&
+    //   !error.response?.config?.url?.includes("authentication/refresh") &&
+    //   !error.response?.config?.url?.includes("signin")
+    // ) {
+    //   return refreshToken(error);
+    // }
     return Promise.reject(error);
   },
 );
@@ -82,7 +86,9 @@ const refreshToken = async (oError: AxiosError) => {
     if (!fetchingToken) {
       fetchingToken = true;
       // refresh token
-      const { data } = await api.get(`authentication/refresh/${accessToken}`);
+      const { data } = await api.get(
+        `authentication/refresh/${getCookie("access-token")}`,
+      );
       // check if this is server or not. We don't wanna save response token on server.
       if (!isServer) {
         setAccessToken(data.accessToken);
@@ -93,8 +99,10 @@ const refreshToken = async (oError: AxiosError) => {
     return retryOriginalRequest;
   } catch (error) {
     // on error go to login page
-    if (!isServer() && !Router.asPath.includes("/login")) {
-      Router.push("/login");
+    const pathUrl = usePathname();
+    const router = useRouter();
+    if (!isServer() && pathUrl !== "/auth/signin") {
+      router.push("/auth/signin");
     }
     if (isServer()) {
       context.res.setHeader("location", "/login");

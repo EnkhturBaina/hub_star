@@ -1,7 +1,6 @@
 "use client";
 import { setAccessToken } from "@/service/api.service";
 import { AuthService } from "@/service/authentication/authentication.service";
-import { setUser } from "@/utils/redux/slice/user.slice";
 import { AppDispatch } from "@/utils/redux/store";
 import { Button, Input } from "@nextui-org/react";
 import { motion } from "framer-motion";
@@ -45,7 +44,6 @@ const Signin = () => {
             router.push("/");
           } else {
             toast.error("Нэвтрэх нэр эсвэл нууц үг буруу байна.");
-            dispatch(setUser(response.response.user));
           }
         });
       } catch (error) {

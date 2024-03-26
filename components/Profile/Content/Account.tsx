@@ -2,22 +2,21 @@
 
 import { motion } from "framer-motion";
 import { Button, Input } from "@nextui-org/react";
-import MainContext from "@/app/context/MainContext";
-import { useContext, useEffect, useState } from "react";
-import { UserData } from "@/types/userData";
-import axiosClient from "@/services/axiosInstance";
+import { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import AccountFields from "@/components/Skeleton/AccountFields";
+import { Users } from "@/types/user";
+import { useAppContext } from "@/utils/context/app-context";
+import { AuthService } from "@/service/authentication/authentication.service";
 
 const Account = () => {
-  const state = useContext(MainContext);
-  const client = axiosClient();
-  const [accountData, setAccountData] = useState<UserData>(null);
+  const { user } = useAppContext();
+  const [accountData, setAccountData] = useState<Users>(null);
   const [isSaving, setIsSaving] = useState<boolean>(false);
 
   useEffect(() => {
-    if (accountData == null) {
-      setAccountData(state?.authUserData);
+    if (user && accountData == null) {
+      setAccountData(user);
     }
   }, []);
 
@@ -32,15 +31,16 @@ const Account = () => {
       setIsSaving(true);
       console.log("accountData", accountData);
       try {
-        client
-          .patch("users/" + accountData?.id, {
-            bank: accountData?.bank,
-            bankAccount: accountData?.bankAccount,
-            bankAccountNo: accountData?.bankAccountNo,
-          })
+        AuthService.updateById(accountData.id, {
+          bank: accountData?.bank,
+          bankAccount: accountData?.bankAccount,
+          bankAccountNo: accountData?.bankAccountNo,
+        })
           .then((response) => {
-            setIsSaving(false);
-            toast.success("Амжилттай хадгаллаа");
+            if (response.success) {
+              setIsSaving(false);
+              toast.success("Амжилттай хадгаллаа");
+            }
           })
           .catch((error) => {
             console.error("Error fetching :", error);
@@ -98,7 +98,7 @@ const Account = () => {
             }}
             value={accountData?.bank}
             onValueChange={(e) => {
-              setAccountData((prevState: UserData) => ({
+              setAccountData((prevState: Users) => ({
                 ...prevState,
                 bank: e,
               }));
@@ -119,7 +119,7 @@ const Account = () => {
             }}
             value={accountData?.bankAccount}
             onValueChange={(e) => {
-              setAccountData((prevState: UserData) => ({
+              setAccountData((prevState: Users) => ({
                 ...prevState,
                 bankAccount: e,
               }));
@@ -140,7 +140,7 @@ const Account = () => {
             }}
             value={accountData?.bankAccountNo}
             onValueChange={(e) => {
-              setAccountData((prevState: UserData) => ({
+              setAccountData((prevState: Users) => ({
                 ...prevState,
                 bankAccountNo: e,
               }));

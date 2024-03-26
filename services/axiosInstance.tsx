@@ -1,5 +1,5 @@
 import axios, { AxiosInstance, AxiosError, AxiosResponse } from "axios";
-// import { getCookie } from "cookies-next";
+
 
 const axiosClient = (token: string | null = null): AxiosInstance => {
   const headers = {

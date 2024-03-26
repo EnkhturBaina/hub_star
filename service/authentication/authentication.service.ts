@@ -1,6 +1,11 @@
 import { IVerifyOtp, IUser } from "@/interfaces/request.interface";
 import { api } from "../api.service";
-import { IResponseLogin } from "@/interfaces/response.interface";
+import {
+  IResponse,
+  IResponseLogin,
+  IResponseProfile,
+} from "@/interfaces/response.interface";
+import { Users } from "@/types/user";
 
 const register = (user: IUser) => {
   return api.post("/authentication/register", user);
@@ -11,14 +16,17 @@ const login = (user: IUser): Promise<IResponseLogin> => {
 const otpVerify = (otp: IVerifyOtp) => {
   return api.post("/authentication/verify/otp", otp);
 };
-const logout = () => {
+const logout = (): Promise<IResponse> => {
   return api.post("/authentication/logout");
 };
-const profile = () => {
+const profile = (): Promise<IResponseProfile> => {
   return api.get("/authentication");
 };
 const changePassword = (password: string) => {
   return api.post("/changePassword", { password });
+};
+const updateById = (id: number, user: Users): Promise<IResponseProfile> => {
+  return api.patch(`/users/${id}`, user);
 };
 export const AuthService = {
   register,
@@ -27,4 +35,5 @@ export const AuthService = {
   logout,
   profile,
   changePassword,
+  updateById,
 };

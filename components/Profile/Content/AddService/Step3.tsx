@@ -3,9 +3,12 @@
 import { motion } from "framer-motion";
 import { Checkbox, Input, Textarea } from "@nextui-org/react";
 import { BsImage } from "react-icons/bs";
-import { CreateAdType } from "@/types/createAd";
-
-const Step3 = ({ adData, setCreateAd }) => {
+import { ICreateAd } from "@/interfaces/request.interface";
+interface IProps {
+  adData: ICreateAd;
+  setAdData: React.Dispatch<React.SetStateAction<ICreateAd>>;
+}
+const Step3: React.FC<IProps> = ({ adData, setAdData }) => {
   return (
     <motion.div
       variants={{
@@ -28,7 +31,7 @@ const Step3 = ({ adData, setCreateAd }) => {
       <div className="grid grid-cols-2 gap-4">
         <Input
           key="negj"
-          type="text"
+          inputMode="text"
           label="Хэмжих нэгж"
           labelPlacement="outside"
           placeholder="--"
@@ -42,7 +45,7 @@ const Step3 = ({ adData, setCreateAd }) => {
         />
         <Input
           key="too"
-          type="text"
+          inputMode="numeric"
           label="Ажлын тоо хэмжээ"
           labelPlacement="outside"
           placeholder="--"
@@ -53,9 +56,9 @@ const Step3 = ({ adData, setCreateAd }) => {
             label: "font-bold",
             inputWrapper: ["custom-input-wrapper", "bg-white"],
           }}
-          value={adData?.counter}
+          value={adData?.counter.toString()}
           onValueChange={(e) => {
-            setCreateAd((prevState: CreateAdType) => ({
+            setAdData((prevState: ICreateAd) => ({
               ...prevState,
               counter: parseInt(e),
             }));
@@ -88,7 +91,7 @@ const Step3 = ({ adData, setCreateAd }) => {
         }}
         value={adData?.desciption}
         onValueChange={(e) => {
-          setCreateAd((prevState: CreateAdType) => ({
+          setAdData((prevState: ICreateAd) => ({
             ...prevState,
             desciption: e,
           }));
@@ -110,7 +113,7 @@ const Step3 = ({ adData, setCreateAd }) => {
           }}
           value={adData?.email}
           onValueChange={(e) => {
-            setCreateAd((prevState: CreateAdType) => ({
+            setAdData((prevState: ICreateAd) => ({
               ...prevState,
               email: e,
             }));
@@ -131,7 +134,7 @@ const Step3 = ({ adData, setCreateAd }) => {
           }}
           value={adData?.phone}
           onValueChange={(e) => {
-            setCreateAd((prevState: CreateAdType) => ({
+            setAdData((prevState: ICreateAd) => ({
               ...prevState,
               phone: e,
             }));
@@ -147,7 +150,7 @@ const Step3 = ({ adData, setCreateAd }) => {
             wrapper: "custom-checkbox w-6 h-6",
           }}
           onValueChange={(e) => {
-            setCreateAd((prevState: CreateAdType) => ({
+            setAdData((prevState: ICreateAd) => ({
               ...prevState,
               isMessenger: e,
             }));
@@ -163,7 +166,7 @@ const Step3 = ({ adData, setCreateAd }) => {
             wrapper: "custom-checkbox w-6 h-6",
           }}
           onValueChange={(e) => {
-            setCreateAd((prevState: CreateAdType) => ({
+            setAdData((prevState: ICreateAd) => ({
               ...prevState,
               isTermOfService: e,
             }));

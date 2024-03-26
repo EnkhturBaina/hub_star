@@ -2,59 +2,67 @@
 
 import { motion } from "framer-motion";
 import { Select, SelectItem } from "@nextui-org/react";
-import { CreateAdType } from "@/types/createAd";
-import React, { useContext, useState } from "react";
-import MainContext from "@/app/context/MainContext";
-import { Direction } from "@/types/directions";
+import React, { useEffect, useState } from "react";
+import { useAppContext } from "@/utils/context/app-context";
+import { Direction, MainDirection, SubDirection } from "@/types/reference";
+import { ICreateAd } from "@/interfaces/request.interface";
+import { AdvertisementService } from "@/service/advertisement/advertisement.service";
+import { ReferenceService } from "@/service/reference/reference.service";
+interface IProps {
+  adData: ICreateAd;
+  setAdData: React.Dispatch<React.SetStateAction<ICreateAd>>;
+}
+const Step1: React.FC<IProps> = ({ adData, setAdData }) => {
+  const { categories, mainDirections } = useAppContext();
+  const [directions, setDirections] = useState<Direction[]>([]);
+  const [subDirections, setSubDirections] = useState<SubDirection[]>([]);
 
-const Step1 = ({ adData, setCreateAd }) => {
-  const state = useContext(MainContext);
-  const [direction, setDirection] = useState<Direction[]>([]);
-  const [subDirection, setSubDirection] = useState<string[]>([]);
-
-  console.log("adData", adData);
-
-  if (!state?.custTypeData) return null;
+  if (!categories) return null;
   const changeCustType = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setCreateAd((prevState: CreateAdType) => ({
+    setAdData((prevState: ICreateAd) => ({
       ...prevState,
       categoryId: parseInt(e.target.value),
     }));
   };
 
   const changeMainDirection = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setCreateAd((adData: CreateAdType) => ({
+    setAdData((adData: ICreateAd) => ({
       ...adData,
       mainDirectionId: parseInt(e.target.value),
     }));
-
-    state?.mainDirection?.filter((val: any) => {
-      if (val.id == e.target.value) {
-        setDirection(val.children);
-      }
-    });
   };
 
   const changeDirection = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setCreateAd((adData: CreateAdType) => ({
+    setAdData((adData: ICreateAd) => ({
       ...adData,
       directionId: parseInt(e.target.value),
     }));
-
-    direction?.filter((val: any) => {
-      if (val.id == e.target.value) {
-        setSubDirection(val.sub_children);
-      }
-    });
   };
 
   const changeSubDirection = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setCreateAd((adData: CreateAdType) => ({
+    setAdData((adData: ICreateAd) => ({
       ...adData,
       subDirectionId: parseInt(e.target.value),
     }));
   };
-
+  useEffect(() => {
+    ReferenceService.getDirection({
+      mainDirectionId: adData.mainDirectionId,
+    }).then((response) => {
+      if (response.success) {
+        setDirections(response.response);
+      }
+    });
+  }, [adData.mainDirectionId]);
+  useEffect(() => {
+    ReferenceService.getSubDirection({ directionId: adData.directionId }).then(
+      (response) => {
+        if (response.success) {
+          setSubDirections(response.response);
+        }
+      },
+    );
+  }, [adData.directionId]);
   return (
     <motion.div
       variants={{
@@ -88,7 +96,7 @@ const Step1 = ({ adData, setCreateAd }) => {
         selectedKeys={adData?.categoryId?.toString()}
         onChange={changeCustType}
       >
-        {state?.custTypeData?.map((data: any, index: number) => (
+        {categories?.map((data: any, index: number) => (
           <SelectItem key={index} value={data.id}>
             {data.name}
           </SelectItem>
@@ -108,7 +116,7 @@ const Step1 = ({ adData, setCreateAd }) => {
         selectedKeys={adData?.mainDirectionId?.toString()}
         onChange={changeMainDirection}
       >
-        {state?.mainDirection?.map((data: any) => (
+        {mainDirections.map((data: any) => (
           <SelectItem key={data?.id} value={data.id}>
             {data.name}
           </SelectItem>
@@ -129,8 +137,8 @@ const Step1 = ({ adData, setCreateAd }) => {
         selectedKeys={adData?.directionId?.toString()}
         onChange={changeDirection}
       >
-        {direction?.map((data: any) => (
-          <SelectItem key={data?.id} value={data.id}>
+        {directions.map((data: Direction) => (
+          <SelectItem key={data.id} value={data.id}>
             {data.name}
           </SelectItem>
         ))}
@@ -149,8 +157,8 @@ const Step1 = ({ adData, setCreateAd }) => {
         selectedKeys={adData?.subDirectionId?.toString()}
         onChange={changeSubDirection}
       >
-        {subDirection?.map((data: any) => (
-          <SelectItem key={data?.id} value={data.id}>
+        {subDirections.map((data: SubDirection) => (
+          <SelectItem key={data.id} value={data.id}>
             {data.name}
           </SelectItem>
         ))}
