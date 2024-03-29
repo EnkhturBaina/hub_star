@@ -25,7 +25,6 @@ const Profile = () => {
   const [visible, setVisible] = useState(false);
   const [selectedMenu, setSelectedMenu] = useState("profile");
   const saveUserImage = () => {
-    console.log("is working ========>", userImage);
     AuthService.updateById(userImage.id, {
       avatarId: userImage.avatarId,
       coverId: userImage.coverId,

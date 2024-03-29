@@ -129,7 +129,7 @@ const Step2: React.FC<IProps> = ({ adData, setAdData }) => {
             label: "font-bold",
             inputWrapper: ["custom-input-wrapper", "bg-white"],
           }}
-          value={adData.price}
+          value={String(adData.price)}
           onValueChange={(e) => {
             setAdData((prevState: ICreateAd) => ({
               ...prevState,

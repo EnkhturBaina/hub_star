@@ -1,5 +1,4 @@
 "use client";
-import servicesData from "./servicesData";
 import { Button } from "@nextui-org/react";
 import { CiGrid41, CiGrid2H } from "react-icons/ci";
 import { useState } from "react";
@@ -26,7 +25,7 @@ const DoingServices = () => {
         </Button>
       </div>
       <div className="mx-auto mt-4 max-w-c-1280">
-        {isGrid ? (
+        {/* {isGrid ? (
           <GridServices
             servicesData={servicesData}
             showAddBtn={false}
@@ -38,7 +37,7 @@ const DoingServices = () => {
             showAddBtn={false}
             isStars={false}
           />
-        )}
+        )} */}
       </div>
     </div>
   );

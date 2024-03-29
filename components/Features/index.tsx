@@ -2,8 +2,10 @@
 import React from "react";
 import featuresData from "./featuresData";
 import SingleFeature from "./SingleFeature";
+import { useAppContext } from "@/utils/context/app-context";
 
 const Feature = () => {
+  const { categories } = useAppContext();
   return (
     <>
       {/* <!-- ===== Features Start ===== --> */}
@@ -12,9 +14,11 @@ const Feature = () => {
           <div className="my-2 grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-6">
             {/* <!-- Features item Start --> */}
 
-            {featuresData.map((feature, key) => (
-              <SingleFeature feature={feature} key={key} />
-            ))}
+            {categories
+              .filter((item) => item.isSpecial)
+              .map((feature, key) => (
+                <SingleFeature category={feature} key={key} />
+              ))}
             {/* <!-- Features item End --> */}
           </div>
         </div>

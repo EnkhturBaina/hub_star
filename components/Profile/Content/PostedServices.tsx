@@ -1,5 +1,4 @@
 "use client";
-import servicesData from "./servicesData";
 import { Button } from "@nextui-org/react";
 import { CiGrid41, CiGrid2H } from "react-icons/ci";
 import { useState } from "react";

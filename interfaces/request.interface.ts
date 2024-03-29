@@ -31,12 +31,11 @@ export interface ICreateAd {
   imageIds?: number[];
 }
 export interface IFile {
-  key: string;
-  bucket: string;
-  mimeType: string;
-  size: string | null;
-  filename: string | null;
-  file: string | null;
+  filename: string;
+  folder: string;
+  path: string;
+  size: string;
+  type: string;
 }
 export interface IUser {
   email: string;

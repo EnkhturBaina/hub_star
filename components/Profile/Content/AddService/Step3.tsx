@@ -143,7 +143,7 @@ const Step3: React.FC<IProps> = ({ adData, setAdData }) => {
       </div>
       <div className="flex flex-col gap-y-2">
         <Checkbox
-          value={adData?.isMessenger}
+          value={String(adData?.isMessenger)}
           classNames={{
             base: "w-full",
             label: "w-full",
@@ -159,7 +159,7 @@ const Step3: React.FC<IProps> = ({ adData, setAdData }) => {
           Мессэнжер нээх
         </Checkbox>
         <Checkbox
-          value={adData?.isTermOfService}
+          value={String(adData?.isTermOfService)}
           classNames={{
             base: "w-full",
             label: "w-full",

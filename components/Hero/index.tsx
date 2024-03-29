@@ -75,13 +75,13 @@ const Hero = () => {
                     return (
                       <div key={index}>
                         <div className="mb-5 flex flex-row">
-                          <Image
-                            src={process.env.IMG_PATH + md.logo}
+                          {/* <Image
+                            src={`${process.env.NEXT_PUBLIC_MEDIA_URL}/${md.logo.path}`}
                             alt="add"
                             height={25}
                             width={25}
                             className="rounded-md object-contain object-center"
-                          />
+                          /> */}
                           <h4 className="!mt-0 ml-2 self-center text-lg font-semibold text-black">
                             {md?.name}
                           </h4>

@@ -51,11 +51,7 @@ const SingleBlogPage = ({ params: { slug } }) => {
                 <div className="flex flex-col">
                   <span className="text-xl font-bold">{adData?.title}</span>
                   <div>
-                    <BreadCrumbs
-                      mainDir={adData?.mainDirectionId}
-                      dir={adData?.directionId}
-                      subDir={adData?.subDirectionId}
-                    />
+                    <BreadCrumbs />
                   </div>
                 </div>
                 <div className="flex flex-row">
