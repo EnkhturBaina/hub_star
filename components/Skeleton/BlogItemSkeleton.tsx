@@ -1,6 +1,6 @@
-"use client";
-import { Skeleton } from "@nextui-org/react";
-import { motion } from "framer-motion";
+'use client';
+import { Skeleton } from '@nextui-org/react';
+import { motion } from 'framer-motion';
 
 const BlogItemSkeleton = () => {
   return (

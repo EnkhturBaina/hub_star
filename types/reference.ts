@@ -1,5 +1,5 @@
-import { IFile } from "@/interfaces/request.interface";
-import { Advertisement } from "./advertisement";
+import { IFile } from '@/interfaces/request.interface';
+import { Advertisement } from './advertisement';
 /** Хуудаслалт  */
 export type PageMeta = {
   page: number;
@@ -39,7 +39,7 @@ export type Category = {
   isSpecial: boolean;
 };
 /** Хаягийн төрөл */
-export type AddressType = "COUNTRY" | "PROVINCE" | "DISTRICT" | "KHOROO";
+export type AddressType = 'COUNTRY' | 'PROVINCE' | 'DISTRICT' | 'KHOROO';
 /** Хаяг */
 export type Address = {
   id: number;

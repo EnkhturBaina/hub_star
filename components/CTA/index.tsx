@@ -1,7 +1,7 @@
-"use client";
-import React from "react";
-import Image from "next/image";
-import { motion } from "framer-motion";
+'use client';
+import React from 'react';
+import Image from 'next/image';
+import { motion } from 'framer-motion';
 
 const CTA = () => {
   return (
@@ -32,9 +32,8 @@ const CTA = () => {
                 Join With Us Today & Increase Your Productivity
               </h2>
               <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. In
-                convallis tortor eros. Donec vitae tortor lacus. Phasellus
-                aliquam ante in maximus.
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. In convallis tortor eros.
+                Donec vitae tortor lacus. Phasellus aliquam ante in maximus.
               </p>
             </motion.div>
             <motion.div

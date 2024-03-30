@@ -1,6 +1,6 @@
-import { TypedUseSelectorHook, useSelector } from "react-redux";
-import { combineReducers } from "redux";
-import AdParamReducer from "./slice/ad-param";
+import { TypedUseSelectorHook, useSelector } from 'react-redux';
+import { combineReducers } from 'redux';
+import AdParamReducer from './slice/ad-param';
 
 const rootReducer = combineReducers({
   adParam: AdParamReducer,

@@ -1,5 +1,5 @@
-import { Address, LocalFile } from "./reference";
-import { Users } from "./user";
+import { Address, LocalFile } from './reference';
+import { Users } from './user';
 
 export type Advertisement = {
   id: number;
@@ -30,7 +30,7 @@ export type AdvertisementProgress = {
   id: number;
   advertisementId: number;
   advertisement: Advertisement;
-  process: "ORDER" | "IGNORE" | "APPROVE";
+  process: 'ORDER' | 'IGNORE' | 'APPROVE';
   isShow: boolean;
   point: number;
 };

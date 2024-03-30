@@ -1,6 +1,6 @@
-import { api, setContext } from "@/service/api.service";
-import { GetServerSideProps } from "next";
-import React from "react";
+import { api, setContext } from '@/service/api.service';
+import { GetServerSideProps } from 'next';
+import React from 'react';
 const Post: React.FC<any> = ({ posts }) => {
   return <ul>{JSON.stringify(posts)}</ul>;
 };

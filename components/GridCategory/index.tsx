@@ -1,6 +1,6 @@
-import React from "react";
-import CatItem from "./CatItem";
-import catData from "./catData";
+import React from 'react';
+import CatItem from './CatItem';
+import catData from './catData';
 
 const GridCategory = () => {
   return (

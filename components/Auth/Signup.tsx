@@ -1,55 +1,54 @@
-"use client";
-import { Button, Input } from "@nextui-org/react";
-import { motion } from "framer-motion";
-import Image from "next/image";
-import Link from "next/link";
-import { useMemo, useState } from "react";
-import { Divider } from "semantic-ui-react";
-import axiosClient from "@/services/axiosInstance";
-import { useRouter } from "next/navigation";
-import toast from "react-hot-toast";
+'use client';
+import { Button, Input } from '@nextui-org/react';
+import { motion } from 'framer-motion';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useMemo, useState } from 'react';
+import { Divider } from 'semantic-ui-react';
+import axiosClient from '@/services/axiosInstance';
+import { useRouter } from 'next/navigation';
+import toast from 'react-hot-toast';
 
 const Signup = () => {
   const client = axiosClient();
   const router = useRouter();
 
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-  const [password2, setPassword2] = useState<string>("");
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const [password2, setPassword2] = useState<string>('');
 
-  const validateEmail = (value) =>
-    value.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}$/i);
+  const validateEmail = value => value.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}$/i);
 
   const isInvalid = useMemo(() => {
-    if (email === "") return false;
+    if (email === '') return false;
 
     return validateEmail(email) ? false : true;
   }, [email]);
 
   const register = () => {
-    if (email == "") {
-      toast.error("И-Мэйл хаягаа оруулна уу.");
+    if (email == '') {
+      toast.error('И-Мэйл хаягаа оруулна уу.');
     } else if (isInvalid) {
-      toast.error("И-Мэйл хаяг буруу байна.");
-    } else if (password == "") {
-      toast.error("Нууц үгээ оруулна уу.");
-    } else if (password2 == "") {
-      toast.error("Нууц үгээ давтан оруулна уу.");
+      toast.error('И-Мэйл хаяг буруу байна.');
+    } else if (password == '') {
+      toast.error('Нууц үгээ оруулна уу.');
+    } else if (password2 == '') {
+      toast.error('Нууц үгээ давтан оруулна уу.');
     } else if (password != password2) {
-      toast.error("Нууц тохирохгүй байна.");
+      toast.error('Нууц тохирохгүй байна.');
     } else {
       try {
         client
-          .post("authentication/register", { email, password, isActive: 1 })
-          .then((response) => {
-            router.push("/auth/signin");
+          .post('authentication/register', { email, password, isActive: 1 })
+          .then(response => {
+            router.push('/auth/signin');
           })
-          .catch((error) => {
-            console.error("Error fetching :", error);
+          .catch(error => {
+            console.error('Error fetching :', error);
             toast.error(error.response?.data?.message);
           });
       } catch (error) {
-        console.error("catch error :", error);
+        console.error('catch error :', error);
       }
     }
   };
@@ -97,13 +96,13 @@ const Signup = () => {
                 size="lg"
                 variant="bordered"
                 classNames={{
-                  base: "mb-8",
-                  label: "font-bold",
-                  inputWrapper: ["custom-input-wrapper", "bg-white"],
+                  base: 'mb-8',
+                  label: 'font-bold',
+                  inputWrapper: ['custom-input-wrapper', 'bg-white'],
                 }}
                 isInvalid={isInvalid}
-                color={isInvalid ? "danger" : "default"}
-                errorMessage={isInvalid && "И-Мэйл хаягаа зөв оруулна уу."}
+                color={isInvalid ? 'danger' : 'default'}
+                errorMessage={isInvalid && 'И-Мэйл хаягаа зөв оруулна уу.'}
                 onValueChange={setEmail}
               />
               <Input
@@ -116,9 +115,9 @@ const Signup = () => {
                 size="lg"
                 variant="bordered"
                 classNames={{
-                  base: "mb-8",
-                  label: "font-bold",
-                  inputWrapper: ["custom-input-wrapper", "bg-white"],
+                  base: 'mb-8',
+                  label: 'font-bold',
+                  inputWrapper: ['custom-input-wrapper', 'bg-white'],
                 }}
                 value={password}
                 onValueChange={setPassword}
@@ -133,9 +132,9 @@ const Signup = () => {
                 size="lg"
                 variant="bordered"
                 classNames={{
-                  base: "mb-8",
-                  label: "font-bold",
-                  inputWrapper: ["custom-input-wrapper", "bg-white"],
+                  base: 'mb-8',
+                  label: 'font-bold',
+                  inputWrapper: ['custom-input-wrapper', 'bg-white'],
                 }}
                 value={password2}
                 onValueChange={setPassword2}
@@ -148,7 +147,7 @@ const Signup = () => {
                 Бүртгүүлэх
               </Button>
               <div className="text-center text-sm">
-                Та бүртгэлтэй юу?{" "}
+                Та бүртгэлтэй юу?{' '}
                 <Link className="text-primary" href="/auth/signin">
                   Нэвтрэх
                 </Link>
@@ -160,28 +159,14 @@ const Signup = () => {
                 Эсвэл
               </Divider>
               <Button
-                startContent={
-                  <Image
-                    src="/facebook.png"
-                    alt="google"
-                    height="20"
-                    width="20"
-                  />
-                }
+                startContent={<Image src="/facebook.png" alt="google" height="20" width="20" />}
                 radius="full"
                 className="mb-2 flex w-full items-center justify-start rounded-md bg-primary font-bold leading-none text-white"
               >
                 Continue with Facebook
               </Button>
               <Button
-                startContent={
-                  <Image
-                    src="/google.png"
-                    alt="facebook"
-                    height="20"
-                    width="20"
-                  />
-                }
+                startContent={<Image src="/google.png" alt="facebook" height="20" width="20" />}
                 radius="full"
                 className="mb-2 flex w-full justify-start rounded-md bg-white font-bold leading-none text-gray-400 shadow-md"
               >

@@ -1,7 +1,7 @@
-"use client";
-import { motion } from "framer-motion";
-import Image from "next/image";
-import React from "react";
+'use client';
+import { motion } from 'framer-motion';
+import Image from 'next/image';
+import React from 'react';
 
 const Contact = () => {
   /**
@@ -60,10 +60,7 @@ const Contact = () => {
                 Send a message
               </h2>
 
-              <form
-                action="https://formbold.com/s/unique_form_id"
-                method="POST"
-              >
+              <form action="https://formbold.com/s/unique_form_id" method="POST">
                 <div className="mb-7.5 flex flex-col gap-7.5 lg:flex-row lg:justify-between lg:gap-14">
                   <input
                     type="text"
@@ -102,11 +99,7 @@ const Contact = () => {
 
                 <div className="flex flex-wrap gap-4 xl:justify-between ">
                   <div className="mb-4 flex md:mb-0">
-                    <input
-                      id="default-checkbox"
-                      type="checkbox"
-                      className="peer sr-only"
-                    />
+                    <input id="default-checkbox" type="checkbox" className="peer sr-only" />
                     <span className="group mt-2 flex h-5 min-w-[20px] items-center justify-center rounded border-gray-300 bg-gray-100 text-blue-600 peer-checked:bg-primary dark:border-gray-600 dark:bg-gray-700">
                       <svg
                         className="opacity-0 peer-checked:group-[]:opacity-100"
@@ -128,8 +121,8 @@ const Contact = () => {
                       htmlFor="default-checkbox"
                       className="flex max-w-[425px] cursor-pointer select-none pl-5"
                     >
-                      By clicking Checkbox, you agree to use our “Form” terms
-                      And consent cookie usage in browser.
+                      By clicking Checkbox, you agree to use our “Form” terms And consent cookie
+                      usage in browser.
                     </label>
                   </div>
 

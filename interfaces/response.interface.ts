@@ -1,4 +1,4 @@
-import { Advertisement } from "@/types/advertisement";
+import { Advertisement } from '@/types/advertisement';
 import {
   Address,
   Category,
@@ -6,8 +6,8 @@ import {
   MainDirection,
   PageMeta,
   SubDirection,
-} from "@/types/reference";
-import { Users } from "@/types/user";
+} from '@/types/reference';
+import { Users } from '@/types/user';
 export interface IResponse {
   success: boolean;
   message: string;
@@ -31,7 +31,7 @@ export interface IResponseLocalFile extends IResponse {
     filename: string;
     path: string;
     mimetype: string;
-  }
+  };
 }
 export interface IResponseMainDirections extends IResponse {
   response: MainDirection[];

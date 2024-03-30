@@ -1,10 +1,10 @@
-"use client";
-import { Services } from "@/types/services";
-import { motion } from "framer-motion";
-import Image from "next/image";
-import Link from "next/link";
-import { IoAddCircle } from "react-icons/io5";
-import { FaStar } from "react-icons/fa";
+'use client';
+import { Services } from '@/types/services';
+import { motion } from 'framer-motion';
+import Image from 'next/image';
+import Link from 'next/link';
+import { IoAddCircle } from 'react-icons/io5';
+import { FaStar } from 'react-icons/fa';
 
 const ListServices = ({
   servicesData,
@@ -41,7 +41,7 @@ const ListServices = ({
       {servicesData.map((blog: Services, index: any) => (
         <div
           className="flex h-25 w-full flex-row justify-between rounded-lg bg-white shadow-solid-8"
-          key={"list" + index}
+          key={'list' + index}
         >
           <div className="flex flex-row">
             <Link href={`/adv/`} className="relative block aspect-[368/239]">

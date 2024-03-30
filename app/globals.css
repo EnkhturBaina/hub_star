@@ -52,8 +52,7 @@
   }
 
   .img-white {
-    filter: invert(0%) sepia(96%) saturate(15%) hue-rotate(249deg)
-      brightness(100%) contrast(105%);
+    filter: invert(0%) sepia(96%) saturate(15%) hue-rotate(249deg) brightness(100%) contrast(105%);
   }
 }
 
@@ -106,12 +105,12 @@
 }
 
 .blog-details blockquote::after {
-  content: "";
+  content: '';
   @apply absolute bottom-0 right-0 h-20 w-20 bg-[url(/images/blog/quote-shape-2.svg)] bg-contain bg-right-bottom bg-no-repeat;
 }
 
 .blog-details blockquote::before {
-  content: "";
+  content: '';
   @apply absolute left-0 top-0 h-[106px] w-[140px] bg-[url(/images/blog/quote-shape-1.svg)] bg-contain bg-left-top bg-no-repeat dark:bg-[url(/images/blog/quote-shape-1.svg)];
 }
 
@@ -225,7 +224,7 @@ pre {
 .custom-select-trigger:focus-within {
   border-color: #e4e4e7 !important;
 }
-.custom-select-trigger[data-open="true"] {
+.custom-select-trigger[data-open='true'] {
   border-color: #f7941d !important;
 }
 .custom-checkbox::after {

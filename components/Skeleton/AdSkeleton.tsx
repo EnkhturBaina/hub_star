@@ -1,5 +1,5 @@
-"use client";
-import { Divider, Skeleton } from "@nextui-org/react";
+'use client';
+import { Divider, Skeleton } from '@nextui-org/react';
 
 const AdSkeleton = () => {
   return (

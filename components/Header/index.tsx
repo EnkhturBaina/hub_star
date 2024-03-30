@@ -1,13 +1,13 @@
-"use client";
-import Image from "next/image";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
-import { Avatar, Button, Divider } from "@nextui-org/react";
-import SearchBox from "../SearchBox";
-import HeaderMenu from "./HeaderMenu";
-import { useAppContext } from "@/utils/context/app-context";
-import AuthName from "../Auth/auth-name";
+'use client';
+import Image from 'next/image';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import { Avatar, Button, Divider } from '@nextui-org/react';
+import SearchBox from '../SearchBox';
+import HeaderMenu from './HeaderMenu';
+import { useAppContext } from '@/utils/context/app-context';
+import AuthName from '../Auth/auth-name';
 
 const Header = () => {
   const { user } = useAppContext();
@@ -26,13 +26,13 @@ const Header = () => {
   };
 
   useEffect(() => {
-    window.addEventListener("scroll", handleStickyMenu);
+    window.addEventListener('scroll', handleStickyMenu);
   });
   return (
     <header
       className={`fixed left-0 top-0 z-99999 w-full bg-white ${
-        pathUrl === "/profile" ? "py-4" : "pt-4"
-      } shadow ${stickyMenu ? "!pt-4 shadow transition duration-100" : ""}`}
+        pathUrl === '/profile' ? 'py-4' : 'pt-4'
+      } shadow ${stickyMenu ? '!pt-4 shadow transition duration-100' : ''}`}
     >
       <div className="relative mx-auto flex max-w-screen-xl flex-row items-center justify-between px-4 md:px-8 xl:flex 2xl:px-0">
         <div className="mr-4 flex items-center justify-between">
@@ -54,19 +54,13 @@ const Header = () => {
         <div
           className={`visible flex h-auto w-full max-w-fit items-center justify-between ${
             navigationOpen &&
-            "navbar !visible mt-4 h-auto max-h-[400px] rounded-md p-7.5 xl:h-auto xl:p-0 xl:shadow-none"
+            'navbar !visible mt-4 h-auto max-h-[400px] rounded-md p-7.5 xl:h-auto xl:p-0 xl:shadow-none'
           }`}
         >
-          <Divider
-            orientation="vertical"
-            className="mx-5 h-10 sm:mx-1 md:mx-2 xl:mx-5 xl:block"
-          />
+          <Divider orientation="vertical" className="mx-5 h-10 sm:mx-1 md:mx-2 xl:mx-5 xl:block" />
           <div className="flex flex-row items-center">
             {!user ? (
-              <Link
-                className="text-black hover:text-primary "
-                href="/auth/signin"
-              >
+              <Link className="text-black hover:text-primary " href="/auth/signin">
                 <Button radius="sm">
                   <span className="font-bold">Нэвтрэх</span>
                 </Button>
@@ -132,7 +126,7 @@ const Header = () => {
       <div className="mx-4 mt-2 block md:hidden">
         <SearchBox />
       </div>
-      {pathUrl === "/profile" ? null : (
+      {pathUrl === '/profile' ? null : (
         <div className="no-scrollbar mt-2 flex overflow-y-scroll md:justify-center">
           <nav>
             <HeaderMenu />

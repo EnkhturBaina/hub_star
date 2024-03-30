@@ -1,7 +1,7 @@
-"use client";
-import React from "react";
-import Image from "next/image";
-import { motion } from "framer-motion";
+'use client';
+import React from 'react';
+import Image from 'next/image';
+import { motion } from 'framer-motion';
 
 const FunFact = () => {
   return (
@@ -59,9 +59,8 @@ const FunFact = () => {
               Trusted by Global Companies.
             </h2>
             <p className="mx-auto lg:w-11/12">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. In
-              convallis tortor eros. Donec vitae tortor lacus. Phasellus aliquam
-              ante in maximus.
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. In convallis tortor eros.
+              Donec vitae tortor lacus. Phasellus aliquam ante in maximus.
             </p>
           </motion.div>
 

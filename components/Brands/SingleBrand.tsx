@@ -1,7 +1,7 @@
-import React, { useRef, useEffect } from "react";
-import Image from "next/image";
-import { Brand } from "@/types/brand";
-import { motion } from "framer-motion";
+import React, { useRef, useEffect } from 'react';
+import Image from 'next/image';
+import { Brand } from '@/types/brand';
+import { motion } from 'framer-motion';
 
 const SingleBrand = ({ brand }: { brand: Brand }) => {
   const { image, href, name, imageLight, id } = brand;

@@ -1,13 +1,13 @@
-"use client";
-import Image from "next/image";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+'use client';
+import Image from 'next/image';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
-import ThemeToggler from "./ThemeToggler";
-import menuData from "./menuData";
-import { Avatar, Button, Divider, Input } from "@nextui-org/react";
-import SearchBox from "../SearchBox";
+import ThemeToggler from './ThemeToggler';
+import menuData from './menuData';
+import { Avatar, Button, Divider, Input } from '@nextui-org/react';
+import SearchBox from '../SearchBox';
 
 const Header = () => {
   const [navigationOpen, setNavigationOpen] = useState(false);
@@ -26,15 +26,13 @@ const Header = () => {
   };
 
   useEffect(() => {
-    window.addEventListener("scroll", handleStickyMenu);
+    window.addEventListener('scroll', handleStickyMenu);
   });
 
   return (
     <header
       className={`fixed left-0 top-0 z-99999 w-full py-7 ${
-        stickyMenu
-          ? "bg-white !py-4 shadow transition duration-100 dark:bg-black"
-          : ""
+        stickyMenu ? 'bg-white !py-4 shadow transition duration-100 dark:bg-black' : ''
       }`}
     >
       <div className="relative mx-auto max-w-screen-xl items-center justify-between px-4 md:px-8 xl:flex 2xl:px-0">
@@ -58,29 +56,29 @@ const Header = () => {
               <span className="absolute right-0 block h-full w-full">
                 <span
                   className={`relative left-0 top-0 my-1 block h-0.5 rounded-sm bg-black delay-[0] duration-200 ease-in-out dark:bg-white ${
-                    !navigationOpen ? "!w-full delay-300" : "w-0"
+                    !navigationOpen ? '!w-full delay-300' : 'w-0'
                   }`}
                 ></span>
                 <span
                   className={`relative left-0 top-0 my-1 block h-0.5 rounded-sm bg-black delay-150 duration-200 ease-in-out dark:bg-white ${
-                    !navigationOpen ? "delay-400 !w-full" : "w-0"
+                    !navigationOpen ? 'delay-400 !w-full' : 'w-0'
                   }`}
                 ></span>
                 <span
                   className={`relative left-0 top-0 my-1 block h-0.5 rounded-sm bg-black delay-200 duration-200 ease-in-out dark:bg-white ${
-                    !navigationOpen ? "!w-full delay-500" : "w-0"
+                    !navigationOpen ? '!w-full delay-500' : 'w-0'
                   }`}
                 ></span>
               </span>
               <span className="du-block absolute right-0 h-full w-full rotate-45">
                 <span
                   className={`absolute left-2.5 top-0 block h-full w-0.5 rounded-sm bg-black delay-300 duration-200 ease-in-out dark:bg-white ${
-                    !navigationOpen ? "!h-0 delay-[0]" : "h-full"
+                    !navigationOpen ? '!h-0 delay-[0]' : 'h-full'
                   }`}
                 ></span>
                 <span
                   className={`delay-400 absolute left-0 top-2.5 block h-0.5 w-full rounded-sm bg-black duration-200 ease-in-out dark:bg-white ${
-                    !navigationOpen ? "!h-0 delay-200" : "h-0.5"
+                    !navigationOpen ? '!h-0 delay-200' : 'h-0.5'
                   }`}
                 ></span>
               </span>
@@ -93,7 +91,7 @@ const Header = () => {
         <div
           className={`invisible h-0 w-full items-center justify-between xl:visible xl:flex xl:h-auto xl:w-full ${
             navigationOpen &&
-            "navbar !visible mt-4 h-auto max-h-[400px] rounded-md bg-white p-7.5 shadow-solid-5 dark:bg-blacksection xl:h-auto xl:p-0 xl:shadow-none xl:dark:bg-transparent"
+            'navbar !visible mt-4 h-auto max-h-[400px] rounded-md bg-white p-7.5 shadow-solid-5 dark:bg-blacksection xl:h-auto xl:p-0 xl:shadow-none xl:dark:bg-transparent'
           }`}
         >
           <SearchBox />
@@ -155,7 +153,7 @@ const Header = () => {
         <nav>
           <ul className="flex flex-col gap-5 xl:flex-row xl:items-center xl:gap-10">
             {menuData.map((menuItem, key) => (
-              <li key={key} className={menuItem.submenu && "group relative"}>
+              <li key={key} className={menuItem.submenu && 'group relative'}>
                 {menuItem.submenu ? (
                   <>
                     <button
@@ -174,10 +172,10 @@ const Header = () => {
                       </span>
                     </button>
 
-                    <ul className={`dropdown ${dropdownToggler ? "flex" : ""}`}>
+                    <ul className={`dropdown ${dropdownToggler ? 'flex' : ''}`}>
                       {menuItem.submenu.map((item, key) => (
                         <li key={key} className="hover:text-primary">
-                          <Link href={item.path || "#"}>{item.title}</Link>
+                          <Link href={item.path || '#'}>{item.title}</Link>
                         </li>
                       ))}
                     </ul>
@@ -187,8 +185,8 @@ const Header = () => {
                     href={`${menuItem.path}`}
                     className={
                       pathUrl === menuItem.path
-                        ? "text-primary hover:text-primary"
-                        : "hover:text-primary"
+                        ? 'text-primary hover:text-primary'
+                        : 'hover:text-primary'
                     }
                   >
                     {menuItem.title}

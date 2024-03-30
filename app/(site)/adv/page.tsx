@@ -1,42 +1,36 @@
-"use client";
-import BlogData from "@/components/Blog/blogData";
-import BlogItem from "@/components/Blog/BlogItem";
-import BreadCrumbs from "@/components/BreadCrumbs";
-import PaginationComp from "@/components/Pagination";
-import LeftFilter from "@/components/Skeleton/LeftFilter";
-import { AdvertisementService } from "@/service/advertisement/advertisement.service";
-import { Advertisement } from "@/types/advertisement";
-import { Direction, MainDirection, PageMeta } from "@/types/reference";
-import { useAppContext } from "@/utils/context/app-context";
-import { useTypedSelector } from "@/utils/redux/reducer";
-import { setAdParam } from "@/utils/redux/slice/ad-param";
-import { AppDispatch } from "@/utils/redux/store";
-import {
-  Button,
-  Checkbox,
-  CheckboxGroup,
-  Select,
-  SelectItem,
-} from "@nextui-org/react";
-import { IoIosAddCircleOutline } from "react-icons/io";
-import { LuChevronLeft, LuSettings2 } from "react-icons/lu";
-import { useDispatch } from "react-redux";
+'use client';
+import BlogData from '@/components/Blog/blogData';
+import BlogItem from '@/components/Blog/BlogItem';
+import BreadCrumbs from '@/components/BreadCrumbs';
+import PaginationComp from '@/components/Pagination';
+import LeftFilter from '@/components/Skeleton/LeftFilter';
+import { AdvertisementService } from '@/service/advertisement/advertisement.service';
+import { Advertisement } from '@/types/advertisement';
+import { Direction, MainDirection, PageMeta } from '@/types/reference';
+import { useAppContext } from '@/utils/context/app-context';
+import { useTypedSelector } from '@/utils/redux/reducer';
+import { setAdParam } from '@/utils/redux/slice/ad-param';
+import { AppDispatch } from '@/utils/redux/store';
+import { Button, Checkbox, CheckboxGroup, Select, SelectItem } from '@nextui-org/react';
+import { IoIosAddCircleOutline } from 'react-icons/io';
+import { LuChevronLeft, LuSettings2 } from 'react-icons/lu';
+import { useDispatch } from 'react-redux';
 
 const BlogPage = () => {
   const { mainDirections, advertisements, adMeta } = useAppContext();
   const dispatch = useDispatch<AppDispatch>();
-  const { adParam } = useTypedSelector((state) => state);
+  const { adParam } = useTypedSelector(state => state);
   const onChangeFilter = (selectedDirectionIds: string[]) => {
     dispatch(
       setAdParam({
-        order: "DESC",
+        order: 'DESC',
         page: 1,
         limit: 10,
         categoryId: adParam.categoryId,
         mainDirectionId: adParam.mainDirectionId,
-        directionIds: selectedDirectionIds.map((item) => Number(item)),
+        directionIds: selectedDirectionIds.map(item => Number(item)),
         subDirectionIds: adParam.subDirectionIds,
-      }),
+      })
     );
   };
   return (
@@ -46,8 +40,7 @@ const BlogPage = () => {
           <div className="mx-auto flex max-w-screen-xl flex-row justify-between gap-7.5 py-18 lg:flex-row xl:gap-12.5">
             <div className="flex flex-col">
               <span className="text-xl">
-                Нийт утга:{" "}
-                <span className="font-bold">{adMeta?.itemCount}</span>
+                Нийт утга: <span className="font-bold">{adMeta?.itemCount}</span>
               </span>
               <div>
                 <BreadCrumbs />
@@ -74,10 +67,10 @@ const BlogPage = () => {
                     label={md.name}
                     color="warning"
                     key={index}
-                    value={adParam.directionIds?.map((item) => item.toString())}
+                    value={adParam.directionIds?.map(item => item.toString())}
                     classNames={{
-                      base: "my-4",
-                      label: "font-bold text-black text-base",
+                      base: 'my-4',
+                      label: 'font-bold text-black text-base',
                     }}
                     onChange={(e: any) => onChangeFilter(e)}
                   >
@@ -86,19 +79,15 @@ const BlogPage = () => {
                         <Checkbox
                           value={String(d.id)}
                           classNames={{
-                            base: "w-full max-w-full",
-                            label: "w-full",
-                            wrapper: "custom-checkbox w-6 h-6",
+                            base: 'w-full max-w-full',
+                            label: 'w-full',
+                            wrapper: 'custom-checkbox w-6 h-6',
                           }}
                           key={index}
                         >
                           <div className="flex w-full flex-row items-center justify-between">
-                            <span className="text-sm leading-none">
-                              {d.name}
-                            </span>
-                            <span className="text-sm">
-                              {md.directions.length}
-                            </span>
+                            <span className="text-sm leading-none">{d.name}</span>
+                            <span className="text-sm">{md.directions.length}</span>
                           </div>
                         </Checkbox>
                       );
@@ -117,13 +106,13 @@ const BlogPage = () => {
                 size="md"
                 variant="bordered"
                 classNames={{
-                  base: "w-50",
-                  label: "font-bold",
-                  trigger: "custom-select-trigger bg-white",
+                  base: 'w-50',
+                  label: 'font-bold',
+                  trigger: 'custom-select-trigger bg-white',
                 }}
                 value="DESC"
-                onChange={(e) => {
-                  if (e.target.value == ("ASC" || "DESC")) {
+                onChange={e => {
+                  if (e.target.value == ('ASC' || 'DESC')) {
                     dispatch(
                       setAdParam({
                         order: e.target.value,
@@ -133,7 +122,7 @@ const BlogPage = () => {
                         mainDirectionId: adParam.mainDirectionId,
                         directionIds: adParam.directionIds,
                         subDirectionIds: adParam.subDirectionIds,
-                      }),
+                      })
                     );
                   }
                 }}

@@ -1,6 +1,6 @@
-import { ReferenceService } from "@/service/reference/reference.service";
-import { useCallback } from "react";
-import { useDropzone } from "react-dropzone";
+import { ReferenceService } from '@/service/reference/reference.service';
+import { useCallback } from 'react';
+import { useDropzone } from 'react-dropzone';
 
 interface IProps {
   className?: string;
@@ -11,7 +11,7 @@ const ImageUpload: React.FC<IProps> = ({ className, children, setFileId }) => {
   const onDrop = useCallback(async (acceptedFiles: any) => {
     const file = acceptedFiles[0];
     try {
-      ReferenceService.fileUpload(file).then((response) => {
+      ReferenceService.fileUpload(file).then(response => {
         if (response.success) {
           setFileId(response.response.id);
           response.response.id;

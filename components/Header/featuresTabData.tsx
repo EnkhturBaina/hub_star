@@ -1,20 +1,20 @@
-import { FeatureTab } from "@/types/featureTab";
+import { FeatureTab } from '@/types/featureTab';
 
 const featuresTabData: FeatureTab[] = [
   {
-    id: "tab1",
-    image: "/tempHeaderImage.svg",
-    title: "Захиалагч",
+    id: 'tab1',
+    image: '/tempHeaderImage.svg',
+    title: 'Захиалагч',
   },
   {
-    id: "tab2",
-    image: "/tempHeaderImage.svg",
-    title: "Гүйцэтгэгч",
+    id: 'tab2',
+    image: '/tempHeaderImage.svg',
+    title: 'Гүйцэтгэгч',
   },
   {
-    id: "tab3",
-    image: "/tempHeaderImage.svg",
-    title: "Ханган нийлүүлэгч",
+    id: 'tab3',
+    image: '/tempHeaderImage.svg',
+    title: 'Ханган нийлүүлэгч',
   },
 ];
 

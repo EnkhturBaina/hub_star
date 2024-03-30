@@ -1,14 +1,14 @@
-"use client";
-import { motion } from "framer-motion";
-import { Button } from "@nextui-org/react";
-import { Progress } from "semantic-ui-react";
-import { useState } from "react";
-import Step1 from "./Step1";
-import Step2 from "./Step2";
-import Step3 from "./Step3";
-import toast, { Toaster } from "react-hot-toast";
-import { AdvertisementService } from "@/service/advertisement/advertisement.service";
-import { ICreateAd } from "@/interfaces/request.interface";
+'use client';
+import { motion } from 'framer-motion';
+import { Button } from '@nextui-org/react';
+import { Progress } from 'semantic-ui-react';
+import { useState } from 'react';
+import Step1 from './Step1';
+import Step2 from './Step2';
+import Step3 from './Step3';
+import toast, { Toaster } from 'react-hot-toast';
+import { AdvertisementService } from '@/service/advertisement/advertisement.service';
+import { ICreateAd } from '@/interfaces/request.interface';
 
 const AddService = ({
   isAddService,
@@ -22,10 +22,10 @@ const AddService = ({
   const [createAd, setCreateAd] = useState<ICreateAd>({});
 
   const createAdRequest = () => {
-    console.log("createAd", createAd);
-    AdvertisementService.create(createAd).then((response) => {
+    console.log('createAd', createAd);
+    AdvertisementService.create(createAd).then(response => {
       if (response.success) {
-        toast.success("Амжилттай хадгаллаа.");
+        toast.success('Амжилттай хадгаллаа.');
         setCreateAd({});
         setStep(1);
       }
@@ -33,51 +33,51 @@ const AddService = ({
   };
 
   const stepFnc = (type: string) => {
-    if (type == "back") {
+    if (type == 'back') {
       if (step === 1) {
         setIsAddService(false);
       } else {
         setStep(step - 1);
       }
-    } else if (type == "next") {
+    } else if (type == 'next') {
       if (maxStep > step) {
         if (step === 1) {
           if (createAd?.categoryId == null) {
-            toast.error("Хэрэглэгчийн төрөл сонгоно уу.");
+            toast.error('Хэрэглэгчийн төрөл сонгоно уу.');
           } else if (createAd?.mainDirectionId == null) {
-            toast.error("Үйл ажиллагааны үндсэн чиглэл сонгоно уу.");
+            toast.error('Үйл ажиллагааны үндсэн чиглэл сонгоно уу.');
           } else if (createAd?.directionId == null) {
-            toast.error("Үйл ажиллагааны чиглэл сонгоно уу.");
+            toast.error('Үйл ажиллагааны чиглэл сонгоно уу.');
           } else if (createAd?.subDirectionId == null) {
-            toast.error("Үйл ажиллагааны нэр сонгоно уу.");
+            toast.error('Үйл ажиллагааны нэр сонгоно уу.');
           } else {
             setStep(step + 1);
           }
         } else if (step == 2) {
           if (createAd?.title == null) {
-            toast.error("Зарын гарчиг оруулна уу.");
+            toast.error('Зарын гарчиг оруулна уу.');
           } else if (createAd?.price == null) {
-            toast.error("Үнэ оруулна уу.");
+            toast.error('Үнэ оруулна уу.');
           } else if (createAd?.provinceId == null) {
-            toast.error("Аймаг, Хот сонгоно уу.");
+            toast.error('Аймаг, Хот сонгоно уу.');
           } else if (createAd?.districtId == null) {
-            toast.error("Сум, Дүүрэг сонгоно уу.");
+            toast.error('Сум, Дүүрэг сонгоно уу.');
           } else if (createAd?.khorooId == null) {
-            toast.error("Баг, Хороо сонгоно уу.");
+            toast.error('Баг, Хороо сонгоно уу.');
           } else if (createAd?.address == null) {
-            toast.error("Байршил оруулна уу.");
+            toast.error('Байршил оруулна уу.');
           } else {
             setStep(step + 1);
           }
         } else if (step == 3) {
           if (createAd?.counter == null) {
-            toast.error("Ажлын тоо хэмжээ оруулна уу.");
+            toast.error('Ажлын тоо хэмжээ оруулна уу.');
           } else if (createAd?.desciption == null) {
-            toast.error("Тайлбар оруулна уу.");
+            toast.error('Тайлбар оруулна уу.');
           } else if (createAd?.email == null) {
-            toast.error("Имэйл оруулна уу.");
+            toast.error('Имэйл оруулна уу.');
           } else if (createAd?.phone == null) {
-            toast.error("Утас оруулна уу.");
+            toast.error('Утас оруулна уу.');
           } else {
             setStep(step + 1);
           }
@@ -132,7 +132,7 @@ const AddService = ({
           radius="sm"
           className="border-mainGray !bg-white !text-black"
           size="md"
-          onClick={() => stepFnc("back")}
+          onClick={() => stepFnc('back')}
         >
           Буцах
         </Button>
@@ -140,7 +140,7 @@ const AddService = ({
           className="mr-4 bg-mainColor !text-white"
           radius="sm"
           size="md"
-          onClick={() => stepFnc("next")}
+          onClick={() => stepFnc('next')}
         >
           Хадгалах {`${step}/${maxStep}`}
         </Button>

@@ -1,8 +1,8 @@
-"use client";
-import { Button, Input } from "@nextui-org/react";
-import { useState } from "react";
-import Image from "next/image";
-import DropDown from "./DropDown";
+'use client';
+import { Button, Input } from '@nextui-org/react';
+import { useState } from 'react';
+import Image from 'next/image';
+import DropDown from './DropDown';
 
 const SearchBox = () => {
   return (
@@ -20,23 +20,12 @@ const SearchBox = () => {
         radius="none"
         size="sm"
         isClearable
-        onClear={() => console.log("input cleared")}
+        onClear={() => console.log('input cleared')}
         className="h-10"
-        classNames={{ mainWrapper: "contents", innerWrapper: "!pb-0" }}
+        classNames={{ mainWrapper: 'contents', innerWrapper: '!pb-0' }}
       />
-      <Button
-        radius="none"
-        isIconOnly
-        aria-label="Like"
-        className="h-10 w-10 rounded-r bg-black"
-      >
-        <Image
-          src="/search.svg"
-          alt="logo"
-          width={15}
-          height={15}
-          className="block"
-        />
+      <Button radius="none" isIconOnly aria-label="Like" className="h-10 w-10 rounded-r bg-black">
+        <Image src="/search.svg" alt="logo" width={15} height={15} className="block" />
       </Button>
     </div>
   );

@@ -1,18 +1,12 @@
-import { ReferenceService } from "@/service/reference/reference.service";
-import { Advertisement } from "@/types/advertisement";
-import { Category, MainDirection, PageMeta } from "@/types/reference";
-import {
-  ReactNode,
-  createContext,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
-import { useTypedSelector } from "../redux/reducer";
-import { AdvertisementService } from "@/service/advertisement/advertisement.service";
-import { Users } from "@/types/user";
-import { AuthService } from "@/service/authentication/authentication.service";
-import { getAccessToken } from "@/service/api.service";
+import { ReferenceService } from '@/service/reference/reference.service';
+import { Advertisement } from '@/types/advertisement';
+import { Category, MainDirection, PageMeta } from '@/types/reference';
+import { ReactNode, createContext, useContext, useEffect, useState } from 'react';
+import { useTypedSelector } from '../redux/reducer';
+import { AdvertisementService } from '@/service/advertisement/advertisement.service';
+import { Users } from '@/types/user';
+import { AuthService } from '@/service/authentication/authentication.service';
+import { getAccessToken } from '@/service/api.service';
 interface IAppContextProps {
   user: Users;
   mainDirections: MainDirection[];
@@ -27,7 +21,7 @@ interface IProps {
   children: ReactNode;
 }
 const AppProvider: React.FC<IProps> = ({ children }) => {
-  const { adParam } = useTypedSelector((state) => state);
+  const { adParam } = useTypedSelector(state => state);
   const [user, setUser] = useState<Users>();
   const [mainDirections, setMainDirections] = useState<MainDirection[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
@@ -42,23 +36,25 @@ const AppProvider: React.FC<IProps> = ({ children }) => {
   });
   const accessToken = getAccessToken();
   const getUser = () => {
-    AuthService.profile().then((response) => {
-      if (response.statusCode == 200 && response.success) {
-        setUser(response.response.user);
-      }
-    }).catch(() => {
-      setUser(undefined);
-    });
+    AuthService.profile()
+      .then(response => {
+        if (response.statusCode == 200 && response.success) {
+          setUser(response.response.user);
+        }
+      })
+      .catch(() => {
+        setUser(undefined);
+      });
   };
   const getMainDirection = () => {
-    ReferenceService.getMainDirection().then((res) => {
+    ReferenceService.getMainDirection().then(res => {
       if (res.success) {
         setMainDirections(res.response);
       }
     });
   };
   const getCategory = () => {
-    ReferenceService.getCategory().then((res) => {
+    ReferenceService.getCategory().then(res => {
       if (res.success) {
         setCategories(res.response);
       }
@@ -72,7 +68,7 @@ const AppProvider: React.FC<IProps> = ({ children }) => {
     getCategory();
   }, []);
   useEffect(() => {
-    AdvertisementService.get(adParam).then((response) => {
+    AdvertisementService.get(adParam).then(response => {
       if (response.success) {
         setAdvertisements(response.response.data);
         setAdMeta(response.response.meta);
@@ -92,7 +88,7 @@ const AppProvider: React.FC<IProps> = ({ children }) => {
 const useAppContext = () => {
   const context = useContext(AppContext);
   if (!context) {
-    throw new Error("useAppContext must be used within a ProviderReport");
+    throw new Error('useAppContext must be used within a ProviderReport');
   }
   return context;
 };

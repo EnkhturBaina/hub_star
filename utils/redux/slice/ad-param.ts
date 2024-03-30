@@ -1,9 +1,9 @@
-import { IAdParam } from "@/interfaces/request.interface";
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { IAdParam } from '@/interfaces/request.interface';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
-const initialState: IAdParam = { page: 1, limit: 10, order: "DESC" };
+const initialState: IAdParam = { page: 1, limit: 10, order: 'DESC' };
 const adParam = createSlice({
-  name: "ad-param",
+  name: 'ad-param',
   initialState,
   reducers: {
     emptyAdParam: () => {

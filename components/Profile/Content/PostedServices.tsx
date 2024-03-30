@@ -1,11 +1,11 @@
-"use client";
-import { Button } from "@nextui-org/react";
-import { CiGrid41, CiGrid2H } from "react-icons/ci";
-import { useState } from "react";
-import GridServices from "./GridServices";
-import ListServices from "./ListServices";
-import AddService from "./AddService";
-import { useAppContext } from "@/utils/context/app-context";
+'use client';
+import { Button } from '@nextui-org/react';
+import { CiGrid41, CiGrid2H } from 'react-icons/ci';
+import { useState } from 'react';
+import GridServices from './GridServices';
+import ListServices from './ListServices';
+import AddService from './AddService';
+import { useAppContext } from '@/utils/context/app-context';
 
 const PostedServices = () => {
   const { advertisements } = useAppContext();
@@ -22,11 +22,7 @@ const PostedServices = () => {
               setIsGrid(!isGrid);
             }}
           >
-            {isGrid ? (
-              <CiGrid2H className="text-4xl" />
-            ) : (
-              <CiGrid41 className="text-4xl" />
-            )}
+            {isGrid ? <CiGrid2H className="text-4xl" /> : <CiGrid41 className="text-4xl" />}
           </Button>
         </div>
         <div className="mx-auto mt-4 max-w-c-1280">
@@ -54,10 +50,7 @@ const PostedServices = () => {
     return (
       <div className="mb-4 w-full overflow-hidden ">
         <div className="flex justify-end">
-          <AddService
-            setIsAddService={setIsAddService}
-            isAddService={isAddService}
-          />
+          <AddService setIsAddService={setIsAddService} isAddService={isAddService} />
         </div>
       </div>
     );

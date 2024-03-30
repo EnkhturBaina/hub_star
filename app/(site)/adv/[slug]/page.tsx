@@ -1,18 +1,18 @@
-"use client";
-import RelatedPost from "@/components/Blog/RelatedPost";
-import SpecialPost from "@/components/Blog/SpecialPost";
-import { animals } from "@/components/Profile/Content/animals";
-import { Button, Chip } from "@nextui-org/react";
-import Image from "next/image";
-import { PiFlagThin } from "react-icons/pi";
-import BlogData from "@/components/Blog/blogData";
-import BreadCrumbs from "@/components/BreadCrumbs";
-import { FaStar } from "react-icons/fa";
-import axiosClient from "@/services/axiosInstance";
-import { useEffect, useState } from "react";
-import { Ad } from "@/types/ad";
-import AdSkeleton from "@/components/Skeleton/AdSkeleton";
-import { format } from "date-fns";
+'use client';
+import RelatedPost from '@/components/Blog/RelatedPost';
+import SpecialPost from '@/components/Blog/SpecialPost';
+import { animals } from '@/components/Profile/Content/animals';
+import { Button, Chip } from '@nextui-org/react';
+import Image from 'next/image';
+import { PiFlagThin } from 'react-icons/pi';
+import BlogData from '@/components/Blog/blogData';
+import BreadCrumbs from '@/components/BreadCrumbs';
+import { FaStar } from 'react-icons/fa';
+import axiosClient from '@/services/axiosInstance';
+import { useEffect, useState } from 'react';
+import { Ad } from '@/types/ad';
+import AdSkeleton from '@/components/Skeleton/AdSkeleton';
+import { format } from 'date-fns';
 
 const SingleBlogPage = ({ params: { slug } }) => {
   const client = axiosClient();
@@ -22,16 +22,16 @@ const SingleBlogPage = ({ params: { slug } }) => {
 
   const getAdById = () => {
     client
-      .get("advertisement/" + slug)
-      .then((response) => {
-        console.log("get Ad By Id", response);
+      .get('advertisement/' + slug)
+      .then(response => {
+        console.log('get Ad By Id', response);
         setAdData(response.data.response);
       })
       .then(() => {
         setLoadingAd(false);
       })
-      .catch((error) => {
-        console.error("Error fetching :", error);
+      .catch(error => {
+        console.error('Error fetching :', error);
         setLoadingAd(false);
       });
   };
@@ -62,10 +62,7 @@ const SingleBlogPage = ({ params: { slug } }) => {
                     Үйлчилгээг захиалах
                   </Button>
 
-                  <Button
-                    className="ml-4 min-w-unit-12 border-1 bg-white !px-0"
-                    radius="sm"
-                  >
+                  <Button className="ml-4 min-w-unit-12 border-1 bg-white !px-0" radius="sm">
                     <PiFlagThin className="text-2xl" />
                   </Button>
                 </div>
@@ -77,7 +74,7 @@ const SingleBlogPage = ({ params: { slug } }) => {
                   <div className="mb-10 w-full overflow-hidden ">
                     <div className="relative aspect-[97/60] w-full sm:aspect-[97/44]">
                       <Image
-                        src={"/images/blog/blog-01.png"}
+                        src={'/images/blog/blog-01.png'}
                         alt="Kobe Steel plant that supplied"
                         fill
                         className="rounded-md object-cover object-center"
@@ -105,9 +102,7 @@ const SingleBlogPage = ({ params: { slug } }) => {
                   <span className="font-bold">Үнэ</span>
                   <span className="">{adData?.price} ₮</span>
                   <span className="font-bold">Нийтэлсэн огноо</span>
-                  <span className="">
-                    {format(adData?.createdAt, "yyyy-MM-dd h:m")}
-                  </span>
+                  <span className="">{format(adData?.createdAt, 'yyyy-MM-dd h:m')}</span>
                   <span className="font-bold">Зарын дугаар</span>
                   <span className="">{adData?.id}</span>
                   <span className="font-bold">Утасны дугаар</span>
@@ -139,8 +134,8 @@ const SingleBlogPage = ({ params: { slug } }) => {
                         <Chip
                           key={index}
                           classNames={{
-                            base: "mr-2 mb-2 border-1 bg-white p-4",
-                            content: "font-bold",
+                            base: 'mr-2 mb-2 border-1 bg-white p-4',
+                            content: 'font-bold',
                           }}
                         >
                           {el.label}
@@ -164,7 +159,7 @@ const SingleBlogPage = ({ params: { slug } }) => {
                     >
                       <Image
                         src="/pdf_icon.png"
-                        alt={"alt" + i}
+                        alt={'alt' + i}
                         width={100}
                         height={80}
                         className="h-full w-12"
@@ -181,17 +176,11 @@ const SingleBlogPage = ({ params: { slug } }) => {
               <div className="mx-auto max-w-screen-xl py-10">
                 <span className="text-xl font-bold">Онцгой үйлчилгээ</span>
                 <div className="my-4 grid grid-cols-1 gap-7.5 md:grid-cols-2 lg:grid-cols-4 xl:gap-10">
-                  {BlogData?.splice(0, 4).map((blog, key) => (
-                    <SpecialPost blog={blog} key={key} />
-                  ))}
+                  {BlogData?.splice(0, 4).map((blog, key) => <SpecialPost blog={blog} key={key} />)}
                 </div>
-                <span className="text-xl font-bold">
-                  Ижил төсөөтэй үйлчилгээ
-                </span>
+                <span className="text-xl font-bold">Ижил төсөөтэй үйлчилгээ</span>
                 <div className="my-4 grid grid-cols-1 gap-7.5 md:grid-cols-2 lg:grid-cols-4 xl:gap-10">
-                  {BlogData?.splice(0, 4).map((blog, key) => (
-                    <RelatedPost blog={blog} key={key} />
-                  ))}
+                  {BlogData?.splice(0, 4).map((blog, key) => <RelatedPost blog={blog} key={key} />)}
                 </div>
               </div>
             </div>

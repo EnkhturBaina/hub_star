@@ -1,66 +1,58 @@
-"use client";
-import LeftMenu from "@/components/Profile/LeftMenu";
-import { useEffect, useLayoutEffect, useState } from "react";
-import { FaCamera } from "react-icons/fa";
-import MenuList from "@/components/Profile/MenuList";
-import {
-  SidebarPusher,
-  SidebarPushable,
-  Segment,
-  Sidebar,
-} from "semantic-ui-react";
-import { LuChevronLeft, LuLayoutGrid, LuMenu } from "react-icons/lu";
-import { redirect } from "next/navigation";
-import { useAppContext } from "@/utils/context/app-context";
-import AuthName from "@/components/Auth/auth-name";
-import Image from "next/image";
-import ImageUpload from "@/components/Image/image-upload";
-import { Users } from "@/types/user";
-import { AuthService } from "@/service/authentication/authentication.service";
-import toast from "react-hot-toast";
+'use client';
+import LeftMenu from '@/components/Profile/LeftMenu';
+import { useEffect, useLayoutEffect, useState } from 'react';
+import { FaCamera } from 'react-icons/fa';
+import MenuList from '@/components/Profile/MenuList';
+import { SidebarPusher, SidebarPushable, Segment, Sidebar } from 'semantic-ui-react';
+import { LuChevronLeft, LuLayoutGrid, LuMenu } from 'react-icons/lu';
+import { redirect } from 'next/navigation';
+import { useAppContext } from '@/utils/context/app-context';
+import AuthName from '@/components/Auth/auth-name';
+import Image from 'next/image';
+import ImageUpload from '@/components/Image/image-upload';
+import { Users } from '@/types/user';
+import { AuthService } from '@/service/authentication/authentication.service';
+import toast from 'react-hot-toast';
 
 const Profile = () => {
   const { user } = useAppContext();
   const [userImage, setUserImage] = useState<Users>();
   const [visible, setVisible] = useState(false);
-  const [selectedMenu, setSelectedMenu] = useState("profile");
+  const [selectedMenu, setSelectedMenu] = useState('profile');
   const saveUserImage = () => {
     AuthService.updateById(userImage.id, {
       avatarId: userImage.avatarId,
       coverId: userImage.coverId,
-    }).then((response) => {
+    }).then(response => {
       if (response.success) {
-        toast.success("Амжилттай хадгаллаа");
+        toast.success('Амжилттай хадгаллаа');
       }
     });
-  }
+  };
   useEffect(() => {
     if (user && !userImage) {
       setUserImage(user);
     }
   }, []);
   useEffect(() => {
-    console.log("useEffect working ========>", userImage);
+    console.log('useEffect working ========>', userImage);
   }, [userImage]);
   useLayoutEffect(() => {
     if (!user) {
-      redirect("/");
+      redirect('/');
     }
   }, []);
-  
+
   if (!user) {
     return null;
   } else {
     return (
       <section className="bg-gray-100 py-18 lg:py-18 xl:py-18">
         <div className="mx-auto max-w-screen-xl md:px-4 xl:px-0">
-          <div
-            className="relative flex flex-col rounded-xl bg-white"
-            style={{ height: 330 }}
-          >
+          <div className="relative flex flex-col rounded-xl bg-white" style={{ height: 330 }}>
             <div className="relative">
               <div className="relative h-64 w-full bg-cover bg-center">
-                <Image
+                {/* <Image
                   src={
                     user.coverId
                       ? `${process.env.BASE_API_URL}local-files/${user.coverId}`
@@ -69,7 +61,7 @@ const Profile = () => {
                   alt={"ковер"}
                   width={1280}
                   height={224}
-                />
+                /> */}
               </div>
               {/* <Button
                 color="default"
@@ -83,7 +75,7 @@ const Profile = () => {
               </Button> */}
               <ImageUpload
                 className="absolute bottom-8 right-10 cursor-pointer bg-gray-300 text-base text-white"
-                setFileId={(fileId) => {
+                setFileId={fileId => {
                   setUserImage((prevState: Users) => ({
                     ...prevState,
                     coverId: fileId,
@@ -115,7 +107,7 @@ const Profile = () => {
                   )}
                   <ImageUpload
                     className="bottom-2 right-2 cursor-pointer rounded-full bg-gray-100 p-3 text-black md:absolute"
-                    setFileId={(fileId) => {
+                    setFileId={fileId => {
                       setUserImage((prevState: Users) => ({
                         ...prevState,
                         avatarId: fileId,
@@ -147,10 +139,7 @@ const Profile = () => {
             <LuMenu className="text-2xl" />
           </div>
           <div className="hidden md:block md:w-1/4">
-            <LeftMenu
-              selectedMenu={selectedMenu}
-              setSelectedMenu={setSelectedMenu}
-            />
+            <LeftMenu selectedMenu={selectedMenu} setSelectedMenu={setSelectedMenu} />
           </div>
           <Sidebar
             animation="overlay"
@@ -166,15 +155,9 @@ const Profile = () => {
                 <LuLayoutGrid className="text-2xl" />
                 <span className="ml-3 font-bold">Меню</span>
               </div>
-              <LuChevronLeft
-                className="text-2xl"
-                onClick={() => setVisible(false)}
-              />
+              <LuChevronLeft className="text-2xl" onClick={() => setVisible(false)} />
             </div>
-            <LeftMenu
-              selectedMenu={selectedMenu}
-              setSelectedMenu={setSelectedMenu}
-            />
+            <LeftMenu selectedMenu={selectedMenu} setSelectedMenu={setSelectedMenu} />
           </Sidebar>
           <SidebarPusher className="!w-full">
             <Segment className="!rounded-xl !border-0">

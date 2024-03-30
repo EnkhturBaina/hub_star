@@ -1,9 +1,9 @@
-"use client";
-import { Button } from "@nextui-org/react";
-import { CiGrid41, CiGrid2H } from "react-icons/ci";
-import { useState } from "react";
-import GridServices from "./GridServices";
-import ListServices from "./ListServices";
+'use client';
+import { Button } from '@nextui-org/react';
+import { CiGrid41, CiGrid2H } from 'react-icons/ci';
+import { useState } from 'react';
+import GridServices from './GridServices';
+import ListServices from './ListServices';
 
 const DoingServices = () => {
   const [isGrid, setIsGrid] = useState(true);
@@ -17,11 +17,7 @@ const DoingServices = () => {
             setIsGrid(!isGrid);
           }}
         >
-          {isGrid ? (
-            <CiGrid2H className="text-4xl" />
-          ) : (
-            <CiGrid41 className="text-4xl" />
-          )}
+          {isGrid ? <CiGrid2H className="text-4xl" /> : <CiGrid41 className="text-4xl" />}
         </Button>
       </div>
       <div className="mx-auto mt-4 max-w-c-1280">

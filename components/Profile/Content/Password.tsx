@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { motion } from "framer-motion";
-import { Button, Input } from "@nextui-org/react";
+import { motion } from 'framer-motion';
+import { Button, Input } from '@nextui-org/react';
 
 const Password = () => {
   return (
@@ -33,8 +33,8 @@ const Password = () => {
         size="lg"
         variant="bordered"
         classNames={{
-          label: "font-bold",
-          inputWrapper: ["custom-input-wrapper", "bg-white"],
+          label: 'font-bold',
+          inputWrapper: ['custom-input-wrapper', 'bg-white'],
         }}
       />
       <Input
@@ -47,8 +47,8 @@ const Password = () => {
         size="lg"
         variant="bordered"
         classNames={{
-          label: "font-bold",
-          inputWrapper: ["custom-input-wrapper", "bg-white"],
+          label: 'font-bold',
+          inputWrapper: ['custom-input-wrapper', 'bg-white'],
         }}
       />
       <Input
@@ -61,8 +61,8 @@ const Password = () => {
         size="lg"
         variant="bordered"
         classNames={{
-          label: "font-bold",
-          inputWrapper: ["custom-input-wrapper", "bg-white"],
+          label: 'font-bold',
+          inputWrapper: ['custom-input-wrapper', 'bg-white'],
         }}
       />
 

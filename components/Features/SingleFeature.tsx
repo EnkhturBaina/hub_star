@@ -1,9 +1,9 @@
-import React from "react";
-import { Feature } from "@/types/feature";
-import Image from "next/image";
-import { motion } from "framer-motion";
-import Link from "next/link";
-import { Category } from "@/types/reference";
+import React from 'react';
+import { Feature } from '@/types/feature';
+import Image from 'next/image';
+import { motion } from 'framer-motion';
+import Link from 'next/link';
+import { Category } from '@/types/reference';
 interface IProps {
   category: Category;
 }

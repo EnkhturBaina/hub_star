@@ -30,7 +30,9 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "components/Profile/ListboxWrapper.jsx"
+    "components/Profile/ListboxWrapper.jsx",
+    "setupTests.js",
+    "jest.config.js"
   ],
   "exclude": ["node_modules"]
 }

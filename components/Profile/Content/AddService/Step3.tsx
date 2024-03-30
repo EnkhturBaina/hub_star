@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { motion } from "framer-motion";
-import { Checkbox, Input, Textarea } from "@nextui-org/react";
-import { BsImage } from "react-icons/bs";
-import { ICreateAd } from "@/interfaces/request.interface";
+import { motion } from 'framer-motion';
+import { Checkbox, Input, Textarea } from '@nextui-org/react';
+import { BsImage } from 'react-icons/bs';
+import { ICreateAd } from '@/interfaces/request.interface';
 interface IProps {
   adData: ICreateAd;
   setAdData: React.Dispatch<React.SetStateAction<ICreateAd>>;
@@ -39,8 +39,8 @@ const Step3: React.FC<IProps> = ({ adData, setAdData }) => {
           size="lg"
           variant="bordered"
           classNames={{
-            label: "font-bold",
-            inputWrapper: ["custom-input-wrapper", "bg-white"],
+            label: 'font-bold',
+            inputWrapper: ['custom-input-wrapper', 'bg-white'],
           }}
         />
         <Input
@@ -53,11 +53,11 @@ const Step3: React.FC<IProps> = ({ adData, setAdData }) => {
           size="lg"
           variant="bordered"
           classNames={{
-            label: "font-bold",
-            inputWrapper: ["custom-input-wrapper", "bg-white"],
+            label: 'font-bold',
+            inputWrapper: ['custom-input-wrapper', 'bg-white'],
           }}
           value={adData?.counter.toString()}
-          onValueChange={(e) => {
+          onValueChange={e => {
             setAdData((prevState: ICreateAd) => ({
               ...prevState,
               counter: parseInt(e),
@@ -85,12 +85,12 @@ const Step3: React.FC<IProps> = ({ adData, setAdData }) => {
         radius="sm"
         placeholder="Тайлбар"
         classNames={{
-          base: "w-full",
-          label: "font-bold",
-          inputWrapper: ["custom-input-wrapper", "bg-white"],
+          base: 'w-full',
+          label: 'font-bold',
+          inputWrapper: ['custom-input-wrapper', 'bg-white'],
         }}
         value={adData?.desciption}
-        onValueChange={(e) => {
+        onValueChange={e => {
           setAdData((prevState: ICreateAd) => ({
             ...prevState,
             desciption: e,
@@ -108,11 +108,11 @@ const Step3: React.FC<IProps> = ({ adData, setAdData }) => {
           size="lg"
           variant="bordered"
           classNames={{
-            label: "font-bold",
-            inputWrapper: ["custom-input-wrapper", "bg-white"],
+            label: 'font-bold',
+            inputWrapper: ['custom-input-wrapper', 'bg-white'],
           }}
           value={adData?.email}
-          onValueChange={(e) => {
+          onValueChange={e => {
             setAdData((prevState: ICreateAd) => ({
               ...prevState,
               email: e,
@@ -129,11 +129,11 @@ const Step3: React.FC<IProps> = ({ adData, setAdData }) => {
           size="lg"
           variant="bordered"
           classNames={{
-            label: "font-bold",
-            inputWrapper: ["custom-input-wrapper", "bg-white"],
+            label: 'font-bold',
+            inputWrapper: ['custom-input-wrapper', 'bg-white'],
           }}
           value={adData?.phone}
-          onValueChange={(e) => {
+          onValueChange={e => {
             setAdData((prevState: ICreateAd) => ({
               ...prevState,
               phone: e,
@@ -145,11 +145,11 @@ const Step3: React.FC<IProps> = ({ adData, setAdData }) => {
         <Checkbox
           value={String(adData?.isMessenger)}
           classNames={{
-            base: "w-full",
-            label: "w-full",
-            wrapper: "custom-checkbox w-6 h-6",
+            base: 'w-full',
+            label: 'w-full',
+            wrapper: 'custom-checkbox w-6 h-6',
           }}
-          onValueChange={(e) => {
+          onValueChange={e => {
             setAdData((prevState: ICreateAd) => ({
               ...prevState,
               isMessenger: e,
@@ -161,11 +161,11 @@ const Step3: React.FC<IProps> = ({ adData, setAdData }) => {
         <Checkbox
           value={String(adData?.isTermOfService)}
           classNames={{
-            base: "w-full",
-            label: "w-full",
-            wrapper: "custom-checkbox w-6 h-6",
+            base: 'w-full',
+            label: 'w-full',
+            wrapper: 'custom-checkbox w-6 h-6',
           }}
-          onValueChange={(e) => {
+          onValueChange={e => {
             setAdData((prevState: ICreateAd) => ({
               ...prevState,
               isTermOfService: e,

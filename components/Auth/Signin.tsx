@@ -1,53 +1,52 @@
-"use client";
-import { setAccessToken } from "@/service/api.service";
-import { AuthService } from "@/service/authentication/authentication.service";
-import { AppDispatch } from "@/utils/redux/store";
-import { Button, Input } from "@nextui-org/react";
-import { motion } from "framer-motion";
-import Image from "next/image";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useMemo, useState } from "react";
-import { useDispatch } from "react-redux";
-import { Divider } from "semantic-ui-react";
-import toast, { Toaster } from "react-hot-toast";
-import { setCookie } from "cookies-next";
+'use client';
+import { setAccessToken } from '@/service/api.service';
+import { AuthService } from '@/service/authentication/authentication.service';
+import { AppDispatch } from '@/utils/redux/store';
+import { Button, Input } from '@nextui-org/react';
+import { motion } from 'framer-motion';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useMemo, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { Divider } from 'semantic-ui-react';
+import toast, { Toaster } from 'react-hot-toast';
+import { setCookie } from 'cookies-next';
 
 const Signin = () => {
   const router = useRouter();
   const dispatch = useDispatch<AppDispatch>();
 
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
 
-  const validateEmail = (value) =>
-    value.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}$/i);
+  const validateEmail = value => value.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}$/i);
 
   const isInvalid = useMemo(() => {
-    if (email === "") return false;
+    if (email === '') return false;
 
     return validateEmail(email) ? false : true;
   }, [email]);
 
   const login = () => {
-    if (email == "") {
-      toast.error("И-Мэйл хаягаа оруулна уу.");
+    if (email == '') {
+      toast.error('И-Мэйл хаягаа оруулна уу.');
     } else if (isInvalid) {
-      toast.error("И-Мэйл хаяг буруу байна.");
-    } else if (password == "") {
-      toast.error("Нууц үгээ оруулна уу.");
+      toast.error('И-Мэйл хаяг буруу байна.');
+    } else if (password == '') {
+      toast.error('Нууц үгээ оруулна уу.');
     } else {
       try {
-        AuthService.login({ email, password }).then((response) => {
+        AuthService.login({ email, password }).then(response => {
           if (response.success) {
             setAccessToken(response.response.accessToken);
-            router.push("/");
+            router.push('/');
           } else {
-            toast.error("Нэвтрэх нэр эсвэл нууц үг буруу байна.");
+            toast.error('Нэвтрэх нэр эсвэл нууц үг буруу байна.');
           }
         });
       } catch (error) {
-        console.error("catch error :", error);
+        console.error('catch error :', error);
       }
     }
   };
@@ -105,13 +104,13 @@ const Signin = () => {
                 size="lg"
                 variant="bordered"
                 classNames={{
-                  base: "mb-8",
-                  label: "font-bold",
-                  inputWrapper: ["custom-input-wrapper", "bg-white"],
+                  base: 'mb-8',
+                  label: 'font-bold',
+                  inputWrapper: ['custom-input-wrapper', 'bg-white'],
                 }}
                 isInvalid={isInvalid}
-                color={isInvalid ? "danger" : "default"}
-                errorMessage={isInvalid && "И-Мэйл хаягаа зөв оруулна уу."}
+                color={isInvalid ? 'danger' : 'default'}
+                errorMessage={isInvalid && 'И-Мэйл хаягаа зөв оруулна уу.'}
                 onValueChange={setEmail}
               />
               <Input
@@ -124,9 +123,9 @@ const Signin = () => {
                 size="lg"
                 variant="bordered"
                 classNames={{
-                  base: "mb-8",
-                  label: "font-bold",
-                  inputWrapper: ["custom-input-wrapper", "bg-white"],
+                  base: 'mb-8',
+                  label: 'font-bold',
+                  inputWrapper: ['custom-input-wrapper', 'bg-white'],
                 }}
                 onValueChange={setPassword}
               />
@@ -140,7 +139,7 @@ const Signin = () => {
               </Button>
               {/* </Link> */}
               <div className="text-center text-sm">
-                Та бүртгэлтэй юу?{" "}
+                Та бүртгэлтэй юу?{' '}
                 <Link className="text-primary" href="/auth/signup">
                   Бүртгүүлэх
                 </Link>
@@ -152,28 +151,14 @@ const Signin = () => {
                 Эсвэл
               </Divider>
               <Button
-                startContent={
-                  <Image
-                    src="/facebook.png"
-                    alt="google"
-                    height="20"
-                    width="20"
-                  />
-                }
+                startContent={<Image src="/facebook.png" alt="google" height="20" width="20" />}
                 radius="full"
                 className="mb-2 flex w-full items-center justify-start rounded-md bg-primary font-bold leading-none text-white"
               >
                 Continue with Facebook
               </Button>
               <Button
-                startContent={
-                  <Image
-                    src="/google.png"
-                    alt="facebook"
-                    height="20"
-                    width="20"
-                  />
-                }
+                startContent={<Image src="/google.png" alt="facebook" height="20" width="20" />}
                 radius="full"
                 className="mb-2 flex w-full justify-start rounded-md bg-white font-bold leading-none text-gray-400 shadow-md"
               >

@@ -1,13 +1,13 @@
-"use client";
+'use client';
 
-import { motion } from "framer-motion";
-import { Select, SelectItem } from "@nextui-org/react";
-import React, { useEffect, useState } from "react";
-import { useAppContext } from "@/utils/context/app-context";
-import { Direction, MainDirection, SubDirection } from "@/types/reference";
-import { ICreateAd } from "@/interfaces/request.interface";
-import { AdvertisementService } from "@/service/advertisement/advertisement.service";
-import { ReferenceService } from "@/service/reference/reference.service";
+import { motion } from 'framer-motion';
+import { Select, SelectItem } from '@nextui-org/react';
+import React, { useEffect, useState } from 'react';
+import { useAppContext } from '@/utils/context/app-context';
+import { Direction, MainDirection, SubDirection } from '@/types/reference';
+import { ICreateAd } from '@/interfaces/request.interface';
+import { AdvertisementService } from '@/service/advertisement/advertisement.service';
+import { ReferenceService } from '@/service/reference/reference.service';
 interface IProps {
   adData: ICreateAd;
   setAdData: React.Dispatch<React.SetStateAction<ICreateAd>>;
@@ -48,20 +48,18 @@ const Step1: React.FC<IProps> = ({ adData, setAdData }) => {
   useEffect(() => {
     ReferenceService.getDirection({
       mainDirectionId: adData.mainDirectionId,
-    }).then((response) => {
+    }).then(response => {
       if (response.success) {
         setDirections(response.response);
       }
     });
   }, [adData.mainDirectionId]);
   useEffect(() => {
-    ReferenceService.getSubDirection({ directionId: adData.directionId }).then(
-      (response) => {
-        if (response.success) {
-          setSubDirections(response.response);
-        }
-      },
-    );
+    ReferenceService.getSubDirection({ directionId: adData.directionId }).then(response => {
+      if (response.success) {
+        setSubDirections(response.response);
+      }
+    });
   }, [adData.directionId]);
   return (
     <motion.div
@@ -90,8 +88,8 @@ const Step1: React.FC<IProps> = ({ adData, setAdData }) => {
         size="lg"
         variant="bordered"
         classNames={{
-          label: "font-bold",
-          trigger: "custom-select-trigger bg-white",
+          label: 'font-bold',
+          trigger: 'custom-select-trigger bg-white',
         }}
         selectedKeys={adData?.categoryId?.toString()}
         onChange={changeCustType}
@@ -110,8 +108,8 @@ const Step1: React.FC<IProps> = ({ adData, setAdData }) => {
         size="lg"
         variant="bordered"
         classNames={{
-          label: "font-bold",
-          trigger: "custom-select-trigger bg-white",
+          label: 'font-bold',
+          trigger: 'custom-select-trigger bg-white',
         }}
         selectedKeys={adData?.mainDirectionId?.toString()}
         onChange={changeMainDirection}
@@ -131,8 +129,8 @@ const Step1: React.FC<IProps> = ({ adData, setAdData }) => {
         size="lg"
         variant="bordered"
         classNames={{
-          label: "font-bold",
-          trigger: "custom-select-trigger bg-white",
+          label: 'font-bold',
+          trigger: 'custom-select-trigger bg-white',
         }}
         selectedKeys={adData?.directionId?.toString()}
         onChange={changeDirection}
@@ -151,8 +149,8 @@ const Step1: React.FC<IProps> = ({ adData, setAdData }) => {
         size="lg"
         variant="bordered"
         classNames={{
-          label: "font-bold",
-          trigger: "custom-select-trigger bg-white",
+          label: 'font-bold',
+          trigger: 'custom-select-trigger bg-white',
         }}
         selectedKeys={adData?.subDirectionId?.toString()}
         onChange={changeSubDirection}

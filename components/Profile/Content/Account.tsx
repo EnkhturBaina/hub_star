@@ -1,13 +1,13 @@
-"use client";
+'use client';
 
-import { motion } from "framer-motion";
-import { Button, Input } from "@nextui-org/react";
-import { useEffect, useState } from "react";
-import toast, { Toaster } from "react-hot-toast";
-import AccountFields from "@/components/Skeleton/AccountFields";
-import { Users } from "@/types/user";
-import { useAppContext } from "@/utils/context/app-context";
-import { AuthService } from "@/service/authentication/authentication.service";
+import { motion } from 'framer-motion';
+import { Button, Input } from '@nextui-org/react';
+import { useEffect, useState } from 'react';
+import toast, { Toaster } from 'react-hot-toast';
+import AccountFields from '@/components/Skeleton/AccountFields';
+import { Users } from '@/types/user';
+import { useAppContext } from '@/utils/context/app-context';
+import { AuthService } from '@/service/authentication/authentication.service';
 
 const Account = () => {
   const { user } = useAppContext();
@@ -22,31 +22,31 @@ const Account = () => {
 
   const saveAccount = () => {
     if (!accountData?.lastName) {
-      toast.error("Банкны нэр оруулна уу.");
+      toast.error('Банкны нэр оруулна уу.');
     } else if (!accountData?.firstName) {
-      toast.error("Дансны дугаар оруулна уу.");
+      toast.error('Дансны дугаар оруулна уу.');
     } else if (!accountData?.jobPosition) {
-      toast.error("Эзэмшигчийн нэр оруулна уу.");
+      toast.error('Эзэмшигчийн нэр оруулна уу.');
     } else {
       setIsSaving(true);
-      console.log("accountData", accountData);
+      console.log('accountData', accountData);
       try {
         AuthService.updateById(accountData.id, {
           bank: accountData?.bank,
           bankAccount: accountData?.bankAccount,
           bankAccountNo: accountData?.bankAccountNo,
         })
-          .then((response) => {
+          .then(response => {
             if (response.success) {
               setIsSaving(false);
-              toast.success("Амжилттай хадгаллаа");
+              toast.success('Амжилттай хадгаллаа');
             }
           })
-          .catch((error) => {
-            console.error("Error fetching :", error);
+          .catch(error => {
+            console.error('Error fetching :', error);
           });
       } catch (error) {
-        console.error("catch error :", error);
+        console.error('catch error :', error);
       }
     }
   };
@@ -93,11 +93,11 @@ const Account = () => {
             size="lg"
             variant="bordered"
             classNames={{
-              label: "font-bold",
-              inputWrapper: ["custom-input-wrapper", "bg-white"],
+              label: 'font-bold',
+              inputWrapper: ['custom-input-wrapper', 'bg-white'],
             }}
             value={accountData?.bank}
-            onValueChange={(e) => {
+            onValueChange={e => {
               setAccountData((prevState: Users) => ({
                 ...prevState,
                 bank: e,
@@ -114,11 +114,11 @@ const Account = () => {
             size="lg"
             variant="bordered"
             classNames={{
-              label: "font-bold",
-              inputWrapper: ["custom-input-wrapper", "bg-white"],
+              label: 'font-bold',
+              inputWrapper: ['custom-input-wrapper', 'bg-white'],
             }}
             value={accountData?.bankAccount}
-            onValueChange={(e) => {
+            onValueChange={e => {
               setAccountData((prevState: Users) => ({
                 ...prevState,
                 bankAccount: e,
@@ -135,11 +135,11 @@ const Account = () => {
             size="lg"
             variant="bordered"
             classNames={{
-              label: "font-bold",
-              inputWrapper: ["custom-input-wrapper", "bg-white"],
+              label: 'font-bold',
+              inputWrapper: ['custom-input-wrapper', 'bg-white'],
             }}
             value={accountData?.bankAccountNo}
-            onValueChange={(e) => {
+            onValueChange={e => {
               setAccountData((prevState: Users) => ({
                 ...prevState,
                 bankAccountNo: e,

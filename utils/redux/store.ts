@@ -1,23 +1,12 @@
-import { configureStore } from "@reduxjs/toolkit";
-import { createTransform, persistReducer, persistStore } from "redux-persist";
-import { EncryptorConfig } from "redux-persist-transform-encrypt";
-import thunkMiddleware from "redux-thunk";
-import reducers from "./reducer";
-const encryptionKey = process.env.NEXT_PUBLIC_REDUX_SECRET_KEY;
-const encryptor = createTransform(
-  (inboundState, key) => {
-    return encryptor(inboundState, encryptionKey);
-  },
-  (outboundState, key) => {
-    return encryptor(outboundState, encryptionKey);
-  },
-);
+import { configureStore } from '@reduxjs/toolkit';
+import { createTransform, persistReducer, persistStore } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
+import { EncryptorConfig } from 'redux-persist-transform-encrypt';
+import thunkMiddleware from 'redux-thunk';
+import reducers from './reducer';
 const persistConfig = {
-  key: "root",
-  storage: localStorage,
-  whitelist: ["ad-param"],
-  blacklist: [],
-  transforms: [encryptor],
+  key: 'root',
+  storage,
 };
 const persistedReducer = persistReducer(persistConfig, reducers);
 const store = configureStore({

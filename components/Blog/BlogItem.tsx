@@ -1,8 +1,8 @@
-"use client";
-import { Blog } from "@/types/blog";
-import { motion } from "framer-motion";
-import Image from "next/image";
-import Link from "next/link";
+'use client';
+import { Blog } from '@/types/blog';
+import { motion } from 'framer-motion';
+import Image from 'next/image';
+import Link from 'next/link';
 
 const BlogItem = ({ blog }: { blog: Blog }) => {
   const { id, mainImage, title, desciption } = blog;
@@ -28,22 +28,14 @@ const BlogItem = ({ blog }: { blog: Blog }) => {
         className="animate_top rounded-lg bg-white shadow-md"
       >
         <Link href={`/adv/${id}`} className="relative block h-56 w-full">
-          {/* <Image
-            src={"/images/blog_img.jpg"}
-            alt={title}
-            fill
-            className="rounded-t-lg"
-          /> */}
+          <Image src={'/images/blog_img.jpg'} alt={title} fill className="rounded-t-lg" />
         </Link>
 
         <div className="flex flex-col px-6 pb-2">
           <h3 className="!mb-1 !mt-2 line-clamp-2 inline-block text-base font-bold text-black duration-300 hover:text-primary">
             <Link href={`/adv/${id}`}>{`${title.slice(0, 30)}...`}</Link>
           </h3>
-          <span className="line-clamp-3">{`${desciption?.slice(
-            0,
-            30,
-          )}...`}</span>
+          <span className="line-clamp-3">{`${desciption?.slice(0, 30)}...`}</span>
         </div>
       </motion.div>
     </>

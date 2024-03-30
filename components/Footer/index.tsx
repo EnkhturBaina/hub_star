@@ -1,14 +1,14 @@
-"use client";
-import { Divider } from "@nextui-org/react";
-import { motion } from "framer-motion";
-import { GoogleMap, useJsApiLoader } from "@react-google-maps/api";
-import { useCallback, useState } from "react";
-import { usePathname } from "next/navigation";
+'use client';
+import { Divider } from '@nextui-org/react';
+import { motion } from 'framer-motion';
+import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
+import { useCallback, useState } from 'react';
+import { usePathname } from 'next/navigation';
 
 const Footer = () => {
   const containerStyle = {
-    width: "400px",
-    height: "400px",
+    width: '400px',
+    height: '400px',
   };
 
   const center = {
@@ -39,7 +39,7 @@ const Footer = () => {
       <footer className="border-stroke bg-mainDark ">
         <div className="mx-auto max-w-screen-xl px-4 md:px-8 2xl:px-0">
           {/* <!-- Footer Top --> */}
-          {pathUrl === "/auth/signin" || pathUrl === "/auth/signup" ? null : (
+          {pathUrl === '/auth/signin' || pathUrl === '/auth/signup' ? null : (
             <div className="border-b py-10 lg:py-15">
               <div className="flex flex-wrap gap-8 lg:justify-between lg:gap-0">
                 <div className="flex w-full flex-col gap-8 md:flex-row md:justify-between md:gap-0">
@@ -67,34 +67,22 @@ const Footer = () => {
 
                     <ul>
                       <li>
-                        <a
-                          href="#"
-                          className="mb-3 inline-block text-white hover:text-mainColor"
-                        >
+                        <a href="#" className="mb-3 inline-block text-white hover:text-mainColor">
                           Home
                         </a>
                       </li>
                       <li>
-                        <a
-                          href="#"
-                          className="mb-3 inline-block text-white hover:text-mainColor"
-                        >
+                        <a href="#" className="mb-3 inline-block text-white hover:text-mainColor">
                           Product
                         </a>
                       </li>
                       <li>
-                        <a
-                          href="#"
-                          className="mb-3 inline-block text-white hover:text-mainColor"
-                        >
+                        <a href="#" className="mb-3 inline-block text-white hover:text-mainColor">
                           Careers
                         </a>
                       </li>
                       <li>
-                        <a
-                          href="#"
-                          className="mb-3 inline-block text-white hover:text-mainColor"
-                        >
+                        <a href="#" className="mb-3 inline-block text-white hover:text-mainColor">
                           Pricing
                         </a>
                       </li>
@@ -119,40 +107,26 @@ const Footer = () => {
                     viewport={{ once: true }}
                     className="animate_top"
                   >
-                    <h4 className="mb-9 text-itemtitle2 font-semibold text-gray-400">
-                      Support
-                    </h4>
+                    <h4 className="mb-9 text-itemtitle2 font-semibold text-gray-400">Support</h4>
 
                     <ul>
                       <li>
-                        <a
-                          href="#"
-                          className="mb-3 inline-block text-white hover:text-mainColor"
-                        >
+                        <a href="#" className="mb-3 inline-block text-white hover:text-mainColor">
                           Company
                         </a>
                       </li>
                       <li>
-                        <a
-                          href="#"
-                          className="mb-3 inline-block text-white hover:text-mainColor"
-                        >
+                        <a href="#" className="mb-3 inline-block text-white hover:text-mainColor">
                           Press media
                         </a>
                       </li>
                       <li>
-                        <a
-                          href="#"
-                          className="mb-3 inline-block text-white hover:text-mainColor"
-                        >
+                        <a href="#" className="mb-3 inline-block text-white hover:text-mainColor">
                           Our Blog
                         </a>
                       </li>
                       <li>
-                        <a
-                          href="#"
-                          className="mb-3 inline-block text-white hover:text-mainColor"
-                        >
+                        <a href="#" className="mb-3 inline-block text-white hover:text-mainColor">
                           Contact Us
                         </a>
                       </li>
@@ -176,40 +150,26 @@ const Footer = () => {
                     viewport={{ once: true }}
                     className="animate_top"
                   >
-                    <h4 className="mb-9 text-itemtitle2 font-semibold text-gray-400">
-                      Support
-                    </h4>
+                    <h4 className="mb-9 text-itemtitle2 font-semibold text-gray-400">Support</h4>
 
                     <ul>
                       <li>
-                        <a
-                          href="#"
-                          className="mb-3 inline-block text-white hover:text-mainColor"
-                        >
+                        <a href="#" className="mb-3 inline-block text-white hover:text-mainColor">
                           Company
                         </a>
                       </li>
                       <li>
-                        <a
-                          href="#"
-                          className="mb-3 inline-block text-white hover:text-mainColor"
-                        >
+                        <a href="#" className="mb-3 inline-block text-white hover:text-mainColor">
                           Press media
                         </a>
                       </li>
                       <li>
-                        <a
-                          href="#"
-                          className="mb-3 inline-block text-white hover:text-mainColor"
-                        >
+                        <a href="#" className="mb-3 inline-block text-white hover:text-mainColor">
                           Our Blog
                         </a>
                       </li>
                       <li>
-                        <a
-                          href="#"
-                          className="mb-3 inline-block text-white hover:text-mainColor"
-                        >
+                        <a href="#" className="mb-3 inline-block text-white hover:text-mainColor">
                           Contact Us
                         </a>
                       </li>
@@ -280,28 +240,19 @@ const Footer = () => {
                     Хэрэглэх заавар
                   </a>
                 </li>
-                <Divider
-                  orientation="vertical"
-                  className="h-5 w-0.5 bg-white"
-                />
+                <Divider orientation="vertical" className="h-5 w-0.5 bg-white" />
                 <li>
                   <a href="#" className="text-white hover:text-mainColor">
                     Сурталчилгаа байршуулах
                   </a>
                 </li>
-                <Divider
-                  orientation="vertical"
-                  className="h-5 w-0.5 bg-white"
-                />
+                <Divider orientation="vertical" className="h-5 w-0.5 bg-white" />
                 <li>
                   <a href="#" className="text-white hover:text-mainColor">
                     Нууцлалын бодлого
                   </a>
                 </li>
-                <Divider
-                  orientation="vertical"
-                  className="h-5 w-0.5 bg-white"
-                />
+                <Divider orientation="vertical" className="h-5 w-0.5 bg-white" />
                 <li>
                   <a href="#" className="text-white hover:text-mainColor">
                     Бүртгүүлэх
@@ -309,8 +260,8 @@ const Footer = () => {
                 </li>
               </ul>
               <p className="mt-4 text-gray-50">
-                &copy; {new Date().getFullYear()} HubStar.MN - Монголын барилгын
-                нэгдсэн портал сайт.
+                &copy; {new Date().getFullYear()} HubStar.MN - Монголын барилгын нэгдсэн портал
+                сайт.
               </p>
             </motion.div>
 

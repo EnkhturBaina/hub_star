@@ -1,7 +1,7 @@
-import { AddressType } from "@/types/reference";
+import { AddressType } from '@/types/reference';
 
 export interface IPageOptions {
-  order: "ASC" | "DESC";
+  order: 'ASC' | 'DESC';
   page: number;
   limit: number;
 }
@@ -44,7 +44,7 @@ export interface IUser {
 export interface IVerifyOtp {
   otp: string;
   details: string;
-  type: "Registration" | "Forget" | "Verification";
+  type: 'Registration' | 'Forget' | 'Verification';
 }
 export interface IDirectionParam {
   mainDirectionId?: number;

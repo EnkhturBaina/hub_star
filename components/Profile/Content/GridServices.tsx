@@ -1,11 +1,11 @@
-"use client";
-import { Advertisement } from "@/types/advertisement";
-import { Services } from "@/types/services";
-import { motion } from "framer-motion";
-import Image from "next/image";
-import Link from "next/link";
-import { FaStar } from "react-icons/fa";
-import { IoAddCircle } from "react-icons/io5";
+'use client';
+import { Advertisement } from '@/types/advertisement';
+import { Services } from '@/types/services';
+import { motion } from 'framer-motion';
+import Image from 'next/image';
+import Link from 'next/link';
+import { FaStar } from 'react-icons/fa';
+import { IoAddCircle } from 'react-icons/io5';
 
 const GridServices = ({
   servicesData,
@@ -40,14 +40,11 @@ const GridServices = ({
       className="animate_top grid grid-cols-1 gap-6 bg-mainProfileCardBg md:grid-cols-2 lg:grid-cols-3"
     >
       {servicesData.map((blog: Advertisement, index: number) => (
-        <div
-          className="rounded-lg bg-white shadow-solid-8"
-          key={"grid" + index}
-        >
+        <div className="rounded-lg bg-white shadow-solid-8" key={'grid' + index}>
           <Link href={`/adv/`} className="relative block aspect-[368/239]">
             {/* blog.mainImage */}
             <Image
-              src={""}
+              src={''}
               alt={blog.title}
               fill
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"

@@ -1,6 +1,6 @@
-"use client";
-import { motion } from "framer-motion";
-import Image from "next/image";
+'use client';
+import { motion } from 'framer-motion';
+import Image from 'next/image';
 
 const Advices = () => {
   return (
@@ -30,7 +30,7 @@ const Advices = () => {
           >
             <Image
               src="/pdf_icon.png"
-              alt={"alt" + i}
+              alt={'alt' + i}
               width={100}
               height={80}
               className="h-full w-12"

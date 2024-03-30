@@ -1,57 +1,53 @@
-"use client";
-import Image from "next/image";
-import { Button, Divider, Skeleton } from "@nextui-org/react";
-import { Popover, PopoverTrigger, PopoverContent } from "@nextui-org/react";
-import { BsChevronRight } from "react-icons/bs";
-import { Fade } from "react-slideshow-image";
-import "react-slideshow-image/dist/styles.css";
-import { CiCircleChevRight, CiCircleChevLeft } from "react-icons/ci";
-import Feature from "../Features";
-import Blog from "../Blog";
-import GridCategory from "../GridCategory";
-import PaginationComp from "../Pagination";
-import LeftDirections from "../Skeleton/LeftDirections";
-import BlogItemSkeleton from "../Skeleton/BlogItemSkeleton";
-import { useAppContext } from "@/utils/context/app-context";
-import { Direction, MainDirection, SubDirection } from "@/types/reference";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "@/utils/redux/store";
-import { setAdParam } from "@/utils/redux/slice/ad-param";
-import { useRouter } from "next/navigation";
-import { useTypedSelector } from "@/utils/redux/reducer";
+'use client';
+import Image from 'next/image';
+import { Button, Divider, Skeleton } from '@nextui-org/react';
+import { Popover, PopoverTrigger, PopoverContent } from '@nextui-org/react';
+import { BsChevronRight } from 'react-icons/bs';
+import { Fade } from 'react-slideshow-image';
+import 'react-slideshow-image/dist/styles.css';
+import { CiCircleChevRight, CiCircleChevLeft } from 'react-icons/ci';
+import Feature from '../Features';
+import Blog from '../Blog';
+import GridCategory from '../GridCategory';
+import PaginationComp from '../Pagination';
+import LeftDirections from '../Skeleton/LeftDirections';
+import BlogItemSkeleton from '../Skeleton/BlogItemSkeleton';
+import { useAppContext } from '@/utils/context/app-context';
+import { Direction, MainDirection, SubDirection } from '@/types/reference';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '@/utils/redux/store';
+import { setAdParam } from '@/utils/redux/slice/ad-param';
+import { useRouter } from 'next/navigation';
+import { useTypedSelector } from '@/utils/redux/reducer';
 
 const Hero = () => {
   const { mainDirections } = useAppContext();
-  const { adParam } = useTypedSelector((state) => state);
+  const { adParam } = useTypedSelector(state => state);
   const dispatch = useDispatch<AppDispatch>();
   const router = useRouter();
   const images = [
-    "https://images.unsplash.com/photo-1509721434272-b79147e0e708?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80",
-    "https://images.unsplash.com/photo-1506710507565-203b9f24669b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1536&q=80",
-    "https://images.unsplash.com/photo-1536987333706-fc9adfb10d91?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80",
+    'https://images.unsplash.com/photo-1509721434272-b79147e0e708?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80',
+    'https://images.unsplash.com/photo-1506710507565-203b9f24669b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1536&q=80',
+    'https://images.unsplash.com/photo-1536987333706-fc9adfb10d91?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80',
   ];
   const properties = {
     prevArrow: <CiCircleChevLeft className="m-4 text-6xl text-white" />,
     nextArrow: <CiCircleChevRight className="m-4 text-6xl text-white" />,
   };
-  const indicators = (index) => <div className="custom-home-indicator"></div>;
-  const getAds = (
-    mainDirectionId: number,
-    directionId: number,
-    subDirectionId: number,
-  ) => {
+  const indicators = index => <div className="custom-home-indicator"></div>;
+  const getAds = (mainDirectionId: number, directionId: number, subDirectionId: number) => {
     dispatch(
       setAdParam({
         categoryId: adParam.categoryId,
         mainDirectionId: mainDirectionId,
         directionIds: [directionId],
         subDirectionIds: [subDirectionId],
-        order: "DESC",
+        order: 'DESC',
         page: 1,
         limit: 10,
-      }),
+      })
     );
-    router.push("/adv");
+    router.push('/adv');
   };
 
   return (
@@ -89,39 +85,29 @@ const Hero = () => {
                         <ul>
                           {md.directions.map((d: Direction, index: number) => {
                             return (
-                              <Popover
-                                placement="right"
-                                className="w-full"
-                                key={index}
-                              >
+                              <Popover placement="right" className="w-full" key={index}>
                                 <PopoverTrigger>
                                   <li className="mb-3 !scale-100 cursor-pointer !opacity-100 transition-all duration-300 last:mb-0 hover:text-mainColor">
                                     <div className="flex flex-row items-center justify-between">
                                       <span className="text-sm">{d.name}</span>
-                                      {d.subDirections.length > 0 && (
-                                        <BsChevronRight />
-                                      )}
+                                      {d.subDirections.length > 0 && <BsChevronRight />}
                                     </div>
                                   </li>
                                 </PopoverTrigger>
                                 {d.subDirections.length !== 0 && (
                                   <PopoverContent className="w-40 min-w-max items-start p-4">
                                     <ul>
-                                      {d.subDirections?.map(
-                                        (sub: SubDirection, index: number) => {
-                                          return (
-                                            <li
-                                              key={index}
-                                              className="mb-3 cursor-pointer text-black transition-all duration-300 last:mb-0 hover:text-mainColor"
-                                              onClick={() =>
-                                                getAds(md.id, d.id, sub.id)
-                                              }
-                                            >
-                                              {sub.name}
-                                            </li>
-                                          );
-                                        },
-                                      )}
+                                      {d.subDirections?.map((sub: SubDirection, index: number) => {
+                                        return (
+                                          <li
+                                            key={index}
+                                            className="mb-3 cursor-pointer text-black transition-all duration-300 last:mb-0 hover:text-mainColor"
+                                            onClick={() => getAds(md.id, d.id, sub.id)}
+                                          >
+                                            {sub.name}
+                                          </li>
+                                        );
+                                      })}
                                     </ul>
                                   </PopoverContent>
                                 )}
@@ -151,7 +137,7 @@ const Hero = () => {
                       <div
                         style={{
                           backgroundImage: `url(${images[0]})`,
-                          backgroundSize: "100% 100%",
+                          backgroundSize: '100% 100%',
                         }}
                       ></div>
                     </div>
@@ -159,7 +145,7 @@ const Hero = () => {
                       <div
                         style={{
                           backgroundImage: `url(${images[1]})`,
-                          backgroundSize: "100% 100%",
+                          backgroundSize: '100% 100%',
                         }}
                       ></div>
                     </div>
@@ -167,7 +153,7 @@ const Hero = () => {
                       <div
                         style={{
                           backgroundImage: `url(${images[2]})`,
-                          backgroundSize: "100% 100%",
+                          backgroundSize: '100% 100%',
                         }}
                       ></div>
                     </div>

@@ -1,8 +1,8 @@
-"use client";
-import React from "react";
-import featuresData from "./featuresData";
-import SingleFeature from "./SingleFeature";
-import { useAppContext } from "@/utils/context/app-context";
+'use client';
+import React from 'react';
+import featuresData from './featuresData';
+import SingleFeature from './SingleFeature';
+import { useAppContext } from '@/utils/context/app-context';
 
 const Feature = () => {
   const { categories } = useAppContext();
@@ -15,7 +15,7 @@ const Feature = () => {
             {/* <!-- Features item Start --> */}
 
             {categories
-              .filter((item) => item.isSpecial)
+              .filter(item => item.isSpecial)
               .map((feature, key) => (
                 <SingleFeature category={feature} key={key} />
               ))}

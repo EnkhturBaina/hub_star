@@ -1,10 +1,9 @@
-import axios, { AxiosInstance, AxiosError, AxiosResponse } from "axios";
-
+import axios, { AxiosInstance, AxiosError, AxiosResponse } from 'axios';
 
 const axiosClient = (token: string | null = null): AxiosInstance => {
   const headers = {
-    "Content-Type": "application/json; charset=utf-8",
-    "x-api-key": process.env.API_KEY,
+    'Content-Type': 'application/json; charset=utf-8',
+    'x-api-key': process.env.API_KEY,
     // Authorization: `Bearer ${token}`,
   };
 
@@ -38,7 +37,7 @@ const axiosClient = (token: string | null = null): AxiosInstance => {
         console.error(e);
       }
       throw error;
-    },
+    }
   );
 
   return client;

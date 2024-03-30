@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import { motion } from "framer-motion";
-import { Input, Select, SelectItem, Textarea } from "@nextui-org/react";
-import { animals } from "../animals";
-import { useEffect, useState } from "react";
-import { IAddressParam, ICreateAd } from "@/interfaces/request.interface";
-import { Address } from "@/types/reference";
-import { ReferenceService } from "@/service/reference/reference.service";
+import { motion } from 'framer-motion';
+import { Input, Select, SelectItem, Textarea } from '@nextui-org/react';
+import { animals } from '../animals';
+import { useEffect, useState } from 'react';
+import { IAddressParam, ICreateAd } from '@/interfaces/request.interface';
+import { Address } from '@/types/reference';
+import { ReferenceService } from '@/service/reference/reference.service';
 interface IProps {
   adData: ICreateAd;
   setAdData: React.Dispatch<React.SetStateAction<ICreateAd>>;
@@ -27,7 +27,6 @@ const Step2: React.FC<IProps> = ({ adData, setAdData }) => {
       ...prevState,
       districtId: parseInt(e.target.value),
     }));
-
   };
   const changeKhoroo = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setAdData((prevState: ICreateAd) => ({
@@ -36,25 +35,25 @@ const Step2: React.FC<IProps> = ({ adData, setAdData }) => {
     }));
   };
   const getAddress = (params: IAddressParam) => {
-    ReferenceService.getAddress(params).then((response) => {
+    ReferenceService.getAddress(params).then(response => {
       if (response.success) {
-        params.type == "PROVINCE" && setProvinces(response.response);
-        params.type == "DISTRICT" && setDistricts(response.response);
-        params.type == "KHOROO" && setKhoroos(response.response);
+        params.type == 'PROVINCE' && setProvinces(response.response);
+        params.type == 'DISTRICT' && setDistricts(response.response);
+        params.type == 'KHOROO' && setKhoroos(response.response);
       }
     });
   };
   useEffect(() => {
-    getAddress({ type: "PROVINCE" });
+    getAddress({ type: 'PROVINCE' });
   }, []);
   useEffect(() => {
     if (adData.provinceId) {
-      getAddress({ type: "DISTRICT", parentId: adData.provinceId });
+      getAddress({ type: 'DISTRICT', parentId: adData.provinceId });
     }
   }, [adData.provinceId]);
   useEffect(() => {
     if (adData.districtId) {
-      getAddress({ type: "KHOROO", parentId: adData.districtId });
+      getAddress({ type: 'KHOROO', parentId: adData.districtId });
     }
   }, [adData.districtId]);
   return (
@@ -86,11 +85,11 @@ const Step2: React.FC<IProps> = ({ adData, setAdData }) => {
         size="lg"
         variant="bordered"
         classNames={{
-          label: "font-bold",
-          inputWrapper: ["custom-input-wrapper", "bg-white"],
+          label: 'font-bold',
+          inputWrapper: ['custom-input-wrapper', 'bg-white'],
         }}
         value={adData?.title}
-        onValueChange={(e) => {
+        onValueChange={e => {
           setAdData((prevState: ICreateAd) => ({
             ...prevState,
             title: e,
@@ -106,11 +105,11 @@ const Step2: React.FC<IProps> = ({ adData, setAdData }) => {
           size="lg"
           variant="bordered"
           classNames={{
-            label: "font-bold",
-            trigger: "custom-select-trigger bg-white",
+            label: 'font-bold',
+            trigger: 'custom-select-trigger bg-white',
           }}
         >
-          {animals.map((animal) => (
+          {animals.map(animal => (
             <SelectItem key={animal.value} value={animal.value}>
               {animal.label}
             </SelectItem>
@@ -126,11 +125,11 @@ const Step2: React.FC<IProps> = ({ adData, setAdData }) => {
           size="lg"
           variant="bordered"
           classNames={{
-            label: "font-bold",
-            inputWrapper: ["custom-input-wrapper", "bg-white"],
+            label: 'font-bold',
+            inputWrapper: ['custom-input-wrapper', 'bg-white'],
           }}
           value={String(adData.price)}
-          onValueChange={(e) => {
+          onValueChange={e => {
             setAdData((prevState: ICreateAd) => ({
               ...prevState,
               price: parseInt(e),
@@ -147,8 +146,8 @@ const Step2: React.FC<IProps> = ({ adData, setAdData }) => {
           size="lg"
           variant="bordered"
           classNames={{
-            label: "font-bold",
-            trigger: "custom-select-trigger bg-white",
+            label: 'font-bold',
+            trigger: 'custom-select-trigger bg-white',
           }}
           selectedKeys={adData?.provinceId?.toString()}
           onChange={changeAimag}
@@ -167,8 +166,8 @@ const Step2: React.FC<IProps> = ({ adData, setAdData }) => {
           size="lg"
           variant="bordered"
           classNames={{
-            label: "font-bold",
-            trigger: "custom-select-trigger bg-white",
+            label: 'font-bold',
+            trigger: 'custom-select-trigger bg-white',
           }}
           selectedKeys={adData?.districtId?.toString()}
           onChange={changeDuureg}
@@ -187,8 +186,8 @@ const Step2: React.FC<IProps> = ({ adData, setAdData }) => {
           size="lg"
           variant="bordered"
           classNames={{
-            label: "font-bold",
-            trigger: "custom-select-trigger bg-white",
+            label: 'font-bold',
+            trigger: 'custom-select-trigger bg-white',
           }}
           selectedKeys={adData?.khorooId?.toString()}
           onChange={changeKhoroo}
@@ -207,12 +206,12 @@ const Step2: React.FC<IProps> = ({ adData, setAdData }) => {
         radius="sm"
         placeholder="Байршил"
         classNames={{
-          base: "w-full",
-          label: "font-bold",
-          inputWrapper: ["custom-input-wrapper", "bg-white"],
+          base: 'w-full',
+          label: 'font-bold',
+          inputWrapper: ['custom-input-wrapper', 'bg-white'],
         }}
         value={adData?.address}
-        onValueChange={(e) => {
+        onValueChange={e => {
           setAdData((prevState: ICreateAd) => ({
             ...prevState,
             address: e,

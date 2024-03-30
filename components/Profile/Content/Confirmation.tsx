@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { motion } from "framer-motion";
+import { motion } from 'framer-motion';
 import {
   Button,
   Chip,
@@ -9,13 +9,13 @@ import {
   SelectItem,
   SelectedItems,
   Textarea,
-} from "@nextui-org/react";
-import { animals } from "./animals";
-import { useState } from "react";
-import { BsImage } from "react-icons/bs";
+} from '@nextui-org/react';
+import { animals } from './animals';
+import { useState } from 'react';
+import { BsImage } from 'react-icons/bs';
 
 const Confirmation = () => {
-  const [values, setValues] = useState<any>(["cat", "dog"]);
+  const [values, setValues] = useState<any>(['cat', 'dog']);
   return (
     <motion.div
       variants={{
@@ -43,11 +43,11 @@ const Confirmation = () => {
         size="lg"
         variant="bordered"
         classNames={{
-          label: "font-bold",
-          trigger: "custom-select-trigger bg-white",
+          label: 'font-bold',
+          trigger: 'custom-select-trigger bg-white',
         }}
       >
-        {animals.map((animal) => (
+        {animals.map(animal => (
           <SelectItem key={animal.value} value={animal.value}>
             {animal.label}
           </SelectItem>
@@ -61,11 +61,11 @@ const Confirmation = () => {
         size="lg"
         variant="bordered"
         classNames={{
-          label: "font-bold",
-          trigger: "custom-select-trigger bg-white",
+          label: 'font-bold',
+          trigger: 'custom-select-trigger bg-white',
         }}
       >
-        {animals.map((animal) => (
+        {animals.map(animal => (
           <SelectItem key={animal.value} value={animal.value}>
             {animal.label}
           </SelectItem>
@@ -84,20 +84,20 @@ const Confirmation = () => {
         onSelectionChange={setValues}
         isMultiline={true}
         classNames={{
-          label: "font-bold",
-          trigger: "custom-select-trigger bg-white p-2",
+          label: 'font-bold',
+          trigger: 'custom-select-trigger bg-white p-2',
         }}
         renderValue={(items: SelectedItems<any>) => {
           return (
             <div className="flex flex-wrap gap-2">
-              {items.map((item) => (
+              {items.map(item => (
                 <Chip key={item.key}>{item.textValue}</Chip>
               ))}
             </div>
           );
         }}
       >
-        {animals.map((animal) => (
+        {animals.map(animal => (
           <SelectItem key={animal.value} value={animal.value}>
             {animal.label}
           </SelectItem>
@@ -134,8 +134,8 @@ const Confirmation = () => {
             size="lg"
             variant="bordered"
             classNames={{
-              label: "font-bold",
-              inputWrapper: ["custom-input-wrapper", "bg-white"],
+              label: 'font-bold',
+              inputWrapper: ['custom-input-wrapper', 'bg-white'],
             }}
           />
           <div className="grid grid-cols-2 gap-4">
@@ -149,8 +149,8 @@ const Confirmation = () => {
               size="lg"
               variant="bordered"
               classNames={{
-                label: "font-bold",
-                inputWrapper: ["custom-input-wrapper", "bg-white"],
+                label: 'font-bold',
+                inputWrapper: ['custom-input-wrapper', 'bg-white'],
               }}
             />
             <Input
@@ -163,8 +163,8 @@ const Confirmation = () => {
               size="lg"
               variant="bordered"
               classNames={{
-                label: "font-bold",
-                inputWrapper: ["custom-input-wrapper", "bg-white"],
+                label: 'font-bold',
+                inputWrapper: ['custom-input-wrapper', 'bg-white'],
               }}
             />
           </div>
@@ -178,9 +178,9 @@ const Confirmation = () => {
         minRows={5}
         placeholder="Байгууллагын  танилцуулга ба ажлын туршлага"
         classNames={{
-          base: "w-full",
-          label: "font-bold",
-          inputWrapper: ["custom-input-wrapper", "bg-white"],
+          base: 'w-full',
+          label: 'font-bold',
+          inputWrapper: ['custom-input-wrapper', 'bg-white'],
         }}
       />
       <div className="flex flex-row justify-end">

@@ -1,8 +1,8 @@
-"use client";
-import { Blog } from "@/types/blog";
-import { motion } from "framer-motion";
-import Image from "next/image";
-import Link from "next/link";
+'use client';
+import { Blog } from '@/types/blog';
+import { motion } from 'framer-motion';
+import Image from 'next/image';
+import Link from 'next/link';
 
 const SpecialPost = ({ blog }: { blog: Blog }) => {
   const { id, mainImage, title, desciption } = blog;
@@ -28,7 +28,7 @@ const SpecialPost = ({ blog }: { blog: Blog }) => {
         className="animate_top rounded-lg bg-white shadow-md"
       >
         <Link href={`/adv/`} className="relative block aspect-[368/239]">
-          <Image src={mainImage} alt={title} fill />
+          {/* <Image src={mainImage} alt={title} fill /> */}
         </Link>
 
         <div className="flex flex-col px-6 pb-2">

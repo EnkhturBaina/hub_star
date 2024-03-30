@@ -105,10 +105,7 @@ const SharePost = () => {
             <p className="text-black dark:text-white">Tags:</p>
           </li>
           <li>
-            <a
-              href="#"
-              className="pr-2 duration-300 ease-in-out hover:text-primary"
-            >
+            <a href="#" className="pr-2 duration-300 ease-in-out hover:text-primary">
               #business
             </a>
 

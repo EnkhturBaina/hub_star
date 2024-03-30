@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import { Avatar, Chip, Divider, Input, Textarea } from "@nextui-org/react";
-import { CiSearch } from "react-icons/ci";
-import { FaSmile } from "react-icons/fa";
-import { IoIosAdd } from "react-icons/io";
-import { BiSend } from "react-icons/bi";
+import { Avatar, Chip, Divider, Input, Textarea } from '@nextui-org/react';
+import { CiSearch } from 'react-icons/ci';
+import { FaSmile } from 'react-icons/fa';
+import { IoIosAdd } from 'react-icons/io';
+import { BiSend } from 'react-icons/bi';
 
 const Messenger = () => {
   return (
@@ -20,9 +20,7 @@ const Messenger = () => {
             />
             <div className="flex flex-col">
               <span className="text-small font-bold">М.Мөнгөн-Чимэг</span>
-              <span className="text-tiny text-default-400">
-                Худалдааны зөвлөх
-              </span>
+              <span className="text-tiny text-default-400">Худалдааны зөвлөх</span>
             </div>
           </div>
           <Divider className="mb-4" />
@@ -36,22 +34,17 @@ const Messenger = () => {
                       Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                     </p>
                   </div>
-                  <span className="text-xs leading-none text-gray-500">
-                    2 min ago
-                  </span>
+                  <span className="text-xs leading-none text-gray-500">2 min ago</span>
                 </div>
               </div>
               <div className="ml-auto mt-2 flex w-full max-w-xs justify-end space-x-3">
                 <div>
                   <div className="rounded-l-lg rounded-br-lg bg-blue-600 p-3 text-white">
                     <p className="text-sm">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                      sed do eiusmod.
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.
                     </p>
                   </div>
-                  <span className="text-xs leading-none text-gray-500">
-                    2 min ago
-                  </span>
+                  <span className="text-xs leading-none text-gray-500">2 min ago</span>
                 </div>
                 <div className="h-10 w-10 flex-shrink-0 rounded-full bg-gray-300"></div>
               </div>
@@ -60,9 +53,7 @@ const Messenger = () => {
                   <div className="rounded-l-lg rounded-br-lg bg-blue-600 p-3 text-white">
                     <p className="text-sm">Lorem ipsum dolor sit amet.</p>
                   </div>
-                  <span className="text-xs leading-none text-gray-500">
-                    2 min ago
-                  </span>
+                  <span className="text-xs leading-none text-gray-500">2 min ago</span>
                 </div>
                 <div className="h-10 w-10 flex-shrink-0 rounded-full bg-gray-300"></div>
               </div>
@@ -71,28 +62,22 @@ const Messenger = () => {
                 <div>
                   <div className="rounded-r-lg rounded-bl-lg bg-gray-300 p-3">
                     <p className="text-sm">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                      sed do eiusmod tempor incididunt ut labore et dolore magna
-                      aliqua.{" "}
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                      incididunt ut labore et dolore magna aliqua.{' '}
                     </p>
                   </div>
-                  <span className="text-xs leading-none text-gray-500">
-                    2 min ago
-                  </span>
+                  <span className="text-xs leading-none text-gray-500">2 min ago</span>
                 </div>
               </div>
               <div className="ml-auto mt-2 flex w-full max-w-xs justify-end space-x-3">
                 <div>
                   <div className="rounded-l-lg rounded-br-lg bg-blue-600 p-3 text-white">
                     <p className="text-sm">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                      sed do eiusmod tempor incididunt ut labore et dolore magna
-                      aliqua.{" "}
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                      incididunt ut labore et dolore magna aliqua.{' '}
                     </p>
                   </div>
-                  <span className="text-xs leading-none text-gray-500">
-                    2 min ago
-                  </span>
+                  <span className="text-xs leading-none text-gray-500">2 min ago</span>
                 </div>
                 <div className="h-10 w-10 flex-shrink-0 rounded-full bg-gray-300"></div>
               </div>
@@ -100,13 +85,11 @@ const Messenger = () => {
                 <div>
                   <div className="rounded-l-lg rounded-br-lg bg-blue-600 p-3 text-white">
                     <p className="text-sm">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                      sed do eiusmod tempor incididunt.
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                      incididunt.
                     </p>
                   </div>
-                  <span className="text-xs leading-none text-gray-500">
-                    2 min ago
-                  </span>
+                  <span className="text-xs leading-none text-gray-500">2 min ago</span>
                 </div>
                 <div className="h-10 w-10 flex-shrink-0 rounded-full bg-gray-300"></div>
               </div>
@@ -115,9 +98,7 @@ const Messenger = () => {
                   <div className="rounded-l-lg rounded-br-lg bg-blue-600 p-3 text-white">
                     <p className="text-sm">Lorem ipsum dolor sit amet.</p>
                   </div>
-                  <span className="text-xs leading-none text-gray-500">
-                    2 min ago
-                  </span>
+                  <span className="text-xs leading-none text-gray-500">2 min ago</span>
                 </div>
                 <div className="h-10 w-10 flex-shrink-0 rounded-full bg-gray-300"></div>
               </div>
@@ -126,14 +107,11 @@ const Messenger = () => {
                 <div>
                   <div className="rounded-r-lg rounded-bl-lg bg-gray-300 p-3">
                     <p className="text-sm">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                      sed do eiusmod tempor incididunt ut labore et dolore magna
-                      aliqua.{" "}
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                      incididunt ut labore et dolore magna aliqua.{' '}
                     </p>
                   </div>
-                  <span className="text-xs leading-none text-gray-500">
-                    2 min ago
-                  </span>
+                  <span className="text-xs leading-none text-gray-500">2 min ago</span>
                 </div>
               </div>
               <div className="ml-auto mt-2 flex w-full max-w-xs justify-end space-x-3">
@@ -141,9 +119,7 @@ const Messenger = () => {
                   <div className="rounded-l-lg rounded-br-lg bg-blue-600 p-3 text-white">
                     <p className="text-sm">Lorem ipsum dolor sit.</p>
                   </div>
-                  <span className="text-xs leading-none text-gray-500">
-                    2 min ago
-                  </span>
+                  <span className="text-xs leading-none text-gray-500">2 min ago</span>
                 </div>
                 <div className="h-10 w-10 flex-shrink-0 rounded-full bg-gray-300"></div>
               </div>
@@ -157,8 +133,8 @@ const Messenger = () => {
                 labelPlacement="outside"
                 placeholder="Зурвас илгээх"
                 classNames={{
-                  base: "col-span-12 mb-6 md:col-span-6 md:mb-0",
-                  inputWrapper: "rounded-md bg-white shadow-none",
+                  base: 'col-span-12 mb-6 md:col-span-6 md:mb-0',
+                  inputWrapper: 'rounded-md bg-white shadow-none',
                 }}
               />
               <IoIosAdd className="cursor-pointer text-4xl text-mainBgGray" />
@@ -176,9 +152,9 @@ const Messenger = () => {
             size="md"
             variant="bordered"
             classNames={{
-              base: "mb-4",
-              label: "font-bold",
-              inputWrapper: ["custom-input-wrapper", "bg-white"],
+              base: 'mb-4',
+              label: 'font-bold',
+              inputWrapper: ['custom-input-wrapper', 'bg-white'],
             }}
             startContent={
               <CiSearch className="pointer-events-none flex-shrink-0 text-2xl text-default-400" />
@@ -200,8 +176,8 @@ const Messenger = () => {
                     <Chip
                       variant="shadow"
                       classNames={{
-                        base: "bg-mainColor border-small",
-                        content: "drop-shadow shadow-black text-white px-1",
+                        base: 'bg-mainColor border-small',
+                        content: 'drop-shadow shadow-black text-white px-1',
                       }}
                     >
                       {i}
