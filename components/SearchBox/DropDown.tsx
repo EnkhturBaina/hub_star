@@ -14,7 +14,7 @@ export default function DropDown() {
         <Button
           radius="none"
           onClick={() => setDropdownToggler(!dropdownToggler)}
-          className="rounded-l-lg bg-white border-1 items-center"
+          className="rounded-l-md bg-white border-1 items-center"
         >
           <div className="flex flex-row items-center">
             <span className="font-bold">Бүгд</span>

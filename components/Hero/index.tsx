@@ -162,15 +162,6 @@ const Hero = () => {
                   </Fade>
                 </div>
               </div>
-              <div className="w-full overflow-hidden">
-                <Button
-                  isDisabled
-                  radius="full"
-                  className="h-8 w-50 bg-gradient-to-r from-blue-500 to-blue-900 font-bold uppercase leading-none tracking-wide text-white !opacity-100"
-                >
-                  Онцгой үйлчилгээ
-                </Button>
-              </div>
               <Feature />
               <GridCategory />
               {mainDirections.length == 0 ? <BlogItemSkeleton /> : <Blog />}

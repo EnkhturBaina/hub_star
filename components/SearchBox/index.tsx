@@ -31,7 +31,7 @@ const SearchBox = () => {
         radius="none"
         isIconOnly
         aria-label="Like"
-        className="h-10 w-10 rounded-r-xl bg-black"
+        className="h-10 w-10 rounded-r-md bg-black"
       >
         <Image src="/search.svg" alt="logo" width={15} height={15} className="block" />
       </Button>
