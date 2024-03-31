@@ -44,7 +44,8 @@ const GridServices = ({
           <Link href={`/adv/`} className="relative block aspect-[368/239]">
             {/* blog.mainImage */}
             <Image
-              src={''}
+              src={'/images/blog_img.jpg'}
+              // src={''}
               alt={blog.title}
               fill
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"

@@ -12,6 +12,8 @@ const PostedServices = () => {
   const [isGrid, setIsGrid] = useState(true);
   const [isAddService, setIsAddService] = useState(false);
   if (!isAddService) {
+    console.log('advertisements', advertisements);
+
     return (
       <div className="mb-4 w-full overflow-hidden ">
         <div className="flex justify-end">

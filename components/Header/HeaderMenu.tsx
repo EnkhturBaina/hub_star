@@ -59,7 +59,7 @@ const HeaderMenu = () => {
                   }`}
                 >
                   <Image
-                    src={process.env.IMG_PATH + item.logo}
+                    src={process.env.NEXT_PUBLIC_IMG_URL + item.logo.path}
                     alt="logo"
                     width={40}
                     height={40}

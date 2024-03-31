@@ -71,13 +71,13 @@ const Hero = () => {
                     return (
                       <div key={index}>
                         <div className="mb-5 flex flex-row">
-                          {/* <Image
-                            src={`${process.env.NEXT_PUBLIC_MEDIA_URL}/${md.logo.path}`}
+                          <Image
+                            src={`${process.env.NEXT_PUBLIC_IMG_URL}/${md.logo.path}`}
                             alt="add"
                             height={25}
                             width={25}
                             className="rounded-md object-contain object-center"
-                          /> */}
+                          />
                           <h4 className="!mt-0 ml-2 self-center text-lg font-semibold text-black">
                             {md?.name}
                           </h4>
@@ -89,7 +89,9 @@ const Hero = () => {
                                 <PopoverTrigger>
                                   <li className="mb-3 !scale-100 cursor-pointer !opacity-100 transition-all duration-300 last:mb-0 hover:text-mainColor">
                                     <div className="flex flex-row items-center justify-between">
-                                      <span className="text-sm">{d.name}</span>
+                                      <span className="text-sm font-medium text-[#646669]">
+                                        {d.name}
+                                      </span>
                                       {d.subDirections.length > 0 && <BsChevronRight />}
                                     </div>
                                   </li>

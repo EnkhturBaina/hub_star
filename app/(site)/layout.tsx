@@ -4,12 +4,16 @@ import Footer from '@/components/Footer';
 import Header from '@/components/Header';
 import ScrollToTop from '@/components/ScrollToTop';
 import { ThemeProvider } from 'next-themes';
-import { Inter } from 'next/font/google';
+import { Roboto } from 'next/font/google';
 import '../globals.css';
 import 'semantic-ui-css/semantic.min.css';
-const inter = Inter({ subsets: ['latin'] });
+const roboto = Roboto({
+  subsets: ['latin'],
+  weight: ['100', '300', '400', '500', '700', '900'],
+  display: 'swap',
+  variable: '--font-roboto',
+});
 import { usePathname } from 'next/navigation';
-
 import ToasterContext from '../context/ToastContext';
 import { NextUIProvider } from '@nextui-org/react';
 import { Provider } from 'react-redux';
@@ -21,7 +25,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   const pathUrl = usePathname();
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`dark:bg-black ${inter.className}`}>
+      <body className={`dark:bg-black ${roboto.className}`}>
         <Provider store={store}>
           <PersistGate loading={<div>Уншиж байна...</div>} persistor={persistor}>
             <AppProvider>

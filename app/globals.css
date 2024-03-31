@@ -1,7 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
+html {
+  font-family: var(--font-roboto);
+}
 /* third-party libraries CSS */
 
 .testimonial-01 .swiper-pagination-bullet {
@@ -21,7 +23,7 @@
 
 @layer base {
   body {
-    @apply relative z-1 font-inter text-regular font-normal text-waterloo dark:text-manatee;
+    @apply relative z-1 font-roboto text-regular font-normal text-waterloo dark:text-manatee;
   }
 }
 

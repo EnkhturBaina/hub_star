@@ -14,10 +14,10 @@ module.exports = {
   ],
   darkMode: 'class',
   theme: {
-    fontFamily: {
-      inter: ['Inter', 'sans-serif'],
-    },
     extend: {
+      fontFamily: {
+        roboto: ['var(--font-roboto)'],
+      },
       colors: {
         current: 'currentColor',
         transparent: 'transparent',

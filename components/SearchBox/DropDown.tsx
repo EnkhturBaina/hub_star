@@ -14,9 +14,12 @@ export default function DropDown() {
         <Button
           radius="none"
           onClick={() => setDropdownToggler(!dropdownToggler)}
-          className="rounded-l"
+          className="rounded-l-lg bg-white border-1 items-center"
         >
-          Бүгд
+          <div className="flex flex-row items-center">
+            <span className="font-bold">Бүгд</span>
+            <Image src="/arrow-down.png" alt="add" height={18} width={18} className="ml-2" />
+          </div>
         </Button>
       </PopoverTrigger>
       <PopoverContent className="bg-mainGray !p-4">
@@ -26,7 +29,7 @@ export default function DropDown() {
               <div key={index} className="!mb-2 !mt-0 inline-block h-min w-full">
                 <div className="mb-2 flex flex-row">
                   <Image
-                    src={process.env.IMG_PATH + md?.logo?.path}
+                    src={process.env.NEXT_PUBLIC_IMG_URL + md.logo.path}
                     alt="add"
                     height={20}
                     width={20}
@@ -37,21 +40,21 @@ export default function DropDown() {
                   </h4>
                 </div>
                 <ul>
-                  {md?.children?.map((d: any, index: number) => {
+                  {md?.directions?.map((d: any, index: number) => {
                     return (
                       <Popover placement="right" className="w-full" key={index}>
                         <PopoverTrigger>
                           <li className="mb-2 !scale-100 cursor-pointer !opacity-100 transition-all duration-300 last:mb-0 hover:text-mainColor">
                             <div className="flex flex-row items-center justify-between">
                               <span className="text-sm">{d.name}</span>
-                              {d.sub_children?.length !== 0 ? <BsChevronRight /> : null}
+                              {d.subDirections?.length !== 0 ? <BsChevronRight /> : null}
                             </div>
                           </li>
                         </PopoverTrigger>
-                        {d.sub_children?.length !== 0 ? (
+                        {d.subDirections?.length !== 0 ? (
                           <PopoverContent className="w-40 min-w-max items-start p-4">
                             <ul>
-                              {d.sub_children?.map((sub: any, index: number) => {
+                              {d.subDirections?.map((sub: any, index: number) => {
                                 return (
                                   <li
                                     key={index}

@@ -28,7 +28,13 @@ const BlogItem = ({ blog }: { blog: Blog }) => {
         className="animate_top rounded-lg bg-white shadow-md"
       >
         <Link href={`/adv/${id}`} className="relative block h-56 w-full">
-          <Image src={'/images/blog_img.jpg'} alt={title} fill className="rounded-t-lg" />
+          <Image
+            src={'/images/blog_img.jpg'}
+            alt={title}
+            fill
+            className="rounded-t-lg"
+            sizes="(max-width: 768px) 100vw"
+          />
         </Link>
 
         <div className="flex flex-col px-6 pb-2">
