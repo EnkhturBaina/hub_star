@@ -14,7 +14,7 @@ import {
   useDisclosure,
 } from '@nextui-org/react';
 import { AuthService } from '@/service/authentication/authentication.service';
-import { setAccessToken } from '@/service/api.service';
+import { removeAccessToken } from '@/service/api.service';
 
 const LeftMenu = ({
   selectedMenu,
@@ -84,7 +84,7 @@ const LeftMenu = ({
                     onClose();
                     AuthService.logout().then(response => {
                       if (response.success) {
-                        setAccessToken('');
+                        removeAccessToken();
                         router.push('/');
                       }
                     });

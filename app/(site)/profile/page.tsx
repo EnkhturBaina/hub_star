@@ -16,7 +16,7 @@ import toast from 'react-hot-toast';
 
 const Profile = () => {
   const { user } = useAppContext();
-  const [userImage, setUserImage] = useState<Users>();
+  const [userImage, setUserImage] = useState<Users>(user);
   const [visible, setVisible] = useState(false);
   const [selectedMenu, setSelectedMenu] = useState('profile');
   const saveUserImage = () => {
@@ -29,14 +29,6 @@ const Profile = () => {
       }
     });
   };
-  useEffect(() => {
-    if (user && !userImage) {
-      setUserImage(user);
-    }
-  }, []);
-  useEffect(() => {
-    console.log('useEffect working ========>', userImage);
-  }, [userImage]);
   useLayoutEffect(() => {
     if (!user) {
       redirect('/');
@@ -52,30 +44,23 @@ const Profile = () => {
           <div className="relative flex flex-col rounded-xl bg-white" style={{ height: 330 }}>
             <div className="relative">
               <div className="relative h-64 w-full bg-cover bg-center">
-                {/* <Image
+                <Image
                   src={
                     user.coverId
-                      ? `${process.env.BASE_API_URL}local-files/${user.coverId}`
-                      : 'url("/images/profile_bg.jpg")'
+                      ? `${process.env.NEXT_PUBLIC_BASE_API_URL}/local-files/${user.coverId}`
+                      : '/images/profile_bg.jpg'
                   }
-                  alt={"ковер"}
+                  alt={'ковер'}
                   width={1280}
                   height={224}
-                /> */}
+
+                  className='h-90'
+                />
               </div>
-              {/* <Button
-                color="default"
-                radius="full"
-                variant="faded"
-                startContent={<FaCamera className="text-lg" />}
-                className="absolute bottom-8 right-10 bg-gray-300 text-base text-white"
-              >
-                <input {...getInputProps()} />
-                Дэвсгэр зураг солих
-              </Button> */}
               <ImageUpload
                 className="absolute bottom-8 right-10 cursor-pointer bg-gray-300 text-base text-white"
                 setFileId={fileId => {
+                  console.log("fileId ========>", fileId);
                   setUserImage((prevState: Users) => ({
                     ...prevState,
                     coverId: fileId,

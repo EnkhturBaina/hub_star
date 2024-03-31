@@ -12,7 +12,7 @@ export type PageMeta = {
 /** Үйл ажиллагааны үндсэн чиглэл */
 export type MainDirection = {
   id: number;
-  logo: IFile;
+  logo?: IFile;
   name: string;
   directions: Direction[];
 };

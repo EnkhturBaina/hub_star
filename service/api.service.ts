@@ -7,19 +7,14 @@ const isServer = () => {
   return typeof window === 'undefined';
 };
 
-// let accessToken = "";
 let context = <GetServerSidePropsContext>{};
 const baseURL = process.env.NEXT_PUBLIC_BASE_API_URL!;
 
 export const setAccessToken = (_accessToken: string) => {
-  if (_accessToken == '') {
-    deleteCookie('access-token');
-  }
-  setCookie('access-token', _accessToken);
+  setCookie('access-token', _accessToken, { maxAge: 86400 });
 };
-
 export const getAccessToken = () => getCookie('access-token');
-
+export const removeAccessToken = () => deleteCookie('access-token');
 export const setContext = (_context: GetServerSidePropsContext) => {
   context = _context;
 };
