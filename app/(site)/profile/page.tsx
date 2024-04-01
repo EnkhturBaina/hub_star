@@ -20,13 +20,10 @@ const Profile = () => {
   const [visible, setVisible] = useState(false);
   const [selectedMenu, setSelectedMenu] = useState('profile');
   const saveUserImage = () => {
-    console.log('*******save  User  Image*******');
     AuthService.updateById(userImage.id, {
       avatarId: userImage.avatarId,
       coverId: userImage.coverId,
     }).then(response => {
-      console.log('response', response);
-
       if (response.success) {
         toast.success('Амжилттай хадгаллаа');
       }
@@ -40,16 +37,7 @@ const Profile = () => {
   }, []);
 
   useEffect(() => {
-    console.log('user', user);
-  }, [user]);
-
-  useEffect(() => {
-    console.log('userImage', userImage);
-    // setUser((prevState: Users) => ({
-    //   ...prevState,
-    //   avatarId: userImage.avatarId,
-    //   coverId: userImage.coverId,
-    // }));
+    userImage && setUser({ avatarId: userImage.avatarId, coverId: userImage.coverId });
   }, [userImage]);
   if (!user) {
     return null;
