@@ -1,6 +1,6 @@
 'use client';
 import LeftMenu from '@/components/Profile/LeftMenu';
-import { useEffect, useLayoutEffect, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { FaCamera } from 'react-icons/fa';
 import MenuList from '@/components/Profile/MenuList';
 import { SidebarPusher, SidebarPushable, Segment, Sidebar } from 'semantic-ui-react';
@@ -19,6 +19,8 @@ const Profile = () => {
   const [userImage, setUserImage] = useState<Users>(user);
   const [visible, setVisible] = useState(false);
   const [selectedMenu, setSelectedMenu] = useState('profile');
+
+  const sideBarRef = useRef(null);
   const saveUserImage = () => {
     AuthService.updateById(userImage.id, {
       avatarId: userImage.avatarId,
@@ -107,10 +109,10 @@ const Profile = () => {
                   </ImageUpload>
                 </div>
                 <div className="-mb-12 flex flex-col justify-end md:mb-2">
-                  <p className="mb-0 text-2xl font-bold text-black md:mb-2">
+                  <span className="mb-0 text-2xl font-bold text-black md:mb-2">
                     <AuthName user={user} />
-                  </p>
-                  <p className="text-xl">{user.jobPosition}</p>
+                  </span>
+                  <span className="text-xl">{user.jobPosition}</span>
                 </div>
               </div>
             </div>
@@ -133,10 +135,10 @@ const Profile = () => {
             animation="overlay"
             icon="labeled"
             onHide={() => setVisible(false)}
-            vertical
             visible={visible}
             width="wide"
             className="!bg-white"
+            ref={sideBarRef}
           >
             <div className="flex flex-row items-center justify-between border-b p-4">
               <div className="flex flex-row items-center justify-center">
