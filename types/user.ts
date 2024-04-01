@@ -18,4 +18,5 @@ export type Users = {
   cover?: LocalFile;
   address?: string;
   saveAdvertisements?: Advertisement[];
+  role?: string;
 };

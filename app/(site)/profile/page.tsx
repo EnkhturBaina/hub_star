@@ -15,26 +15,42 @@ import { AuthService } from '@/service/authentication/authentication.service';
 import toast from 'react-hot-toast';
 
 const Profile = () => {
-  const { user } = useAppContext();
+  const { user, setUser } = useAppContext();
   const [userImage, setUserImage] = useState<Users>(user);
   const [visible, setVisible] = useState(false);
   const [selectedMenu, setSelectedMenu] = useState('profile');
   const saveUserImage = () => {
+    console.log('*******save  User  Image*******');
     AuthService.updateById(userImage.id, {
       avatarId: userImage.avatarId,
       coverId: userImage.coverId,
     }).then(response => {
+      console.log('response', response);
+
       if (response.success) {
         toast.success('Амжилттай хадгаллаа');
       }
     });
   };
+
   useLayoutEffect(() => {
     if (!user) {
       redirect('/');
     }
   }, []);
 
+  useEffect(() => {
+    console.log('user', user);
+  }, [user]);
+
+  useEffect(() => {
+    console.log('userImage', userImage);
+    // setUser((prevState: Users) => ({
+    //   ...prevState,
+    //   avatarId: userImage.avatarId,
+    //   coverId: userImage.coverId,
+    // }));
+  }, [userImage]);
   if (!user) {
     return null;
   } else {
@@ -47,20 +63,18 @@ const Profile = () => {
                 <Image
                   src={
                     user.coverId
-                      ? `${process.env.NEXT_PUBLIC_BASE_API_URL}/local-files/${user.coverId}`
+                      ? `${process.env.NEXT_PUBLIC_BASE_API_URL}local-files/${user.coverId}`
                       : '/images/profile_bg.jpg'
                   }
                   alt={'ковер'}
-                  width={1280}
-                  height={224}
-
-                  className='h-90'
+                  className="h-65"
+                  fill
                 />
               </div>
               <ImageUpload
-                className="absolute bottom-8 right-10 cursor-pointer bg-gray-300 text-base text-white"
+                className="absolute bottom-8 right-10 cursor-pointer bg-gray-300 text-base bg-opacity-60 text-white flex flex-row items-center rounded-2xl px-4 py-1"
                 setFileId={fileId => {
-                  console.log("fileId ========>", fileId);
+                  console.log('fileId ========>', fileId);
                   setUserImage((prevState: Users) => ({
                     ...prevState,
                     coverId: fileId,
@@ -68,7 +82,7 @@ const Profile = () => {
                   saveUserImage();
                 }}
               >
-                <FaCamera className="text-lg" />
+                <FaCamera className="text-lg mr-3" />
                 Дэвсгэр зураг солих
               </ImageUpload>
               <div className="absolute -bottom-12 left-2 flex flex-row justify-between md:-bottom-28 md:left-30">
@@ -84,7 +98,7 @@ const Profile = () => {
                   ) : (
                     <Image
                       className="h-28 w-28 rounded-full border-5 border-white md:h-60 md:w-60"
-                      src={`${process.env.BASE_API_URL}local-files/${user.avatarId}`}
+                      src={`${process.env.NEXT_PUBLIC_BASE_API_URL}local-files/${user.avatarId}`}
                       alt=""
                       width={400}
                       height={400}
@@ -93,6 +107,7 @@ const Profile = () => {
                   <ImageUpload
                     className="bottom-2 right-2 cursor-pointer rounded-full bg-gray-100 p-3 text-black md:absolute"
                     setFileId={fileId => {
+                      console.log('fileId AVATAR========>', fileId);
                       setUserImage((prevState: Users) => ({
                         ...prevState,
                         avatarId: fileId,

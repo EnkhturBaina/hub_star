@@ -13,6 +13,7 @@ interface IAppContextProps {
   categories: Category[];
   advertisements: Advertisement[];
   adMeta: PageMeta;
+  setUser: (user: Users) => void;
 }
 
 const AppContext = createContext<IAppContextProps | undefined>(undefined);
@@ -81,6 +82,7 @@ const AppProvider: React.FC<IProps> = ({ children }) => {
     categories,
     advertisements,
     adMeta,
+    setUser,
   };
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 };
