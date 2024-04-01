@@ -6,22 +6,12 @@ import LeftFilter from '@/components/Skeleton/LeftFilter';
 import { Direction, MainDirection, PageMeta } from '@/types/reference';
 import { useAppContext } from '@/utils/context/app-context';
 import { Button, Checkbox, CheckboxGroup, Select, SelectItem } from '@nextui-org/react';
+import { useEffect } from 'react';
 import { IoIosAddCircleOutline } from 'react-icons/io';
 import { LuChevronLeft, LuSettings2 } from 'react-icons/lu';
 
 const BlogPage = () => {
   const { mainDirections, adParam, setAdParam, advertisements, adMeta } = useAppContext();
-  const onChangeFilter = (selectedDirectionIds: string[]) => {
-    setAdParam({
-      order: 'DESC',
-      page: 1,
-      limit: 10,
-      categoryId: adParam.categoryId,
-      mainDirectionId: adParam.mainDirectionId,
-      directionIds: selectedDirectionIds.map(item => Number(item)),
-      subDirectionIds: adParam.subDirectionIds,
-    });
-  };
   return (
     <>
       <section className="pt-35 lg:pt-40 xl:pt-42.5">
