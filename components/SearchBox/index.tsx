@@ -5,6 +5,7 @@ import Image from 'next/image';
 import DropDown from './DropDown';
 
 const SearchBox = () => {
+  const [searchVal, setSearchVal] = useState<any>('');
   return (
     <div className="flex w-full flex-row">
       <DropDown />
@@ -19,13 +20,15 @@ const SearchBox = () => {
         radius="none"
         size="sm"
         isClearable
-        onClear={() => console.log('input cleared')}
-        className="border-1 px-1 rounded-none"
+        onClear={() => setSearchVal('')}
         classNames={{
+          base: 'border-1 rounded-none',
           mainWrapper: 'contents h-10',
           innerWrapper: '!pb-0',
-          inputWrapper: 'h-full bg-white px-2 hover:bg-white',
+          inputWrapper: 'h-full bg-white px-2',
         }}
+        onValueChange={setSearchVal}
+        value={searchVal}
       />
       <Button
         radius="none"
