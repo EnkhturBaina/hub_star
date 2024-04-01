@@ -3,15 +3,9 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { useAppContext } from '@/utils/context/app-context';
 import { Category } from '@/types/reference';
-import { useTypedSelector } from '@/utils/redux/reducer';
-import { useDispatch } from 'react-redux';
-import { AppDispatch } from '@/utils/redux/store';
-import { setAdParam } from '@/utils/redux/slice/ad-param';
 
 const HeaderMenu = () => {
-  const { categories } = useAppContext();
-  const { adParam } = useTypedSelector(state => state);
-  const dispatch = useDispatch<AppDispatch>();
+  const { categories, adParam, setAdParam } = useAppContext();
   return (
     <div className="flex flex-row justify-center xl:w-full">
       <motion.div
@@ -40,20 +34,18 @@ const HeaderMenu = () => {
                 <div
                   key={index}
                   onClick={() =>
-                    dispatch(
-                      setAdParam({
-                        order: 'DESC',
-                        page: 1,
-                        limit: 10,
-                        categoryId: item.id,
-                        mainDirectionId: adParam.mainDirectionId,
-                        directionIds: adParam.directionIds,
-                        subDirectionIds: adParam.subDirectionIds,
-                      })
-                    )
+                    setAdParam({
+                      order: 'DESC',
+                      page: 1,
+                      limit: 10,
+                      categoryId: item.id,
+                      mainDirectionId: adParam.mainDirectionId,
+                      directionIds: adParam.directionIds,
+                      subDirectionIds: adParam.subDirectionIds,
+                    })
                   }
                   className={`relative flex h-full w-full cursor-pointer flex-col items-center border-b border-stroke px-6 py-2 last:border-0  md:w-auto md:border-0 xl:px-13.5 xl:pt-5 ${
-                    adParam.categoryId === item.id
+                    adParam && adParam.categoryId === item.id
                       ? 'active before:absolute before:bottom-0 before:left-0 before:h-1 before:w-full before:rounded-tl-[4px] before:rounded-tr-[4px] before:bg-mainColor'
                       : ''
                   }`}

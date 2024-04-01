@@ -14,16 +14,10 @@ import LeftDirections from '../Skeleton/LeftDirections';
 import BlogItemSkeleton from '../Skeleton/BlogItemSkeleton';
 import { useAppContext } from '@/utils/context/app-context';
 import { Direction, MainDirection, SubDirection } from '@/types/reference';
-import { useDispatch } from 'react-redux';
-import { AppDispatch } from '@/utils/redux/store';
-import { setAdParam } from '@/utils/redux/slice/ad-param';
 import { useRouter } from 'next/navigation';
-import { useTypedSelector } from '@/utils/redux/reducer';
 
 const Hero = () => {
-  const { mainDirections } = useAppContext();
-  const { adParam } = useTypedSelector(state => state);
-  const dispatch = useDispatch<AppDispatch>();
+  const { mainDirections, adParam, setAdParam } = useAppContext();
   const router = useRouter();
   const images = [
     'https://images.unsplash.com/photo-1509721434272-b79147e0e708?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80',
@@ -36,17 +30,15 @@ const Hero = () => {
   };
   const indicators = index => <div className="custom-home-indicator"></div>;
   const getAds = (mainDirectionId: number, directionId: number, subDirectionId: number) => {
-    dispatch(
-      setAdParam({
-        categoryId: adParam.categoryId,
-        mainDirectionId: mainDirectionId,
-        directionIds: [directionId],
-        subDirectionIds: [subDirectionId],
-        order: 'DESC',
-        page: 1,
-        limit: 10,
-      })
-    );
+    setAdParam({
+      categoryId: adParam.categoryId,
+      mainDirectionId: mainDirectionId,
+      directionIds: [directionId],
+      subDirectionIds: [subDirectionId],
+      order: 'DESC',
+      page: 1,
+      limit: 10,
+    });
     router.push('/adv');
   };
 

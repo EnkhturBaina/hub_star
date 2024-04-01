@@ -1,19 +1,29 @@
 import { ReferenceService } from '@/service/reference/reference.service';
 import { Advertisement } from '@/types/advertisement';
 import { Category, MainDirection, PageMeta } from '@/types/reference';
-import { ReactNode, createContext, useContext, useEffect, useState } from 'react';
-import { useTypedSelector } from '../redux/reducer';
+import {
+  Dispatch,
+  ReactNode,
+  SetStateAction,
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
 import { AdvertisementService } from '@/service/advertisement/advertisement.service';
 import { Users } from '@/types/user';
 import { AuthService } from '@/service/authentication/authentication.service';
 import { getAccessToken } from '@/service/api.service';
+import { IAdParam } from '@/interfaces/request.interface';
 interface IAppContextProps {
   user: Users;
+  setUser: (user: Users) => void;
   mainDirections: MainDirection[];
   categories: Category[];
+  adParam: IAdParam;
+  setAdParam: Dispatch<SetStateAction<IAdParam>>;
   advertisements: Advertisement[];
   adMeta: PageMeta;
-  setUser: (user: Users) => void;
 }
 
 const AppContext = createContext<IAppContextProps | undefined>(undefined);
@@ -22,7 +32,7 @@ interface IProps {
   children: ReactNode;
 }
 const AppProvider: React.FC<IProps> = ({ children }) => {
-  const { adParam } = useTypedSelector(state => state);
+  const [adParam, setAdParam] = useState<IAdParam>({ page: 1, limit: 10, order: 'DESC' });
   const [user, setUser] = useState<Users>();
   const [mainDirections, setMainDirections] = useState<MainDirection[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
@@ -80,6 +90,8 @@ const AppProvider: React.FC<IProps> = ({ children }) => {
     user,
     mainDirections,
     categories,
+    adParam,
+    setAdParam,
     advertisements,
     adMeta,
     setUser,

@@ -16,9 +16,6 @@ const roboto = Roboto({
 import { usePathname } from 'next/navigation';
 import ToasterContext from '../context/ToastContext';
 import { NextUIProvider } from '@nextui-org/react';
-import { Provider } from 'react-redux';
-import { persistor, store } from '@/utils/redux/store';
-import { PersistGate } from 'redux-persist/integration/react';
 import { AppProvider } from '@/utils/context/app-context';
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -26,8 +23,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`dark:bg-black ${roboto.className}`}>
-        <Provider store={store}>
-          <PersistGate loading={<div>Уншиж байна...</div>} persistor={persistor}>
             <AppProvider>
               <NextUIProvider>
                 <ThemeProvider enableSystem={false} attribute="class" defaultTheme="light">
@@ -39,8 +34,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 </ThemeProvider>
               </NextUIProvider>
             </AppProvider>
-          </PersistGate>
-        </Provider>
       </body>
     </html>
   );

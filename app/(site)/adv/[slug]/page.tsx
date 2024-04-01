@@ -5,7 +5,6 @@ import { animals } from '@/components/Profile/Content/animals';
 import { Button, Chip } from '@nextui-org/react';
 import Image from 'next/image';
 import { PiFlagThin } from 'react-icons/pi';
-import BlogData from '@/components/Blog/blogData';
 import BreadCrumbs from '@/components/BreadCrumbs';
 import { FaStar } from 'react-icons/fa';
 import axiosClient from '@/services/axiosInstance';
@@ -176,11 +175,11 @@ const SingleBlogPage = ({ params: { slug } }) => {
               <div className="mx-auto max-w-screen-xl py-10">
                 <span className="text-xl font-bold">Онцгой үйлчилгээ</span>
                 <div className="my-4 grid grid-cols-1 gap-7.5 md:grid-cols-2 lg:grid-cols-4 xl:gap-10">
-                  {BlogData?.splice(0, 4).map((blog, key) => <SpecialPost blog={blog} key={key} />)}
+                  {/* TODO {BlogData?.splice(0, 4).map((blog, key) => <SpecialPost blog={blog} key={key} />)} */}
                 </div>
                 <span className="text-xl font-bold">Ижил төсөөтэй үйлчилгээ</span>
                 <div className="my-4 grid grid-cols-1 gap-7.5 md:grid-cols-2 lg:grid-cols-4 xl:gap-10">
-                  {BlogData?.splice(0, 4).map((blog, key) => <RelatedPost blog={blog} key={key} />)}
+                  {/* TODO {BlogData?.splice(0, 4).map((blog, key) => <RelatedPost blog={blog} key={key} />)} */}
                 </div>
               </div>
             </div>

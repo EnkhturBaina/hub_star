@@ -1,22 +1,17 @@
 'use client';
 import { setAccessToken } from '@/service/api.service';
 import { AuthService } from '@/service/authentication/authentication.service';
-import { AppDispatch } from '@/utils/redux/store';
 import { Button, Input } from '@nextui-org/react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useMemo, useState } from 'react';
-import { useDispatch } from 'react-redux';
 import { Divider } from 'semantic-ui-react';
 import toast, { Toaster } from 'react-hot-toast';
-import { setCookie } from 'cookies-next';
 
 const Signin = () => {
   const router = useRouter();
-  const dispatch = useDispatch<AppDispatch>();
-
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
 

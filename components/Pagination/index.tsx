@@ -1,19 +1,14 @@
 'use client';
-import { PageMeta } from '@/types/reference';
-import { useTypedSelector } from '@/utils/redux/reducer';
-import { setAdParam } from '@/utils/redux/slice/ad-param';
-import { AppDispatch } from '@/utils/redux/store';
+import { useAppContext } from '@/utils/context/app-context';
 import { Pagination } from '@nextui-org/react';
 import { motion } from 'framer-motion';
 import React from 'react';
-import { useDispatch } from 'react-redux';
 interface IProps {
   page: number;
   pageCount: number;
 }
 const PaginationComp: React.FC<IProps> = ({ page, pageCount }) => {
-  const dispatch = useDispatch<AppDispatch>();
-  const { adParam } = useTypedSelector(state => state);
+  const { adParam, setAdParam } = useAppContext();
   return (
     <motion.div
       variants={{
@@ -36,17 +31,15 @@ const PaginationComp: React.FC<IProps> = ({ page, pageCount }) => {
       <Pagination
         showControls
         onChange={page =>
-          dispatch(
-            setAdParam({
-              order: adParam.order,
-              page,
-              limit: 10,
-              categoryId: adParam.categoryId,
-              mainDirectionId: adParam.mainDirectionId,
-              directionIds: adParam.directionIds,
-              subDirectionIds: adParam.subDirectionIds,
-            })
-          )
+          setAdParam({
+            order: adParam.order,
+            page,
+            limit: 10,
+            categoryId: adParam.categoryId,
+            mainDirectionId: adParam.mainDirectionId,
+            directionIds: adParam.directionIds,
+            subDirectionIds: adParam.subDirectionIds,
+          })
         }
         total={pageCount}
         initialPage={page}

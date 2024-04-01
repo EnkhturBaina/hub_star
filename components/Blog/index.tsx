@@ -1,6 +1,5 @@
 import React, { useContext } from 'react';
 import BlogItem from './BlogItem';
-import BlogData from './blogData';
 import { useAppContext } from '@/utils/context/app-context';
 
 const Blog = () => {

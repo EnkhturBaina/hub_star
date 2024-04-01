@@ -1,37 +1,26 @@
 'use client';
-import BlogData from '@/components/Blog/blogData';
 import BlogItem from '@/components/Blog/BlogItem';
 import BreadCrumbs from '@/components/BreadCrumbs';
 import PaginationComp from '@/components/Pagination';
 import LeftFilter from '@/components/Skeleton/LeftFilter';
-import { AdvertisementService } from '@/service/advertisement/advertisement.service';
-import { Advertisement } from '@/types/advertisement';
 import { Direction, MainDirection, PageMeta } from '@/types/reference';
 import { useAppContext } from '@/utils/context/app-context';
-import { useTypedSelector } from '@/utils/redux/reducer';
-import { setAdParam } from '@/utils/redux/slice/ad-param';
-import { AppDispatch } from '@/utils/redux/store';
 import { Button, Checkbox, CheckboxGroup, Select, SelectItem } from '@nextui-org/react';
 import { IoIosAddCircleOutline } from 'react-icons/io';
 import { LuChevronLeft, LuSettings2 } from 'react-icons/lu';
-import { useDispatch } from 'react-redux';
 
 const BlogPage = () => {
-  const { mainDirections, advertisements, adMeta } = useAppContext();
-  const dispatch = useDispatch<AppDispatch>();
-  const { adParam } = useTypedSelector(state => state);
+  const { mainDirections, adParam, setAdParam, advertisements, adMeta } = useAppContext();
   const onChangeFilter = (selectedDirectionIds: string[]) => {
-    dispatch(
-      setAdParam({
-        order: 'DESC',
-        page: 1,
-        limit: 10,
-        categoryId: adParam.categoryId,
-        mainDirectionId: adParam.mainDirectionId,
-        directionIds: selectedDirectionIds.map(item => Number(item)),
-        subDirectionIds: adParam.subDirectionIds,
-      })
-    );
+    setAdParam({
+      order: 'DESC',
+      page: 1,
+      limit: 10,
+      categoryId: adParam.categoryId,
+      mainDirectionId: adParam.mainDirectionId,
+      directionIds: selectedDirectionIds.map(item => Number(item)),
+      subDirectionIds: adParam.subDirectionIds,
+    });
   };
   return (
     <>
@@ -72,7 +61,17 @@ const BlogPage = () => {
                       base: 'my-4',
                       label: 'font-bold text-black text-base',
                     }}
-                    onChange={(e: any) => onChangeFilter(e)}
+                    onValueChange={value => {
+                      setAdParam({
+                        order: adParam.order,
+                        page: 1,
+                        limit: 10,
+                        categoryId: adParam.categoryId,
+                        mainDirectionId: adParam.mainDirectionId,
+                        directionIds: value.map(item => Number(item)),
+                        subDirectionIds: adParam.subDirectionIds,
+                      });
+                    }}
                   >
                     {md.directions.map((d: Direction, index: number) => {
                       return (
@@ -113,17 +112,15 @@ const BlogPage = () => {
                 value="DESC"
                 onChange={e => {
                   if (e.target.value == ('ASC' || 'DESC')) {
-                    dispatch(
-                      setAdParam({
-                        order: e.target.value,
-                        page: 1,
-                        limit: 10,
-                        categoryId: adParam.categoryId,
-                        mainDirectionId: adParam.mainDirectionId,
-                        directionIds: adParam.directionIds,
-                        subDirectionIds: adParam.subDirectionIds,
-                      })
-                    );
+                    setAdParam({
+                      order: e.target.value,
+                      page: 1,
+                      limit: 10,
+                      categoryId: adParam.categoryId,
+                      mainDirectionId: adParam.mainDirectionId,
+                      directionIds: adParam.directionIds,
+                      subDirectionIds: adParam.subDirectionIds,
+                    });
                   }
                 }}
               >
