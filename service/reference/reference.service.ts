@@ -10,8 +10,8 @@ import {
 import { api } from '../api.service';
 import { IAddressParam, IDirectionParam, ISubDirectionParam } from '@/interfaces/request.interface';
 
-const getMainDirection = (): Promise<IResponseMainDirections> => {
-  return api.get('/reference/main-direction');
+const getMainDirection = (params: { categoryId?: number }): Promise<IResponseMainDirections> => {
+  return api.get('/reference/main-direction', { params });
 };
 const getDirection = (params: IDirectionParam): Promise<IResponseDirections> => {
   return api.get('/reference/main-direction/direction', { params });

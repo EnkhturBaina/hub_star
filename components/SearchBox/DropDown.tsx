@@ -3,6 +3,7 @@ import { Button, Popover, PopoverTrigger, PopoverContent } from '@nextui-org/rea
 import Image from 'next/image';
 import { BsChevronRight } from 'react-icons/bs';
 import { useAppContext } from '@/utils/context/app-context';
+import { MainDirection } from '@/types/reference';
 
 export default function DropDown() {
   // Sticky menu
@@ -24,12 +25,12 @@ export default function DropDown() {
       </PopoverTrigger>
       <PopoverContent className="bg-mainGray !p-4">
         <div className="w-full columns-3 gap-y-8 space-y-8 md:w-[600px] lg:w-[800px]">
-          {mainDirections.map((md: any, index: number) => {
+          {mainDirections.map((md: MainDirection, index: number) => {
             return (
               <div key={index} className="!mb-2 !mt-0 inline-block h-min w-full">
                 <div className="mb-2 flex flex-row">
                   <Image
-                    src={process.env.NEXT_PUBLIC_IMG_URL + md.logo.path}
+                    src={process.env.NEXT_PUBLIC_IMG_URL + md.logo?.path}
                     alt="add"
                     height={20}
                     width={20}
@@ -51,7 +52,7 @@ export default function DropDown() {
                             </div>
                           </li>
                         </PopoverTrigger>
-                        {d.subDirections?.length !== 0 ? (
+                        {d.subDirections?.length !== 0 && (
                           <PopoverContent className="w-40 min-w-max items-start p-4">
                             <ul>
                               {d.subDirections?.map((sub: any, index: number) => {
@@ -66,7 +67,7 @@ export default function DropDown() {
                               })}
                             </ul>
                           </PopoverContent>
-                        ) : null}
+                        )}
                       </Popover>
                     );
                   })}

@@ -1,17 +1,43 @@
 'use client';
 import BlogItem from '@/components/Blog/BlogItem';
 import BreadCrumbs from '@/components/BreadCrumbs';
+import Redirect from '@/components/Common/Redirect';
 import PaginationComp from '@/components/Pagination';
 import LeftFilter from '@/components/Skeleton/LeftFilter';
-import { Direction, MainDirection, PageMeta } from '@/types/reference';
+import { Direction, MainDirection, SubDirection } from '@/types/reference';
 import { useAppContext } from '@/utils/context/app-context';
 import { Button, Checkbox, CheckboxGroup, Select, SelectItem } from '@nextui-org/react';
-import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 import { IoIosAddCircleOutline } from 'react-icons/io';
 import { LuChevronLeft, LuSettings2 } from 'react-icons/lu';
-
 const BlogPage = () => {
   const { mainDirections, adParam, setAdParam, advertisements, adMeta } = useAppContext();
+  const [mainDirection, setMainDirection] = useState<MainDirection>();
+  const router = useRouter();
+  const onChangeValue = (value: string[]) => {
+    const directions = mainDirection.directions.filter(item => {
+      return item.subDirections.some(subdir => value.includes(String(subdir.id)));
+    });
+    setAdParam({
+      order: adParam.order,
+      page: 1,
+      limit: 10,
+      categoryId: adParam.categoryId,
+      mainDirectionId: adParam.mainDirectionId,
+      directionIds: directions.map(item => item.id),
+      subDirectionIds: value.map(item => Number(item)),
+    });
+  };
+  useEffect(() => {
+    const { mainDirectionId } = adParam;
+    if (!mainDirectionId) {
+      router.push('/');
+    } else {
+      setMainDirection(mainDirections.find(item => mainDirectionId === item.id));
+    }
+  }, [adParam]);
+
   return (
     <>
       <section className="pt-35 lg:pt-40 xl:pt-42.5">
@@ -36,37 +62,26 @@ const BlogPage = () => {
               </div>
               <LuChevronLeft className="text-2xl" />
             </div>
-            {mainDirections.length == 0 ? (
+            {!mainDirection ? (
               <LeftFilter />
             ) : (
-              mainDirections &&
-              mainDirections.map((md: MainDirection, index: number) => {
+              mainDirection.directions.map((direction: Direction, index: number) => {
                 return (
                   <CheckboxGroup
-                    label={md.name}
+                    label={direction.name}
                     color="warning"
                     key={index}
-                    value={adParam.directionIds?.map(item => item.toString())}
+                    value={adParam.subDirectionIds?.map(item => item.toString())}
                     classNames={{
                       base: 'my-4',
                       label: 'font-bold text-black text-base',
                     }}
-                    onValueChange={value => {
-                      setAdParam({
-                        order: adParam.order,
-                        page: 1,
-                        limit: 10,
-                        categoryId: adParam.categoryId,
-                        mainDirectionId: adParam.mainDirectionId,
-                        directionIds: value.map(item => Number(item)),
-                        subDirectionIds: adParam.subDirectionIds,
-                      });
-                    }}
+                    onValueChange={onChangeValue}
                   >
-                    {md.directions.map((d: Direction, index: number) => {
+                    {direction.subDirections.map((subDir: SubDirection, index: number) => {
                       return (
                         <Checkbox
-                          value={String(d.id)}
+                          value={String(subDir.id)}
                           classNames={{
                             base: 'w-full max-w-full',
                             label: 'w-full',
@@ -75,8 +90,8 @@ const BlogPage = () => {
                           key={index}
                         >
                           <div className="flex w-full flex-row items-center justify-between">
-                            <span className="text-sm leading-none">{d.name}</span>
-                            <span className="text-sm">{md.directions.length}</span>
+                            <span className="text-sm leading-none">{subDir.name}</span>
+                            {/* TODO adv count <span className="text-sm">{subDir.}</span> */}
                           </div>
                         </Checkbox>
                       );
