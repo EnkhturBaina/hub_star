@@ -4,9 +4,8 @@ import { motion } from 'framer-motion';
 import { Select, SelectItem } from '@nextui-org/react';
 import React, { useEffect, useState } from 'react';
 import { useAppContext } from '@/utils/context/app-context';
-import { Direction, MainDirection, SubDirection } from '@/types/reference';
+import { Category, Direction, MainDirection, SubDirection } from '@/types/reference';
 import { ICreateAd } from '@/interfaces/request.interface';
-import { AdvertisementService } from '@/service/advertisement/advertisement.service';
 import { ReferenceService } from '@/service/reference/reference.service';
 interface IProps {
   adData: ICreateAd;
@@ -33,6 +32,7 @@ const Step1: React.FC<IProps> = ({ adData, setAdData }) => {
   };
 
   const changeDirection = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    console.log('value =====>', parseInt(e.target.value));
     setAdData((adData: ICreateAd) => ({
       ...adData,
       directionId: parseInt(e.target.value),
@@ -94,7 +94,7 @@ const Step1: React.FC<IProps> = ({ adData, setAdData }) => {
         selectedKeys={adData?.categoryId?.toString()}
         onChange={changeCustType}
       >
-        {categories?.map((data: any, index: number) => (
+        {categories?.map((data: Category, index: number) => (
           <SelectItem key={index} value={data.id}>
             {data.name}
           </SelectItem>
@@ -114,7 +114,7 @@ const Step1: React.FC<IProps> = ({ adData, setAdData }) => {
         selectedKeys={adData?.mainDirectionId?.toString()}
         onChange={changeMainDirection}
       >
-        {mainDirections.map((data: any) => (
+        {mainDirections.map((data: MainDirection) => (
           <SelectItem key={data?.id} value={data.id}>
             {data.name}
           </SelectItem>

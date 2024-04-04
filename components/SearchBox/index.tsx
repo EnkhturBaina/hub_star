@@ -3,9 +3,16 @@ import { Button, Input } from '@nextui-org/react';
 import { useState } from 'react';
 import Image from 'next/image';
 import DropDown from './DropDown';
-
-const SearchBox = () => {
-  const [searchVal, setSearchVal] = useState<any>('');
+import { useAppContext } from '@/utils/context/app-context';
+const SearchBox: React.FC = () => {
+  const { adParam, setAdParam } = useAppContext();
+  const [searchVal, setSearchVal] = useState<string>(undefined);
+  const onClickSearch = () => {
+    setAdParam({
+      ...adParam,
+      title: searchVal,
+    });
+  }
   return (
     <div className="flex w-full flex-row">
       <DropDown />
@@ -20,7 +27,7 @@ const SearchBox = () => {
         radius="none"
         size="sm"
         isClearable
-        onClear={() => setSearchVal('')}
+        onClear={() => setSearchVal(undefined)}
         classNames={{
           base: 'border-1 rounded-none',
           mainWrapper: 'contents h-10',
@@ -35,6 +42,7 @@ const SearchBox = () => {
         isIconOnly
         aria-label="Like"
         className="h-10 w-10 rounded-r-md bg-black"
+        onClick={() => onClickSearch()}
       >
         <Image src="/search.svg" alt="logo" width={15} height={15} className="block" />
       </Button>

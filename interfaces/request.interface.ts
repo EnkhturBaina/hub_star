@@ -10,6 +10,7 @@ export interface IAdParam extends IPageOptions {
   mainDirectionId?: number;
   directionIds?: number[];
   subDirectionIds?: number[];
+  title?: string;
 }
 export interface ICreateAd {
   mainDirectionId?: number;

@@ -9,7 +9,25 @@ import Step3 from './Step3';
 import toast, { Toaster } from 'react-hot-toast';
 import { AdvertisementService } from '@/service/advertisement/advertisement.service';
 import { ICreateAd } from '@/interfaces/request.interface';
-
+const defaultCreateAd: ICreateAd = {
+  mainDirectionId: null,
+  directionId: null,
+  subDirectionId: null,
+  categoryId: null,
+  provinceId: null,
+  districtId: null,
+  khorooId: null,
+  title: null,
+  address: null,
+  desciption: null,
+  price: null,
+  counter: null,
+  email: null,
+  phone: null,
+  isMessenger: null,
+  isTermOfService: null,
+  imageIds: null,
+};
 const AddService = ({
   isAddService,
   setIsAddService,
@@ -19,10 +37,14 @@ const AddService = ({
 }) => {
   const [step, setStep] = useState(1);
   const maxStep = 3;
-  const [createAd, setCreateAd] = useState<ICreateAd>({});
+  const [createAd, setCreateAd] = useState<ICreateAd>(defaultCreateAd);
+  const totalCounter = Object.entries(createAd).reduce((total, _) => total + 1, 0);
+  const valueCounter = Object.entries(createAd).reduce(
+    (total, item) => total + (item[1] !== null ? 1 : 0),
+    0
+  );
 
   const createAdRequest = () => {
-    console.log('createAd', createAd);
     AdvertisementService.create(createAd).then(response => {
       if (response.success) {
         toast.success('Амжилттай хадгаллаа.');
@@ -107,7 +129,7 @@ const AddService = ({
       className="mb-4 grid w-full grid-cols-1 gap-y-4 overflow-hidden"
     >
       <Progress
-        percent={Math.floor((100 * step) / maxStep)}
+        percent={Math.floor((100 * valueCounter) / totalCounter)}
         progress
         active
         size="small"

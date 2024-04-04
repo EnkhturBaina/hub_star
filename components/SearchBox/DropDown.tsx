@@ -1,22 +1,37 @@
 import React, { useState } from 'react';
 import { Button, Popover, PopoverTrigger, PopoverContent } from '@nextui-org/react';
 import Image from 'next/image';
-import { BsChevronRight } from 'react-icons/bs';
 import { useAppContext } from '@/utils/context/app-context';
-import { MainDirection } from '@/types/reference';
+import { Direction, MainDirection } from '@/types/reference';
+import { useRouter } from 'next/navigation';
 
 export default function DropDown() {
   // Sticky menu
-  const { mainDirections } = useAppContext();
-  const [dropdownToggler, setDropdownToggler] = useState(false);
+  const router = useRouter();
+  const { mainDirections, adParam, setAdParam } = useAppContext();
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const onClickDirection = (direction: Direction) => {
+    setAdParam({
+      page: 1,
+      limit: 10,
+      order: 'DESC',
+      categoryId: adParam.categoryId,
+      mainDirectionId: direction.mainDirectionId,
+      directionIds: [direction.id],
+      subDirectionIds: [],
+    });
+    setIsOpen(false);
+    router.push('/adv');
+  };
   return (
-    <Popover key="bottom-start" placement="bottom-start">
+    <Popover
+      key="bottom-start"
+      placement="bottom-start"
+      isOpen={isOpen}
+      onOpenChange={open => setIsOpen(open)}
+    >
       <PopoverTrigger>
-        <Button
-          radius="none"
-          onClick={() => setDropdownToggler(!dropdownToggler)}
-          className="rounded-l-md bg-white border-1 items-center"
-        >
+        <Button radius="none" className="rounded-l-md bg-white border-1 items-center">
           <div className="flex flex-row items-center">
             <span className="font-bold">Бүгд</span>
             <Image src="/arrow-down.png" alt="add" height={18} width={18} className="ml-2" />
@@ -41,34 +56,17 @@ export default function DropDown() {
                   </h4>
                 </div>
                 <ul>
-                  {md?.directions?.map((d: any, index: number) => {
+                  {md?.directions?.map((d: Direction, index: number) => {
                     return (
-                      <Popover placement="right" className="w-full" key={index}>
-                        <PopoverTrigger>
-                          <li className="mb-2 !scale-100 cursor-pointer !opacity-100 transition-all duration-300 last:mb-0 hover:text-mainColor">
-                            <div className="flex flex-row items-center justify-between">
-                              <span className="text-sm">{d.name}</span>
-                              {d.subDirections?.length !== 0 ? <BsChevronRight /> : null}
-                            </div>
-                          </li>
-                        </PopoverTrigger>
-                        {d.subDirections?.length !== 0 && (
-                          <PopoverContent className="w-40 min-w-max items-start p-4">
-                            <ul>
-                              {d.subDirections?.map((sub: any, index: number) => {
-                                return (
-                                  <li
-                                    key={index}
-                                    className="mb-3 cursor-pointer transition-all duration-300 last:mb-0 hover:text-mainColor"
-                                  >
-                                    {sub.name}
-                                  </li>
-                                );
-                              })}
-                            </ul>
-                          </PopoverContent>
-                        )}
-                      </Popover>
+                      <li
+                        key={index}
+                        onClick={() => onClickDirection(d)}
+                        className="mb-2 !scale-100 cursor-pointer !opacity-100 transition-all duration-300 last:mb-0 hover:text-mainColor"
+                      >
+                        <div className="flex flex-row items-center justify-between">
+                          <span className="text-sm">{d.name}</span>
+                        </div>
+                      </li>
                     );
                   })}
                 </ul>
