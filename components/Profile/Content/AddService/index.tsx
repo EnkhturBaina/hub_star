@@ -26,7 +26,7 @@ const defaultCreateAd: ICreateAd = {
   phone: null,
   isMessenger: null,
   isTermOfService: null,
-  imageIds: null,
+  imageIds: [],
 };
 const AddService = ({
   isAddService,
@@ -48,7 +48,7 @@ const AddService = ({
     AdvertisementService.create(createAd).then(response => {
       if (response.success) {
         toast.success('Амжилттай хадгаллаа.');
-        setCreateAd({});
+        setCreateAd(defaultCreateAd);
         setStep(1);
       }
     });

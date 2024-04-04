@@ -1,10 +1,12 @@
 'use client';
+import { MainDirection } from '@/types/reference';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import Link from 'next/link';
-
-const CatItem = ({ category }: { category: any }) => {
-  const { img, title } = category;
+type Props = {
+  mainDirection: MainDirection;
+};
+const CatItem: React.FC<Props> = ({ mainDirection }) => {
+  const { id, logo, name } = mainDirection;
 
   return (
     <>
@@ -28,14 +30,14 @@ const CatItem = ({ category }: { category: any }) => {
       >
         <div className="relative block h-64 w-full rounded-lg hover:opacity-50">
           <Image
-            alt={title ?? 'alt'}
-            src={img ?? '/images/blog_img.jpg'}
+            alt={name ?? 'alt'}
+            src={`${process.env.NEXT_PUBLIC_IMG_URL}/${logo.path}` ?? '/images/blog_img.jpg'}
             className="rounded-lg object-cover object-center"
             fill
             sizes="(max-width: 768px) 100vw"
           />
           <span className="absolute left-1/2 top-1/2 z-999 w-full -translate-x-1/2 -translate-y-1/2 text-center text-2xl uppercase text-white">
-            {title}
+            {name}
           </span>
         </div>
       </motion.div>

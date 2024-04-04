@@ -75,46 +75,28 @@ const Step2: React.FC<IProps> = ({ adData, setAdData }) => {
       viewport={{ once: true }}
       className="mb-4 grid w-full grid-cols-1 gap-y-4 overflow-hidden p-2"
     >
-      <Input
-        key="postTitle"
-        type="text"
-        label="Зарын гарчиг"
-        labelPlacement="outside"
-        placeholder="--"
-        radius="sm"
-        size="lg"
-        variant="bordered"
-        classNames={{
-          label: 'font-bold',
-          inputWrapper: ['custom-input-wrapper', 'bg-white'],
-        }}
-        value={adData?.title}
-        onValueChange={e => {
-          setAdData((prevState: ICreateAd) => ({
-            ...prevState,
-            title: e,
-          }));
-        }}
-      />
       <div className="grid grid-cols-2 gap-4">
-        <Select
-          label="Хэрэглэгчийн ангилал"
+        <Input
+          key="postTitle"
+          type="text"
+          label="Зарын гарчиг"
           labelPlacement="outside"
-          placeholder="Сонгох"
+          placeholder="--"
           radius="sm"
           size="lg"
           variant="bordered"
           classNames={{
             label: 'font-bold',
-            trigger: 'custom-select-trigger bg-white',
+            inputWrapper: ['custom-input-wrapper', 'bg-white'],
           }}
-        >
-          {animals.map(animal => (
-            <SelectItem key={animal.value} value={animal.value}>
-              {animal.label}
-            </SelectItem>
-          ))}
-        </Select>
+          value={adData?.title}
+          onValueChange={e => {
+            setAdData((prevState: ICreateAd) => ({
+              ...prevState,
+              title: e,
+            }));
+          }}
+        />
         <Input
           key="price"
           type="number"

@@ -4,6 +4,8 @@ import { motion } from 'framer-motion';
 import { Checkbox, Input, Textarea } from '@nextui-org/react';
 import { BsImage } from 'react-icons/bs';
 import { ICreateAd } from '@/interfaces/request.interface';
+import ImageUpload from '@/components/Image/image-upload';
+import Image from 'next/image';
 interface IProps {
   adData: ICreateAd;
   setAdData: React.Dispatch<React.SetStateAction<ICreateAd>>;
@@ -56,7 +58,7 @@ const Step3: React.FC<IProps> = ({ adData, setAdData }) => {
             label: 'font-bold',
             inputWrapper: ['custom-input-wrapper', 'bg-white'],
           }}
-          value={adData?.counter.toString()}
+          value={adData?.counter && adData.counter.toString()}
           onValueChange={e => {
             setAdData((prevState: ICreateAd) => ({
               ...prevState,
@@ -67,16 +69,29 @@ const Step3: React.FC<IProps> = ({ adData, setAdData }) => {
       </div>
       <span className="font-bold">Зураг оруулах</span>
       <div className="grid grid-cols-3 gap-4">
-        {[...new Array(6)].map((element, i) => {
+        {adData.imageIds.map((item, index) => {
           return (
-            <div
-              className="flex h-40 cursor-pointer items-center justify-center rounded-lg bg-mainGray"
-              key={i}
-            >
-              <BsImage className="text-2xl text-gray-500" />
-            </div>
+            <Image
+              key={index}
+              src={`${process.env.NEXT_PUBLIC_BASE_API_URL}local-files/${item}`}
+              alt="Зарын зураг"
+              width={160}
+              height={160}
+              className='flex h-40 cursor-pointer items-center justify-center rounded-lg bg-mainGray'
+            />
           );
         })}
+        <ImageUpload
+          className="flex h-40 cursor-pointer items-center justify-center rounded-lg bg-mainGray"
+          setFileId={fileId =>
+            setAdData(previousValue => ({
+              ...previousValue,
+              imageIds: [...previousValue.imageIds, fileId],
+            }))
+          }
+        >
+          <BsImage className="text-2xl text-gray-500" />
+        </ImageUpload>
       </div>
       <Textarea
         variant="bordered"
