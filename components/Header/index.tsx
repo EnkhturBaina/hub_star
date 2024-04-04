@@ -43,6 +43,7 @@ const Header = () => {
               width={120}
               height={40}
               className="block w-full"
+              priority
             />
           </a>
         </div>

@@ -28,8 +28,8 @@ const CatItem = ({ category }: { category: any }) => {
       >
         <div className="relative block h-64 w-full rounded-lg hover:opacity-50">
           <Image
-            alt={title}
-            src={img}
+            alt={title ?? 'alt'}
+            src={img ?? '/images/blog_img.jpg'}
             className="rounded-lg object-cover object-center"
             fill
             sizes="(max-width: 768px) 100vw"

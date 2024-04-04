@@ -17,34 +17,7 @@ const Step1: React.FC<IProps> = ({ adData, setAdData }) => {
   const [subDirections, setSubDirections] = useState<SubDirection[]>([]);
 
   if (!categories) return null;
-  const changeCustType = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setAdData((prevState: ICreateAd) => ({
-      ...prevState,
-      categoryId: parseInt(e.target.value),
-    }));
-  };
 
-  const changeMainDirection = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setAdData((adData: ICreateAd) => ({
-      ...adData,
-      mainDirectionId: parseInt(e.target.value),
-    }));
-  };
-
-  const changeDirection = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    console.log('value =====>', parseInt(e.target.value));
-    setAdData((adData: ICreateAd) => ({
-      ...adData,
-      directionId: parseInt(e.target.value),
-    }));
-  };
-
-  const changeSubDirection = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setAdData((adData: ICreateAd) => ({
-      ...adData,
-      subDirectionId: parseInt(e.target.value),
-    }));
-  };
   useEffect(() => {
     ReferenceService.getDirection({
       mainDirectionId: adData.mainDirectionId,
@@ -54,6 +27,7 @@ const Step1: React.FC<IProps> = ({ adData, setAdData }) => {
       }
     });
   }, [adData.mainDirectionId]);
+
   useEffect(() => {
     ReferenceService.getSubDirection({ directionId: adData.directionId }).then(response => {
       if (response.success) {
@@ -61,6 +35,7 @@ const Step1: React.FC<IProps> = ({ adData, setAdData }) => {
       }
     });
   }, [adData.directionId]);
+
   return (
     <motion.div
       variants={{
@@ -91,11 +66,16 @@ const Step1: React.FC<IProps> = ({ adData, setAdData }) => {
           label: 'font-bold',
           trigger: 'custom-select-trigger bg-white',
         }}
-        selectedKeys={adData?.categoryId?.toString()}
-        onChange={changeCustType}
+        value={adData?.categoryId?.toString()}
+        onChange={e => {
+          setAdData((prevState: ICreateAd) => ({
+            ...prevState,
+            categoryId: parseInt(e.target.value),
+          }));
+        }}
       >
         {categories?.map((data: Category, index: number) => (
-          <SelectItem key={index} value={data.id}>
+          <SelectItem key={data.id} value={data.id}>
             {data.name}
           </SelectItem>
         ))}
@@ -111,8 +91,13 @@ const Step1: React.FC<IProps> = ({ adData, setAdData }) => {
           label: 'font-bold',
           trigger: 'custom-select-trigger bg-white',
         }}
-        selectedKeys={adData?.mainDirectionId?.toString()}
-        onChange={changeMainDirection}
+        onChange={e => {
+          setAdData((adData: ICreateAd) => ({
+            ...adData,
+            mainDirectionId: parseInt(e.target.value),
+          }));
+        }}
+        value={adData?.mainDirectionId?.toString()}
       >
         {mainDirections.map((data: MainDirection) => (
           <SelectItem key={data?.id} value={data.id}>
@@ -132,8 +117,13 @@ const Step1: React.FC<IProps> = ({ adData, setAdData }) => {
           label: 'font-bold',
           trigger: 'custom-select-trigger bg-white',
         }}
-        selectedKeys={adData?.directionId?.toString()}
-        onChange={changeDirection}
+        value={adData?.directionId?.toString()}
+        onChange={e => {
+          setAdData((adData: ICreateAd) => ({
+            ...adData,
+            directionId: parseInt(e.target.value),
+          }));
+        }}
       >
         {directions.map((data: Direction) => (
           <SelectItem key={data.id} value={data.id}>
@@ -152,8 +142,13 @@ const Step1: React.FC<IProps> = ({ adData, setAdData }) => {
           label: 'font-bold',
           trigger: 'custom-select-trigger bg-white',
         }}
-        selectedKeys={adData?.subDirectionId?.toString()}
-        onChange={changeSubDirection}
+        value={adData?.subDirectionId?.toString()}
+        onChange={e => {
+          setAdData((adData: ICreateAd) => ({
+            ...adData,
+            subDirectionId: parseInt(e.target.value),
+          }));
+        }}
       >
         {subDirections.map((data: SubDirection) => (
           <SelectItem key={data.id} value={data.id}>

@@ -5,7 +5,8 @@ import { useAppContext } from '@/utils/context/app-context';
 import { Category } from '@/types/reference';
 
 const HeaderMenu = () => {
-  const { currentCategoryId, setCurrentCategoryId, categories, adParam, setAdParam } = useAppContext();
+  const { currentCategoryId, setCurrentCategoryId, categories, adParam, setAdParam } =
+    useAppContext();
   const onClickCategory = (categoryId: number) => {
     setCurrentCategoryId(categoryId);
     setAdParam({
