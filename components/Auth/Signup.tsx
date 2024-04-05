@@ -5,12 +5,11 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useMemo, useState } from 'react';
 import { Divider } from 'semantic-ui-react';
-import axiosClient from '@/services/axiosInstance';
 import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
+import { AuthService } from '@/service/authentication/authentication.service';
 
 const Signup = () => {
-  const client = axiosClient();
   const router = useRouter();
 
   const [email, setEmail] = useState<string>('');
@@ -38,8 +37,7 @@ const Signup = () => {
       toast.error('Нууц тохирохгүй байна.');
     } else {
       try {
-        client
-          .post('authentication/register', { email, password, isActive: 1 })
+        AuthService.register({ email, password })
           .then(response => {
             router.push('/auth/signin');
           })

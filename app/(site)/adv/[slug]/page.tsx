@@ -1,33 +1,27 @@
 'use client';
-import RelatedPost from '@/components/Blog/RelatedPost';
-import SpecialPost from '@/components/Blog/SpecialPost';
 import { animals } from '@/components/Profile/Content/animals';
 import { Button, Chip } from '@nextui-org/react';
 import Image from 'next/image';
 import { PiFlagThin } from 'react-icons/pi';
 import BreadCrumbs from '@/components/BreadCrumbs';
 import { FaStar } from 'react-icons/fa';
-import axiosClient from '@/services/axiosInstance';
 import { useEffect, useState } from 'react';
-import { Ad } from '@/types/ad';
 import AdSkeleton from '@/components/Skeleton/AdSkeleton';
 import { format } from 'date-fns';
+import { AdvertisementService } from '@/service/advertisement/advertisement.service';
+import { Advertisement } from '@/types/advertisement';
 
 const SingleBlogPage = ({ params: { slug } }) => {
-  const client = axiosClient();
-
   const [loadingAd, setLoadingAd] = useState<boolean>(true);
-  const [adData, setAdData] = useState<Ad | null>(null);
+  const [adData, setAdData] = useState<Advertisement>(null);
 
   const getAdById = () => {
-    client
-      .get('advertisement/' + slug)
+    AdvertisementService.getById(slug)
       .then(response => {
-        console.log('get Ad By Id', response);
-        setAdData(response.data.response);
-      })
-      .then(() => {
-        setLoadingAd(false);
+        if (response.success) {
+          setAdData(response.response);
+          setLoadingAd(false);
+        }
       })
       .catch(error => {
         console.error('Error fetching :', error);
@@ -101,7 +95,7 @@ const SingleBlogPage = ({ params: { slug } }) => {
                   <span className="font-bold">Үнэ</span>
                   <span className="">{adData?.price} ₮</span>
                   <span className="font-bold">Нийтэлсэн огноо</span>
-                  <span className="">{format(adData?.createdAt, 'yyyy-MM-dd h:m')}</span>
+                  <span className="">{format(new Date(adData.createdAt), 'yyyy-MM-dd hh:m')}</span>
                   <span className="font-bold">Зарын дугаар</span>
                   <span className="">{adData?.id}</span>
                   <span className="font-bold">Утасны дугаар</span>

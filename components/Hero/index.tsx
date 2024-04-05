@@ -155,7 +155,7 @@ const Hero = () => {
                 </div>
               </div>
               <Feature />
-              <GridCategory />
+              {/* <GridCategory /> */}
               {mainDirections.length == 0 ? <BlogItemSkeleton /> : <Blog />}
               {/* <Blog /> */}
               <PaginationComp page={0} pageCount={0} />

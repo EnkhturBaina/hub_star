@@ -2,7 +2,6 @@
 import { useAppContext } from '@/utils/context/app-context';
 import { BreadcrumbItem, Breadcrumbs } from '@nextui-org/react';
 import { useEffect, useState } from 'react';
-import Redirect from '../Common/Redirect';
 
 const BreadCrumbs: React.FC = () => {
   const { mainDirections, adParam } = useAppContext();
@@ -31,9 +30,7 @@ const BreadCrumbs: React.FC = () => {
       }
     }
   }, [adParam]);
-  return !adParam.mainDirectionId ? (
-    <Redirect to={'/'} />
-  ) : (
+  return (
     <Breadcrumbs
       separator="/"
       itemClasses={{

@@ -25,6 +25,7 @@ export type Advertisement = {
   images: LocalFile[];
   saveUsers: Users[];
   progresses: AdvertisementProgress[];
+  createdAt: string;
 };
 export type AdvertisementProgress = {
   id: number;
