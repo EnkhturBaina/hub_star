@@ -60,3 +60,23 @@ export type LocalFile = {
   path: string;
   mimetype: string;
 };
+export type FooterMenuType = 'MAIN' | 'SUPPORT' | 'TOOL';
+/** Лавлах цэсүүд */
+export type FooterMenu = {
+  id: number;
+  type: FooterMenuType;
+  title: string;
+  relLink: string;
+  position: number;
+}
+export type FooterMenuPage = {
+  id: number;
+  menuId: number;
+  menu: FooterMenu;
+  title?: string;
+  description?: string;
+  body?: string;
+  date: Date;
+  is_show: boolean;
+  image: IFile;
+}

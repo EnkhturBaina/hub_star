@@ -5,11 +5,12 @@ import {
   IResponseDirections,
   IResponseLocalFile,
   IResponseMainDirections,
+  IResponseMenu,
+  IResponsePage,
   IResponseSubDirections,
 } from '@/interfaces/response.interface';
 import { api } from '../api.service';
 import { IAddressParam, IDirectionParam, ISubDirectionParam } from '@/interfaces/request.interface';
-
 const getMainDirection = (params: { categoryId?: number }): Promise<IResponseMainDirections> => {
   return api.get('/reference/main-direction', { params });
 };
@@ -37,6 +38,12 @@ const fileUpload = (file: Blob): Promise<IResponseLocalFile> => {
 const removeFileUpload = (id: number): Promise<IResponse> => {
   return api.delete(`/local-files/${id}`);
 };
+const getMenu = (): Promise<IResponseMenu> => {
+  return api.get('/reference/menu');
+}
+const getMenuPage = (menuId: number): Promise<IResponsePage> => {
+  return api.get('/reference/pages/menu/' + menuId);
+}
 export const ReferenceService = {
   getMainDirection,
   getDirection,
@@ -45,4 +52,6 @@ export const ReferenceService = {
   getAddress,
   fileUpload,
   removeFileUpload,
+  getMenu,
+  getMenuPage,
 };

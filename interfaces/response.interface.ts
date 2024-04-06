@@ -6,6 +6,8 @@ import {
   MainDirection,
   PageMeta,
   SubDirection,
+  FooterMenu,
+  FooterMenuPage,
 } from '@/types/reference';
 import { Users } from '@/types/user';
 export interface IResponse {
@@ -57,6 +59,15 @@ export interface IResponseAdvertisements extends IResponse {
 export interface IResponseAdvertisement extends IResponse {
   response: Advertisement;
 }
+export interface IResponseAllAdProgress extends IResponse {
+  response: AdvertisementProgress[];
+}
 export interface IResponseAdProgress extends IResponse {
   response: AdvertisementProgress;
+}
+export interface IResponseMenu extends IResponse {
+  response: FooterMenu[];
+}
+export interface IResponsePage extends IResponse {
+  response: FooterMenuPage;
 }

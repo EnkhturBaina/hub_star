@@ -1,4 +1,4 @@
-import { AdvertisementProgress } from '@/types/advertisement';
+import { AdProcess, AdvertisementProgress } from '@/types/advertisement';
 import { AddressType } from '@/types/reference';
 
 export interface IPageOptions {
@@ -60,4 +60,7 @@ export interface IAddressParam {
   parentId?: number;
   name?: string;
   type: AddressType;
+}
+export interface IAdProgressParam extends IPageOptions {
+  process?: AdProcess;
 }

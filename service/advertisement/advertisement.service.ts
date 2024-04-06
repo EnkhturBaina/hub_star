@@ -2,9 +2,10 @@ import {
   IResponseAdProgress,
   IResponseAdvertisement,
   IResponseAdvertisements,
+  IResponseAllAdProgress,
 } from '@/interfaces/response.interface';
 import { api } from '../api.service';
-import { IAdParam, ICreateAd } from '@/interfaces/request.interface';
+import { IAdParam, IAdProgressParam, ICreateAd } from '@/interfaces/request.interface';
 import { AdvertisementProgress, AdProcess } from '@/types/advertisement';
 
 const get = (params: IAdParam): Promise<IResponseAdvertisements> => {
@@ -25,8 +26,8 @@ const addProgress = (progress: AdvertisementProgress): Promise<IResponseAdProgre
 const editProgress = (progress: AdvertisementProgress): Promise<IResponseAdProgress> => {
   return api.post('ad-progress', progress);
 };
-const getProgress = (process: AdProcess): Promise<IResponseAdProgress> => {
-  return api.get('ad-progress', { params: { process } });
+const getProgress = (params: IAdProgressParam): Promise<IResponseAllAdProgress> => {
+  return api.get('ad-progress', { params });
 };
 const removeProgress = (id: number): Promise<IResponseAdProgress> => {
   return api.delete('ad-progress/' + id);

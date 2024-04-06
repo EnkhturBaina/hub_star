@@ -2,10 +2,14 @@
 import { Divider } from '@nextui-org/react';
 import { motion } from 'framer-motion';
 import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
-
-const Footer = () => {
+import { ReferenceService } from '@/service/reference/reference.service';
+import { FooterMenu } from '@/types/reference';
+import Link from 'next/link';
+/** TODO ETR bro linked paged holboh */
+const Footer: React.FC = () => {
+  const [menus, setMenus] = useState<FooterMenu[]>([]);
   const containerStyle = {
     width: '400px',
     height: '400px',
@@ -33,7 +37,13 @@ const Footer = () => {
   // }, []);
 
   const pathUrl = usePathname();
-
+  useEffect(() => {
+    ReferenceService.getMenu().then(res => {
+      if (res.success) {
+        setMenus(res.response);
+      }
+    });
+  }, []);
   return (
     <>
       <footer className="border-stroke bg-mainDark ">
@@ -61,116 +71,100 @@ const Footer = () => {
                     viewport={{ once: true }}
                     className="animate_top"
                   >
+                    <h4 className="mb-9 text-itemtitle2 font-semibold text-gray-400">HUB STAR</h4>
+
+                    <ul>
+                      {menus
+                        .filter(item => item.type == 'MAIN')
+                        .map(item => (
+                          <li key={item.id}>
+                            <Link
+                              href={'/docs/' + item.id}
+                              className="mb-3 inline-block text-white hover:text-mainColor"
+                            >
+                              {item.title}
+                            </Link>
+                          </li>
+                        ))}
+                    </ul>
+                  </motion.div>
+
+                  <motion.div
+                    variants={{
+                      hidden: {
+                        opacity: 0,
+                        y: -20,
+                      },
+
+                      visible: {
+                        opacity: 1,
+                        y: 0,
+                      },
+                    }}
+                    initial="hidden"
+                    whileInView="visible"
+                    transition={{ duration: 1, delay: 0.1 }}
+                    viewport={{ once: true }}
+                    className="animate_top"
+                  >
+                    <h4 className="mb-9 text-itemtitle2 font-semibold text-gray-400">ТУСЛАМЖ</h4>
+
+                    <ul>
+                      {menus
+                        .filter(item => item.type == 'SUPPORT')
+                        .map(item => (
+                          <li key={item.id}>
+                            <Link
+                              href={'/docs/' + item.id}
+                              className="mb-3 inline-block text-white hover:text-mainColor"
+                            >
+                              {item.title}
+                            </Link>
+                          </li>
+                        ))}
+                    </ul>
+                  </motion.div>
+                  <motion.div
+                    variants={{
+                      hidden: {
+                        opacity: 0,
+                        y: -20,
+                      },
+
+                      visible: {
+                        opacity: 1,
+                        y: 0,
+                      },
+                    }}
+                    initial="hidden"
+                    whileInView="visible"
+                    transition={{ duration: 1, delay: 0.1 }}
+                    viewport={{ once: true }}
+                    className="animate_top"
+                  >
                     <h4 className="mb-9 text-itemtitle2 font-semibold text-gray-400">
-                      Quick Links
+                      ХОЛБОО БАРИХ
                     </h4>
 
                     <ul>
                       <li>
                         <a href="#" className="mb-3 inline-block text-white hover:text-mainColor">
-                          Home
+                          Утас: 7070-7070
                         </a>
                       </li>
                       <li>
                         <a href="#" className="mb-3 inline-block text-white hover:text-mainColor">
-                          Product
+                          Факс: +123 456789
                         </a>
                       </li>
                       <li>
                         <a href="#" className="mb-3 inline-block text-white hover:text-mainColor">
-                          Careers
+                          Имэйл: info@hubstar.mn
                         </a>
                       </li>
                       <li>
                         <a href="#" className="mb-3 inline-block text-white hover:text-mainColor">
-                          Pricing
-                        </a>
-                      </li>
-                    </ul>
-                  </motion.div>
-
-                  <motion.div
-                    variants={{
-                      hidden: {
-                        opacity: 0,
-                        y: -20,
-                      },
-
-                      visible: {
-                        opacity: 1,
-                        y: 0,
-                      },
-                    }}
-                    initial="hidden"
-                    whileInView="visible"
-                    transition={{ duration: 1, delay: 0.1 }}
-                    viewport={{ once: true }}
-                    className="animate_top"
-                  >
-                    <h4 className="mb-9 text-itemtitle2 font-semibold text-gray-400">Support</h4>
-
-                    <ul>
-                      <li>
-                        <a href="#" className="mb-3 inline-block text-white hover:text-mainColor">
-                          Company
-                        </a>
-                      </li>
-                      <li>
-                        <a href="#" className="mb-3 inline-block text-white hover:text-mainColor">
-                          Press media
-                        </a>
-                      </li>
-                      <li>
-                        <a href="#" className="mb-3 inline-block text-white hover:text-mainColor">
-                          Our Blog
-                        </a>
-                      </li>
-                      <li>
-                        <a href="#" className="mb-3 inline-block text-white hover:text-mainColor">
-                          Contact Us
-                        </a>
-                      </li>
-                    </ul>
-                  </motion.div>
-                  <motion.div
-                    variants={{
-                      hidden: {
-                        opacity: 0,
-                        y: -20,
-                      },
-
-                      visible: {
-                        opacity: 1,
-                        y: 0,
-                      },
-                    }}
-                    initial="hidden"
-                    whileInView="visible"
-                    transition={{ duration: 1, delay: 0.1 }}
-                    viewport={{ once: true }}
-                    className="animate_top"
-                  >
-                    <h4 className="mb-9 text-itemtitle2 font-semibold text-gray-400">Support</h4>
-
-                    <ul>
-                      <li>
-                        <a href="#" className="mb-3 inline-block text-white hover:text-mainColor">
-                          Company
-                        </a>
-                      </li>
-                      <li>
-                        <a href="#" className="mb-3 inline-block text-white hover:text-mainColor">
-                          Press media
-                        </a>
-                      </li>
-                      <li>
-                        <a href="#" className="mb-3 inline-block text-white hover:text-mainColor">
-                          Our Blog
-                        </a>
-                      </li>
-                      <li>
-                        <a href="#" className="mb-3 inline-block text-white hover:text-mainColor">
-                          Contact Us
+                          Хаяг: Улаанбаатар 13373, Баянзүрх дүүрэг, 6-р хороо, BARILGA.MN оффис
                         </a>
                       </li>
                     </ul>
@@ -235,29 +229,18 @@ const Footer = () => {
               className="animate_top"
             >
               <ul className="flex items-center gap-4">
-                <li>
-                  <a href="#" className="text-white hover:text-mainColor">
-                    Хэрэглэх заавар
-                  </a>
-                </li>
-                <Divider orientation="vertical" className="h-5 w-0.5 bg-white" />
-                <li>
-                  <a href="#" className="text-white hover:text-mainColor">
-                    Сурталчилгаа байршуулах
-                  </a>
-                </li>
-                <Divider orientation="vertical" className="h-5 w-0.5 bg-white" />
-                <li>
-                  <a href="#" className="text-white hover:text-mainColor">
-                    Нууцлалын бодлого
-                  </a>
-                </li>
-                <Divider orientation="vertical" className="h-5 w-0.5 bg-white" />
-                <li>
-                  <a href="#" className="text-white hover:text-mainColor">
-                    Бүртгүүлэх
-                  </a>
-                </li>
+                {menus
+                  .filter(item => item.type == 'TOOL')
+                  .map(item => (
+                    <>
+                      <li key={item.id}>
+                        <Link href={'/docs/' + item.id} className="text-white hover:text-mainColor">
+                          {item.title}
+                        </Link>
+                      </li>
+                      <Divider orientation="vertical" className="h-5 w-0.5 bg-white" />
+                    </>
+                  ))}
               </ul>
               <p className="mt-4 text-gray-50">
                 &copy; {new Date().getFullYear()} HubStar.MN - Монголын барилгын нэгдсэн портал
