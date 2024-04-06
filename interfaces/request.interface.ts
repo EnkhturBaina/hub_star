@@ -1,3 +1,4 @@
+import { AdvertisementProgress } from '@/types/advertisement';
 import { AddressType } from '@/types/reference';
 
 export interface IPageOptions {

@@ -18,6 +18,9 @@ const logout = (): Promise<IResponse> => {
 const profile = (): Promise<IResponseProfile> => {
   return api.get('/authentication');
 };
+const otherProfile = (id: number): Promise<IResponseProfile> => {
+  return api.get('/authentication/' + id);
+};
 const changePassword = (password: string) => {
   return api.post('/changePassword', { password });
 };
@@ -30,6 +33,7 @@ export const AuthService = {
   otpVerify,
   logout,
   profile,
+  otherProfile,
   changePassword,
   updateById,
 };

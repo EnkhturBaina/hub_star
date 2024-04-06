@@ -1,4 +1,4 @@
-import { Advertisement } from '@/types/advertisement';
+import { Advertisement, AdvertisementProgress } from '@/types/advertisement';
 import {
   Address,
   Category,
@@ -56,4 +56,7 @@ export interface IResponseAdvertisements extends IResponse {
 }
 export interface IResponseAdvertisement extends IResponse {
   response: Advertisement;
+}
+export interface IResponseAdProgress extends IResponse {
+  response: AdvertisementProgress;
 }

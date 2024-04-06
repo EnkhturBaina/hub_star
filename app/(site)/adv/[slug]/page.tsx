@@ -1,5 +1,4 @@
 'use client';
-import { animals } from '@/components/Profile/Content/animals';
 import { Button, Chip } from '@nextui-org/react';
 import Image from 'next/image';
 import { PiFlagThin } from 'react-icons/pi';
@@ -10,11 +9,18 @@ import AdSkeleton from '@/components/Skeleton/AdSkeleton';
 import { format } from 'date-fns';
 import { AdvertisementService } from '@/service/advertisement/advertisement.service';
 import { Advertisement } from '@/types/advertisement';
+import toast from 'react-hot-toast';
+import Gallery from '@/components/Image/gallery';
+import { AuthService } from '@/service/authentication/authentication.service';
+import { useRouter } from 'next/navigation';
+import { SubDirection } from '@/types/reference';
+import { ReferenceService } from '@/service/reference/reference.service';
 
 const SingleBlogPage = ({ params: { slug } }) => {
+  const router = useRouter();
   const [loadingAd, setLoadingAd] = useState<boolean>(true);
   const [adData, setAdData] = useState<Advertisement>(null);
-
+  const [subDirections, setSubDirections] = useState<SubDirection[]>([]);
   const getAdById = () => {
     AdvertisementService.getById(slug)
       .then(response => {
@@ -28,10 +34,51 @@ const SingleBlogPage = ({ params: { slug } }) => {
         setLoadingAd(false);
       });
   };
+  const getSubDirections = () => {
+    ReferenceService.getSubDirection({ directionId: adData.directionId }).then(res => {
+      if (res.success) {
+        setSubDirections(res.response);
+      }
+    });
+  };
+  const onOrder = () => {
+    AdvertisementService.addProgress({
+      advertisementId: adData.id,
+      process: 'ORDER',
+      isShow: true,
+      point: 0,
+    })
+      .then(res => {
+        if (res.success) {
+          toast.success('Үйлчилгээг амжилттай захиаллаа.');
+        }
+      })
+      .catch(err => {
+        toast.error(err);
+      });
+  };
+  const onSave = () => {
+    AdvertisementService.save(adData.id)
+      .then(res => {
+        if (res.success) {
+          toast.success('Үйлчилгээ амжилттай хадгаллаа.');
+        }
+      })
+      .catch(err => toast.error(err));
+  };
+  const viewProfile = () => {
+    AuthService.otherProfile(adData.createdBy).then(res => {
+      if (res.success) {
+        router.push('/profile/' + adData.createdBy);
+      }
+    });
+  };
   useEffect(() => {
     getAdById();
   }, []);
-
+  useEffect(() => {
+    adData && getSubDirections();
+  }, [adData]);
   return (
     <>
       <section className="pt-35 lg:pt-40 xl:pt-42.5">
@@ -49,13 +96,18 @@ const SingleBlogPage = ({ params: { slug } }) => {
                 </div>
                 <div className="flex flex-row">
                   <Button
+                    onClick={() => onOrder()}
                     radius="full"
                     className="mb-2 w-full rounded-md bg-mainColor font-bold leading-none text-white md:w-72"
                   >
                     Үйлчилгээг захиалах
                   </Button>
 
-                  <Button className="ml-4 min-w-unit-12 border-1 bg-white !px-0" radius="sm">
+                  <Button
+                    className="ml-4 min-w-unit-12 border-1 bg-white !px-0"
+                    radius="sm"
+                    onClick={() => onSave()}
+                  >
                     <PiFlagThin className="text-2xl" />
                   </Button>
                 </div>
@@ -66,13 +118,7 @@ const SingleBlogPage = ({ params: { slug } }) => {
                 <div className="animate_top">
                   <div className="mb-10 w-full overflow-hidden ">
                     <div className="relative aspect-[97/60] w-full sm:aspect-[97/44]">
-                      <Image
-                        src={'/images/blog/blog-01.png'}
-                        alt="Kobe Steel plant that supplied"
-                        fill
-                        className="rounded-md object-cover object-center"
-                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 100vw"
-                      />
+                      <Gallery images={adData.images.map((item) => process.env.NEXT_PUBLIC_MEDIA_URL + item.id)} />
                     </div>
                   </div>
 
@@ -109,6 +155,7 @@ const SingleBlogPage = ({ params: { slug } }) => {
                   <span className="font-bold">Байршил</span>
                   <span className="">{adData?.address}</span>
                   <Button
+                    onClick={() => viewProfile()}
                     radius="full"
                     className="mb-2 w-full rounded-md bg-mainColor font-bold leading-none text-white md:w-72"
                   >
@@ -122,7 +169,7 @@ const SingleBlogPage = ({ params: { slug } }) => {
                 <div className="flex flex-col">
                   <span className="mb-4 font-bold">ТӨРӨЛ</span>
                   <div>
-                    {animals.map((el, index) => {
+                    {subDirections.map((item, index) => {
                       return (
                         <Chip
                           key={index}
@@ -131,7 +178,7 @@ const SingleBlogPage = ({ params: { slug } }) => {
                             content: 'font-bold',
                           }}
                         >
-                          {el.label}
+                          {item.name}
                         </Chip>
                       );
                     })}

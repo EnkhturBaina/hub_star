@@ -23,17 +23,17 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`dark:bg-black ${roboto.className}`}>
-            <AppProvider>
-              <NextUIProvider>
-                <ThemeProvider enableSystem={false} attribute="class" defaultTheme="light">
-                  {pathUrl === '/auth/signin' || pathUrl === '/auth/signup' ? null : <Header />}
-                  <ToasterContext />
-                  {children}
-                  <Footer />
-                  <ScrollToTop />
-                </ThemeProvider>
-              </NextUIProvider>
-            </AppProvider>
+        <AppProvider>
+          <NextUIProvider>
+            <ThemeProvider enableSystem={false} attribute="class" defaultTheme="light">
+              {pathUrl === '/auth/signin' || pathUrl === '/auth/signup' ? null : <Header />}
+              <ToasterContext />
+              {children}
+              <Footer />
+              <ScrollToTop />
+            </ThemeProvider>
+          </NextUIProvider>
+        </AppProvider>
       </body>
     </html>
   );

@@ -1,6 +1,6 @@
 import { Address, LocalFile } from './reference';
 import { Users } from './user';
-
+export type AdProcess = 'ORDER' | 'IGNORE' | 'APPROVE';
 export type Advertisement = {
   id: number;
   mainDirectionId: number;
@@ -25,13 +25,14 @@ export type Advertisement = {
   images: LocalFile[];
   saveUsers: Users[];
   progresses: AdvertisementProgress[];
+  createdBy: number;
   createdAt: string;
 };
 export type AdvertisementProgress = {
-  id: number;
-  advertisementId: number;
-  advertisement: Advertisement;
-  process: 'ORDER' | 'IGNORE' | 'APPROVE';
-  isShow: boolean;
-  point: number;
+  id?: number;
+  advertisementId?: number;
+  advertisement?: Advertisement;
+  process?: AdProcess;
+  isShow?: boolean;
+  point?: number;
 };

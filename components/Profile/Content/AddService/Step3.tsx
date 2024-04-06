@@ -73,11 +73,11 @@ const Step3: React.FC<IProps> = ({ adData, setAdData }) => {
           return (
             <Image
               key={index}
-              src={`${process.env.NEXT_PUBLIC_BASE_API_URL}local-files/${item}`}
+              src={process.env.NEXT_PUBLIC_MEDIA_URL + item}
               alt="Зарын зураг"
               width={160}
               height={160}
-              className='flex h-40 cursor-pointer items-center justify-center rounded-lg bg-mainGray'
+              className="flex h-40 cursor-pointer items-center justify-center rounded-lg bg-mainGray"
             />
           );
         })}

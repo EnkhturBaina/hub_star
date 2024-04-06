@@ -2,7 +2,6 @@
 
 import { motion } from 'framer-motion';
 import { Input, Select, SelectItem, Textarea } from '@nextui-org/react';
-import { animals } from '../animals';
 import { useEffect, useState } from 'react';
 import { IAddressParam, ICreateAd } from '@/interfaces/request.interface';
 import { Address } from '@/types/reference';

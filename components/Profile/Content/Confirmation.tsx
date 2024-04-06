@@ -1,5 +1,4 @@
 'use client';
-
 import { motion } from 'framer-motion';
 import {
   Button,
@@ -10,12 +9,43 @@ import {
   SelectedItems,
   Textarea,
 } from '@nextui-org/react';
-import { animals } from './animals';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { BsImage } from 'react-icons/bs';
+import { ReferenceService } from '@/service/reference/reference.service';
+import { Category, MainDirection } from '@/types/reference';
+/** TODO ETR bro toast not working */
+import toast from 'react-hot-toast';
 
 const Confirmation = () => {
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [categoryId, setCategoryId] = useState<number>();
+  const [mainDirections, setMainDirections] = useState<MainDirection[]>([]);
   const [values, setValues] = useState<any>(['cat', 'dog']);
+  const getCategory = () => {
+    ReferenceService.getCategory()
+      .then(res => {
+        if (res.success) {
+          setCategories(res.response);
+        }
+      })
+      .catch(err => toast.error(err));
+  };
+  const getMainDirection = () => {
+    ReferenceService.getMainDirection({ categoryId })
+      .then(res => {
+        if (res.success) {
+          setMainDirections(res.response);
+        }
+      })
+      .catch(err => toast.error(err));
+  };
+  useEffect(() => {
+    getCategory();
+  }, []);
+  useEffect(() => {
+    getMainDirection();
+  }, [categoryId]);
+
   return (
     <motion.div
       variants={{
@@ -23,7 +53,6 @@ const Confirmation = () => {
           opacity: 0,
           y: -20,
         },
-
         visible: {
           opacity: 1,
           y: 0,
@@ -46,10 +75,11 @@ const Confirmation = () => {
           label: 'font-bold',
           trigger: 'custom-select-trigger bg-white',
         }}
+        onSelect={e => setCategoryId(parseInt(e.currentTarget.value))}
       >
-        {animals.map(animal => (
-          <SelectItem key={animal.value} value={animal.value}>
-            {animal.label}
+        {categories.map(item => (
+          <SelectItem key={item.id} value={item.id}>
+            {item.name}
           </SelectItem>
         ))}
       </Select>
@@ -65,9 +95,9 @@ const Confirmation = () => {
           trigger: 'custom-select-trigger bg-white',
         }}
       >
-        {animals.map(animal => (
-          <SelectItem key={animal.value} value={animal.value}>
-            {animal.label}
+        {mainDirections.map(item => (
+          <SelectItem key={item.id} value={item.id}>
+            {item.name}
           </SelectItem>
         ))}
       </Select>
@@ -97,11 +127,14 @@ const Confirmation = () => {
           );
         }}
       >
-        {animals.map(animal => (
+        <SelectItem key={'t'} value={'t'}>
+          {'yuu songoh ve'}
+        </SelectItem>
+        {/* {animals.map(animal => (
           <SelectItem key={animal.value} value={animal.value}>
             {animal.label}
           </SelectItem>
-        ))}
+        ))} */}
       </Select>
       <div className="font-bold">Иргэний үнэмлэхний зураг</div>
       <div className="grid grid-cols-3 gap-3">

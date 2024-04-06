@@ -1,6 +1,11 @@
-import { IResponseAdvertisement, IResponseAdvertisements } from '@/interfaces/response.interface';
+import {
+  IResponseAdProgress,
+  IResponseAdvertisement,
+  IResponseAdvertisements,
+} from '@/interfaces/response.interface';
 import { api } from '../api.service';
 import { IAdParam, ICreateAd } from '@/interfaces/request.interface';
+import { AdvertisementProgress, AdProcess } from '@/types/advertisement';
 
 const get = (params: IAdParam): Promise<IResponseAdvertisements> => {
   return api.get('/advertisement', { params });
@@ -12,6 +17,27 @@ const create = (advertisement: ICreateAd): Promise<IResponseAdvertisement> => {
   return api.post('/advertisement', advertisement);
 };
 const save = (id: number): Promise<IResponseAdvertisement> => {
-  return api.post(`advertisement/${id}`);
+  return api.post('advertisement/save/' + id);
 };
-export const AdvertisementService = { get, getById, create, save };
+const addProgress = (progress: AdvertisementProgress): Promise<IResponseAdProgress> => {
+  return api.post('ad-progress', progress);
+};
+const editProgress = (progress: AdvertisementProgress): Promise<IResponseAdProgress> => {
+  return api.post('ad-progress', progress);
+};
+const getProgress = (process: AdProcess): Promise<IResponseAdProgress> => {
+  return api.get('ad-progress', { params: { process } });
+};
+const removeProgress = (id: number): Promise<IResponseAdProgress> => {
+  return api.delete('ad-progress/' + id);
+};
+export const AdvertisementService = {
+  get,
+  getById,
+  create,
+  save,
+  addProgress,
+  editProgress,
+  getProgress,
+  removeProgress,
+};
