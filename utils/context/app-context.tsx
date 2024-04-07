@@ -17,7 +17,7 @@ import { getAccessToken } from '@/service/api.service';
 import { IAdParam } from '@/interfaces/request.interface';
 interface IAppContextProps {
   user: Users;
-  setUser: (user: Users) => void;
+  setUser: Dispatch<SetStateAction<Users>>;
   mainDirections: MainDirection[];
   currentCategoryId?: number;
   setCurrentCategoryId: Dispatch<SetStateAction<number>>;

@@ -39,7 +39,12 @@ const Profile = () => {
   }, []);
 
   useEffect(() => {
-    userImage && setUser({ avatarId: userImage.avatarId, coverId: userImage.coverId });
+    userImage &&
+      setUser((prevState: Users) => ({
+        ...prevState,
+        avatarId: userImage.avatarId,
+        coverId: userImage.coverId,
+      }));
   }, [userImage]);
   if (!user) {
     return null;

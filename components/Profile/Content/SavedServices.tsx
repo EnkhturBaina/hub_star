@@ -1,11 +1,13 @@
 'use client';
 import { Button } from '@nextui-org/react';
 import { CiGrid41, CiGrid2H } from 'react-icons/ci';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useAppContext } from '@/utils/context/app-context';
 import GridServices from './GridServices';
 import ListServices from './ListServices';
 
 const SavedServices = () => {
+  const { user } = useAppContext();
   const [isGrid, setIsGrid] = useState(true);
   return (
     <div className="mb-4 w-full overflow-hidden ">
@@ -21,19 +23,19 @@ const SavedServices = () => {
         </Button>
       </div>
       <div className="mx-auto mt-4 max-w-c-1280">
-        {/* {isGrid ? (
+        {isGrid ? (
           <GridServices
-            servicesData={servicesData}
+            servicesData={user.saveAdvertisements}
             showAddBtn={false}
             isStars={false}
           />
         ) : (
           <ListServices
-            servicesData={servicesData}
+            servicesData={user.saveAdvertisements}
             showAddBtn={false}
             isStars={false}
           />
-        )} */}
+        )}
       </div>
     </div>
   );
