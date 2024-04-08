@@ -1,6 +1,7 @@
 import {
   IResponse,
   IResponseAddresses,
+  IResponseAllFeedback,
   IResponseCategories,
   IResponseDirections,
   IResponseLocalFile,
@@ -10,7 +11,12 @@ import {
   IResponseSubDirections,
 } from '@/interfaces/response.interface';
 import { api } from '../api.service';
-import { IAddressParam, IDirectionParam, ISubDirectionParam } from '@/interfaces/request.interface';
+import {
+  IAddressParam,
+  IDirectionParam,
+  IFeedbackParam,
+  ISubDirectionParam,
+} from '@/interfaces/request.interface';
 const getMainDirection = (params: { categoryId?: number }): Promise<IResponseMainDirections> => {
   return api.get('/reference/main-direction', { params });
 };
@@ -40,10 +46,13 @@ const removeFileUpload = (id: number): Promise<IResponse> => {
 };
 const getMenu = (): Promise<IResponseMenu> => {
   return api.get('/reference/menu');
-}
+};
 const getMenuPage = (menuId: number): Promise<IResponsePage> => {
   return api.get('/reference/pages/menu/' + menuId);
-}
+};
+const getFeedback = (params: IFeedbackParam): Promise<IResponseAllFeedback> => {
+  return api.get('reference/feedback', { params });
+};
 export const ReferenceService = {
   getMainDirection,
   getDirection,
@@ -54,4 +63,5 @@ export const ReferenceService = {
   removeFileUpload,
   getMenu,
   getMenuPage,
+  getFeedback,
 };

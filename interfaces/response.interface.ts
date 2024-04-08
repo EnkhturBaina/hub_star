@@ -8,6 +8,7 @@ import {
   SubDirection,
   FooterMenu,
   FooterMenuPage,
+  Feedback,
 } from '@/types/reference';
 import { Users } from '@/types/user';
 export interface IResponse {
@@ -60,7 +61,10 @@ export interface IResponseAdvertisement extends IResponse {
   response: Advertisement;
 }
 export interface IResponseAllAdProgress extends IResponse {
-  response: AdvertisementProgress[];
+  response: {
+    data: AdvertisementProgress[];
+    meta: PageMeta;
+  };
 }
 export interface IResponseAdProgress extends IResponse {
   response: AdvertisementProgress;
@@ -70,4 +74,10 @@ export interface IResponseMenu extends IResponse {
 }
 export interface IResponsePage extends IResponse {
   response: FooterMenuPage;
+}
+export interface IResponseAllFeedback extends IResponse {
+  response: {
+    data: Feedback[];
+    meta: PageMeta;
+  };
 }

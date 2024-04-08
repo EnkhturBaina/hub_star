@@ -69,6 +69,7 @@ export type FooterMenu = {
   relLink: string;
   position: number;
 }
+/** Сайтын цэсэнд харуулах хуудаснууд */
 export type FooterMenuPage = {
   id: number;
   menuId: number;
@@ -79,4 +80,17 @@ export type FooterMenuPage = {
   date: Date;
   is_show: boolean;
   image: IFile;
+}
+/** Зөвлөмжүүд */
+export type Feedback = {
+  id: number;
+  mainDirectionId: number;
+  mainDirection?: MainDirection;
+  directionId: number;
+  direction?: Direction;
+  title: string;
+  pdf: IFile;
+  position: number;
+  createdAt: Date;
+  updatedAt: Date;
 }

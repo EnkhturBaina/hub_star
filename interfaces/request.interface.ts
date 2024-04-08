@@ -64,3 +64,8 @@ export interface IAddressParam {
 export interface IAdProgressParam extends IPageOptions {
   process?: AdProcess;
 }
+export interface IFeedbackParam extends IPageOptions {
+  title?: string;
+  mainDirectionId?: number;
+  directionIds?: number[];
+}

@@ -15,7 +15,8 @@ const DoingServices = () => {
     AdvertisementService.getProgress({ page: 1, limit: 10, order: 'DESC' })
       .then(res => {
         if (res.success) {
-          setAdProgress(res.response);
+          console.log('response =======>', res.response.data);
+          setAdProgress(res.response.data);
         }
       })
       .catch(err => toast.error(err));
