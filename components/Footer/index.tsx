@@ -232,14 +232,12 @@ const Footer: React.FC = () => {
                 {menus
                   .filter(item => item.type == 'TOOL')
                   .map(item => (
-                    <>
-                      <li key={item.id}>
-                        <Link href={'/docs/' + item.id} className="text-white hover:text-mainColor">
-                          {item.title}
-                        </Link>
-                      </li>
-                      <Divider orientation="vertical" className="h-5 w-0.5 bg-white" />
-                    </>
+                    <li key={item.id} className="flex flex-row">
+                      <Link href={'/docs/' + item.id} className="text-white hover:text-mainColor">
+                        {item.title}
+                      </Link>
+                      <Divider orientation="vertical" className="h-5 w-0.5 bg-white ml-5" />
+                    </li>
                   ))}
               </ul>
               <p className="mt-4 text-gray-50">
