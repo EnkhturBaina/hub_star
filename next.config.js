@@ -7,8 +7,10 @@ module.exports = phase => {
   // when `next build` or `npm run build` is used
   const isStaging = phase === PHASE_PRODUCTION_BUILD && process.env.STAGING === '1';
   // next.config.js object
+  const { i18n } = require('./next-i18next.config');
+
   return {
-    // i18n,
+    i18n,
     reactStrictMode: true,
     compress: true,
     images: {
