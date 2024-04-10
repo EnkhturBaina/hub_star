@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import { Avatar, Button, Divider } from '@nextui-org/react';
 import SearchBox from '../SearchBox';
 import HeaderMenu from './HeaderMenu';
-import { useAppContext } from '@/utils/context/app-context';
+import { useAppContext } from '@/app/app-context';
 import AuthName from '../Auth/auth-name';
 
 const Header = () => {

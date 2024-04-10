@@ -1,5 +1,5 @@
 'use client';
-import { useAppContext } from '@/utils/context/app-context';
+import { useAppContext } from '@/app/app-context';
 import { Pagination } from '@nextui-org/react';
 import { motion } from 'framer-motion';
 import React from 'react';

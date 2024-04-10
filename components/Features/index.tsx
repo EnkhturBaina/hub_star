@@ -2,7 +2,7 @@
 import React from 'react';
 import featuresData from './featuresData';
 import SingleFeature from './SingleFeature';
-import { useAppContext } from '@/utils/context/app-context';
+import { useAppContext } from '@/app/app-context';
 import { Button } from '@nextui-org/react';
 
 const Feature = () => {

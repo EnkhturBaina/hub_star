@@ -1,7 +1,7 @@
 'use client';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { useAppContext } from '@/utils/context/app-context';
+import { useAppContext } from '@/app/app-context';
 import { Category } from '@/types/reference';
 
 const HeaderMenu = () => {

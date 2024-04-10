@@ -12,9 +12,10 @@ import GridCategory from '../GridCategory';
 import PaginationComp from '../Pagination';
 import LeftDirections from '../Skeleton/LeftDirections';
 import BlogItemSkeleton from '../Skeleton/BlogItemSkeleton';
-import { useAppContext } from '@/utils/context/app-context';
+import { useAppContext } from '@/app/app-context';
 import { Direction, MainDirection, SubDirection } from '@/types/reference';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 const Hero = () => {
   const { mainDirections, adParam, setAdParam } = useAppContext();
@@ -96,9 +97,16 @@ const Hero = () => {
                                           <li
                                             key={index}
                                             className="mb-3 cursor-pointer text-black transition-all duration-300 last:mb-0 hover:text-mainColor"
-                                            onClick={() => getAds(md.id, d.id, sub.id)}
+                                            // onClick={() => getAds(md.id, d.id, sub.id)}
                                           >
-                                            {sub.name}
+                                            <Link
+                                              href={{
+                                                pathname: 'adv',
+                                                query: { order: 'DESC', page: 1, limit: 10 },
+                                              }}
+                                            >
+                                              {sub.name}
+                                            </Link>
                                           </li>
                                         );
                                       })}

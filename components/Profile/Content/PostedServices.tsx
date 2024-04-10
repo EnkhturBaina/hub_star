@@ -5,7 +5,7 @@ import { useState } from 'react';
 import GridServices from './GridServices';
 import ListServices from './ListServices';
 import AddService from './AddService';
-import { useAppContext } from '@/utils/context/app-context';
+import { useAppContext } from '@/app/app-context';
 
 const PostedServices = () => {
   const { advertisements } = useAppContext();

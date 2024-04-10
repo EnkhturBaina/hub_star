@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 import AccountFields from '@/components/Skeleton/AccountFields';
 import { Users } from '@/types/user';
-import { useAppContext } from '@/utils/context/app-context';
+import { useAppContext } from '@/app/app-context';
 import { AuthService } from '@/service/authentication/authentication.service';
 
 const Account = () => {

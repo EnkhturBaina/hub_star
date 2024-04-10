@@ -47,7 +47,7 @@ const removeFileUpload = (id: number): Promise<IResponse> => {
 const getMenu = (): Promise<IResponseMenu> => {
   return api.get('/reference/menu');
 };
-const getMenuPage = (menuId: number): Promise<IResponsePage> => {
+const getMenuPage = (menuId: any): Promise<IResponsePage> => {
   return api.get('/reference/pages/menu/' + menuId);
 };
 const getFeedback = (params: IFeedbackParam): Promise<IResponseAllFeedback> => {

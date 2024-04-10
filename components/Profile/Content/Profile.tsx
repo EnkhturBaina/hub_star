@@ -4,7 +4,7 @@ import { Button, Input, Textarea } from '@nextui-org/react';
 import { useEffect, useMemo, useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 import ProfileFields from '@/components/Skeleton/ProfileFields';
-import { useAppContext } from '@/utils/context/app-context';
+import { useAppContext } from '@/app/app-context';
 import { Users } from '@/types/user';
 import { AuthService } from '@/service/authentication/authentication.service';
 

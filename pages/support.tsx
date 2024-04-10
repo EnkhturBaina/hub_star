@@ -1,6 +1,6 @@
 import React from 'react';
 import Contact from '@/components/Contact';
-import { Metadata } from 'next';
+import { Metadata, NextPage } from 'next';
 
 export const metadata: Metadata = {
   title: 'Support Page - Solid SaaS Boilerplate',
@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   // other metadata
 };
 
-const SupportPage = () => {
+const SupportPage: NextPage = () => {
   return (
     <div className="pb-20 pt-40">
       <Contact />

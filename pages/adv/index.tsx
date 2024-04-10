@@ -1,11 +1,11 @@
 'use client';
+import { useAppContext } from '@/app/app-context';
 import BlogItem from '@/components/Blog/BlogItem';
 import BreadCrumbs from '@/components/BreadCrumbs';
 import Redirect from '@/components/Common/Redirect';
 import PaginationComp from '@/components/Pagination';
 import LeftFilter from '@/components/Skeleton/LeftFilter';
 import { Direction, MainDirection, SubDirection } from '@/types/reference';
-import { useAppContext } from '@/utils/context/app-context';
 import { Button, Checkbox, CheckboxGroup, Select, SelectItem } from '@nextui-org/react';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -30,9 +30,10 @@ const BlogPage = () => {
     });
   };
   useEffect(() => {
+    console.log('adParam ========>', adParam);
     const { mainDirectionId } = adParam;
     if (!mainDirectionId) {
-      router.push('/');
+    //   router.push('/');
     } else {
       setMainDirection(mainDirections.find(item => mainDirectionId === item.id));
     }

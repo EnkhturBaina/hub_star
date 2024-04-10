@@ -2,7 +2,7 @@
 import { Button } from '@nextui-org/react';
 import { CiGrid41, CiGrid2H } from 'react-icons/ci';
 import { useEffect, useState } from 'react';
-import { useAppContext } from '@/utils/context/app-context';
+import { useAppContext } from '@/app/app-context';
 import GridServices from './GridServices';
 import ListServices from './ListServices';
 

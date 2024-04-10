@@ -7,9 +7,12 @@ import { usePathname } from 'next/navigation';
 import { ReferenceService } from '@/service/reference/reference.service';
 import { FooterMenu } from '@/types/reference';
 import Link from 'next/link';
+import { useTranslation, Trans } from 'next-i18next';
+import { useRouter } from 'next/router';
 /** TODO ETR bro linked paged holboh */
 const Footer: React.FC = () => {
   const [menus, setMenus] = useState<FooterMenu[]>([]);
+  const router = useRouter();
   const containerStyle = {
     width: '400px',
     height: '400px',
@@ -35,8 +38,14 @@ const Footer: React.FC = () => {
   // const onUnmount = useCallback(function callback(map) {
   //   setMap(null);
   // }, []);
-
+  const { t, i18n } = useTranslation('common');
   const pathUrl = usePathname();
+  const handleChangeLanguage = (languageCode: string) => {
+    // Change language using i18next
+    i18n.changeLanguage(languageCode);
+    // Redirect to the same page with the new language
+    router.push(router.pathname, router.asPath, { locale: languageCode });
+  };
   useEffect(() => {
     ReferenceService.getMenu().then(res => {
       if (res.success) {
@@ -71,7 +80,9 @@ const Footer: React.FC = () => {
                     viewport={{ once: true }}
                     className="animate_top"
                   >
-                    <h4 className="mb-9 text-itemtitle2 font-semibold text-gray-400">HUB STAR</h4>
+                    <h4 className="mb-9 text-itemtitle2 font-semibold text-gray-400">
+                      HUB STAR {t('back-to-home')}
+                    </h4>
 
                     <ul>
                       {menus
@@ -244,6 +255,9 @@ const Footer: React.FC = () => {
                 &copy; {new Date().getFullYear()} HubStar.MN - Монголын барилгын нэгдсэн портал
                 сайт.
               </p>
+              <button onClick={() => handleChangeLanguage('en')}>English</button>
+              <button onClick={() => handleChangeLanguage('mn')}>Mongolian</button>
+              <button onClick={() => handleChangeLanguage('zh')}>Chine</button>
             </motion.div>
 
             <motion.div

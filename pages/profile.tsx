@@ -1,20 +1,20 @@
 'use client';
 import LeftMenu from '@/components/Profile/LeftMenu';
-import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { FaCamera } from 'react-icons/fa';
 import MenuList from '@/components/Profile/MenuList';
 import { SidebarPusher, SidebarPushable, Segment, Sidebar } from 'semantic-ui-react';
 import { LuChevronLeft, LuLayoutGrid, LuMenu } from 'react-icons/lu';
-import { redirect } from 'next/navigation';
-import { useAppContext } from '@/utils/context/app-context';
 import AuthName from '@/components/Auth/auth-name';
 import Image from 'next/image';
 import ImageUpload from '@/components/Image/image-upload';
 import { Users } from '@/types/user';
 import { AuthService } from '@/service/authentication/authentication.service';
 import toast from 'react-hot-toast';
+import { useAppContext } from '@/app/app-context';
+import { NextPage } from 'next';
 
-const Profile = () => {
+const Profile: NextPage = () => {
   const { user, setUser } = useAppContext();
   const [userImage, setUserImage] = useState<Users>(user);
   const [visible, setVisible] = useState(false);
@@ -31,12 +31,6 @@ const Profile = () => {
       }
     });
   };
-
-  useLayoutEffect(() => {
-    if (!user) {
-      redirect('/');
-    }
-  }, []);
 
   useEffect(() => {
     userImage &&

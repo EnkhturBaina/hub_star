@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Popover, PopoverTrigger, PopoverContent } from '@nextui-org/react';
 import Image from 'next/image';
-import { useAppContext } from '@/utils/context/app-context';
+import { useAppContext } from '@/app/app-context';
 import { Direction, MainDirection } from '@/types/reference';
 import { useRouter } from 'next/navigation';
 

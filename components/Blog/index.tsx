@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import BlogItem from './BlogItem';
-import { useAppContext } from '@/utils/context/app-context';
+import { useAppContext } from '@/app/app-context';
 
 const Blog = () => {
   const { advertisements } = useAppContext();

@@ -1,6 +1,6 @@
 import React from 'react';
 import CatItem from './CatItem';
-import { useAppContext } from '@/utils/context/app-context';
+import { useAppContext } from '@/app/app-context';
 
 const GridCategory = () => {
   const { mainDirections } = useAppContext();

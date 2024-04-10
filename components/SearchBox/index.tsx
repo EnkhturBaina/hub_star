@@ -3,7 +3,7 @@ import { Button, Input } from '@nextui-org/react';
 import { useState } from 'react';
 import Image from 'next/image';
 import DropDown from './DropDown';
-import { useAppContext } from '@/utils/context/app-context';
+import { useAppContext } from '@/app/app-context';
 const SearchBox: React.FC = () => {
   const { adParam, setAdParam } = useAppContext();
   const [searchVal, setSearchVal] = useState<string>(undefined);

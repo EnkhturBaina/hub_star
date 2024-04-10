@@ -1,5 +1,5 @@
 'use client';
-import { useAppContext } from '@/utils/context/app-context';
+import { useAppContext } from '@/app/app-context';
 import { BreadcrumbItem, Breadcrumbs } from '@nextui-org/react';
 import { useEffect, useState } from 'react';
 

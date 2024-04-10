@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import { Select, SelectItem } from '@nextui-org/react';
 import React, { useEffect, useState } from 'react';
-import { useAppContext } from '@/utils/context/app-context';
+import { useAppContext } from '@/app/app-context';
 import { Category, Direction, MainDirection, SubDirection } from '@/types/reference';
 import { ICreateAd } from '@/interfaces/request.interface';
 import { ReferenceService } from '@/service/reference/reference.service';
