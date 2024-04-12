@@ -14,7 +14,7 @@ import LeftDirections from '../Skeleton/LeftDirections';
 import BlogItemSkeleton from '../Skeleton/BlogItemSkeleton';
 import { useAppContext } from '@/app/app-context';
 import { Direction, MainDirection, SubDirection } from '@/types/reference';
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'next/router';
 import Link from 'next/link';
 
 const Hero = () => {
@@ -31,16 +31,9 @@ const Hero = () => {
   };
   const indicators = index => <div className="custom-home-indicator"></div>;
   const getAds = (mainDirectionId: number, directionId: number, subDirectionId: number) => {
-    setAdParam({
-      categoryId: adParam.categoryId,
-      mainDirectionId: mainDirectionId,
-      directionIds: [directionId],
-      subDirectionIds: [subDirectionId],
-      order: 'DESC',
-      page: 1,
-      limit: 10,
+    router.push('adv', {
+      query: { mainDirectionId, directionIds: [directionId], subDirectionIds: [subDirectionId] },
     });
-    router.push('/adv');
   };
 
   return (
@@ -97,12 +90,15 @@ const Hero = () => {
                                           <li
                                             key={index}
                                             className="mb-3 cursor-pointer text-black transition-all duration-300 last:mb-0 hover:text-mainColor"
-                                            // onClick={() => getAds(md.id, d.id, sub.id)}
                                           >
                                             <Link
                                               href={{
                                                 pathname: 'adv',
-                                                query: { order: 'DESC', page: 1, limit: 10 },
+                                                query: {
+                                                  mainDirectionId: md.id,
+                                                  directionIds: [d.id],
+                                                  subDirectionIds: [sub.id],
+                                                },
                                               }}
                                             >
                                               {sub.name}

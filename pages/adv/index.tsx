@@ -1,43 +1,94 @@
-'use client';
-import { useAppContext } from '@/app/app-context';
 import BlogItem from '@/components/Blog/BlogItem';
-import BreadCrumbs from '@/components/BreadCrumbs';
-import Redirect from '@/components/Common/Redirect';
 import PaginationComp from '@/components/Pagination';
 import LeftFilter from '@/components/Skeleton/LeftFilter';
-import { Direction, MainDirection, SubDirection } from '@/types/reference';
+import { IAdParam } from '@/interfaces/request.interface';
+import { AdvertisementService } from '@/service/advertisement/advertisement.service';
+import { ReferenceService } from '@/service/reference/reference.service';
+import { Advertisement } from '@/types/advertisement';
+import { Direction, MainDirection, PageMeta, SubDirection } from '@/types/reference';
 import { Button, Checkbox, CheckboxGroup, Select, SelectItem } from '@nextui-org/react';
-import { useRouter } from 'next/navigation';
+import { NextPage } from 'next';
+import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { IoIosAddCircleOutline } from 'react-icons/io';
 import { LuChevronLeft, LuSettings2 } from 'react-icons/lu';
-const BlogPage = () => {
-  const { mainDirections, adParam, setAdParam, advertisements, adMeta } = useAppContext();
+export async function getServerSideProps(context: any) {
+  const { query } = context;
+  const where: IAdParam = {
+    page: 1,
+    limit: 10,
+    order: 'DESC',
+  };
+  if (query.categoryId) {
+    where.categoryId = query.categoryId;
+  }
+  if (query.mainDirectionId) {
+    where.mainDirectionId = query.mainDirectionId;
+  }
+  if (query.directionIds) {
+    where.directionIds = query.directionIds;
+  }
+  if (query.subDirectionIds) {
+    where.subDirectionIds = query.subDirectionIds;
+  }
+  try {
+    return {
+      props: {
+        data: await AdvertisementService.get(where).then(res => {
+          if (res.success) {
+            return res.response;
+          }
+        }),
+        mainDirections: await ReferenceService.getMainDirection({
+          categoryId: query.categoryId,
+        }).then(res => {
+          if (res.success) {
+            return res.response;
+          }
+        }),
+      },
+    };
+  } catch (error) {
+    console.error(error);
+  }
+}
+type Props = {
+  data: {
+    data: Advertisement[];
+    meta: PageMeta;
+  };
+  mainDirections: MainDirection[];
+};
+const BlogPage: NextPage<Props> = ({ data, mainDirections }) => {
+  // const { mainDirections, adParam, setAdParam, advertisements, adMeta } = useAppContext();
+
   const [mainDirection, setMainDirection] = useState<MainDirection>();
   const router = useRouter();
   const onChangeValue = (value: string[]) => {
     const directions = mainDirection.directions.filter(item => {
       return item.subDirections.some(subdir => value.includes(String(subdir.id)));
     });
-    setAdParam({
-      order: adParam.order,
-      page: 1,
-      limit: 10,
-      categoryId: adParam.categoryId,
-      mainDirectionId: adParam.mainDirectionId,
-      directionIds: directions.map(item => item.id),
-      subDirectionIds: value.map(item => Number(item)),
+    router.push({
+      pathname: '/adv',
+      query: {
+        order: 'DESC',
+        page: 1,
+        limit: 10,
+        categoryId: router.query.categoryId,
+        mainDirectionId: router.query.categoryId,
+        directionIds: directions.map(item => item.id),
+        subDirectionIds: value.map(item => Number(item)),
+      },
     });
   };
-  useEffect(() => {
-    console.log('adParam ========>', adParam);
-    const { mainDirectionId } = adParam;
-    if (!mainDirectionId) {
-    //   router.push('/');
-    } else {
-      setMainDirection(mainDirections.find(item => mainDirectionId === item.id));
-    }
-  }, [adParam]);
+  // useEffect(() => {
+  //   const { mainDirectionId } = router.query;
+  //   if (!mainDirectionId) {
+  //     router.push('/');
+  //   } else {
+  //     setMainDirection(mainDirections.find(item => parseInt(mainDirectionId) === item.id));
+  //   }
+  // }, [adParam]);
 
   return (
     <>
@@ -46,11 +97,9 @@ const BlogPage = () => {
           <div className="mx-auto flex max-w-screen-xl flex-row justify-between gap-7.5 py-18 lg:flex-row xl:gap-12.5">
             <div className="flex flex-col">
               <span className="text-xl">
-                Нийт утга: <span className="font-bold">{adMeta?.itemCount}</span>
+                Нийт утга: <span className="font-bold">{data?.meta.itemCount}</span>
               </span>
-              <div>
-                <BreadCrumbs />
-              </div>
+              <div>{/* <BreadCrumbs /> */}</div>
             </div>
           </div>
         </div>
@@ -72,7 +121,7 @@ const BlogPage = () => {
                     label={direction.name}
                     color="warning"
                     key={index}
-                    value={adParam.subDirectionIds?.map(item => item.toString())}
+                    // value={adParam.subDirectionIds?.map(item => item.toString())}
                     classNames={{
                       base: 'my-4',
                       label: 'font-bold text-black text-base',
@@ -118,15 +167,15 @@ const BlogPage = () => {
                 value="DESC"
                 onChange={e => {
                   if (e.target.value == ('ASC' || 'DESC')) {
-                    setAdParam({
-                      order: e.target.value,
-                      page: 1,
-                      limit: 10,
-                      categoryId: adParam.categoryId,
-                      mainDirectionId: adParam.mainDirectionId,
-                      directionIds: adParam.directionIds,
-                      subDirectionIds: adParam.subDirectionIds,
-                    });
+                    // setAdParam({
+                    //   order: e.target.value,
+                    //   page: 1,
+                    //   limit: 10,
+                    //   categoryId: adParam.categoryId,
+                    //   mainDirectionId: adParam.mainDirectionId,
+                    //   directionIds: adParam.directionIds,
+                    //   subDirectionIds: adParam.subDirectionIds,
+                    // });
                   }
                 }}
               >
@@ -142,11 +191,11 @@ const BlogPage = () => {
               </Button>
             </div>
             <div className="grid grid-cols-2 gap-6">
-              {advertisements.map((blog, key) => (
+              {data.data.map((blog, key) => (
                 <BlogItem blog={blog} key={key} />
               ))}
             </div>
-            <PaginationComp page={adMeta.page} pageCount={adMeta.pageCount} />
+            <PaginationComp page={data.meta.page} pageCount={data.meta.pageCount} />
           </div>
         </div>
       </section>

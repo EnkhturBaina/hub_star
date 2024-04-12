@@ -34,7 +34,7 @@ interface IProps {
   children: ReactNode;
 }
 const AppProvider: React.FC<IProps> = ({ children }) => {
-  const [adParam, setAdParam] = useState<IAdParam>({ page: 1, limit: 10, order: 'DESC' });
+  const [adParam, setAdParam] = useState<IAdParam>();
   const [user, setUser] = useState<Users>();
   const [mainDirections, setMainDirections] = useState<MainDirection[]>([]);
   const [currentCategoryId, setCurrentCategoryId] = useState<number>();
@@ -84,12 +84,13 @@ const AppProvider: React.FC<IProps> = ({ children }) => {
     getMainDirection();
   }, [currentCategoryId]);
   useEffect(() => {
-    AdvertisementService.get(adParam).then(response => {
-      if (response.success) {
-        setAdvertisements(response.response.data);
-        setAdMeta(response.response.meta);
-      }
-    });
+    // console.log('adParam =======>', adParam);
+    // AdvertisementService.get(adParam).then(response => {
+    //   if (response.success) {
+    //     setAdvertisements(response.response.data);
+    //     setAdMeta(response.response.meta);
+    //   }
+    // });
   }, [adParam]);
   const value: IAppContextProps = {
     user,
