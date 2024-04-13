@@ -1,5 +1,5 @@
 'use client';
-import { Divider } from '@nextui-org/react';
+import { Divider, Select, SelectItem } from '@nextui-org/react';
 import { motion } from 'framer-motion';
 import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
 import { useCallback, useEffect, useState } from 'react';
@@ -9,6 +9,8 @@ import { FooterMenu } from '@/types/reference';
 import Link from 'next/link';
 import { useTranslation, Trans } from 'next-i18next';
 import { useRouter } from 'next/router';
+import { GrLanguage } from 'react-icons/gr';
+
 /** TODO ETR bro linked paged holboh */
 const Footer: React.FC = () => {
   const [menus, setMenus] = useState<FooterMenu[]>([]);
@@ -53,6 +55,12 @@ const Footer: React.FC = () => {
       }
     });
   }, []);
+
+  const langs = [
+    { id: 'en', name: 'English' },
+    { id: 'mn', name: 'Монгол хэл' },
+    { id: 'zh', name: '中國人' },
+  ];
   return (
     <>
       <footer className="border-stroke bg-mainDark ">
@@ -239,25 +247,24 @@ const Footer: React.FC = () => {
               viewport={{ once: true }}
               className="animate_top"
             >
-              <ul className="flex items-center gap-4">
+              <ul className="flex flex-wrap items-center gap-4">
                 {menus
                   .filter(item => item.type == 'TOOL')
-                  .map(item => (
+                  .map((item, index) => (
                     <li key={item.id} className="flex flex-row">
                       <Link href={'/docs/' + item.id} className="text-white hover:text-mainColor">
                         {item.title}
                       </Link>
-                      <Divider orientation="vertical" className="h-5 w-0.5 bg-white ml-5" />
+                      {index == menus?.filter(item => item.type == 'TOOL')?.length - 1 ? null : (
+                        <Divider orientation="vertical" className="h-5 w-0.5 bg-white ml-5" />
+                      )}
                     </li>
                   ))}
               </ul>
-              <p className="mt-4 text-gray-50">
+              <p className="mt-4 text-gray-300 font-light">
                 &copy; {new Date().getFullYear()} HubStar.MN - Монголын барилгын нэгдсэн портал
                 сайт.
               </p>
-              <button onClick={() => handleChangeLanguage('en')}>English</button>
-              <button onClick={() => handleChangeLanguage('mn')}>Mongolian</button>
-              <button onClick={() => handleChangeLanguage('zh')}>Chine</button>
             </motion.div>
 
             <motion.div
@@ -276,7 +283,7 @@ const Footer: React.FC = () => {
               whileInView="visible"
               transition={{ duration: 1, delay: 0.1 }}
               viewport={{ once: true }}
-              className="animate_top"
+              className="animate_top flex flex-row items-center"
             >
               <ul className="flex items-center gap-5">
                 <li>
@@ -372,6 +379,31 @@ const Footer: React.FC = () => {
                   </a>
                 </li>
               </ul>
+              <Divider orientation="vertical" className="h-5 w-0.5 bg-white mx-5" />
+              <div className="flex flex-row items-center">
+                <GrLanguage className="text-2xl text-white" />
+                <Select
+                  label="Сонгох"
+                  labelPlacement="outside"
+                  variant="bordered"
+                  classNames={{
+                    base: 'w-[150px] !mt-0',
+                    mainWrapper: '',
+                    trigger: 'custom-select-trigger bg-transparent border-none',
+                    value: 'text-white font-medium',
+                  }}
+                  onChange={e => {
+                    // handleChangeLanguage(e.target.value);
+                  }}
+                  defaultSelectedKeys={[router.locale]}
+                >
+                  {langs.map(item => (
+                    <SelectItem key={item.id} value={item.id}>
+                      {item.name}
+                    </SelectItem>
+                  ))}
+                </Select>
+              </div>
             </motion.div>
           </div>
           {/* <!-- Footer Bottom --> */}
