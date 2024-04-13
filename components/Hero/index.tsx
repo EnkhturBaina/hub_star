@@ -16,9 +16,12 @@ import { useAppContext } from '@/app/app-context';
 import { Direction, MainDirection, SubDirection } from '@/types/reference';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+import { Popup } from 'semantic-ui-react';
+import { useState } from 'react';
 
 const Hero = () => {
   const { mainDirections, adParam, setAdParam } = useAppContext();
+  const [openPopover, setOpenPopover] = useState({});
   const router = useRouter();
   const images = [
     'https://images.unsplash.com/photo-1509721434272-b79147e0e708?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80',
@@ -68,8 +71,97 @@ const Hero = () => {
                         <ul>
                           {md.directions.map((d: Direction, index: number) => {
                             return (
-                              <Popover placement="right" className="w-full" key={index}>
-                                <PopoverTrigger>
+                              // <Popover placement="right" className="w-full" key={index}>
+                              //   <PopoverTrigger>
+                              //     <li className="mb-3 !scale-100 cursor-pointer !opacity-100 transition-all duration-300 last:mb-0 hover:text-mainColor">
+                              //       <div className="flex flex-row items-center justify-between">
+                              //         <span className="text-sm font-medium text-[#646669]">
+                              //           {d.name}
+                              //         </span>
+                              //         {d.subDirections.length > 0 && <BsChevronRight />}
+                              //       </div>
+                              //     </li>
+                              //   </PopoverTrigger>
+                              //   {d.subDirections.length !== 0 && (
+                              //     <PopoverContent className="w-40 min-w-max items-start p-4">
+                              //       <ul>
+                              //         {d.subDirections?.map((sub: SubDirection, index: number) => {
+                              //           return (
+                              //             <li
+                              //               key={index}
+                              //               className="mb-3 cursor-pointer !text-black transition-all duration-300 last:mb-0 hover:text-mainColor"
+                              //             >
+                              //               <Link
+                              //                 href={{
+                              //                   pathname: '/adv',
+                              //                   query: {
+                              //                     mainDirectionId: md.id,
+                              //                     directionId: d.id,
+                              //                     subDirectionId: sub.id,
+                              //                   },
+                              //                 }}
+                              //                 className="!text-black"
+                              //               >
+                              //                 {sub.name}
+                              //               </Link>
+                              //             </li>
+                              //           );
+                              //         })}
+                              //       </ul>
+                              //     </PopoverContent>
+                              //   )}
+                              // </Popover>
+                              <Popup
+                                key={index}
+                                on={'click'}
+                                disabled={d.subDirections.length <= 0}
+                                content={
+                                  d.subDirections.length !== 0 && (
+                                    <div className="w-40 min-w-max items-start p-4">
+                                      <ul>
+                                        {d.subDirections?.map(
+                                          (sub: SubDirection, index: number) => {
+                                            return (
+                                              <li
+                                                key={index}
+                                                className="mb-3 cursor-pointer !text-black transition-all duration-300 last:mb-0 hover:text-mainColor"
+                                              >
+                                                <Link
+                                                  href={{
+                                                    pathname: '/adv',
+                                                    query: {
+                                                      mainDirectionId: md.id,
+                                                      directionId: d.id,
+                                                      subDirectionId: sub.id,
+                                                    },
+                                                  }}
+                                                  className="!text-black"
+                                                >
+                                                  {sub.name}
+                                                </Link>
+                                              </li>
+                                            );
+                                          }
+                                        )}
+                                      </ul>
+                                    </div>
+                                  )
+                                }
+                                onOpen={() => {
+                                  setOpenPopover({
+                                    ...openPopover,
+                                    [d.id]: true,
+                                  });
+                                }}
+                                onClose={() => {
+                                  setOpenPopover({
+                                    ...openPopover,
+                                    [d.id]: false,
+                                  });
+                                }}
+                                open={openPopover[d.id]}
+                                position="right center"
+                                trigger={
                                   <li className="mb-3 !scale-100 cursor-pointer !opacity-100 transition-all duration-300 last:mb-0 hover:text-mainColor">
                                     <div className="flex flex-row items-center justify-between">
                                       <span className="text-sm font-medium text-[#646669]">
@@ -78,36 +170,8 @@ const Hero = () => {
                                       {d.subDirections.length > 0 && <BsChevronRight />}
                                     </div>
                                   </li>
-                                </PopoverTrigger>
-                                {d.subDirections.length !== 0 && (
-                                  <PopoverContent className="w-40 min-w-max items-start p-4">
-                                    <ul>
-                                      {d.subDirections?.map((sub: SubDirection, index: number) => {
-                                        return (
-                                          <li
-                                            key={index}
-                                            className="mb-3 cursor-pointer !text-black transition-all duration-300 last:mb-0 hover:text-mainColor"
-                                          >
-                                            <Link
-                                              href={{
-                                                pathname: '/adv',
-                                                query: {
-                                                  mainDirectionId: md.id,
-                                                  directionId: d.id,
-                                                  subDirectionId: sub.id,
-                                                },
-                                              }}
-                                              className="!text-black"
-                                            >
-                                              {sub.name}
-                                            </Link>
-                                          </li>
-                                        );
-                                      })}
-                                    </ul>
-                                  </PopoverContent>
-                                )}
-                              </Popover>
+                                }
+                              />
                             );
                           })}
                         </ul>
