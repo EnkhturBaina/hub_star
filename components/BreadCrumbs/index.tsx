@@ -21,7 +21,7 @@ const BreadCrumbs: React.FC = () => {
       directions.map(direction => {
         subDirNames.push(
           ...direction.subDirections
-            .filter(item => subDirectionIds.includes(item.id))
+            .filter(item => subDirectionIds?.includes(item.id))
             .map(item => item.name)
         );
       });

@@ -3,25 +3,22 @@ import { Button, Popover, PopoverTrigger, PopoverContent } from '@nextui-org/rea
 import Image from 'next/image';
 import { useAppContext } from '@/app/app-context';
 import { Direction, MainDirection } from '@/types/reference';
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'next/router';
 
 export default function DropDown() {
   // Sticky menu
   const router = useRouter();
-  const { mainDirections, adParam, setAdParam } = useAppContext();
+  const { mainDirections } = useAppContext();
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const onClickDirection = (direction: Direction) => {
-    setAdParam({
-      page: 1,
-      limit: 10,
-      order: 'DESC',
-      categoryId: adParam.categoryId,
-      mainDirectionId: direction.mainDirectionId,
-      directionIds: [direction.id],
-      subDirectionIds: [],
-    });
     setIsOpen(false);
-    router.push('/adv');
+    router.push({
+      pathname: '/adv',
+      query: {
+        mainDirectionId: direction.mainDirectionId,
+        directionId: direction.id,
+      },
+    });
   };
   return (
     <Popover
