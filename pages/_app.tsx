@@ -23,17 +23,17 @@ function MyApp({ Component, pageProps }: AppProps) {
   const pathUrl = usePathname();
   return (
     <div className={`dark:bg-black ${roboto.className}`}>
-      <AppProvider>
-        {pathUrl === '/auth/signin' || pathUrl === '/auth/signup' ? null : <Header />}
-        <NextUIProvider>
-          <ThemeProvider enableSystem={false} attribute="class" defaultTheme="light">
-            <ToasterContext />
+      <NextUIProvider>
+        <ThemeProvider enableSystem={false} attribute="class" defaultTheme="light">
+          <ToasterContext />
+          <AppProvider>
+            {pathUrl === '/auth/signin' || pathUrl === '/auth/signup' ? null : <Header />}
             <Component {...pageProps} />
-            <Footer />
-            <ScrollToTop />
-          </ThemeProvider>
-        </NextUIProvider>
-      </AppProvider>
+          </AppProvider>
+          <Footer />
+          <ScrollToTop />
+        </ThemeProvider>
+      </NextUIProvider>
     </div>
   );
 }

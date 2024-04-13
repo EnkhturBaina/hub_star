@@ -1,94 +1,48 @@
+import { useAppContext } from '@/app/app-context';
 import BlogItem from '@/components/Blog/BlogItem';
+import BreadCrumbs from '@/components/BreadCrumbs';
 import PaginationComp from '@/components/Pagination';
 import LeftFilter from '@/components/Skeleton/LeftFilter';
 import { IAdParam } from '@/interfaces/request.interface';
-import { AdvertisementService } from '@/service/advertisement/advertisement.service';
-import { ReferenceService } from '@/service/reference/reference.service';
-import { Advertisement } from '@/types/advertisement';
-import { Direction, MainDirection, PageMeta, SubDirection } from '@/types/reference';
+import { Direction, MainDirection, SubDirection } from '@/types/reference';
 import { Button, Checkbox, CheckboxGroup, Select, SelectItem } from '@nextui-org/react';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { IoIosAddCircleOutline } from 'react-icons/io';
 import { LuChevronLeft, LuSettings2 } from 'react-icons/lu';
-export async function getServerSideProps(context: any) {
-  const { query } = context;
-  const where: IAdParam = {
-    page: 1,
-    limit: 10,
-    order: 'DESC',
-  };
-  if (query.categoryId) {
-    where.categoryId = query.categoryId;
-  }
-  if (query.mainDirectionId) {
-    where.mainDirectionId = query.mainDirectionId;
-  }
-  if (query.directionIds) {
-    where.directionIds = query.directionIds;
-  }
-  if (query.subDirectionIds) {
-    where.subDirectionIds = query.subDirectionIds;
-  }
-  try {
-    return {
-      props: {
-        data: await AdvertisementService.get(where).then(res => {
-          if (res.success) {
-            return res.response;
-          }
-        }),
-        mainDirections: await ReferenceService.getMainDirection({
-          categoryId: query.categoryId,
-        }).then(res => {
-          if (res.success) {
-            return res.response;
-          }
-        }),
-      },
-    };
-  } catch (error) {
-    console.error(error);
-  }
-}
-type Props = {
-  data: {
-    data: Advertisement[];
-    meta: PageMeta;
-  };
-  mainDirections: MainDirection[];
-};
-const BlogPage: NextPage<Props> = ({ data, mainDirections }) => {
-  // const { mainDirections, adParam, setAdParam, advertisements, adMeta } = useAppContext();
-
+const BlogPage: NextPage = () => {
+  const { mainDirections, adParam, setAdParam, advertisements, adMeta } = useAppContext();
   const [mainDirection, setMainDirection] = useState<MainDirection>();
   const router = useRouter();
   const onChangeValue = (value: string[]) => {
     const directions = mainDirection.directions.filter(item => {
       return item.subDirections.some(subdir => value.includes(String(subdir.id)));
     });
-    router.push({
-      pathname: '/adv',
-      query: {
-        order: 'DESC',
-        page: 1,
-        limit: 10,
-        categoryId: router.query.categoryId,
-        mainDirectionId: router.query.categoryId,
-        directionIds: directions.map(item => item.id),
-        subDirectionIds: value.map(item => Number(item)),
-      },
-    });
+    setAdParam(prevState => ({
+      ...prevState,
+      page: 1,
+      limit: 10,
+      directionIds: directions.map(item => item.id),
+      subDirectionIds: value.map(item => Number(item)),
+    }));
   };
-  // useEffect(() => {
-  //   const { mainDirectionId } = router.query;
-  //   if (!mainDirectionId) {
-  //     router.push('/');
-  //   } else {
-  //     setMainDirection(mainDirections.find(item => parseInt(mainDirectionId) === item.id));
-  //   }
-  // }, [adParam]);
+  useEffect(() => {
+    const param: IAdParam = { order: 'DESC', page: 1, limit: 10, categoryId: adParam.categoryId };
+    if (router.query.mainDirectionId) {
+      param.mainDirectionId = Number(router.query.mainDirectionId);
+    }
+    if (router.query.directionId) {
+      param.directionIds = [Number(router.query.directionId)];
+    }
+    if (router.query.subDirectionId) {
+      param.subDirectionIds = [Number(router.query.subDirectionId)];
+    }
+    setAdParam(param);
+  }, [router.query]);
+  useEffect(() => {
+    setMainDirection(mainDirections.find(item => adParam.mainDirectionId === item.id));
+  }, [mainDirections, adParam.mainDirectionId]);
 
   return (
     <>
@@ -97,9 +51,11 @@ const BlogPage: NextPage<Props> = ({ data, mainDirections }) => {
           <div className="mx-auto flex max-w-screen-xl flex-row justify-between gap-7.5 py-18 lg:flex-row xl:gap-12.5">
             <div className="flex flex-col">
               <span className="text-xl">
-                Нийт утга: <span className="font-bold">{data?.meta.itemCount}</span>
+                Нийт утга: <span className="font-bold">{adMeta.itemCount}</span>
               </span>
-              <div>{/* <BreadCrumbs /> */}</div>
+              <div>
+                <BreadCrumbs />
+              </div>
             </div>
           </div>
         </div>
@@ -191,11 +147,11 @@ const BlogPage: NextPage<Props> = ({ data, mainDirections }) => {
               </Button>
             </div>
             <div className="grid grid-cols-2 gap-6">
-              {data.data.map((blog, key) => (
+              {advertisements.map((blog, key) => (
                 <BlogItem blog={blog} key={key} />
               ))}
             </div>
-            <PaginationComp page={data.meta.page} pageCount={data.meta.pageCount} />
+            <PaginationComp page={adMeta.page} pageCount={adMeta.pageCount} />
           </div>
         </div>
       </section>

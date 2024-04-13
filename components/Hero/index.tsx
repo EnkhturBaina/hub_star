@@ -1,4 +1,4 @@
-'use client';
+// 'use client';
 import Image from 'next/image';
 import { Button, Divider, Skeleton } from '@nextui-org/react';
 import { Popover, PopoverTrigger, PopoverContent } from '@nextui-org/react';
@@ -30,11 +30,6 @@ const Hero = () => {
     nextArrow: <CiCircleChevRight className="m-4 text-6xl text-white" />,
   };
   const indicators = index => <div className="custom-home-indicator"></div>;
-  const getAds = (mainDirectionId: number, directionId: number, subDirectionId: number) => {
-    router.push('adv', {
-      query: { mainDirectionId, directionIds: [directionId], subDirectionIds: [subDirectionId] },
-    });
-  };
 
   return (
     <>
@@ -95,11 +90,11 @@ const Hero = () => {
                                           >
                                             <Link
                                               href={{
-                                                pathname: 'adv',
+                                                pathname: '/adv',
                                                 query: {
                                                   mainDirectionId: md.id,
-                                                  directionIds: [d.id],
-                                                  subDirectionIds: [sub.id],
+                                                  directionId: d.id,
+                                                  subDirectionId: sub.id,
                                                 },
                                               }}
                                               className="!text-black"
