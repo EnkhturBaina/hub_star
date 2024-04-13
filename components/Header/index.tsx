@@ -68,9 +68,11 @@ const Header = () => {
               </Link>
             ) : (
               <>
-                <Avatar name={user?.firstName} />
-                <Link href={`/profile`}>
-                  <AuthName user={user} />
+                <Link href={`/profile`} className="flex flex-row items-center">
+                  <Avatar name={user?.firstName} />
+                  <div className="hidden md:block">
+                    <AuthName user={user} />
+                  </div>
                 </Link>
                 <div className="flex w-30 flex-row justify-around">
                   <span>

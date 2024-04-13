@@ -86,7 +86,7 @@ const Profile: NextPage = () => {
                     />
                   ) : (
                     <Image
-                      className="h-28 w-28 rounded-full border-5 border-white md:h-60 md:w-60"
+                      className="h-28 w-28 rounded-full border-5 border-white md:h-60 md:w-60 bg-white"
                       src={`${process.env.NEXT_PUBLIC_BASE_API_URL}local-files/${user.avatarId}`}
                       alt=""
                       width={400}
@@ -94,7 +94,7 @@ const Profile: NextPage = () => {
                     />
                   )}
                   <ImageUpload
-                    className="bottom-2 right-2 cursor-pointer rounded-full bg-gray-100 p-3 text-black md:absolute"
+                    className="bottom-1 right-1 cursor-pointer rounded-full bg-gray-100 p-3 text-black absolute w-fit"
                     setFileId={fileId => {
                       console.log('fileId AVATAR========>', fileId);
                       setUserImage((prevState: Users) => ({
@@ -104,10 +104,10 @@ const Profile: NextPage = () => {
                       saveUserImage();
                     }}
                   >
-                    <FaCamera className="text-3xl" />
+                    <FaCamera className="text-2xl" />
                   </ImageUpload>
                 </div>
-                <div className="-mb-12 flex flex-col justify-end md:mb-2">
+                <div className="-mb-4 flex flex-col justify-end md:mb-2">
                   <span className="mb-0 text-2xl font-bold text-black md:mb-2">
                     <AuthName user={user} />
                   </span>
@@ -123,12 +123,19 @@ const Profile: NextPage = () => {
         >
           <div
             className="ml-4 mt-2 w-fit rounded-xl bg-white p-4 md:hidden"
-            onClick={() => setVisible(true)}
+            onClick={() => {
+              setVisible(true);
+            }}
           >
             <LuMenu className="text-2xl" />
           </div>
           <div className="hidden md:block md:w-1/4">
-            <LeftMenu selectedMenu={selectedMenu} setSelectedMenu={setSelectedMenu} />
+            <LeftMenu
+              selectedMenu={selectedMenu}
+              setSelectedMenu={setSelectedMenu}
+              visible={visible}
+              setVisible={setVisible}
+            />
           </div>
           <Sidebar
             animation="overlay"
@@ -146,7 +153,12 @@ const Profile: NextPage = () => {
               </div>
               <LuChevronLeft className="text-2xl" onClick={() => setVisible(false)} />
             </div>
-            <LeftMenu selectedMenu={selectedMenu} setSelectedMenu={setSelectedMenu} />
+            <LeftMenu
+              selectedMenu={selectedMenu}
+              setSelectedMenu={setSelectedMenu}
+              visible={visible}
+              setVisible={setVisible}
+            />
           </Sidebar>
           <SidebarPusher className="!w-full">
             <Segment className="!rounded-xl !border-0">

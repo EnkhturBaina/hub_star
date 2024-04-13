@@ -60,9 +60,11 @@ const Hero = () => {
                           <Image
                             src={`${process.env.NEXT_PUBLIC_IMG_URL}/${md.logo.path}`}
                             alt="add"
-                            height={25}
-                            width={25}
                             className="rounded-md object-contain object-center"
+                            width="0"
+                            height="0"
+                            sizes="100vw"
+                            style={{ width: 25, height: 25 }}
                           />
                           <h4 className="!mt-0 ml-2 self-center text-lg font-semibold text-black">
                             {md?.name}
@@ -89,7 +91,7 @@ const Hero = () => {
                                         return (
                                           <li
                                             key={index}
-                                            className="mb-3 cursor-pointer text-black transition-all duration-300 last:mb-0 hover:text-mainColor"
+                                            className="mb-3 cursor-pointer !text-black transition-all duration-300 last:mb-0 hover:text-mainColor"
                                           >
                                             <Link
                                               href={{
@@ -100,6 +102,7 @@ const Hero = () => {
                                                   subDirectionIds: [sub.id],
                                                 },
                                               }}
+                                              className="!text-black"
                                             >
                                               {sub.name}
                                             </Link>

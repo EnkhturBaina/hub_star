@@ -37,10 +37,11 @@ const SingleFeature: React.FC<IProps> = ({ category }) => {
           <div className="flex h-2/3 w-16 rounded-[4px]">
             <Image
               src={process.env.NEXT_PUBLIC_IMG_URL + logo.path}
-              width={55}
-              height={55}
               alt="title"
-              className="max-h-16"
+              width="0"
+              height="0"
+              sizes="100vw"
+              style={{ width: 55, height: 55 }}
             />
           </div>
           <span className=" flex h-1/3 items-center justify-center text-center align-middle text-xs font-bold leading-none hover:text-white">

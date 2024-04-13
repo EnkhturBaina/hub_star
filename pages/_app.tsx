@@ -2,6 +2,7 @@ import { AppProps } from 'next/app';
 import { appWithTranslation } from 'next-i18next';
 import { AppProvider } from '@/app/app-context';
 import '@/styles/globals.css';
+import 'semantic-ui-css/semantic.min.css';
 import { NextUIProvider } from '@nextui-org/react';
 import { ThemeProvider } from 'next-themes';
 import ToasterContext from '@/app/ToastContext';

@@ -19,12 +19,17 @@ import { removeAccessToken } from '@/service/api.service';
 const LeftMenu = ({
   selectedMenu,
   setSelectedMenu,
+  visible,
+  setVisible,
 }: {
   selectedMenu: any;
   setSelectedMenu: any;
+  visible?: any;
+  setVisible?: any;
 }) => {
   const handleItemClick = (e, { name }) => {
     setSelectedMenu(name);
+    setVisible(false);
   };
   const router = useRouter();
 

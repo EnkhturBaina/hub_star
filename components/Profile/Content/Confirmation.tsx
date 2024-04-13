@@ -225,6 +225,7 @@ const Confirmation = () => {
           radius="sm"
           className="border-mainGray !bg-white !text-black"
           size="md"
+          // onClick={() => toast.success('XXXXXXXXXX')}
         >
           Цуцлах
         </Button>

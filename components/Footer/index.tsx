@@ -283,7 +283,7 @@ const Footer: React.FC = () => {
               whileInView="visible"
               transition={{ duration: 1, delay: 0.1 }}
               viewport={{ once: true }}
-              className="animate_top flex flex-row items-center"
+              className="animate_top flex flex-row items-center flex-wrap"
             >
               <ul className="flex items-center gap-5">
                 <li>
@@ -383,17 +383,17 @@ const Footer: React.FC = () => {
               <div className="flex flex-row items-center">
                 <GrLanguage className="text-2xl text-white" />
                 <Select
-                  label="Сонгох"
+                  label=" "
                   labelPlacement="outside"
                   variant="bordered"
                   classNames={{
-                    base: 'w-[150px] !mt-0',
+                    base: 'w-[120px] !mt-0',
                     mainWrapper: '',
                     trigger: 'custom-select-trigger bg-transparent border-none',
                     value: 'text-white font-medium',
                   }}
                   onChange={e => {
-                    // handleChangeLanguage(e.target.value);
+                    handleChangeLanguage(e.target.value);
                   }}
                   defaultSelectedKeys={[router.locale]}
                 >
