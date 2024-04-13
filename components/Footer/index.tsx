@@ -7,11 +7,8 @@ import { usePathname } from 'next/navigation';
 import { ReferenceService } from '@/service/reference/reference.service';
 import { FooterMenu } from '@/types/reference';
 import Link from 'next/link';
-import { useTranslation, Trans } from 'next-i18next';
 import { useRouter } from 'next/router';
-import { GrLanguage } from 'react-icons/gr';
 
-/** TODO ETR bro linked paged holboh */
 const Footer: React.FC = () => {
   const [menus, setMenus] = useState<FooterMenu[]>([]);
   const router = useRouter();
@@ -40,14 +37,7 @@ const Footer: React.FC = () => {
   // const onUnmount = useCallback(function callback(map) {
   //   setMap(null);
   // }, []);
-  const { t, i18n } = useTranslation('common');
   const pathUrl = usePathname();
-  const handleChangeLanguage = (languageCode: string) => {
-    // Change language using i18next
-    i18n.changeLanguage(languageCode);
-    // Redirect to the same page with the new language
-    router.push(router.pathname, router.asPath, { locale: languageCode });
-  };
   useEffect(() => {
     ReferenceService.getMenu().then(res => {
       if (res.success) {
@@ -56,11 +46,6 @@ const Footer: React.FC = () => {
     });
   }, []);
 
-  const langs = [
-    { id: 'en', name: 'English' },
-    { id: 'mn', name: 'Монгол хэл' },
-    { id: 'zh', name: '中國人' },
-  ];
   return (
     <>
       <footer className="border-stroke bg-mainDark ">
@@ -88,9 +73,7 @@ const Footer: React.FC = () => {
                     viewport={{ once: true }}
                     className="animate_top"
                   >
-                    <h4 className="mb-9 text-itemtitle2 font-semibold text-gray-400">
-                      HUB STAR {t('back-to-home')}
-                    </h4>
+                    <h4 className="mb-9 text-itemtitle2 font-semibold text-gray-400">HUB STAR</h4>
 
                     <ul>
                       {menus
@@ -380,30 +363,6 @@ const Footer: React.FC = () => {
                 </li>
               </ul>
               <Divider orientation="vertical" className="h-5 w-0.5 bg-white mx-5" />
-              <div className="flex flex-row items-center">
-                <GrLanguage className="text-2xl text-white" />
-                <Select
-                  label=" "
-                  labelPlacement="outside"
-                  variant="bordered"
-                  classNames={{
-                    base: 'w-[120px] !mt-0',
-                    mainWrapper: '',
-                    trigger: 'custom-select-trigger bg-transparent border-none',
-                    value: 'text-white font-medium',
-                  }}
-                  onChange={e => {
-                    handleChangeLanguage(e.target.value);
-                  }}
-                  defaultSelectedKeys={[router.locale]}
-                >
-                  {langs.map(item => (
-                    <SelectItem key={item.id} value={item.id}>
-                      {item.name}
-                    </SelectItem>
-                  ))}
-                </Select>
-              </div>
             </motion.div>
           </div>
           {/* <!-- Footer Bottom --> */}

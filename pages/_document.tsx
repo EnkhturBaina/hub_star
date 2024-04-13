@@ -10,6 +10,7 @@ class MyDocument extends Document<Props> {
     const initialProps = await Document.getInitialProps(ctx);
     return { ...initialProps };
   }
+
   render(): JSX.Element {
     const currentLocale = this.props.__NEXT_DATA__.locale ?? i18nextConfig.i18n.defaultLocale;
 
