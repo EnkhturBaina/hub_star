@@ -56,7 +56,7 @@ const Hero = () => {
                       <div key={index}>
                         <div className="mb-5 flex flex-row">
                           <Image
-                            src={`${process.env.NEXT_PUBLIC_IMG_URL}/${md.logo.path}`}
+                            src={process.env.NEXT_PUBLIC_MEDIA_URL + md.logoId}
                             alt="add"
                             className="rounded-md object-contain object-center"
                             width="0"

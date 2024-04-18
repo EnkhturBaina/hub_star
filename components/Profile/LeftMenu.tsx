@@ -1,10 +1,9 @@
 'use client';
 import React, { useContext } from 'react';
 import { MenuItem, Menu, Label } from 'semantic-ui-react';
-import MenuList from './MenuList';
 import { Divider } from '@nextui-org/react';
 import { CiLogout } from 'react-icons/ci';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import {
   Modal,
   ModalContent,
@@ -15,41 +14,89 @@ import {
 } from '@nextui-org/react';
 import { AuthService } from '@/service/authentication/authentication.service';
 import { removeAccessToken } from '@/service/api.service';
+import { ProfileRoute } from '@/types/reference';
 
-const LeftMenu = ({
-  selectedMenu,
-  setSelectedMenu,
-  visible,
-  setVisible,
-}: {
-  selectedMenu: any;
-  setSelectedMenu: any;
-  visible?: any;
-  setVisible?: any;
-}) => {
-  const handleItemClick = (e, { name }) => {
-    setSelectedMenu(name);
-    setVisible(false);
-  };
+const profileRoutes: ProfileRoute[] = [
+  {
+    id: 1,
+    name: 'Профайл',
+    url: '/profile/information',
+  },
+  {
+    id: 2,
+    name: 'Мессенжер',
+    url: '/profile/messenger',
+  },
+  {
+    id: 3,
+    name: 'Байршуулсан үйлчилгээ',
+    url: '/profile/posted-services',
+  },
+  {
+    id: 4,
+    name: 'Хийгдэж буй ажил',
+    url: '/profile/doing-services',
+  },
+  {
+    id: 5,
+    name: 'Хадгалагдсан үйлчилгээнүүд',
+    url: '/profile/saved-services',
+  },
+  {
+    id: 6,
+    name: 'Үйлчилгээний түүх',
+    url: '/profile/service-history',
+  },
+  {
+    id: 7,
+    name: 'Дансны мэдээлэл',
+    url: '/profile/account',
+  },
+  {
+    id: 8,
+    name: 'Баталгаажуулалт',
+    url: '/profile/confirmation',
+  },
+  {
+    id: 9,
+    name: 'Нууц үг',
+    url: '/profile/password',
+  },
+  {
+    id: 10,
+    name: 'Мэдэгдэл',
+    url: '/profile/notification',
+  },
+  {
+    id: 11,
+    name: 'Зөвлөмжүүд',
+    url: '/profile/advices',
+  },
+];
+const LeftMenu = () => {
   const router = useRouter();
+  const pathUrl = usePathname();
+  const handleItemClick = (item: ProfileRoute) => {
+    router.push(item.url);
+  };
 
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   return (
     <div className="w-full rounded-xl bg-white px-1 py-2 dark:border-default-100">
       <Menu vertical borderless fluid className="!border-0 !shadow-none">
-        {MenuList.map((el, index) => {
+        {profileRoutes.map((el, index) => {
           return (
             <MenuItem
               key={index}
-              name={el.key}
-              active={selectedMenu === el.key}
-              onClick={handleItemClick}
+              name={el.url}
+              active={pathUrl == el.url}
+              onClick={() => handleItemClick(el)}
               className={`!m-2 !rounded-xl ${
-                selectedMenu == el.key ? '!bg-mainColor !text-white' : '!text-gray-500'
+                pathUrl == el.url ? '!bg-mainColor !text-white' : '!text-gray-500'
               }`}
             >
-              {el.title}
+              {el.name}
             </MenuItem>
           );
         })}
@@ -58,7 +105,7 @@ const LeftMenu = ({
           name="logout"
           onClick={onOpen}
           className={`!m-2 !flex !items-center !justify-between !rounded-xl !py-2 !leading-loose ${
-            selectedMenu == 'logout' ? '!bg-mainColor !text-white' : '!text-red-600'
+            pathUrl == 'logout' ? '!bg-mainColor !text-white' : '!text-red-600'
           }`}
         >
           Системээс гарах

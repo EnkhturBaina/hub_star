@@ -1,8 +1,7 @@
 'use client';
 import LeftMenu from '@/components/Profile/LeftMenu';
-import { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { FaCamera } from 'react-icons/fa';
-import MenuList from '@/components/Profile/MenuList';
 import { SidebarPusher, SidebarPushable, Segment, Sidebar } from 'semantic-ui-react';
 import { LuChevronLeft, LuLayoutGrid, LuMenu } from 'react-icons/lu';
 import AuthName from '@/components/Auth/auth-name';
@@ -12,13 +11,14 @@ import { Users } from '@/types/user';
 import { AuthService } from '@/service/authentication/authentication.service';
 import toast from 'react-hot-toast';
 import { useAppContext } from '@/app/app-context';
-import { NextPage } from 'next';
 
-const Profile: NextPage = () => {
+type Props = {
+  children: React.ReactNode;
+};
+const ProfileLayout: React.FC<Props> = ({ children }) => {
   const { user, setUser } = useAppContext();
   const [userImage, setUserImage] = useState<Users>(user);
   const [visible, setVisible] = useState(false);
-  const [selectedMenu, setSelectedMenu] = useState('profile');
 
   const sideBarRef = useRef(null);
   const saveUserImage = () => {
@@ -130,12 +130,7 @@ const Profile: NextPage = () => {
             <LuMenu className="text-2xl" />
           </div>
           <div className="hidden md:block md:w-1/4">
-            <LeftMenu
-              selectedMenu={selectedMenu}
-              setSelectedMenu={setSelectedMenu}
-              visible={visible}
-              setVisible={setVisible}
-            />
+            <LeftMenu />
           </div>
           <Sidebar
             animation="overlay"
@@ -153,21 +148,10 @@ const Profile: NextPage = () => {
               </div>
               <LuChevronLeft className="text-2xl" onClick={() => setVisible(false)} />
             </div>
-            <LeftMenu
-              selectedMenu={selectedMenu}
-              setSelectedMenu={setSelectedMenu}
-              visible={visible}
-              setVisible={setVisible}
-            />
+            <LeftMenu />
           </Sidebar>
           <SidebarPusher className="!w-full">
-            <Segment className="!rounded-xl !border-0">
-              {MenuList.map((el, index) => {
-                if (el.key === selectedMenu) {
-                  return <div key={index}>{el.content}</div>;
-                }
-              })}
-            </Segment>
+            <Segment className="!rounded-xl !border-0">{children}</Segment>
           </SidebarPusher>
         </SidebarPushable>
       </section>
@@ -175,4 +159,4 @@ const Profile: NextPage = () => {
   }
 };
 
-export default Profile;
+export default ProfileLayout;

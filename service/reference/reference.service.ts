@@ -21,10 +21,10 @@ const getMainDirection = (params: { categoryId?: number }): Promise<IResponseMai
   return api.get('/reference/main-direction', { params });
 };
 const getDirection = (params: IDirectionParam): Promise<IResponseDirections> => {
-  return api.get('/reference/main-direction/direction', { params });
+  return api.get('/reference/direction', { params });
 };
 const getSubDirection = (params: ISubDirectionParam): Promise<IResponseSubDirections> => {
-  return api.get('/reference/main-direction/direction/sub-direction', {
+  return api.get('/reference/sub-direction', {
     params,
   });
 };

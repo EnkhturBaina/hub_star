@@ -1,5 +1,10 @@
 import { IFile } from '@/interfaces/request.interface';
 import { Advertisement } from './advertisement';
+export type ProfileRoute = {
+  id: number,
+  name: string,
+  url: string,
+}
 /** Хуудаслалт  */
 export type PageMeta = {
   page: number;
@@ -12,7 +17,7 @@ export type PageMeta = {
 /** Үйл ажиллагааны үндсэн чиглэл */
 export type MainDirection = {
   id: number;
-  logo?: IFile;
+  logoId: number;
   name: string;
   directions: Direction[];
 };
@@ -34,7 +39,7 @@ export type SubDirection = {
 /** Хэрэглэгчийн төрөл */
 export type Category = {
   id: number;
-  logo: IFile;
+  logoId: number;
   name: string;
   isSpecial: boolean;
 };
@@ -79,7 +84,7 @@ export type FooterMenuPage = {
   body?: string;
   date: Date;
   is_show: boolean;
-  image: IFile;
+  imageId: number;
 }
 /** Зөвлөмжүүд */
 export type Feedback = {

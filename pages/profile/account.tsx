@@ -1,5 +1,3 @@
-'use client';
-
 import { motion } from 'framer-motion';
 import { Button, Input } from '@nextui-org/react';
 import { useEffect, useState } from 'react';
@@ -8,6 +6,7 @@ import AccountFields from '@/components/Skeleton/AccountFields';
 import { Users } from '@/types/user';
 import { useAppContext } from '@/app/app-context';
 import { AuthService } from '@/service/authentication/authentication.service';
+import ProfileLayout from '@/layouts/profile.layout';
 
 const Account = () => {
   const { user } = useAppContext();
@@ -51,7 +50,7 @@ const Account = () => {
     }
   };
   return (
-    <>
+    <ProfileLayout>
       {accountData == null ? (
         <AccountFields />
       ) : (
@@ -160,7 +159,7 @@ const Account = () => {
           </div>
         </motion.div>
       )}
-    </>
+    </ProfileLayout>
   );
 };
 

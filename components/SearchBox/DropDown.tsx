@@ -42,7 +42,7 @@ export default function DropDown() {
               <div key={index} className="!mb-2 !mt-0 inline-block h-min w-full">
                 <div className="mb-2 flex flex-row">
                   <Image
-                    src={process.env.NEXT_PUBLIC_IMG_URL + md.logo?.path}
+                    src={process.env.NEXT_PUBLIC_MEDIA_URL + md.logoId}
                     alt="add"
                     height={20}
                     width={20}

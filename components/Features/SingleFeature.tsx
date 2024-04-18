@@ -1,5 +1,4 @@
 import React from 'react';
-import { Feature } from '@/types/feature';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
@@ -8,7 +7,7 @@ interface IProps {
   category: Category;
 }
 const SingleFeature: React.FC<IProps> = ({ category }) => {
-  const { id, logo, name } = category;
+  const { id, logoId, name } = category;
 
   return (
     <>
@@ -36,7 +35,7 @@ const SingleFeature: React.FC<IProps> = ({ category }) => {
         >
           <div className="flex h-2/3 w-16 rounded-[4px]">
             <Image
-              src={process.env.NEXT_PUBLIC_IMG_URL + logo.path}
+              src={process.env.NEXT_PUBLIC_MEDIA_URL + logoId}
               alt="title"
               width="0"
               height="0"

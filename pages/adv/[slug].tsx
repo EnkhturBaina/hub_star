@@ -15,6 +15,7 @@ import { useRouter } from 'next/router';
 import { SubDirection } from '@/types/reference';
 import { ReferenceService } from '@/service/reference/reference.service';
 import { NextPage } from 'next';
+import useSocket from '@/service/socket-client';
 export async function getServerSideProps({ params }) {
   const { slug } = params;
   const data = await AdvertisementService.getById(slug)
@@ -30,6 +31,7 @@ export async function getServerSideProps({ params }) {
 }
 const SingleBlogPage: NextPage<{ data: Advertisement }> = ({ data }) => {
   const router = useRouter();
+  const socket = useSocket()
   const [subDirections, setSubDirections] = useState<SubDirection[]>([]);
   const getAdById = () => {};
   const getSubDirections = () => {
@@ -140,7 +142,7 @@ const SingleBlogPage: NextPage<{ data: Advertisement }> = ({ data }) => {
                 <span className="font-bold">Үнэ</span>
                 <span className="">{data?.price} ₮</span>
                 <span className="font-bold">Нийтэлсэн огноо</span>
-                <span className="">{format(new Date(data.createdAt), 'yyyy-MM-dd hh:m')}</span>
+                <span className="">{data.createdAt}</span>
                 <span className="font-bold">Зарын дугаар</span>
                 <span className="">{data?.id}</span>
                 <span className="font-bold">Утасны дугаар</span>

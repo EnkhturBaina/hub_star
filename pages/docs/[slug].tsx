@@ -48,9 +48,9 @@ const MenuPage: NextPage = () => {
           className="animate_top"
         >
           <section className="mx-auto max-w-screen-xl px-4 md:px-8 2xl:px-0 mb-4">
-            {page.image && page.image.path ? (
+            {page.imageId && (
               <Image
-                src={`${process.env.NEXT_PUBLIC_IMG_URL}/${page.image.path}`}
+                src={process.env.NEXT_PUBLIC_MEDIA_URL + page.imageId}
                 alt="add"
                 className="rounded-md object-contain object-center"
                 width="0"
@@ -58,7 +58,7 @@ const MenuPage: NextPage = () => {
                 sizes="100vw"
                 style={{ width: '100%', height: 400 }}
               />
-            ) : null}
+            )}
             <h3 className="!mb-1 !mt-2 line-clamp-2 inline-block text-lg font-bold">
               {page.title}
             </h3>

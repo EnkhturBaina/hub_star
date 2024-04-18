@@ -6,7 +6,7 @@ type Props = {
   mainDirection: MainDirection;
 };
 const CatItem: React.FC<Props> = ({ mainDirection }) => {
-  const { id, logo, name } = mainDirection;
+  const { id, logoId, name } = mainDirection;
 
   return (
     <>
@@ -31,7 +31,7 @@ const CatItem: React.FC<Props> = ({ mainDirection }) => {
         <div className="relative block h-64 w-full rounded-lg hover:opacity-50">
           <Image
             alt={name ?? 'alt'}
-            src={`${process.env.NEXT_PUBLIC_IMG_URL}/${logo.path}` ?? '/images/blog_img.jpg'}
+            src={process.env.NEXT_PUBLIC_MEDIA_URL + logoId}
             className="rounded-lg object-cover object-center"
             fill
             sizes="(max-width: 768px) 100vw"
