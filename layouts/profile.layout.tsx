@@ -46,55 +46,62 @@ const ProfileLayout: React.FC<Props> = ({ children }) => {
     return (
       <section className="bg-gray-100 py-18 lg:py-18 xl:py-18">
         <div className="mx-auto max-w-screen-xl md:px-4 xl:px-0">
-          <div className="relative flex flex-col rounded-xl bg-white" style={{ height: 330 }}>
-            <div className="relative">
-              <div className="relative h-64 w-full bg-cover bg-center">
-                <Image
-                  src={
-                    user.coverId
-                      ? `${process.env.NEXT_PUBLIC_BASE_API_URL}local-files/${user.coverId}`
-                      : '/images/profile_bg.jpg'
-                  }
-                  alt={'ковер'}
-                  className="h-65"
-                  fill
-                />
+          <div className="flex flex-col rounded-xl bg-white">
+            <div className="relative h-64 w-full bg-cover bg-center">
+              <Image
+                src={
+                  user.coverId
+                    ? `${process.env.NEXT_PUBLIC_BASE_API_URL}local-files/${user.coverId}`
+                    : '/images/profile_bg.jpg'
+                }
+                alt={'ковер'}
+                className="h-65"
+                fill
+              />
+              <div className="absolute bottom-8 right-8">
+                <ImageUpload
+                  className="cursor-pointer bg-gray-300 text-base bg-opacity-60 text-white flex flex-row items-center rounded px-4 py-1 min-w-max"
+                  setFileId={fileId => {
+                    console.log('fileId ========>', fileId);
+                    setUserImage((prevState: Users) => ({
+                      ...prevState,
+                      coverId: fileId,
+                    }));
+                    saveUserImage();
+                  }}
+                >
+                  <FaCamera className="text-lg mr-3" />
+                  Дэвсгэр зураг солих
+                </ImageUpload>
               </div>
-              <ImageUpload
-                className="absolute bottom-8 right-10 cursor-pointer bg-gray-300 text-base bg-opacity-60 text-white flex flex-row items-center rounded-2xl px-4 py-1"
-                setFileId={fileId => {
-                  console.log('fileId ========>', fileId);
-                  setUserImage((prevState: Users) => ({
-                    ...prevState,
-                    coverId: fileId,
-                  }));
-                  saveUserImage();
+            </div>
+            <div
+              className="relative h-30"
+              style={{
+                marginLeft: 100,
+                marginRight: 100,
+              }}
+            >
+              <div
+                className="absolute w-full left-2 flex flex-row md:-bottom-28 md:left-30 gap-3"
+                style={{
+                  top: '-50%',
                 }}
               >
-                <FaCamera className="text-lg mr-3" />
-                Дэвсгэр зураг солих
-              </ImageUpload>
-              <div className="absolute -bottom-12 left-2 flex flex-row justify-between md:-bottom-28 md:left-30">
                 <div className="relative md:mr-6">
-                  {user.avatarId == null ? (
-                    <Image
-                      className="h-28 w-28 rounded-full border-5 border-white md:h-60 md:w-60"
-                      src="/images/user/user-01.png"
-                      alt=""
-                      width={400}
-                      height={400}
-                    />
-                  ) : (
-                    <Image
-                      className="h-28 w-28 rounded-full border-5 border-white md:h-60 md:w-60 bg-white"
-                      src={`${process.env.NEXT_PUBLIC_BASE_API_URL}local-files/${user.avatarId}`}
-                      alt=""
-                      width={400}
-                      height={400}
-                    />
-                  )}
+                  <Image
+                    className="rounded-full border-5 border-white md:h-60 md:w-60"
+                    src={
+                      user.avatarId
+                        ? `${process.env.NEXT_PUBLIC_BASE_API_URL}local-files/${user.avatarId}`
+                        : '/images/user/user-01.png'
+                    }
+                    alt=""
+                    width={120}
+                    height={120}
+                  />
                   <ImageUpload
-                    className="bottom-1 right-1 cursor-pointer rounded-full bg-gray-100 p-3 text-black absolute w-fit"
+                    className="right-0 bottom-0 cursor-pointer rounded-full bg-gray-100 p-3 text-black absolute w-fit"
                     setFileId={fileId => {
                       console.log('fileId AVATAR========>', fileId);
                       setUserImage((prevState: Users) => ({
@@ -107,11 +114,11 @@ const ProfileLayout: React.FC<Props> = ({ children }) => {
                     <FaCamera className="text-2xl" />
                   </ImageUpload>
                 </div>
-                <div className="-mb-4 flex flex-col justify-end md:mb-2">
+                <div className="flex flex-col justify-end md:mb-2 text-start">
                   <span className="mb-0 text-2xl font-bold text-black md:mb-2">
                     <AuthName user={user} />
                   </span>
-                  <span className="text-xl">{user.jobPosition}</span>
+                  <span className="text-xl ml-3 mr-5">{user.jobPosition}</span>
                 </div>
               </div>
             </div>
