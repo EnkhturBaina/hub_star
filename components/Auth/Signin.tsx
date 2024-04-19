@@ -9,6 +9,7 @@ import { useRouter } from 'next/navigation';
 import { useMemo, useState } from 'react';
 import { Divider } from 'semantic-ui-react';
 import toast, { Toaster } from 'react-hot-toast';
+import { error } from 'console';
 
 const Signin = () => {
   const router = useRouter();
@@ -32,14 +33,17 @@ const Signin = () => {
       toast.error('Нууц үгээ оруулна уу.');
     } else {
       try {
-        AuthService.login({ email, password }).then(response => {
-          if (response.success) {
+        AuthService.login({ email, password })
+          .then(response => {
+            console.log(response);
             setAccessToken(response.response.accessToken);
             router.push('/');
-          } else {
-            toast.error('Нэвтрэх нэр эсвэл нууц үг буруу байна.');
-          }
-        });
+          })
+          .catch(error => {
+            if (error.response.status === 400) {
+              toast.error('Нэвтрэх нэр эсвэл нууц үг буруу байна.');
+            }
+          });
       } catch (error) {
         console.error('catch error :', error);
       }
@@ -63,10 +67,12 @@ const Signin = () => {
           <div className="relative hidden h-full w-full md:block md:h-1/3 lg:h-full lg:w-1/2">
             <Image
               src="/signin_bg.png"
+              loading="eager"
+              priority
               alt="Dotted"
               quality={100}
               fill
-              sizes="100vw"
+              sizes="100vh"
               className=""
             />
           </div>

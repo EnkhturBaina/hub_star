@@ -68,6 +68,8 @@ const FabButton = () => {
                   className="h-14 w-14 transition-all duration-300 hover:opacity-100 dark:hidden"
                   src={el.img}
                   alt={el.name}
+                  loading="eager"
+                  priority={true}
                   width="0"
                   height="0"
                   sizes="100vw"
