@@ -30,10 +30,10 @@ function MyApp({ Component, pageProps }: AppProps) {
           <AppProvider>
             {pathUrl === '/auth/signin' || pathUrl === '/auth/signup' ? null : <Header />}
             <Component {...pageProps} />
+            <FabButton />
           </AppProvider>
           <Footer />
           <ScrollToTop />
-          <FabButton />
         </ThemeProvider>
       </NextUIProvider>
     </div>

@@ -14,15 +14,13 @@ import LeftDirections from '../Skeleton/LeftDirections';
 import BlogItemSkeleton from '../Skeleton/BlogItemSkeleton';
 import { useAppContext } from '@/app/app-context';
 import { Direction, MainDirection, SubDirection } from '@/types/reference';
-import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { Popup } from 'semantic-ui-react';
 import { useState } from 'react';
 
 const Hero = () => {
-  const { mainDirections, adParam, setAdParam } = useAppContext();
+  const { mainDirections, adParam } = useAppContext();
   const [openPopover, setOpenPopover] = useState({});
-  const router = useRouter();
   const images = [
     'https://images.unsplash.com/photo-1509721434272-b79147e0e708?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80',
     'https://images.unsplash.com/photo-1506710507565-203b9f24669b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1536&q=80',
@@ -71,46 +69,6 @@ const Hero = () => {
                         <ul>
                           {md.directions.map((d: Direction, index: number) => {
                             return (
-                              // <Popover placement="right" className="w-full" key={index}>
-                              //   <PopoverTrigger>
-                              //     <li className="mb-3 !scale-100 cursor-pointer !opacity-100 transition-all duration-300 last:mb-0 hover:text-mainColor">
-                              //       <div className="flex flex-row items-center justify-between">
-                              //         <span className="text-sm font-medium text-[#646669]">
-                              //           {d.name}
-                              //         </span>
-                              //         {d.subDirections.length > 0 && <BsChevronRight />}
-                              //       </div>
-                              //     </li>
-                              //   </PopoverTrigger>
-                              //   {d.subDirections.length !== 0 && (
-                              //     <PopoverContent className="w-40 min-w-max items-start p-4">
-                              //       <ul>
-                              //         {d.subDirections?.map((sub: SubDirection, index: number) => {
-                              //           return (
-                              //             <li
-                              //               key={index}
-                              //               className="mb-3 cursor-pointer !text-black transition-all duration-300 last:mb-0 hover:text-mainColor"
-                              //             >
-                              //               <Link
-                              //                 href={{
-                              //                   pathname: '/adv',
-                              //                   query: {
-                              //                     mainDirectionId: md.id,
-                              //                     directionId: d.id,
-                              //                     subDirectionId: sub.id,
-                              //                   },
-                              //                 }}
-                              //                 className="!text-black"
-                              //               >
-                              //                 {sub.name}
-                              //               </Link>
-                              //             </li>
-                              //           );
-                              //         })}
-                              //       </ul>
-                              //     </PopoverContent>
-                              //   )}
-                              // </Popover>
                               <Popup
                                 key={index}
                                 on={'click'}
@@ -183,49 +141,51 @@ const Hero = () => {
               </div>
             </div>
 
-            <div className="w-full md:w-3/4">
-              <div className="mb-4 w-full overflow-hidden">
-                <div className="custom-slider-container relative w-full rounded-xl">
-                  <Fade
-                    {...properties}
-                    transitionDuration={500}
-                    easing="ease"
-                    indicators={indicators}
-                    autoplay={false}
-                  >
-                    <div className="each-slide-effect rounded-xl">
-                      <div
-                        style={{
-                          backgroundImage: `url(${images[0]})`,
-                          backgroundSize: '100% 100%',
-                        }}
-                      ></div>
-                    </div>
-                    <div className="each-slide-effect rounded-xl">
-                      <div
-                        style={{
-                          backgroundImage: `url(${images[1]})`,
-                          backgroundSize: '100% 100%',
-                        }}
-                      ></div>
-                    </div>
-                    <div className="each-slide-effect rounded-xl">
-                      <div
-                        style={{
-                          backgroundImage: `url(${images[2]})`,
-                          backgroundSize: '100% 100%',
-                        }}
-                      ></div>
-                    </div>
-                  </Fade>
+            {!adParam.categoryId && (
+              <div className="w-full md:w-3/4">
+                <div className="mb-4 w-full overflow-hidden">
+                  <div className="custom-slider-container relative w-full rounded-xl">
+                    <Fade
+                      {...properties}
+                      transitionDuration={500}
+                      easing="ease"
+                      indicators={indicators}
+                      autoplay={false}
+                    >
+                      <div className="each-slide-effect rounded-xl">
+                        <div
+                          style={{
+                            backgroundImage: `url(${images[0]})`,
+                            backgroundSize: '100% 100%',
+                          }}
+                        ></div>
+                      </div>
+                      <div className="each-slide-effect rounded-xl">
+                        <div
+                          style={{
+                            backgroundImage: `url(${images[1]})`,
+                            backgroundSize: '100% 100%',
+                          }}
+                        ></div>
+                      </div>
+                      <div className="each-slide-effect rounded-xl">
+                        <div
+                          style={{
+                            backgroundImage: `url(${images[2]})`,
+                            backgroundSize: '100% 100%',
+                          }}
+                        ></div>
+                      </div>
+                    </Fade>
+                  </div>
                 </div>
+                <Feature />
+                <GridCategory />
+                {mainDirections.length == 0 ? <BlogItemSkeleton /> : <Blog />}
               </div>
-              <Feature />
-              {/* <GridCategory /> */}
-              {mainDirections.length == 0 ? <BlogItemSkeleton /> : <Blog />}
-              {/* <Blog /> */}
-              <PaginationComp page={0} pageCount={0} />
-            </div>
+            )}
+            <Blog />
+            <PaginationComp page={0} pageCount={0} />
           </div>
         </div>
       </section>

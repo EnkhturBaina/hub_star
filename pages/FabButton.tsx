@@ -4,6 +4,7 @@ import { useCallback, useState } from 'react';
 import { RiHome5Fill } from 'react-icons/ri';
 import { useRouter } from 'next/router';
 import { useTranslation, Trans } from 'next-i18next';
+import { useAppContext } from '@/app/app-context';
 
 const container = {
   hidden: {
@@ -24,6 +25,7 @@ const FabButton = () => {
 
   const { t, i18n } = useTranslation('common');
   const [isFabEnabled, setIsFabEnabled] = useState(false);
+  const { setAdParam } = useAppContext();
 
   const toggleFAB = useCallback(() => {
     setIsFabEnabled(prevState => !prevState);
@@ -47,6 +49,10 @@ const FabButton = () => {
     <div className="fixed bottom-25 right-5 flex flex-col items-center z-99999">
       <div
         className={`w-fit rounded-full p-3 bg-white shadow-lg cursor-pointer mb-2 ${isFabEnabled ? 'invisible' : 'visible'}`}
+        onClick={() => {
+          router.push('/');
+          setAdParam(prev => ({ ...prev, categoryId: undefined }));
+        }}
       >
         <RiHome5Fill className="text-5xl" />
       </div>
@@ -58,6 +64,7 @@ const FabButton = () => {
             ?.map((el, index) => {
               return (
                 <Image
+                  key={index}
                   className="h-14 w-14 transition-all duration-300 hover:opacity-100 dark:hidden"
                   src={el.img}
                   alt={el.name}

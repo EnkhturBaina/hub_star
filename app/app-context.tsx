@@ -19,8 +19,6 @@ interface IAppContextProps {
   user: Users;
   setUser: Dispatch<SetStateAction<Users>>;
   mainDirections: MainDirection[];
-  currentCategoryId?: number;
-  setCurrentCategoryId: Dispatch<SetStateAction<number>>;
   categories: Category[];
   adParam: IAdParam;
   setAdParam: Dispatch<SetStateAction<IAdParam>>;
@@ -46,7 +44,6 @@ const AppProvider: React.FC<IProps> = ({ children }) => {
   });
   const [user, setUser] = useState<Users>();
   const [mainDirections, setMainDirections] = useState<MainDirection[]>([]);
-  const [currentCategoryId, setCurrentCategoryId] = useState<number>();
   const [categories, setCategories] = useState<Category[]>([]);
   const [advertisements, setAdvertisements] = useState<Advertisement[]>([]);
   const [adMeta, setAdMeta] = useState<PageMeta>({
@@ -70,7 +67,7 @@ const AppProvider: React.FC<IProps> = ({ children }) => {
       });
   };
   const getMainDirection = () => {
-    ReferenceService.getMainDirection({ categoryId: currentCategoryId }).then(res => {
+    ReferenceService.getMainDirection({ categoryId: adParam.categoryId }).then(res => {
       if (res.success) {
         setMainDirections(res.response);
       }
@@ -91,7 +88,7 @@ const AppProvider: React.FC<IProps> = ({ children }) => {
   }, []);
   useEffect(() => {
     getMainDirection();
-  }, [currentCategoryId]);
+  }, [adParam.categoryId]);
   useEffect(() => {
     AdvertisementService.get(adParam).then(response => {
       if (response.success) {
@@ -103,8 +100,6 @@ const AppProvider: React.FC<IProps> = ({ children }) => {
   const value: IAppContextProps = {
     user,
     mainDirections,
-    currentCategoryId,
-    setCurrentCategoryId,
     categories,
     adParam,
     setAdParam,

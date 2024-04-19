@@ -9,9 +9,11 @@ import HeaderMenu from './HeaderMenu';
 import { useAppContext } from '@/app/app-context';
 import AuthName from '../Auth/auth-name';
 import useSocket from '@/service/socket-client';
+import { useRouter } from 'next/router';
 
 const Header = () => {
-  const { user } = useAppContext();
+  const { user, setAdParam } = useAppContext();
+  const router = useRouter();
   const socket = useSocket();
   const [navigationOpen, setNavigationOpen] = useState(false);
   const [stickyMenu, setStickyMenu] = useState(false);
@@ -51,16 +53,18 @@ const Header = () => {
     >
       <div className="relative mx-auto flex max-w-screen-xl flex-row items-center justify-between px-4 md:px-8 xl:flex 2xl:px-0">
         <div className="mr-4 flex items-center justify-between">
-          <a href="/">
-            <Image
-              src="/images/logo/svg_logo.svg"
-              alt="logo"
-              width={120}
-              height={40}
-              className="block w-full"
-              priority
-            />
-          </a>
+          <Image
+            src="/images/logo/svg_logo.svg"
+            alt="logo"
+            width={120}
+            height={40}
+            className="block w-full"
+            onClick={() => {
+              router.push('/');
+              setAdParam(prev => ({ ...prev, categoryId: undefined }));
+            }}
+            priority
+          />
         </div>
         <div className="hidden w-full md:block">
           <SearchBox />
@@ -127,7 +131,7 @@ const Header = () => {
                       </svg>
                     </Badge>
                   </Link>
-                  <Link href='/profile/posted-services'>
+                  <Link href="/profile/posted-services">
                     <svg
                       viewBox="0 0 30 30"
                       xmlns="http://www.w3.org/2000/svg"

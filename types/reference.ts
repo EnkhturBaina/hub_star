@@ -1,10 +1,10 @@
 import { IFile } from '@/interfaces/request.interface';
 import { Advertisement } from './advertisement';
 export type ProfileRoute = {
-  id: number,
-  name: string,
-  url: string,
-}
+  id: number;
+  name: string;
+  url: string;
+};
 /** Хуудаслалт  */
 export type PageMeta = {
   page: number;
@@ -18,6 +18,7 @@ export type PageMeta = {
 export type MainDirection = {
   id: number;
   logoId: number;
+  coverId: number;
   name: string;
   directions: Direction[];
 };
@@ -73,7 +74,7 @@ export type FooterMenu = {
   title: string;
   relLink: string;
   position: number;
-}
+};
 /** Сайтын цэсэнд харуулах хуудаснууд */
 export type FooterMenuPage = {
   id: number;
@@ -85,7 +86,7 @@ export type FooterMenuPage = {
   date: Date;
   is_show: boolean;
   imageId: number;
-}
+};
 /** Зөвлөмжүүд */
 export type Feedback = {
   id: number;
@@ -98,4 +99,4 @@ export type Feedback = {
   position: number;
   createdAt: Date;
   updatedAt: Date;
-}
+};
