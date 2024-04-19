@@ -88,7 +88,7 @@ export type FooterMenuPage = {
   imageId: number;
 };
 /** Зөвлөмжүүд */
-export type Feedback = {
+export type Advice = {
   id: number;
   mainDirectionId: number;
   mainDirection?: MainDirection;

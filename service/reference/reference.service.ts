@@ -1,10 +1,11 @@
 import {
   IResponse,
   IResponseAddresses,
-  IResponseAllFeedback,
+  IResponseAllAdvice,
   IResponseCategories,
   IResponseDirections,
   IResponseLocalFile,
+  IResponseMainDirection,
   IResponseMainDirections,
   IResponseMenu,
   IResponsePage,
@@ -13,12 +14,15 @@ import {
 import { api } from '../api.service';
 import {
   IAddressParam,
+  IAdviceParam,
   IDirectionParam,
-  IFeedbackParam,
   ISubDirectionParam,
 } from '@/interfaces/request.interface';
 const getMainDirection = (params: { categoryId?: number }): Promise<IResponseMainDirections> => {
   return api.get('/reference/main-direction', { params });
+};
+const getMainDirectionById = (id: number | string): Promise<IResponseMainDirection> => {
+  return api.get('/reference/main-direction/show/' + id);
 };
 const getDirection = (params: IDirectionParam): Promise<IResponseDirections> => {
   return api.get('/reference/direction', { params });
@@ -50,11 +54,12 @@ const getMenu = (): Promise<IResponseMenu> => {
 const getMenuPage = (menuId: any): Promise<IResponsePage> => {
   return api.get('/reference/pages/menu/' + menuId);
 };
-const getFeedback = (params: IFeedbackParam): Promise<IResponseAllFeedback> => {
-  return api.get('reference/feedback', { params });
+const getAdvice = (params: IAdviceParam): Promise<IResponseAllAdvice> => {
+  return api.get('reference/advice', { params });
 };
 export const ReferenceService = {
   getMainDirection,
+  getMainDirectionById,
   getDirection,
   getSubDirection,
   getCategory,
@@ -63,5 +68,5 @@ export const ReferenceService = {
   removeFileUpload,
   getMenu,
   getMenuPage,
-  getFeedback,
+  getAdvice,
 };

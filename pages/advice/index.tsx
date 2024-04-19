@@ -4,28 +4,50 @@ import BreadCrumbs from '@/components/BreadCrumbs';
 import SideCheckDirection from '@/components/Common/SideCheckDirection';
 import PaginationComp from '@/components/Pagination';
 import { IAdParam } from '@/interfaces/request.interface';
-import { MainDirection } from '@/types/reference';
+import { api } from '@/service/api.service';
+import { ReferenceService } from '@/service/reference/reference.service';
+import { Advice, MainDirection, PageMeta } from '@/types/reference';
 import { Button, Select, SelectItem } from '@nextui-org/react';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { IoIosAddCircleOutline } from 'react-icons/io';
 
 /** Зөвлөмжүүд */
 const AdvicePage: NextPage = () => {
-  const { mainDirections, adParam, setAdParam, advertisements, adMeta } = useAppContext();
+  const [advices, setAdvices] = useState<Advice[]>([]);
+  const [pageMeta, setPageMeta] = useState<PageMeta>({
+    page: 1,
+    limit: 10,
+    hasNextPage: false,
+    hasPreviousPage: false,
+    itemCount: 0,
+    pageCount: 1,
+  });
   const [mainDirection, setMainDirection] = useState<MainDirection>();
   const router = useRouter();
+  const getData = useCallback(async () => {
+    await ReferenceService.getAdvice({
+      mainDirectionId: Number(router.query.mainDirectionId),
+      order: 'DESC',
+      page: 1,
+      limit: 10,
+    }).then(res => {
+      if (res.success) {
+        setAdvices(res.response.data);
+        setPageMeta(res.response.meta);
+      }
+    });
+    await ReferenceService.getMainDirectionById(Number(router.query.mainDirectionId)).then((res) => {
+      if (res.success) {
+        setMainDirection(res.response);
+      }
+    });
+  }, [router.query.mainDirectionId]);
+
   useEffect(() => {
-    const param: IAdParam = { order: 'DESC', page: 1, limit: 10, categoryId: adParam.categoryId };
-    if (router.query.mainDirectionId) {
-      param.mainDirectionId = Number(router.query.mainDirectionId);
-    }
-    setAdParam(param);
-  }, [router.query]);
-  useEffect(() => {
-    setMainDirection(mainDirections.find(item => adParam.mainDirectionId === item.id));
-  }, [mainDirections, adParam.mainDirectionId]);
+    getData();
+  }, [getData]);
 
   return (
     <>
@@ -34,7 +56,7 @@ const AdvicePage: NextPage = () => {
           <div className="mx-auto flex max-w-screen-xl flex-row justify-between gap-7.5 py-18 lg:flex-row xl:gap-12.5">
             <div className="flex flex-col">
               <span className="text-xl">
-                Нийт утга: <span className="font-bold">{adMeta.itemCount}</span>
+                Нийт утга: <span className="font-bold">{}</span>
               </span>
               <div>
                 <BreadCrumbs />
@@ -84,11 +106,11 @@ const AdvicePage: NextPage = () => {
               </Button>
             </div>
             <div className="grid grid-cols-2 gap-6">
-              {advertisements.map((blog, key) => (
-                <BlogItem blog={blog} key={key} />
+              {advices.map((item, index) => (
+                <BlogItem blog={item} key={index} />
               ))}
             </div>
-            <PaginationComp page={adMeta.page} pageCount={adMeta.pageCount} />
+            <PaginationComp page={pageMeta.page} pageCount={pageMeta.pageCount} />
           </div>
         </div>
       </section>

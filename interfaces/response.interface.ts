@@ -8,7 +8,7 @@ import {
   SubDirection,
   FooterMenu,
   FooterMenuPage,
-  Feedback,
+  Advice,
 } from '@/types/reference';
 import { Users } from '@/types/user';
 export interface IResponse {
@@ -38,6 +38,9 @@ export interface IResponseLocalFile extends IResponse {
 }
 export interface IResponseMainDirections extends IResponse {
   response: MainDirection[];
+}
+export interface IResponseMainDirection extends IResponse {
+  response: MainDirection;
 }
 export interface IResponseDirections extends IResponse {
   response: Direction[];
@@ -75,9 +78,9 @@ export interface IResponseMenu extends IResponse {
 export interface IResponsePage extends IResponse {
   response: FooterMenuPage;
 }
-export interface IResponseAllFeedback extends IResponse {
+export interface IResponseAllAdvice extends IResponse {
   response: {
-    data: Feedback[];
+    data: Advice[];
     meta: PageMeta;
   };
 }
