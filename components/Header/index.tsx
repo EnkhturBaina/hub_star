@@ -35,7 +35,7 @@ const Header = () => {
       socket.on('connect', () => {
         console.log('Connected!');
       });
-      socket.emit('getNotification')
+      socket.emit('getNotification');
       socket.on('notification', (notifications: RefNotification[]) => {
         setNotifications(notifications);
       });
@@ -57,7 +57,7 @@ const Header = () => {
             alt="logo"
             width={120}
             height={40}
-            className="block w-full"
+            className="block w-full hover:cursor-pointer"
             onClick={() => {
               router.push('/');
               setAdParam(prev => ({ ...prev, categoryId: undefined }));
