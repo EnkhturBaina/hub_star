@@ -255,6 +255,7 @@ pre {
 .notifications {
   display: flex;
   flex-direction: column;
+  cursor: pointer;
   gap: 12px;
   height: calc(100vh - 500px);
   overflow: auto;
@@ -273,6 +274,7 @@ pre {
   gap: 12px;
 }
 .notification .content p.desc {
+  margin: 0;
   color: #212529;
   font-size: 16px;
   font-style: normal;
@@ -280,12 +282,13 @@ pre {
   line-height: 26px; /* 162.5% */
 }
 .notification .nofi-time {
-  padding: 5px;
+  padding: 8px 10px;
   align-self: center;
   border-radius: 100px;
   color: #555;
 }
 .notification .docImg {
+  align-self: center;
   padding: 16px;
   border-radius: 28px;
   background: linear-gradient(0deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.9) 100%),
@@ -303,4 +306,7 @@ pre {
 }
 .notification.seen .docImg img {
   filter: grayscale(100%);
+}
+.notification.seen .content p.desc{
+  color: gray
 }

@@ -4,8 +4,6 @@ import { PiFlagThin } from 'react-icons/pi';
 import BreadCrumbs from '@/components/BreadCrumbs';
 import { FaStar } from 'react-icons/fa';
 import { useEffect, useState } from 'react';
-import AdSkeleton from '@/components/Skeleton/AdSkeleton';
-import { format } from 'date-fns';
 import { AdvertisementService } from '@/service/advertisement/advertisement.service';
 import { Advertisement } from '@/types/advertisement';
 import toast from 'react-hot-toast';
@@ -15,7 +13,6 @@ import { useRouter } from 'next/router';
 import { SubDirection } from '@/types/reference';
 import { ReferenceService } from '@/service/reference/reference.service';
 import { NextPage } from 'next';
-import useSocket from '@/service/socket-client';
 export async function getServerSideProps({ params }) {
   const { slug } = params;
   const data = await AdvertisementService.getById(slug)
@@ -45,7 +42,7 @@ const SingleBlogPage: NextPage<{ data: Advertisement }> = ({ data }) => {
       advertisementId: data.id,
       id: 0,
       authorId: data.createdBy,
-      subject: 'Үйлчилгээ захиалав.',
+      subject: 'Таньд ирсэн захиалга',
       description: data.desciption,
     })
       .then(res => {
