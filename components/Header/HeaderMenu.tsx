@@ -9,6 +9,7 @@ const HeaderMenu = () => {
   const onClickCategory = (categoryId: number) => {
     setAdParam({
       order: 'DESC',
+      process: 'CREATED',
       page: 1,
       limit: 10,
       categoryId,

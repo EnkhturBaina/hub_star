@@ -1,10 +1,10 @@
 'use client';
-import { Services } from '@/types/services';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
 import { IoAddCircle } from 'react-icons/io5';
 import { FaStar } from 'react-icons/fa';
+import { Advertisement } from '@/types/advertisement';
 
 const ListServices = ({
   servicesData,
@@ -38,7 +38,7 @@ const ListServices = ({
       viewport={{ once: true }}
       className="animate_top grid grid-cols-1 gap-3 bg-mainProfileCardBg"
     >
-      {servicesData.map((blog: Services, index: any) => {
+      {servicesData.map((blog: Advertisement, index: number) => {
         console.log('blog', blog);
 
         return (
@@ -48,14 +48,13 @@ const ListServices = ({
           >
             <div className="flex flex-row">
               <Link href={`/adv/`} className="relative block aspect-[368/239]">
-                {/* <Image
-                  // src={blog.mainImage}
-                  src={'/images/blog_img.jpg'}
+                <Image
+                  src={process.env.NEXT_PUBLIC_MEDIA_URL + blog.images[0].id}
                   alt={blog.title}
                   width={100}
                   height={80}
                   className="h-full w-35"
-                /> */}
+                />
               </Link>
               <div className="flex max-w-2xl flex-col px-3 pb-2">
                 <h3 className="!mb-1 !mt-2 line-clamp-2 inline-block text-lg font-bold  duration-300 hover:text-primary ">
@@ -66,18 +65,19 @@ const ListServices = ({
                 <span className="line-clamp-3">{blog.desciption}</span>
               </div>
             </div>
-            {isStars ? (
+            {isStars && (
               <div className="flex w-50 flex-col items-center justify-center">
-                <span className="font-bold">Үнэлгээ: 10/10</span>
+                <span className="font-bold">Үнэлгээ:</span>
                 <div className="flex flex-row items-center">
-                  <FaStar className="text-2xl text-mainColor" />
-                  <FaStar className="text-2xl text-mainColor" />
-                  <FaStar className="text-2xl text-mainColor" />
-                  <FaStar className="text-2xl text-mainColor" />
-                  <FaStar className="text-2xl text-mainColor" />
+                  {[...Array(5)].map((_, index) => (
+                    <FaStar
+                      key={index}
+                      className={`text-2xl text-mainColor ${index < blog.rating ? 'text-mainColor' : 'text-white'}`}
+                    />
+                  ))}
                 </div>
               </div>
-            ) : null}
+            )}
           </div>
         );
       })}
