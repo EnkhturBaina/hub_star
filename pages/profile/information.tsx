@@ -7,8 +7,9 @@ import { useAppContext } from '@/app/app-context';
 import { Users } from '@/types/user';
 import { AuthService } from '@/service/authentication/authentication.service';
 import ProfileLayout from '@/layouts/profile.layout';
+import { NextPage } from 'next';
 
-const Profile = () => {
+const Profile: NextPage = () => {
   const { user } = useAppContext();
   const [profileData, setProfileData] = useState<Users>(null);
   const [isSaving, setIsSaving] = useState<boolean>(false);

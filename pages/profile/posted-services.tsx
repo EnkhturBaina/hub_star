@@ -7,8 +7,9 @@ import GridServices from '@/components/Profile/Content/GridServices';
 import ListServices from '@/components/Profile/Content/ListServices';
 import AddService from '@/components/Profile/Content/AddService';
 import ProfileLayout from '@/layouts/profile.layout';
+import { NextPage } from 'next';
 
-const PostedServices = () => {
+const PostedServices: NextPage = () => {
   const { advertisements } = useAppContext();
   const [isGrid, setIsGrid] = useState(true);
   const [isAddService, setIsAddService] = useState(false);

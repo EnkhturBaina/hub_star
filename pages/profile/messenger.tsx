@@ -4,8 +4,9 @@ import { FaSmile } from 'react-icons/fa';
 import { IoIosAdd } from 'react-icons/io';
 import { BiSend } from 'react-icons/bi';
 import ProfileLayout from '@/layouts/profile.layout';
+import { NextPage } from 'next';
 
-const Messenger = () => {
+const Messenger: NextPage = () => {
   return (
     <ProfileLayout>
       <div className="max-h-[600px] w-full overflow-hidden">

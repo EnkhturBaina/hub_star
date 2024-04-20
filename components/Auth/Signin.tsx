@@ -40,7 +40,7 @@ const Signin = () => {
             router.push('/');
           })
           .catch(error => {
-            if (error.response.status === 400) {
+            if (error.response?.status === 400) {
               toast.error('Нэвтрэх нэр эсвэл нууц үг буруу байна.');
             }
           });

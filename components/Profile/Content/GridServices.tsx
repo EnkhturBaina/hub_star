@@ -20,6 +20,8 @@ const GridServices = ({
   isAddService?: boolean;
   setIsAddService?: any;
 }) => {
+  console.log('servicesData', servicesData);
+
   return (
     <motion.div
       variants={{

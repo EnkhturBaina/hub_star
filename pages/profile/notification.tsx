@@ -8,8 +8,9 @@ import Link from 'next/link';
 import { ReferenceService } from '@/service/reference/reference.service';
 import { RefNotification } from '@/types/reference';
 import { Modal, ModalContent } from 'semantic-ui-react';
+import { NextPage } from 'next';
 
-const Notification = () => {
+const Notification: NextPage = () => {
   const { user } = useAppContext();
   const [notifications, setNotifications] = useState<RefNotification[]>([]);
   const [isConfirm, setIsConfirm] = useState<boolean>(false);

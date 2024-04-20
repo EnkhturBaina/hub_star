@@ -1,5 +1,5 @@
 import { useAppContext } from '@/app/app-context';
-import BlogItem from '@/components/Blog/BlogItem';
+import AdviceItem from '@/components/Blog/AdviceItem';
 import BreadCrumbs from '@/components/BreadCrumbs';
 import SideCheckDirection from '@/components/Common/SideCheckDirection';
 import PaginationComp from '@/components/Pagination';
@@ -15,6 +15,7 @@ import { IoIosAddCircleOutline } from 'react-icons/io';
 
 /** Зөвлөмжүүд */
 const AdvicePage: NextPage = () => {
+  const { mainDirections, adParam, setAdParam, advertisements, adMeta } = useAppContext();
   const [advices, setAdvices] = useState<Advice[]>([]);
   const [pageMeta, setPageMeta] = useState<PageMeta>({
     page: 1,
@@ -34,16 +35,33 @@ const AdvicePage: NextPage = () => {
       limit: 10,
     }).then(res => {
       if (res.success) {
+        console.log('DATA', res.response.data);
+
         setAdvices(res.response.data);
         setPageMeta(res.response.meta);
       }
     });
-    await ReferenceService.getMainDirectionById(Number(router.query.mainDirectionId)).then((res) => {
+    await ReferenceService.getMainDirectionById(Number(router.query.mainDirectionId)).then(res => {
       if (res.success) {
         setMainDirection(res.response);
       }
     });
   }, [router.query.mainDirectionId]);
+
+  useEffect(() => {
+    const param: IAdParam = { order: 'DESC', page: 1, limit: 10, categoryId: adParam.categoryId };
+    if (router.query.mainDirectionId) {
+      param.mainDirectionId = Number(router.query.mainDirectionId);
+    }
+    if (router.query.directionIds) {
+      param.directionIds = [Number(router.query.directionIds)];
+    }
+    setAdParam(param);
+  }, [router.query]);
+
+  useEffect(() => {
+    setMainDirection(mainDirections.find(item => adParam.mainDirectionId === item.id));
+  }, [mainDirections, adParam.mainDirectionId]);
 
   useEffect(() => {
     getData();
@@ -105,9 +123,9 @@ const AdvicePage: NextPage = () => {
                 Онцгой үйлчилгээ оруулах
               </Button>
             </div>
-            <div className="grid grid-cols-2 gap-6">
+            <div className="grid grid-cols-4 gap-6">
               {advices.map((item, index) => (
-                <BlogItem blog={item} key={index} />
+                <AdviceItem blog={item} key={index} />
               ))}
             </div>
             <PaginationComp page={pageMeta.page} pageCount={pageMeta.pageCount} />

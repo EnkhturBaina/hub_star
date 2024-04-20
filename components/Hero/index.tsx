@@ -182,10 +182,9 @@ const Hero = () => {
                 <Feature />
                 <GridCategory />
                 {mainDirections.length == 0 ? <BlogItemSkeleton /> : <Blog />}
+                <PaginationComp page={0} pageCount={0} />
               </div>
             )}
-            <Blog />
-            <PaginationComp page={0} pageCount={0} />
           </div>
         </div>
       </section>

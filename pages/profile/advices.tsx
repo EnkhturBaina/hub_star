@@ -1,7 +1,6 @@
 'use client';
-import { IFeedbackParam } from '@/interfaces/request.interface';
 import { ReferenceService } from '@/service/reference/reference.service';
-import { Feedback } from '@/types/reference';
+import { Advice } from '@/types/reference';
 import { useAppContext } from '@/app/app-context';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
@@ -11,25 +10,8 @@ import ProfileLayout from '@/layouts/profile.layout';
 
 const Advices = () => {
   const { user } = useAppContext();
-  const [feedbacks, setFeedbacks] = useState<Feedback[]>([]);
-  const params: IFeedbackParam = {
-    page: 1,
-    limit: 10,
-    order: 'DESC',
-    mainDirectionId: user.mainDirectionId,
-  };
-  const getFeedback = () => {
-    ReferenceService.getFeedback(params)
-      .then(res => {
-        if (res.success) {
-          setFeedbacks(res.response.data);
-        }
-      })
-      .catch(err => toast.error(err));
-  };
-  useEffect(() => {
-    getFeedback();
-  }, []);
+  const [feedbacks, setFeedbacks] = useState<Advice[]>([]);
+  useEffect(() => {}, []);
   return (
     <ProfileLayout>
       <motion.div

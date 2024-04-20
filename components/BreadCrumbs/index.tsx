@@ -13,7 +13,7 @@ const BreadCrumbs: React.FC = () => {
     const mainDir = mainDirections.find(item => mainDirectionId === item.id);
     if (mainDir) {
       setItems([mainDir.name]);
-      const directions = mainDir.directions.filter(item => directionIds.includes(item.id));
+      const directions = mainDir.directions.filter(item => directionIds?.includes(item.id));
       if (directions && directions.length > 0) {
         setItems(prevItems => prevItems.concat(String(directions.map(item => item.name))));
       }

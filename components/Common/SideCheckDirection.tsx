@@ -3,13 +3,18 @@ import LeftFilter from '../Skeleton/LeftFilter';
 import { Checkbox, CheckboxGroup } from '@nextui-org/react';
 import { Direction, MainDirection, SubDirection } from '@/types/reference';
 import { useAppContext } from '@/app/app-context';
+import { useRouter } from 'next/router';
+import { usePathname } from 'next/navigation';
 
 type Props = {
   mainDirection: MainDirection;
 };
 const SideCheckDirection: React.FC<Props> = ({ mainDirection }) => {
   const { setAdParam } = useAppContext();
+  const pathUrl = usePathname();
+  const router = useRouter();
   const onChangeValue = (value: string[]) => {
+    console.log('value', value);
     const directions = mainDirection.directions.filter(item => {
       return item.subDirections.some(subdir => value.includes(String(subdir.id)));
     });
@@ -20,6 +25,10 @@ const SideCheckDirection: React.FC<Props> = ({ mainDirection }) => {
       directionIds: directions.map(item => item.id),
       subDirectionIds: value.map(item => Number(item)),
     }));
+    if (pathUrl == '/advice') {
+      router.query.directionIds = value;
+      router.push(router);
+    }
   };
   return (
     <div className="shadow-[rgba(0,0,15,0.5)_5px_0px_5px_-5px] md:w-1/4 lg:w-[20%]">
@@ -32,6 +41,36 @@ const SideCheckDirection: React.FC<Props> = ({ mainDirection }) => {
       </div>
       {!mainDirection ? (
         <LeftFilter />
+      ) : pathUrl == '/advice' ? (
+        <CheckboxGroup
+          label={''}
+          color="warning"
+          key={1}
+          // value={adParam.subDirectionIds?.map(item => item.toString())}
+          classNames={{
+            base: 'my-4',
+          }}
+          onValueChange={onChangeValue}
+        >
+          {mainDirection.directions.map((direction: Direction, index: number) => {
+            return (
+              <Checkbox
+                value={String(direction.id)}
+                classNames={{
+                  base: 'w-full max-w-full',
+                  label: 'w-full font-bold text-black text-base',
+                  wrapper: 'custom-checkbox w-6 h-6',
+                }}
+                key={index}
+              >
+                <div className="flex w-full flex-row items-center justify-between">
+                  <span className="text-sm leading-none">{direction.name}</span>
+                  {/* TODO adv count <span className="text-sm">{subDir.}</span> */}
+                </div>
+              </Checkbox>
+            );
+          })}
+        </CheckboxGroup>
       ) : (
         mainDirection.directions.map((direction: Direction, index: number) => {
           return (
