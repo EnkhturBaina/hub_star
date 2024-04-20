@@ -3,9 +3,18 @@ import { Blog } from '@/types/blog';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 
 const BlogItem = ({ blog }: { blog: Blog }) => {
   const { id, mainImage, title, desciption } = blog;
+  const [imagePath, setImagePath] = useState('/images/blog_img.jpg');
+  useEffect(() => {
+    if (blog.images?.length == 0) {
+      setImagePath('/images/blog_img.jpg');
+    } else {
+      setImagePath(process.env.NEXT_PUBLIC_MEDIA_URL + blog.images[0]?.id);
+    }
+  }, []);
 
   return (
     <>
@@ -29,10 +38,10 @@ const BlogItem = ({ blog }: { blog: Blog }) => {
       >
         <Link href={`/adv/${id}`} className="relative block h-56 w-full">
           <Image
-            src={'/images/blog_img.jpg'}
+            src={imagePath}
             alt={title}
             fill
-            className="rounded-t-lg"
+            className="rounded-t-lg object-cover"
             sizes="(max-width: 768px) 100vw"
           />
         </Link>

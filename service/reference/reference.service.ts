@@ -8,8 +8,10 @@ import {
   IResponseMainDirection,
   IResponseMainDirections,
   IResponseMenu,
+  IResponseNews,
   IResponseNotification,
   IResponseNotifications,
+  IResponseOneNews,
   IResponsePage,
   IResponseSubDirections,
 } from '@/interfaces/response.interface';
@@ -73,6 +75,12 @@ const updateNotification = (id: number, data: RefNotification): Promise<IRespons
 const removeNotification = (id: number): Promise<IResponseNotification> => {
   return api.delete('/notification/' + id);
 };
+const getNews = (): Promise<IResponseNews> => {
+  return api.get('/reference/news');
+};
+const getNewsById = (id: number | string): Promise<IResponseOneNews> => {
+  return api.get('/reference/news/show/' + id);
+};
 
 export const ReferenceService = {
   getMainDirection,
@@ -89,5 +97,7 @@ export const ReferenceService = {
   getNotification,
   createNotification,
   updateNotification,
-  removeNotification
+  removeNotification,
+  getNews,
+  getNewsById,
 };

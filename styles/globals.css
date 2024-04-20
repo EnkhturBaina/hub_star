@@ -307,6 +307,13 @@ pre {
 .notification.seen .docImg img {
   filter: grayscale(100%);
 }
-.notification.seen .content p.desc{
-  color: gray
+.notification.seen .content p.desc {
+  color: gray;
+}
+.image-gallery-thumbnail-image {
+  height: 100px !important;
+  object-fit: contain !important;
+}
+.image-gallery-image {
+  height: 400px !important;
 }

@@ -10,6 +10,7 @@ import {
   FooterMenuPage,
   Advice,
   RefNotification,
+  RefNews,
 } from '@/types/reference';
 import { Users } from '@/types/user';
 export interface IResponse {
@@ -90,4 +91,11 @@ export interface IResponseNotifications extends IResponse {
 }
 export interface IResponseNotification extends IResponse {
   response: RefNotification;
+}
+
+export interface IResponseNews extends IResponse {
+  response: RefNews[];
+}
+export interface IResponseOneNews extends IResponse {
+  response: RefNews;
 }

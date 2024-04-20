@@ -114,4 +114,14 @@ export type RefNotification = {
   createdBy?: number;
   createdUser?: Users;
   createdAt?: Date;
-}
+};
+export type RefNews = {
+  id: number;
+  title: string;
+  description: string;
+  body: string;
+  date: Date;
+  isPublish: boolean;
+  relLink: string;
+  imageId: number;
+};

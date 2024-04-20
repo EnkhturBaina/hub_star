@@ -14,10 +14,12 @@ import { useRouter } from 'next/router';
 import { SubDirection } from '@/types/reference';
 import { ReferenceService } from '@/service/reference/reference.service';
 import { NextPage } from 'next';
+import ImageGallery from 'react-image-gallery';
 
 const SingleBlogPage: NextPage = () => {
   const router = useRouter();
   const [data, setData] = useState<Advertisement>();
+  const [slideImages, setSlideImages] = useState<any>([]);
   const [subDirections, setSubDirections] = useState<SubDirection[]>([]);
 
   const getData = useCallback(async () => {
@@ -79,8 +81,21 @@ const SingleBlogPage: NextPage = () => {
     getData();
   }, [getData]);
   useEffect(() => {
-    data && getSubDirections();
+    if (data) {
+      getSubDirections();
+      slideImages?.length !== data.images?.length &&
+        data.images?.map((el: any, index: number) => {
+          setSlideImages(slideImages => [
+            ...slideImages,
+            {
+              original: process.env.NEXT_PUBLIC_MEDIA_URL + el.id,
+              thumbnail: process.env.NEXT_PUBLIC_MEDIA_URL + el.id,
+            },
+          ]);
+        });
+    }
   }, [data]);
+
   return (
     <>
       <section className="pt-35 lg:pt-40 xl:pt-42.5">
@@ -118,13 +133,14 @@ const SingleBlogPage: NextPage = () => {
               <div className="animate_top">
                 <div className="mb-10 w-full overflow-hidden ">
                   <div className="relative aspect-[97/60] w-full sm:aspect-[97/44]">
-                    {data?.images && (
-                      <Gallery
-                        images={data?.images.map(
-                          item => process.env.NEXT_PUBLIC_MEDIA_URL + item.id
-                        )}
+                    {slideImages ? (
+                      <ImageGallery
+                        items={slideImages}
+                        showPlayButton={false}
+                        autoPlay={true}
+                        slideInterval={2000}
                       />
-                    )}
+                    ) : null}
                   </div>
                 </div>
 

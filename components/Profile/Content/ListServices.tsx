@@ -39,8 +39,6 @@ const ListServices = ({
       className="animate_top grid grid-cols-1 gap-3 bg-mainProfileCardBg"
     >
       {servicesData.map((blog: Advertisement, index: number) => {
-        console.log('blog', blog);
-
         return (
           <div
             className="flex h-25 w-full flex-row justify-between rounded-lg bg-white shadow-solid-8"

@@ -17,4 +17,12 @@ export type Blog = {
   tags?: string[];
   publishedAt?: string;
   pdfId?: number;
+  images?: BlogImage[];
+};
+
+export type BlogImage = {
+  filename: string;
+  id: number;
+  mimetype: string;
+  path: string;
 };

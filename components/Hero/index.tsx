@@ -13,24 +13,36 @@ import PaginationComp from '../Pagination';
 import LeftDirections from '../Skeleton/LeftDirections';
 import BlogItemSkeleton from '../Skeleton/BlogItemSkeleton';
 import { useAppContext } from '@/app/app-context';
-import { Direction, MainDirection, SubDirection } from '@/types/reference';
+import { Direction, MainDirection, RefNews, SubDirection } from '@/types/reference';
 import Link from 'next/link';
 import { Popup } from 'semantic-ui-react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { ReferenceService } from '@/service/reference/reference.service';
+import { useRouter } from 'next/router';
 
 const Hero = () => {
+  const router = useRouter();
   const { mainDirections, adParam } = useAppContext();
   const [openPopover, setOpenPopover] = useState({});
-  const images = [
-    'https://images.unsplash.com/photo-1509721434272-b79147e0e708?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80',
-    'https://images.unsplash.com/photo-1506710507565-203b9f24669b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1536&q=80',
-    'https://images.unsplash.com/photo-1536987333706-fc9adfb10d91?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80',
-  ];
+  const [news, setNews] = useState<RefNews[]>([]);
+  const getNews = () => {
+    ReferenceService.getNews().then(res => {
+      if (res.success) {
+        console.log('res', res.response);
+
+        setNews(res.response);
+      }
+    });
+  };
   const properties = {
-    prevArrow: <CiCircleChevLeft className="m-4 text-6xl text-white" />,
-    nextArrow: <CiCircleChevRight className="m-4 text-6xl text-white" />,
+    prevArrow: <CiCircleChevLeft className="m-4 text-6xl text-mainColor" />,
+    nextArrow: <CiCircleChevRight className="m-4 text-6xl text-mainColor" />,
   };
   const indicators = index => <div className="custom-home-indicator"></div>;
+
+  useEffect(() => {
+    getNews();
+  }, []);
 
   return (
     <>
@@ -145,38 +157,36 @@ const Hero = () => {
               <div className="w-full md:w-3/4">
                 <div className="mb-4 w-full overflow-hidden">
                   <div className="custom-slider-container relative w-full rounded-xl">
-                    <Fade
-                      {...properties}
-                      transitionDuration={500}
-                      easing="ease"
-                      indicators={indicators}
-                      autoplay={false}
-                    >
-                      <div className="each-slide-effect rounded-xl">
-                        <div
-                          style={{
-                            backgroundImage: `url(${images[0]})`,
-                            backgroundSize: '100% 100%',
-                          }}
-                        ></div>
-                      </div>
-                      <div className="each-slide-effect rounded-xl">
-                        <div
-                          style={{
-                            backgroundImage: `url(${images[1]})`,
-                            backgroundSize: '100% 100%',
-                          }}
-                        ></div>
-                      </div>
-                      <div className="each-slide-effect rounded-xl">
-                        <div
-                          style={{
-                            backgroundImage: `url(${images[2]})`,
-                            backgroundSize: '100% 100%',
-                          }}
-                        ></div>
-                      </div>
-                    </Fade>
+                    {news ? (
+                      <Fade
+                        {...properties}
+                        transitionDuration={500}
+                        easing="ease"
+                        indicators={indicators}
+                        autoplay={true}
+                      >
+                        {news?.map((el: RefNews, index: number) => {
+                          return (
+                            <div
+                              className="each-slide-effect rounded-xl cursor-pointer"
+                              key={index}
+                              onClick={() => {
+                                router.push({
+                                  pathname: '/news/' + el.id,
+                                });
+                              }}
+                            >
+                              <div
+                                style={{
+                                  backgroundImage: `url(${process.env.NEXT_PUBLIC_MEDIA_URL + el.imageId})`,
+                                  backgroundSize: '100% 100%',
+                                }}
+                              ></div>
+                            </div>
+                          );
+                        })}
+                      </Fade>
+                    ) : null}
                   </div>
                 </div>
                 <Feature />

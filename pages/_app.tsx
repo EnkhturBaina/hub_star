@@ -12,6 +12,7 @@ import { Roboto } from 'next/font/google';
 import { usePathname } from 'next/navigation';
 import Header from '@/components/Header';
 import FabButton from './FabButton';
+import 'react-image-gallery/styles/css/image-gallery.css';
 
 const roboto = Roboto({
   subsets: ['latin'],
