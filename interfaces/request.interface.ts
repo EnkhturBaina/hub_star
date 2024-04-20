@@ -68,7 +68,7 @@ export interface IAdProgressParam extends IPageOptions {
 }
 export interface IAdviceParam extends IPageOptions {
   title?: string;
-  mainDirectionId?: number;
+  mainDirectionId?: number | string;
   directionIds?: number[];
 }
 export interface IRefNotificationParam {

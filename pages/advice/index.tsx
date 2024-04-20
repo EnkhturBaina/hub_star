@@ -3,8 +3,7 @@ import AdviceItem from '@/components/Blog/AdviceItem';
 import BreadCrumbs from '@/components/BreadCrumbs';
 import SideCheckDirection from '@/components/Common/SideCheckDirection';
 import PaginationComp from '@/components/Pagination';
-import { IAdParam } from '@/interfaces/request.interface';
-import { api } from '@/service/api.service';
+import { IAdParam, IAdviceParam } from '@/interfaces/request.interface';
 import { ReferenceService } from '@/service/reference/reference.service';
 import { Advice, MainDirection, PageMeta } from '@/types/reference';
 import { Button, Select, SelectItem } from '@nextui-org/react';
@@ -15,8 +14,10 @@ import { IoIosAddCircleOutline } from 'react-icons/io';
 
 /** Зөвлөмжүүд */
 const AdvicePage: NextPage = () => {
-  const { mainDirections, adParam, setAdParam, advertisements, adMeta } = useAppContext();
+  const router = useRouter();
+  const { mainDirections } = useAppContext();
   const [advices, setAdvices] = useState<Advice[]>([]);
+  const [params, setParams] = useState<IAdviceParam>({ page: 1, limit: 10, order: 'DESC' });
   const [pageMeta, setPageMeta] = useState<PageMeta>({
     page: 1,
     limit: 10,
@@ -26,42 +27,24 @@ const AdvicePage: NextPage = () => {
     pageCount: 1,
   });
   const [mainDirection, setMainDirection] = useState<MainDirection>();
-  const router = useRouter();
-  const getData = useCallback(async () => {
-    await ReferenceService.getAdvice({
-      mainDirectionId: Number(router.query.mainDirectionId),
-      order: 'DESC',
-      page: 1,
-      limit: 10,
-    }).then(res => {
-      if (res.success) {
-        console.log('DATA', res.response.data);
 
+  const getData = useCallback(async () => {
+    await ReferenceService.getAdvice(params).then(res => {
+      if (res.success) {
         setAdvices(res.response.data);
         setPageMeta(res.response.meta);
       }
     });
-    await ReferenceService.getMainDirectionById(Number(router.query.mainDirectionId)).then(res => {
-      if (res.success) {
-        setMainDirection(res.response);
-      }
-    });
-  }, [router.query.mainDirectionId]);
+  }, [params]);
 
   useEffect(() => {
-    const param: IAdParam = { order: 'DESC', page: 1, limit: 10, categoryId: adParam.categoryId };
     if (router.query.mainDirectionId) {
-      param.mainDirectionId = Number(router.query.mainDirectionId);
+      setParams(prev => ({ ...prev, mainDirectionId: Number(router.query.mainDirectionId) }));
+      setMainDirection(
+        mainDirections.find(item => Number(router.query.mainDirectionId) === item.id)
+      );
     }
-    if (router.query.directionIds) {
-      param.directionIds = [Number(router.query.directionIds)];
-    }
-    setAdParam(param);
   }, [router.query]);
-
-  useEffect(() => {
-    setMainDirection(mainDirections.find(item => adParam.mainDirectionId === item.id));
-  }, [mainDirections, adParam.mainDirectionId]);
 
   useEffect(() => {
     getData();
@@ -83,7 +66,10 @@ const AdvicePage: NextPage = () => {
           </div>
         </div>
         <div className="mx-auto flex max-w-screen-xl gap-4 px-4 md:px-8 2xl:px-0">
-          <SideCheckDirection mainDirection={mainDirection} />
+          <SideCheckDirection
+            mainDirection={mainDirection}
+            onDirectionIds={directionIds => setParams(prev => ({ ...prev, directionIds }))}
+          />
           <div className="px-6 pb-6 lg:w-3/4">
             <div className="my-4 flex flex-row justify-between">
               <Select
@@ -99,17 +85,10 @@ const AdvicePage: NextPage = () => {
                 }}
                 value="DESC"
                 onChange={e => {
-                  if (e.target.value == ('ASC' || 'DESC')) {
-                    // setAdParam({
-                    //   order: e.target.value,
-                    //   page: 1,
-                    //   limit: 10,
-                    //   categoryId: adParam.categoryId,
-                    //   mainDirectionId: adParam.mainDirectionId,
-                    //   directionIds: adParam.directionIds,
-                    //   subDirectionIds: adParam.subDirectionIds,
-                    // });
-                  }
+                  setParams(prev => ({
+                    ...prev,
+                    order: e.target.value == 'ASC' ? 'ASC' : 'DESC',
+                  }));
                 }}
               >
                 <SelectItem key="DESC">Огноогоор (Z-A)</SelectItem>
