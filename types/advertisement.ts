@@ -27,6 +27,8 @@ export type Advertisement = {
   progresses: AdvertisementProgress[];
   createdBy: number;
   createdAt: string;
+  doingBy: number;
+  process: 'CREATED' | 'DOING' | 'DONE';
 };
 export type AdvertisementProgress = {
   id?: number;
