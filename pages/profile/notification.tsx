@@ -19,6 +19,7 @@ import {
 import { AdvertisementService } from '@/service/advertisement/advertisement.service';
 import { Advertisement } from '@/types/advertisement';
 import toast, { Toaster } from 'react-hot-toast';
+import { NextPage } from 'next';
 
 const Notification: NextPage = () => {
   const { user } = useAppContext();
