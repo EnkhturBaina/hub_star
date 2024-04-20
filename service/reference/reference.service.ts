@@ -8,6 +8,8 @@ import {
   IResponseMainDirection,
   IResponseMainDirections,
   IResponseMenu,
+  IResponseNotification,
+  IResponseNotifications,
   IResponsePage,
   IResponseSubDirections,
 } from '@/interfaces/response.interface';
@@ -16,8 +18,10 @@ import {
   IAddressParam,
   IAdviceParam,
   IDirectionParam,
+  IRefNotificationParam,
   ISubDirectionParam,
 } from '@/interfaces/request.interface';
+import { RefNotification } from '@/types/reference';
 const getMainDirection = (params: { categoryId?: number }): Promise<IResponseMainDirections> => {
   return api.get('/reference/main-direction', { params });
 };
@@ -57,6 +61,19 @@ const getMenuPage = (menuId: any): Promise<IResponsePage> => {
 const getAdvice = (params: IAdviceParam): Promise<IResponseAllAdvice> => {
   return api.get('reference/advice', { params });
 };
+const getNotification = (params: IRefNotificationParam): Promise<IResponseNotifications> => {
+  return api.get('/notification', { params });
+};
+const createNotification = (data: RefNotification): Promise<IResponseNotification> => {
+  return api.post('/notification', data);
+};
+const updateNotification = (id: number, data: RefNotification): Promise<IResponseNotification> => {
+  return api.patch('/notification/' + id, data);
+};
+const removeNotification = (id: number): Promise<IResponseNotification> => {
+  return api.delete('/notification/' + id);
+};
+
 export const ReferenceService = {
   getMainDirection,
   getMainDirectionById,
@@ -69,4 +86,8 @@ export const ReferenceService = {
   getMenu,
   getMenuPage,
   getAdvice,
+  getNotification,
+  createNotification,
+  updateNotification,
+  removeNotification
 };

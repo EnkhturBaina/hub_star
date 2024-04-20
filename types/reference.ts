@@ -1,5 +1,6 @@
 import { IFile } from '@/interfaces/request.interface';
-import { Advertisement } from './advertisement';
+import { Advertisement, AdvertisementProgress } from './advertisement';
+import Users from './user';
 export type ProfileRoute = {
   id: number;
   name: string;
@@ -100,3 +101,17 @@ export type Advice = {
   createdAt: Date;
   updatedAt: Date;
 };
+/** Мэдэгдэл */
+export type RefNotification = {
+  id: number;
+  authorId: number;
+  author?: Users;
+  advertisementId: number;
+  advertisement?: Advertisement;
+  subject: string;
+  description: string;
+  isSeen?: boolean;
+  createdBy?: number;
+  createdUser?: Users;
+  createdAt?: Date;
+}

@@ -31,7 +31,6 @@ export async function getServerSideProps({ params }) {
 }
 const SingleBlogPage: NextPage<{ data: Advertisement }> = ({ data }) => {
   const router = useRouter();
-  const socket = useSocket()
   const [subDirections, setSubDirections] = useState<SubDirection[]>([]);
   const getAdById = () => {};
   const getSubDirections = () => {
@@ -42,11 +41,12 @@ const SingleBlogPage: NextPage<{ data: Advertisement }> = ({ data }) => {
     });
   };
   const onOrder = () => {
-    AdvertisementService.addProgress({
+    ReferenceService.createNotification({
       advertisementId: data.id,
-      process: 'ORDER',
-      isShow: true,
-      point: 0,
+      id: 0,
+      authorId: data.createdBy,
+      subject: 'Үйлчилгээ захиалав.',
+      description: data.desciption,
     })
       .then(res => {
         if (res.success) {

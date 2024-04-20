@@ -69,3 +69,6 @@ export interface IAdviceParam extends IPageOptions {
   mainDirectionId?: number;
   directionIds?: number[];
 }
+export interface IRefNotificationParam {
+  authorId: number;
+}

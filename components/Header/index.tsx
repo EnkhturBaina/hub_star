@@ -10,14 +10,14 @@ import { useAppContext } from '@/app/app-context';
 import AuthName from '../Auth/auth-name';
 import useSocket from '@/service/socket-client';
 import { useRouter } from 'next/router';
+import { RefNotification } from '@/types/reference';
 
 const Header = () => {
-  const { user, setAdParam } = useAppContext();
+  const { user, setAdParam, notifications, setNotifications } = useAppContext();
   const router = useRouter();
   const socket = useSocket();
   const [navigationOpen, setNavigationOpen] = useState(false);
   const [stickyMenu, setStickyMenu] = useState(false);
-  const [notifications, setNotifications] = useState<any[]>([]);
   const [messages, setMessages] = useState<any[]>([]);
 
   const pathUrl = usePathname();
@@ -35,10 +35,9 @@ const Header = () => {
       socket.on('connect', () => {
         console.log('Connected!');
       });
-      socket.on('notification', (newMessage: any) => {
-        console.log('onMessage event received!');
-        console.log(newMessage);
-        setNotifications(prev => [...prev, newMessage]);
+      socket.emit('getNotification')
+      socket.on('notification', (notifications: RefNotification[]) => {
+        setNotifications(notifications);
       });
     }
   }, [socket]);

@@ -9,6 +9,7 @@ import {
   FooterMenu,
   FooterMenuPage,
   Advice,
+  RefNotification,
 } from '@/types/reference';
 import { Users } from '@/types/user';
 export interface IResponse {
@@ -83,4 +84,10 @@ export interface IResponseAllAdvice extends IResponse {
     data: Advice[];
     meta: PageMeta;
   };
+}
+export interface IResponseNotifications extends IResponse {
+  response: RefNotification[];
+}
+export interface IResponseNotification extends IResponse {
+  response: RefNotification;
 }

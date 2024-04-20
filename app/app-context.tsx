@@ -1,6 +1,6 @@
 import { ReferenceService } from '@/service/reference/reference.service';
 import { Advertisement } from '@/types/advertisement';
-import { Category, MainDirection, PageMeta } from '@/types/reference';
+import { Category, MainDirection, PageMeta, RefNotification } from '@/types/reference';
 import {
   Dispatch,
   ReactNode,
@@ -24,6 +24,8 @@ interface IAppContextProps {
   setAdParam: Dispatch<SetStateAction<IAdParam>>;
   advertisements: Advertisement[];
   adMeta: PageMeta;
+  notifications: RefNotification[];
+  setNotifications: Dispatch<SetStateAction<RefNotification[]>>;
 }
 
 const AppContext = createContext<IAppContextProps | undefined>(undefined);
@@ -46,6 +48,7 @@ const AppProvider: React.FC<IProps> = ({ children }) => {
   const [mainDirections, setMainDirections] = useState<MainDirection[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
   const [advertisements, setAdvertisements] = useState<Advertisement[]>([]);
+  const [notifications, setNotifications] = useState<RefNotification[]>([]);
   const [adMeta, setAdMeta] = useState<PageMeta>({
     page: 1,
     pageCount: 1,
@@ -106,6 +109,8 @@ const AppProvider: React.FC<IProps> = ({ children }) => {
     advertisements,
     adMeta,
     setUser,
+    notifications,
+    setNotifications,
   };
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 };
