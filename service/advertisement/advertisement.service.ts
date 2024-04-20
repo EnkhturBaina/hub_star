@@ -6,7 +6,7 @@ import {
 } from '@/interfaces/response.interface';
 import { api } from '../api.service';
 import { IAdParam, IAdProgressParam, ICreateAd } from '@/interfaces/request.interface';
-import { AdvertisementProgress, AdProcess } from '@/types/advertisement';
+import { AdvertisementProgress, AdProcess, Advertisement } from '@/types/advertisement';
 
 const get = (params: IAdParam): Promise<IResponseAdvertisements> => {
   return api.get('/advertisement', { params });
@@ -16,6 +16,9 @@ const getById = (id: number): Promise<IResponseAdvertisement> => {
 };
 const create = (advertisement: ICreateAd): Promise<IResponseAdvertisement> => {
   return api.post('/advertisement', advertisement);
+};
+const update = (advertisement: Advertisement): Promise<IResponseAdvertisement> => {
+  return api.patch('/advertisement/' + advertisement.id, advertisement);
 };
 const save = (id: number): Promise<IResponseAdvertisement> => {
   return api.post('advertisement/save/' + id);
@@ -36,6 +39,7 @@ export const AdvertisementService = {
   get,
   getById,
   create,
+  update,
   save,
   addProgress,
   editProgress,

@@ -1,10 +1,33 @@
 import { Button } from '@nextui-org/react';
 import { CiGrid41, CiGrid2H } from 'react-icons/ci';
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import ProfileLayout from '@/layouts/profile.layout';
+import GridServices from '@/components/Profile/Content/GridServices';
+import ListServices from '@/components/Profile/Content/ListServices';
+import { Advertisement } from '@/types/advertisement';
+import { AdvertisementService } from '@/service/advertisement/advertisement.service';
+import { useAppContext } from '@/app/app-context';
 
 const ServiceHistory = () => {
+  const { user } = useAppContext();
   const [isGrid, setIsGrid] = useState(true);
+  const [advertisements, setAdvertisements] = useState<Advertisement[]>([]);
+  const getData = useCallback(async () => {
+    await AdvertisementService.get({
+      page: 1,
+      limit: 10,
+      order: 'DESC',
+      process: 'DONE',
+      createdBy: user?.id,
+    }).then(res => {
+      if (res.success) {
+        setAdvertisements(res.response.data);
+      }
+    });
+  }, []);
+  useEffect(() => {
+    getData();
+  }, [getData]);
   return (
     <ProfileLayout>
       <div className="mb-4 w-full overflow-hidden ">
@@ -20,19 +43,11 @@ const ServiceHistory = () => {
           </Button>
         </div>
         <div className="mx-auto mt-4 max-w-c-1280">
-          {/* {isGrid ? (
-          <GridServices
-            servicesData={servicesData}
-            showAddBtn={false}
-            isStars={true}
-          />
-        ) : (
-          <ListServices
-            servicesData={servicesData}
-            showAddBtn={false}
-            isStars={true}
-          />
-        )} */}
+          {isGrid ? (
+            <GridServices servicesData={advertisements} showAddBtn={false} isStars={true} />
+          ) : (
+            <ListServices servicesData={advertisements} showAddBtn={false} isStars={true} />
+          )}
         </div>
       </div>
     </ProfileLayout>

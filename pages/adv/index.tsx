@@ -3,21 +3,25 @@ import BlogItem from '@/components/Blog/BlogItem';
 import BreadCrumbs from '@/components/BreadCrumbs';
 import SideCheckDirection from '@/components/Common/SideCheckDirection';
 import PaginationComp from '@/components/Pagination';
-import LeftFilter from '@/components/Skeleton/LeftFilter';
 import { IAdParam } from '@/interfaces/request.interface';
-import { Direction, MainDirection, SubDirection } from '@/types/reference';
-import { Button, Checkbox, CheckboxGroup, Select, SelectItem } from '@nextui-org/react';
+import { MainDirection } from '@/types/reference';
+import { Button, Select, SelectItem } from '@nextui-org/react';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { IoIosAddCircleOutline } from 'react-icons/io';
-import { LuChevronLeft, LuSettings2 } from 'react-icons/lu';
 const BlogPage: NextPage = () => {
   const { mainDirections, adParam, setAdParam, advertisements, adMeta } = useAppContext();
   const [mainDirection, setMainDirection] = useState<MainDirection>();
   const router = useRouter();
   useEffect(() => {
-    const param: IAdParam = { order: 'DESC', page: 1, limit: 10, categoryId: adParam.categoryId };
+    const param: IAdParam = {
+      order: 'DESC',
+      page: 1,
+      limit: 10,
+      categoryId: adParam.categoryId,
+      process: 'CREATED',
+    };
     if (router.query.mainDirectionId) {
       param.mainDirectionId = Number(router.query.mainDirectionId);
     }

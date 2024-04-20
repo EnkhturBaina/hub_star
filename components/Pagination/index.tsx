@@ -33,6 +33,7 @@ const PaginationComp: React.FC<IProps> = ({ page, pageCount }) => {
         onChange={page =>
           setAdParam({
             order: adParam.order,
+            process: 'CREATED',
             page,
             limit: 10,
             categoryId: adParam.categoryId,

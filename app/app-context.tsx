@@ -35,9 +35,10 @@ interface IProps {
 }
 const AppProvider: React.FC<IProps> = ({ children }) => {
   const [adParam, setAdParam] = useState<IAdParam>({
-    order: 'ASC',
+    order: 'DESC',
     page: 1,
     limit: 9,
+    process: 'CREATED',
     categoryId: undefined,
     mainDirectionId: undefined,
     directionIds: undefined,

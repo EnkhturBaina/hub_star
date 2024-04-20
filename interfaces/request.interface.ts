@@ -8,10 +8,12 @@ export interface IPageOptions {
 }
 export interface IAdParam extends IPageOptions {
   categoryId?: number;
+  process: AdProcess;
   mainDirectionId?: number;
   directionIds?: number[];
   subDirectionIds?: number[];
   title?: string;
+  createdBy?: number;
 }
 export interface ICreateAd {
   mainDirectionId?: number;

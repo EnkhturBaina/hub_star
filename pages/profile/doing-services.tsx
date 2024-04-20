@@ -1,25 +1,34 @@
 import { Button } from '@nextui-org/react';
 import { CiGrid41, CiGrid2H } from 'react-icons/ci';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { AdvertisementService } from '@/service/advertisement/advertisement.service';
-import { AdvertisementProgress } from '@/types/advertisement';
+import { Advertisement, AdvertisementProgress } from '@/types/advertisement';
 import toast from 'react-hot-toast';
 import GridServices from '@/components/Profile/Content/GridServices';
 import ListServices from '@/components/Profile/Content/ListServices';
 import ProfileLayout from '@/layouts/profile.layout';
+import { useAppContext } from '@/app/app-context';
 
 const DoingServices = () => {
+  const { user } = useAppContext();
   const [isGrid, setIsGrid] = useState(true);
-  const [adProgress, setAdProgress] = useState<AdvertisementProgress[]>([]);
-  useEffect(() => {
-    AdvertisementService.getProgress({ page: 1, limit: 10, order: 'DESC' })
-      .then(res => {
-        if (res.success) {
-          setAdProgress(res.response.data);
-        }
-      })
-      .catch(err => toast.error(err));
+  const [advertisements, setAdvertisements] = useState<Advertisement[]>([]);
+  const getData = useCallback(async () => {
+    await AdvertisementService.get({
+      page: 1,
+      limit: 10,
+      order: 'DESC',
+      process: 'DOING',
+      createdBy: user?.id,
+    }).then(res => {
+      if (res.success) {
+        setAdvertisements(res.response.data);
+      }
+    });
   }, []);
+  useEffect(() => {
+    getData();
+  }, [getData]);
   return (
     <ProfileLayout>
       <div className="mb-4 w-full overflow-hidden ">
@@ -36,17 +45,9 @@ const DoingServices = () => {
         </div>
         <div className="mx-auto mt-4 max-w-c-1280">
           {isGrid ? (
-            <GridServices
-              servicesData={adProgress.map(item => item.advertisement)}
-              showAddBtn={false}
-              isStars={false}
-            />
+            <GridServices servicesData={advertisements} showAddBtn={false} isStars={false} />
           ) : (
-            <ListServices
-              servicesData={adProgress.map(item => item.advertisement)}
-              showAddBtn={false}
-              isStars={false}
-            />
+            <ListServices servicesData={advertisements} showAddBtn={false} isStars={false} />
           )}
         </div>
       </div>

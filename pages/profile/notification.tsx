@@ -7,15 +7,28 @@ import { Fragment, useCallback, useEffect, useState } from 'react';
 import Link from 'next/link';
 import { ReferenceService } from '@/service/reference/reference.service';
 import { RefNotification } from '@/types/reference';
-import { Modal, ModalContent } from 'semantic-ui-react';
+import {
+  Modal,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  Button,
+  useDisclosure,
+} from '@nextui-org/react';
+import { AdvertisementService } from '@/service/advertisement/advertisement.service';
+import { Advertisement } from '@/types/advertisement';
+import toast, { Toaster } from 'react-hot-toast';
 
 const Notification = () => {
   const { user } = useAppContext();
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [notifications, setNotifications] = useState<RefNotification[]>([]);
-  const [isConfirm, setIsConfirm] = useState<boolean>(false);
+  const [advertisement, setAdvertisement] = useState<Advertisement>();
+
   const getData = useCallback(async () => {
     await ReferenceService.getNotification({
-      authorId: user.id,
+      authorId: user?.id,
     }).then(res => {
       if (res.success) {
         setNotifications(res.response);
@@ -26,18 +39,32 @@ const Notification = () => {
   useEffect(() => {
     getData();
   }, [getData]);
+
   const handleSeen = async (notification: RefNotification) => {
-    await ReferenceService.updateNotification(notification.id, {
-      ...notification,
-      isSeen: true,
-    }).then(res => {
+    notification.isSeen &&
+      (await ReferenceService.updateNotification(notification.id, {
+        ...notification,
+        isSeen: true,
+      }).then(res => {
+        if (res.success) {
+          getData();
+        }
+      }));
+    onOpen();
+    await AdvertisementService.getById(notification.advertisementId).then(res => {
       if (res.success) {
-        getData();
+        setAdvertisement(res.response);
       }
     });
-    setIsConfirm(true);
   };
 
+  const handleApprove = async () => {
+    await AdvertisementService.update({ ...advertisement, process: 'DOING' }).then(res => {
+      if (res.success) {
+        toast.success('Амжилттай үйлчилгээний төлөв солигдлоо')
+      }
+    });
+  };
   return (
     <ProfileLayout>
       <div className="mb-4 w-full overflow-hidden">
@@ -69,41 +96,37 @@ const Notification = () => {
           ))}
         </div>
       </div>
-      <Modal
-        backdrop="opaque"
-        isOpen={isConfirm}
-        onOpenChange={() => {}}
-        classNames={{
-          backdrop: 'bg-gradient-to-t from-zinc-900 to-zinc-900/10 backdrop-opacity-20',
-        }}
-      >
+      <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
         <ModalContent>
-          {/* {onClose => (
+          {onClose => (
             <>
-              <ModalHeader className="flex flex-col gap-1">Та системээс гарах уу?</ModalHeader>
+              <ModalHeader className="flex flex-col gap-1">Захиалга зөвшөөрөх</ModalHeader>
+              <ModalBody>
+                <p>{advertisement?.title}</p>
+                <p>{advertisement?.desciption}</p>
+              </ModalBody>
               <ModalFooter>
-                <Button color="default" variant="light" onPress={onClose}>
-                  Хаах
+                <Button color="danger" variant="light" onPress={onClose}>
+                  Татгалзах
                 </Button>
-                <Button
-                  className="rounded-xl bg-mainColor font-bold leading-none text-white"
-                  onPress={() => {
-                    onClose();
-                    AuthService.logout().then(response => {
-                      if (response.success) {
-                        removeAccessToken();
-                        router.push('/');
-                      }
-                    });
-                  }}
-                >
-                  Гарах
+                <Button color="primary" onPress={onClose} onClick={() => handleApprove()}>
+                  Зөвшөөрөх
                 </Button>
               </ModalFooter>
             </>
-          )} */}
+          )}
         </ModalContent>
       </Modal>
+      <Toaster
+        position="top-center"
+        reverseOrder={false}
+        gutter={8}
+        containerClassName=""
+        containerStyle={{}}
+        toastOptions={{
+          duration: 5000,
+        }}
+      />
     </ProfileLayout>
   );
 };

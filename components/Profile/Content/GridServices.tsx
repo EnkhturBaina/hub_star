@@ -1,6 +1,5 @@
 'use client';
 import { Advertisement } from '@/types/advertisement';
-import { Services } from '@/types/services';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -39,36 +38,38 @@ const GridServices = ({
       viewport={{ once: true }}
       className="animate_top grid grid-cols-1 gap-6 bg-mainProfileCardBg md:grid-cols-2 lg:grid-cols-3"
     >
-      {servicesData.map((blog: Advertisement, index: number) => (
+      {servicesData.map((adv: Advertisement, index: number) => (
         <div className="rounded-lg bg-white shadow-solid-8" key={'grid' + index}>
-          <Link href={`/adv/`} className="relative block aspect-[368/239]">
-            {/* blog.mainImage */}
+          <Link href={'/adv/' + adv.id} className="relative block aspect-[368/239]">
+            {/* TODO ene deer yaahii ETR */}
             <Image
-              src={'/images/blog_img.jpg'}
+              src={process.env.NEXT_PUBLIC_MEDIA_URL + adv.images[0].id}
               // src={''}
-              alt={blog.title}
+              alt={adv.title}
               fill
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             />
-            <div className="flex w-50 flex-row items-center justify-center">
-              <span className="font-bold">Үнэлгээ: 10/10</span>
-              <div className="flex flex-row items-center">
-                <FaStar className="text-2xl text-mainColor" />
-                <FaStar className="text-2xl text-mainColor" />
-                <FaStar className="text-2xl text-mainColor" />
-                <FaStar className="text-2xl text-mainColor" />
-                <FaStar className="text-2xl text-mainColor" />
+            {isStars && (
+              <div className="absolute right-4 bottom-4 flex flex-row items-center justify-center">
+                <span className="font-bold text-white">Үнэлгээ:</span>
+                <div className="flex flex-row items-center">
+                  {[...Array(5)].map((_, index) => (
+                    <FaStar
+                      key={index}
+                      className={`text-2xl text-mainColor ${index < adv.rating ? 'text-mainColor' : 'text-white'}`}
+                    />
+                  ))}
+                </div>
               </div>
-            </div>
+            )}
           </Link>
 
           <div className="flex flex-col px-6 pb-2">
             <h3 className="!mb-1 !mt-2 line-clamp-2 inline-block text-lg font-bold  duration-300 hover:text-primary ">
-              <Link href={`/adv/${blog?.id}`} className="!text-black">
-                {`${blog.title.slice(0, 25)}...`}
-              </Link>
+              {`${adv.title.slice(0, 25)}...`}
             </h3>
-            <span className="line-clamp-3">{blog.desciption}</span>
+            <span className="line-clamp-3">{adv.desciption}</span>
+            <div className="flex flex-row items-center"></div>
           </div>
         </div>
       ))}
