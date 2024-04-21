@@ -2,6 +2,7 @@ import { useAppContext } from '@/app/app-context';
 import BlogItem from '@/components/Blog/BlogItem';
 import BreadCrumbs from '@/components/BreadCrumbs';
 import SideCheckDirection from '@/components/Common/SideCheckDirection';
+import SideCheckSubDirection from '@/components/Common/SideCheckSubDirection';
 import PaginationComp from '@/components/Pagination';
 import { IAdParam } from '@/interfaces/request.interface';
 import { MainDirection } from '@/types/reference';
@@ -53,7 +54,7 @@ const BlogPage: NextPage = () => {
           </div>
         </div>
         <div className="mx-auto flex max-w-screen-xl gap-4 px-4 md:px-8 2xl:px-0">
-          <SideCheckDirection mainDirection={mainDirection} />
+          <SideCheckSubDirection mainDirection={mainDirection} />
           <div className="px-6 pb-6 lg:w-3/4">
             <div className="my-4 flex flex-row justify-between">
               <Select
