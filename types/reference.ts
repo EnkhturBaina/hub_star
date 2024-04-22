@@ -1,5 +1,4 @@
-import { IFile } from '@/interfaces/request.interface';
-import { Advertisement, AdvertisementProgress } from './advertisement';
+import { AdProcess, Advertisement } from './advertisement';
 import Users from './user';
 export type ProfileRoute = {
   id: number;
@@ -21,10 +20,10 @@ export type MainDirection = {
   logoId: number;
   coverId: number;
   name: string;
-  directions: Direction[];
+  directions: RefDirection[];
 };
 /** Үйл ажиллагааны чиглэл */
-export type Direction = {
+export type RefDirection = {
   id: number;
   mainDirectionId: number;
   mainDirection: MainDirection;
@@ -35,7 +34,7 @@ export type Direction = {
 export type SubDirection = {
   id: number;
   directionId: number;
-  direction: Direction;
+  direction: RefDirection;
   name: string;
 };
 /** Хэрэглэгчийн төрөл */
@@ -94,9 +93,9 @@ export type Advice = {
   mainDirectionId: number;
   mainDirection?: MainDirection;
   directionId: number;
-  direction?: Direction;
+  direction?: RefDirection;
   title: string;
-  pdf: IFile;
+  pdfId: number;
   position: number;
   createdAt: Date;
   updatedAt: Date;
@@ -108,7 +107,7 @@ export type RefNotification = {
   author?: Users;
   advertisementId: number;
   advertisement?: Advertisement;
-  subject: string;
+  process: AdProcess;
   description: string;
   isSeen?: boolean;
   createdBy?: number;

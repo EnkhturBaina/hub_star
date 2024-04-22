@@ -1,7 +1,7 @@
 import { LuChevronLeft, LuSettings2 } from 'react-icons/lu';
 import LeftFilter from '../Skeleton/LeftFilter';
 import { Checkbox, CheckboxGroup } from '@nextui-org/react';
-import { Direction, MainDirection, SubDirection } from '@/types/reference';
+import { RefDirection, MainDirection, SubDirection } from '@/types/reference';
 import { useAppContext } from '@/app/app-context';
 import { useRouter } from 'next/router';
 import { usePathname } from 'next/navigation';
@@ -47,7 +47,7 @@ const SideCheckSubDirection: React.FC<Props> = ({ mainDirection }) => {
           }}
           onValueChange={onChangeValue}
         >
-          {mainDirection.directions.map((direction: Direction, index: number) => {
+          {mainDirection.directions.map((direction: RefDirection, index: number) => {
             return (
               <Checkbox
                 value={String(direction.id)}
@@ -67,7 +67,7 @@ const SideCheckSubDirection: React.FC<Props> = ({ mainDirection }) => {
           })}
         </CheckboxGroup>
       ) : (
-        mainDirection.directions.map((direction: Direction, index: number) => {
+        mainDirection.directions.map((direction: RefDirection, index: number) => {
           return (
             <CheckboxGroup
               label={direction.name}

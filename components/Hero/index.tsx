@@ -13,7 +13,7 @@ import PaginationComp from '../Pagination';
 import LeftDirections from '../Skeleton/LeftDirections';
 import BlogItemSkeleton from '../Skeleton/BlogItemSkeleton';
 import { useAppContext } from '@/app/app-context';
-import { Direction, MainDirection, RefNews, SubDirection } from '@/types/reference';
+import { RefDirection, MainDirection, RefNews, SubDirection } from '@/types/reference';
 import Link from 'next/link';
 import { Popup } from 'semantic-ui-react';
 import { useEffect, useState } from 'react';
@@ -79,7 +79,7 @@ const Hero = () => {
                           </h4>
                         </div>
                         <ul>
-                          {md.directions.map((d: Direction, index: number) => {
+                          {md.directions.map((d: RefDirection, index: number) => {
                             return (
                               <Popup
                                 key={index}

@@ -10,14 +10,14 @@ import { useAppContext } from '@/app/app-context';
 import AuthName from '../Auth/auth-name';
 import useSocket from '@/service/socket-client';
 import { useRouter } from 'next/router';
-import { RefNotification } from '@/types/reference';
 
 const Header = () => {
-  const { user, setAdParam, notifications, setNotifications } = useAppContext();
+  const { user, setAdParam } = useAppContext();
   const router = useRouter();
   const socket = useSocket();
   const [navigationOpen, setNavigationOpen] = useState(false);
   const [stickyMenu, setStickyMenu] = useState(false);
+  const [countNoti, setCountNoti] = useState(0);
   const [messages, setMessages] = useState<any[]>([]);
 
   const pathUrl = usePathname();
@@ -32,13 +32,17 @@ const Header = () => {
   };
   useEffect(() => {
     if (socket) {
+      console.log('Attempting to connect...');
       socket.on('connect', () => {
         console.log('Connected!');
       });
-      socket.emit('getNotification');
-      socket.on('notification', (notifications: RefNotification[]) => {
-        setNotifications(notifications);
-      });
+      const handleNotification = (count: number) => {
+        setCountNoti(count);
+      };
+      socket.on('notification', handleNotification);
+      return () => {
+        socket.off('notification', handleNotification);
+      };
     }
   }, [socket]);
   useEffect(() => {
@@ -94,7 +98,7 @@ const Header = () => {
                 </Link>
                 <div className="flex w-30 flex-row justify-around">
                   <Link href="/profile/notification">
-                    <Badge content={notifications.length}>
+                    <Badge content={countNoti}>
                       <svg
                         viewBox="0 0 30 30"
                         xmlns="http://www.w3.org/2000/svg"

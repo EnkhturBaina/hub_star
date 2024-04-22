@@ -46,6 +46,7 @@ const Profile = () => {
       setIsSaving(true);
       try {
         AuthService.updateById(profileData.id, {
+          ...profileData,
           email: profileData.email,
           firstName: profileData.firstName,
           lastName: profileData.lastName,

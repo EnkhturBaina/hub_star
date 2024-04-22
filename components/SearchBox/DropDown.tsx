@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Button, Popover, PopoverTrigger, PopoverContent } from '@nextui-org/react';
 import Image from 'next/image';
 import { useAppContext } from '@/app/app-context';
-import { Direction, MainDirection } from '@/types/reference';
+import { RefDirection, MainDirection } from '@/types/reference';
 import { useRouter } from 'next/router';
 
 export default function DropDown() {
@@ -10,7 +10,7 @@ export default function DropDown() {
   const router = useRouter();
   const { mainDirections } = useAppContext();
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const onClickDirection = (direction: Direction) => {
+  const onClickDirection = (direction: RefDirection) => {
     setIsOpen(false);
     router.push({
       pathname: '/adv',
@@ -53,7 +53,7 @@ export default function DropDown() {
                   </h4>
                 </div>
                 <ul>
-                  {md?.directions?.map((d: Direction, index: number) => {
+                  {md?.directions?.map((d: RefDirection, index: number) => {
                     return (
                       <li
                         key={index}

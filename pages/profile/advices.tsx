@@ -1,17 +1,40 @@
 'use client';
-import { ReferenceService } from '@/service/reference/reference.service';
-import { Advice } from '@/types/reference';
+import { Advice, PageMeta } from '@/types/reference';
 import { useAppContext } from '@/app/app-context';
 import { motion } from 'framer-motion';
-import Image from 'next/image';
-import { useEffect, useState } from 'react';
-import toast from 'react-hot-toast';
+import { useCallback, useEffect, useState } from 'react';
 import ProfileLayout from '@/layouts/profile.layout';
+import { ReferenceService } from '@/service/reference/reference.service';
+import { IAdviceParam } from '@/interfaces/request.interface';
+import PaginationComp from '@/components/Pagination';
+import AdviceItem from '@/components/Blog/AdviceItem';
 
 const Advices = () => {
   const { user } = useAppContext();
-  const [feedbacks, setFeedbacks] = useState<Advice[]>([]);
-  useEffect(() => {}, []);
+  const [params, setParams] = useState<IAdviceParam>({ page: 1, limit: 10, order: 'DESC', mainDirectionId: user.mainDirectionId });
+  const [advices, setAdvices] = useState<Advice[]>([]);
+  const [pageMeta, setPageMeta] = useState<PageMeta>({
+    page: 1,
+    limit: 10,
+    hasNextPage: false,
+    hasPreviousPage: false,
+    itemCount: 0,
+    pageCount: 1,
+  });
+
+  const getData = useCallback(async () => {
+    await ReferenceService.getAdvice(params).then(res => {
+      if (res.success) {
+        setAdvices(res.response.data);
+        setPageMeta(res.response.meta);
+      }
+    });
+  }, [params]);
+
+  useEffect(() => {
+    getData();
+  }, [getData]);
+
   return (
     <ProfileLayout>
       <motion.div
@@ -32,26 +55,13 @@ const Advices = () => {
         viewport={{ once: true }}
         className="animate_top grid grid-cols-5 gap-3"
       >
-        {feedbacks.map((item, i) => {
+        {advices.map((item, index) => {
           return (
-            <a
-              key={i}
-              href={`${process.env.NEXT_PUBLIC_BASE_API_URL}files/${item.pdf.path}`}
-              target="_blank"
-              className="flex cursor-pointer flex-col items-center justify-center rounded-xl bg-white p-8"
-            >
-              <Image
-                src="/pdf_icon.png"
-                alt={'alt' + i}
-                width={100}
-                height={80}
-                className="h-full w-12"
-              />
-              <span className="mt-2 text-center text-sm leading-none">{item.title}</span>
-            </a>
+            <AdviceItem advice={item} key={index} />
           );
         })}
       </motion.div>
+      <PaginationComp page={pageMeta.page} pageCount={pageMeta.pageCount} />
     </ProfileLayout>
   );
 };

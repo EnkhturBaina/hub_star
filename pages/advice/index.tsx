@@ -104,7 +104,7 @@ const AdvicePage: NextPage = () => {
             </div>
             <div className="grid grid-cols-4 gap-6">
               {advices.map((item, index) => (
-                <AdviceItem blog={item} key={index} />
+                <AdviceItem advice={item} key={index} />
               ))}
             </div>
             <PaginationComp page={pageMeta.page} pageCount={pageMeta.pageCount} />

@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { Button, Input } from '@nextui-org/react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 import AccountFields from '@/components/Skeleton/AccountFields';
 import { Users } from '@/types/user';
@@ -8,50 +8,39 @@ import { useAppContext } from '@/app/app-context';
 import { AuthService } from '@/service/authentication/authentication.service';
 import ProfileLayout from '@/layouts/profile.layout';
 
-const Account = () => {
+const Account:React.FC = () => {
   const { user } = useAppContext();
-  const [accountData, setAccountData] = useState<Users>(null);
+  const [values, setValues] = useState<Users>(user);
   const [isSaving, setIsSaving] = useState<boolean>(false);
 
-  useEffect(() => {
-    if (user && accountData == null) {
-      setAccountData(user);
-    }
-  }, []);
-
-  const saveAccount = () => {
-    if (!accountData?.lastName) {
+  const handleChange =
+    (prop: keyof Users) => (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+      setValues({ ...values, [prop]: event.target.value });
+    };
+  const handleSubmit = () => {
+    if (!values?.bank) {
       toast.error('Банкны нэр оруулна уу.');
-    } else if (!accountData?.firstName) {
+    } else if (!values?.bankAccountNo) {
       toast.error('Дансны дугаар оруулна уу.');
-    } else if (!accountData?.jobPosition) {
+    } else if (!values?.bankAccount) {
       toast.error('Эзэмшигчийн нэр оруулна уу.');
     } else {
       setIsSaving(true);
-      console.log('accountData', accountData);
-      try {
-        AuthService.updateById(accountData.id, {
-          bank: accountData?.bank,
-          bankAccount: accountData?.bankAccount,
-          bankAccountNo: accountData?.bankAccountNo,
+      AuthService.updateById(user.id, values)
+        .then(response => {
+          if (response.success) {
+            setIsSaving(false);
+            toast.success('Амжилттай хадгаллаа');
+          }
         })
-          .then(response => {
-            if (response.success) {
-              setIsSaving(false);
-              toast.success('Амжилттай хадгаллаа');
-            }
-          })
-          .catch(error => {
-            console.error('Error fetching :', error);
-          });
-      } catch (error) {
-        console.error('catch error :', error);
-      }
+        .catch(error => {
+          toast.error('Error fetching :' + error);
+        });
     }
   };
   return (
     <ProfileLayout>
-      {accountData == null ? (
+      {!values ? (
         <AccountFields />
       ) : (
         <motion.div
@@ -95,16 +84,11 @@ const Account = () => {
               label: 'font-bold',
               inputWrapper: ['custom-input-wrapper', 'bg-white'],
             }}
-            value={accountData?.bank}
-            onValueChange={e => {
-              setAccountData((prevState: Users) => ({
-                ...prevState,
-                bank: e,
-              }));
-            }}
+            value={values?.bank}
+            onChange={handleChange('bank')}
           />
           <Input
-            key="bankAccount"
+            key="bankAccountNo"
             type="number"
             label="Дансны дугаар"
             labelPlacement="outside"
@@ -116,16 +100,11 @@ const Account = () => {
               label: 'font-bold',
               inputWrapper: ['custom-input-wrapper', 'bg-white'],
             }}
-            value={accountData?.bankAccount}
-            onValueChange={e => {
-              setAccountData((prevState: Users) => ({
-                ...prevState,
-                bankAccount: e,
-              }));
-            }}
+            value={values?.bankAccountNo}
+            onChange={handleChange('bankAccountNo')}
           />
           <Input
-            key="bankAccountNo"
+            key="bankAccount"
             type="text"
             label="Эзэмшигчийн нэр"
             labelPlacement="outside"
@@ -137,13 +116,8 @@ const Account = () => {
               label: 'font-bold',
               inputWrapper: ['custom-input-wrapper', 'bg-white'],
             }}
-            value={accountData?.bankAccountNo}
-            onValueChange={e => {
-              setAccountData((prevState: Users) => ({
-                ...prevState,
-                bankAccountNo: e,
-              }));
-            }}
+            value={values?.bankAccount}
+            onChange={handleChange('bankAccount')}
           />
 
           <div className="flex flex-row justify-end">
@@ -151,7 +125,7 @@ const Account = () => {
               className="mr-4 bg-mainColor !text-white"
               radius="sm"
               size="md"
-              onClick={saveAccount}
+              onClick={handleSubmit}
               isDisabled={isSaving}
             >
               Хадгалах
@@ -162,5 +136,4 @@ const Account = () => {
     </ProfileLayout>
   );
 };
-
 export default Account;

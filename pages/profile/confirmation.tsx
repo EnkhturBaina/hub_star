@@ -1,26 +1,24 @@
 import { motion } from 'framer-motion';
-import {
-  Button,
-  Chip,
-  Input,
-  Select,
-  SelectItem,
-  SelectedItems,
-  Textarea,
-} from '@nextui-org/react';
-import { useEffect, useState } from 'react';
+import { Button, Input, Select, SelectItem, Textarea } from '@nextui-org/react';
+import { Fragment, useCallback, useEffect, useState } from 'react';
 import { BsImage } from 'react-icons/bs';
 import { ReferenceService } from '@/service/reference/reference.service';
-import { Category, MainDirection } from '@/types/reference';
+import { Category, RefDirection, MainDirection } from '@/types/reference';
 import toast from 'react-hot-toast';
 import ProfileLayout from '@/layouts/profile.layout';
+import Users from '@/types/user';
+import { useAppContext } from '@/app/app-context';
+import ImageUpload from '@/components/Image/image-upload';
+import Image from 'next/image';
+import { AuthService } from '@/service/authentication/authentication.service';
 
 const Confirmation = () => {
+  const { user, setUser } = useAppContext();
   const [categories, setCategories] = useState<Category[]>([]);
-  const [categoryId, setCategoryId] = useState<number>();
   const [mainDirections, setMainDirections] = useState<MainDirection[]>([]);
-  const [values, setValues] = useState<any>(['cat', 'dog']);
-  const getCategory = () => {
+  const [values, setValues] = useState<Users>(user);
+
+  const getCategory = useCallback(() => {
     ReferenceService.getCategory()
       .then(res => {
         if (res.success) {
@@ -28,23 +26,38 @@ const Confirmation = () => {
         }
       })
       .catch(err => toast.error(err));
-  };
-  const getMainDirection = () => {
-    ReferenceService.getMainDirection({ categoryId })
+  }, []);
+  useEffect(() => {
+    getCategory();
+  }, [getCategory]);
+
+  const getMainDirection = useCallback(() => {
+    ReferenceService.getMainDirection({ categoryId: values?.categoryId })
       .then(res => {
         if (res.success) {
           setMainDirections(res.response);
         }
       })
       .catch(err => toast.error(err));
-  };
-  useEffect(() => {
-    getCategory();
-  }, []);
+  }, [values?.categoryId]);
+
   useEffect(() => {
     getMainDirection();
-  }, [categoryId]);
+  }, [getMainDirection]);
 
+  const handleChange =
+    (prop: keyof Users) => (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+      setValues({ ...values, [prop]: event.target.value });
+    };
+
+  const handleSubmit = async () => {
+    AuthService.updateById(user.id, values).then(res => {
+      if (res.success) {
+        setUser(res.response.user);
+        toast.success('Хэрэглэгчийн мэдээлэл амжилттай баталгаажууллаа.');
+      }
+    });
+  };
   return (
     <ProfileLayout>
       <motion.div
@@ -75,7 +88,8 @@ const Confirmation = () => {
             label: 'font-bold',
             trigger: 'custom-select-trigger bg-white',
           }}
-          onSelect={e => setCategoryId(parseInt(e.currentTarget.value))}
+          value={values?.categoryId}
+          onChange={handleChange('categoryId')}
         >
           {categories.map(item => (
             <SelectItem key={item.id} value={item.id}>
@@ -84,7 +98,7 @@ const Confirmation = () => {
           ))}
         </Select>
         <Select
-          label="Үйл ажиллагааны чиглэл"
+          label="Үйл ажиллагааны үндсэн чиглэл"
           labelPlacement="outside"
           placeholder="Сонгох"
           radius="sm"
@@ -94,6 +108,8 @@ const Confirmation = () => {
             label: 'font-bold',
             trigger: 'custom-select-trigger bg-white',
           }}
+          value={values?.mainDirectionId}
+          onChange={handleChange('mainDirectionId')}
         >
           {mainDirections.map(item => (
             <SelectItem key={item.id} value={item.id}>
@@ -101,79 +117,120 @@ const Confirmation = () => {
             </SelectItem>
           ))}
         </Select>
-        <Select
-          label="Төрөл"
-          showScrollIndicators={true}
-          selectionMode="multiple"
-          labelPlacement="outside"
-          placeholder="Сонгох"
-          radius="sm"
-          size="lg"
-          variant="bordered"
-          selectedKeys={values}
-          onSelectionChange={setValues}
-          isMultiline={true}
-          classNames={{
-            label: 'font-bold',
-            trigger: 'custom-select-trigger bg-white p-2',
-          }}
-          renderValue={(items: SelectedItems<any>) => {
-            return (
-              <div className="flex flex-wrap gap-2">
-                {items.map(item => (
-                  <Chip key={item.key}>{item.textValue}</Chip>
-                ))}
-              </div>
-            );
-          }}
-        >
-          <SelectItem key={'t'} value={'t'}>
-            {'yuu songoh ve'}
-          </SelectItem>
-          {/* {animals.map(animal => (
-          <SelectItem key={animal.value} value={animal.value}>
-            {animal.label}
-          </SelectItem>
-        ))} */}
-        </Select>
         <div className="font-bold">Иргэний үнэмлэхний зураг</div>
         <div className="grid grid-cols-3 gap-3">
           <div className="flex h-40 cursor-pointer flex-col items-center justify-center rounded-lg bg-mainGray">
-            <BsImage className="text-2xl text-mainBgGray" />
-            <span className="mt-2 text-sm">Үнэмлэхний урд талын зураг</span>
+            <ImageUpload
+              setFileId={frontPassportImageId => setValues({ ...values, frontPassportImageId })}
+            >
+              {values?.frontPassportImageId ? (
+                <Image
+                  src={process.env.NEXT_PUBLIC_MEDIA_URL + values?.frontPassportImageId}
+                  alt="Үнэмлэхний урд талын зураг"
+                  width={315}
+                  height={140}
+                />
+              ) : (
+                <Fragment>
+                  <BsImage className="text-2xl text-mainBgGray" />
+                  <span className="mt-2 text-sm">Үнэмлэхний урд талын зураг</span>
+                </Fragment>
+              )}
+            </ImageUpload>
           </div>
           <div className="flex h-40 cursor-pointer flex-col items-center justify-center rounded-lg bg-mainGray">
-            <BsImage className="text-2xl text-mainBgGray" />
-            <span className="mt-2 text-sm">Селфи зураг</span>
+            <ImageUpload setFileId={selfieImageId => setValues({ ...values, selfieImageId })}>
+              {values?.selfieImageId ? (
+                <Image
+                  src={process.env.NEXT_PUBLIC_MEDIA_URL + values.selfieImageId}
+                  alt="Селфи зураг"
+                  width={315}
+                  height={140}
+                />
+              ) : (
+                <Fragment>
+                  <BsImage className="text-2xl text-mainBgGray" />
+                  <span className="mt-2 text-sm">Селфи зураг</span>
+                </Fragment>
+              )}
+            </ImageUpload>
           </div>
           <div className="flex h-40 cursor-pointer flex-col items-center justify-center rounded-lg bg-mainGray">
-            <BsImage className="text-2xl text-mainBgGray" />
-            <span className="mt-2 text-sm">Үнэмлэхний ард талын зураг</span>
+            <ImageUpload
+              setFileId={behindPassportImageId => setValues({ ...values, behindPassportImageId })}
+            >
+              {values?.behindPassportImageId ? (
+                <Image
+                  src={process.env.NEXT_PUBLIC_MEDIA_URL + values.behindPassportImageId}
+                  alt="Үнэмлэхний ард талын зураг"
+                  width={315}
+                  height={140}
+                />
+              ) : (
+                <Fragment>
+                  <BsImage className="text-2xl text-mainBgGray" />
+                  <span className="mt-2 text-sm">Үнэмлэхний ард талын зураг</span>
+                </Fragment>
+              )}
+            </ImageUpload>
           </div>
         </div>
         <div className="flex flex-row gap-4">
           <div className="flex h-45 w-45 min-w-[180px] cursor-pointer flex-col items-center justify-center rounded-lg bg-mainGray">
-            <BsImage className="text-2xl text-mainBgGray" />
-            <span className="mt-2 text-sm">Лого</span>
+            <ImageUpload
+              setFileId={organizationLogoId => setValues({ ...values, organizationLogoId })}
+            >
+              {values?.organizationLogoId ? (
+                <Image
+                  src={process.env.NEXT_PUBLIC_MEDIA_URL + values.organizationLogoId}
+                  alt="Лого"
+                  width={180}
+                  height={157}
+                />
+              ) : (
+                <Fragment>
+                  <BsImage className="text-2xl text-mainBgGray" />
+                  <span className="mt-2 text-sm">Лого</span>
+                </Fragment>
+              )}
+            </ImageUpload>
           </div>
           <div className="flex w-full flex-col gap-4 p-1">
-            <Input
-              key="companyName"
-              type="text"
-              label="Байгууллагын нэр"
-              labelPlacement="outside"
-              placeholder="Байгууллагын нэр"
-              radius="sm"
-              size="lg"
-              variant="bordered"
-              classNames={{
-                label: 'font-bold',
-                inputWrapper: ['custom-input-wrapper', 'bg-white'],
-              }}
-            />
             <div className="grid grid-cols-2 gap-4">
               <Input
-                key="companyRegister"
+                key="organizationName"
+                type="text"
+                label="Байгууллагын нэр"
+                labelPlacement="outside"
+                placeholder="Байгууллагын нэр"
+                radius="sm"
+                size="lg"
+                variant="bordered"
+                classNames={{
+                  label: 'font-bold',
+                  inputWrapper: ['custom-input-wrapper', 'bg-white'],
+                }}
+                value={values?.organizationName}
+                onChange={handleChange('organizationName')}
+              />
+              <Input
+                key="webUrl"
+                type="text"
+                label="Веб хуудас"
+                labelPlacement="outside"
+                placeholder="Веб хуудас"
+                radius="sm"
+                size="lg"
+                variant="bordered"
+                classNames={{
+                  label: 'font-bold',
+                  inputWrapper: ['custom-input-wrapper', 'bg-white'],
+                }}
+                value={values?.webUrl}
+                onChange={handleChange('webUrl')}
+              />
+              <Input
+                key="organizationRegno"
                 type="text"
                 label="Байгууллагын регистрийн дугаар"
                 labelPlacement="outside"
@@ -185,9 +242,11 @@ const Confirmation = () => {
                   label: 'font-bold',
                   inputWrapper: ['custom-input-wrapper', 'bg-white'],
                 }}
+                value={values?.organizationRegno}
+                onChange={handleChange('organizationRegno')}
               />
               <Input
-                key="courseComp"
+                key="trainingOrg"
                 type="text"
                 label="Сургалтын байгууллага"
                 labelPlacement="outside"
@@ -199,6 +258,8 @@ const Confirmation = () => {
                   label: 'font-bold',
                   inputWrapper: ['custom-input-wrapper', 'bg-white'],
                 }}
+                value={values?.trainingOrg}
+                onChange={handleChange('trainingOrg')}
               />
             </div>
           </div>
@@ -215,9 +276,16 @@ const Confirmation = () => {
             label: 'font-bold',
             inputWrapper: ['custom-input-wrapper', 'bg-white'],
           }}
+          value={values?.experience}
+          onChange={handleChange('experience')}
         />
         <div className="flex flex-row justify-end">
-          <Button className="mr-4 bg-mainColor !text-white" radius="sm" size="md">
+          <Button
+            className="mr-4 bg-mainColor !text-white"
+            radius="sm"
+            size="md"
+            onClick={handleSubmit}
+          >
             Хадгалах
           </Button>
           <Button
@@ -225,7 +293,6 @@ const Confirmation = () => {
             radius="sm"
             className="border-mainGray !bg-white !text-black"
             size="md"
-            // onClick={() => toast.success('XXXXXXXXXX')}
           >
             Цуцлах
           </Button>

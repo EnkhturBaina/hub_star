@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { Select, SelectItem } from '@nextui-org/react';
 import React, { useEffect, useState } from 'react';
 import { useAppContext } from '@/app/app-context';
-import { Category, Direction, MainDirection, SubDirection } from '@/types/reference';
+import { Category, RefDirection, MainDirection, SubDirection } from '@/types/reference';
 import { ICreateAd } from '@/interfaces/request.interface';
 import { ReferenceService } from '@/service/reference/reference.service';
 interface IProps {
@@ -13,7 +13,7 @@ interface IProps {
 }
 const Step1: React.FC<IProps> = ({ adData, setAdData }) => {
   const { categories, mainDirections } = useAppContext();
-  const [directions, setDirections] = useState<Direction[]>([]);
+  const [directions, setDirections] = useState<RefDirection[]>([]);
   const [subDirections, setSubDirections] = useState<SubDirection[]>([]);
 
   if (!categories) return null;
@@ -125,7 +125,7 @@ const Step1: React.FC<IProps> = ({ adData, setAdData }) => {
           }));
         }}
       >
-        {directions.map((data: Direction) => (
+        {directions.map((data: RefDirection) => (
           <SelectItem key={data.id} value={data.id}>
             {data.name}
           </SelectItem>

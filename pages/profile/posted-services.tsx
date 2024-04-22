@@ -1,18 +1,38 @@
 'use client';
 import { Button } from '@nextui-org/react';
 import { CiGrid41, CiGrid2H } from 'react-icons/ci';
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useAppContext } from '@/app/app-context';
 import GridServices from '@/components/Profile/Content/GridServices';
 import ListServices from '@/components/Profile/Content/ListServices';
 import AddService from '@/components/Profile/Content/AddService';
 import ProfileLayout from '@/layouts/profile.layout';
 import { NextPage } from 'next';
+import { Advertisement } from '@/types/advertisement';
+import { AdvertisementService } from '@/service/advertisement/advertisement.service';
 
 const PostedServices: NextPage = () => {
-  const { advertisements } = useAppContext();
+  const { user } = useAppContext();
   const [isGrid, setIsGrid] = useState(true);
   const [isAddService, setIsAddService] = useState(false);
+  const [advertisements, setAdvertisements] = useState<Advertisement[]>([]);
+
+  const getData = useCallback(async () => {
+    await AdvertisementService.get({
+      page: 1,
+      limit: 10,
+      order: 'DESC',
+      createdBy: user.id,
+    }).then(res => {
+      if (res.success) {
+        setAdvertisements(res.response.data);
+      }
+    });
+  }, [user.id]);
+
+  useEffect(() => {
+    getData();
+  }, [getData]);
   if (!isAddService) {
     console.log('advertisements', advertisements);
 

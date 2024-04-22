@@ -21,18 +21,16 @@ export type Users = {
   category?: Category; // Хэрэглэгчийн төрөл
   mainDirectionId?: number;
   mainDirection?: MainDirection; // Үйл ажиллагаанийн чиглэл
-  frontPassportImageId?: number;
-  frontPassportImage?: LocalFile; // үнэмлэхний урд талын зураг
-  behindPassportImageId?: number;
-  behindPassportImage?: LocalFile; // үнэмлэхний ард талын зураг
-  selfieImageId?: number;
-  selfieImage?: LocalFile; // селфи зураг
-  organizationLogoId?: number;
-  organizationLogo?: LocalFile; // Багууллагын лого
+  frontPassportImageId?: number; // үнэмлэхний урд талын зураг
+  behindPassportImageId?: number; // үнэмлэхний ард талын зураг
+  selfieImageId?: number; // селфи зураг
+  organizationLogoId?: number; // Багууллагын лого
   organizationName?: string; // Байгууллагын нэр
   organizationRegno?: string; // Байгууллагын регистр
   trainingOrg?: string; // Сургалтын байгууллага
   saveAdvertisements?: Advertisement[];
   role?: string;
+  webUrl?: string; // Веб хуудас
+  experience: string; // Байгууллагын танилцуулга ба ажлын туршлага
 };
 export default Users;

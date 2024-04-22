@@ -25,6 +25,7 @@ const Notification: NextPage = () => {
   const { user } = useAppContext();
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [notifications, setNotifications] = useState<RefNotification[]>([]);
+  const [notification, setNotification] = useState<RefNotification>();
   const [advertisement, setAdvertisement] = useState<Advertisement>();
 
   const getData = useCallback(async () => {
@@ -42,27 +43,42 @@ const Notification: NextPage = () => {
   }, [getData]);
 
   const handleSeen = async (notification: RefNotification) => {
-    notification.isSeen &&
-      (await ReferenceService.updateNotification(notification.id, {
+    if (!notification.isSeen) {
+      await ReferenceService.updateNotification(notification.id, {
         ...notification,
         isSeen: true,
       }).then(res => {
         if (res.success) {
           getData();
         }
-      }));
-    onOpen();
-    await AdvertisementService.getById(notification.advertisementId).then(res => {
-      if (res.success) {
-        setAdvertisement(res.response);
-      }
-    });
+      });
+    }
+    if (notification.process == 'DOING') {
+      onOpen();
+      setNotification(notification);
+      await AdvertisementService.getById(notification.advertisementId).then(res => {
+        if (res.success) {
+          setAdvertisement(res.response);
+        }
+      });
+    }
   };
 
   const handleApprove = async () => {
-    await AdvertisementService.update({ ...advertisement, process: 'DOING' }).then(res => {
+    await AdvertisementService.update({
+      ...advertisement,
+      process: 'DOING',
+      doingBy: notification.createdBy,
+    }).then(res => {
       if (res.success) {
         toast.success('Амжилттай үйлчилгээний төлөв солигдлоо');
+        ReferenceService.createNotification({
+          id: 0,
+          authorId: notification.createdBy,
+          advertisementId: advertisement.id,
+          process: 'CREATED',
+          description: 'Таны захиалгыг хүлээн авлаа. Баяр хүргэе.',
+        });
       }
     });
   };
@@ -72,18 +88,17 @@ const Notification: NextPage = () => {
         <div className="notifications">
           {notifications.map((item, index) => (
             <Fragment key={index}>
-              <div
-                className={`notification ${item.isSeen ? 'seen' : 'unseen'}`}
-                onClick={() => {
-                  handleSeen(item);
-                }}
-              >
+              <div className={`notification ${item.isSeen ? 'seen' : 'unseen'}`}>
                 <div className="content">
-                  <div className="docImg">
+                  <div
+                    className="docImg"
+                    onClick={() => {
+                      handleSeen(item);
+                    }}
+                  >
                     <Image src={docSvg} color="red" width={24} height={24} alt="sada" />
                   </div>
                   <div className="flex flex-col gap-2">
-                    <p className="desc">{item.subject}</p>
                     <p className="desc">{item.description}</p>
                     <Link href={'/profile/information'} className="desc">
                       {item.createdUser.lastName.substring(0, 1) + '.' + item.createdUser.firstName}
@@ -118,16 +133,6 @@ const Notification: NextPage = () => {
           )}
         </ModalContent>
       </Modal>
-      <Toaster
-        position="top-center"
-        reverseOrder={false}
-        gutter={8}
-        containerClassName=""
-        containerStyle={{}}
-        toastOptions={{
-          duration: 5000,
-        }}
-      />
     </ProfileLayout>
   );
 };

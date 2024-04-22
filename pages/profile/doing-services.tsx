@@ -19,7 +19,7 @@ const DoingServices = () => {
       limit: 10,
       order: 'DESC',
       process: 'DOING',
-      createdBy: user?.id,
+      userBy: user?.id,
     }).then(res => {
       if (res.success) {
         setAdvertisements(res.response.data);

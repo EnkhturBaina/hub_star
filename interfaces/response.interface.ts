@@ -1,8 +1,8 @@
-import { Advertisement, AdvertisementProgress } from '@/types/advertisement';
+import { Advertisement } from '@/types/advertisement';
 import {
   Address,
   Category,
-  Direction,
+  RefDirection,
   MainDirection,
   PageMeta,
   SubDirection,
@@ -45,7 +45,7 @@ export interface IResponseMainDirection extends IResponse {
   response: MainDirection;
 }
 export interface IResponseDirections extends IResponse {
-  response: Direction[];
+  response: RefDirection[];
 }
 export interface IResponseSubDirections extends IResponse {
   response: SubDirection[];
@@ -64,15 +64,6 @@ export interface IResponseAdvertisements extends IResponse {
 }
 export interface IResponseAdvertisement extends IResponse {
   response: Advertisement;
-}
-export interface IResponseAllAdProgress extends IResponse {
-  response: {
-    data: AdvertisementProgress[];
-    meta: PageMeta;
-  };
-}
-export interface IResponseAdProgress extends IResponse {
-  response: AdvertisementProgress;
 }
 export interface IResponseMenu extends IResponse {
   response: FooterMenu[];

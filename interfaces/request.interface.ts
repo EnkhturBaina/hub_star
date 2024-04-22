@@ -1,4 +1,4 @@
-import { AdProcess, AdvertisementProgress } from '@/types/advertisement';
+import { AdProcess } from '@/types/advertisement';
 import { AddressType } from '@/types/reference';
 
 export interface IPageOptions {
@@ -8,11 +8,12 @@ export interface IPageOptions {
 }
 export interface IAdParam extends IPageOptions {
   categoryId?: number;
-  process: AdProcess;
+  process?: AdProcess;
   mainDirectionId?: number;
   directionIds?: number[];
   subDirectionIds?: number[];
   title?: string;
+  userBy?: number;
   createdBy?: number;
 }
 export interface ICreateAd {
@@ -33,13 +34,6 @@ export interface ICreateAd {
   isMessenger?: boolean;
   isTermOfService?: boolean;
   imageIds?: number[];
-}
-export interface IFile {
-  filename: string;
-  folder: string;
-  path: string;
-  size: string;
-  type: string;
 }
 export interface IUser {
   email: string;
@@ -62,9 +56,6 @@ export interface IAddressParam {
   parentId?: number;
   name?: string;
   type: AddressType;
-}
-export interface IAdProgressParam extends IPageOptions {
-  process?: AdProcess;
 }
 export interface IAdviceParam extends IPageOptions {
   title?: string;

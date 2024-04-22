@@ -17,15 +17,12 @@ type Props = {
 };
 const ProfileLayout: React.FC<Props> = ({ children }) => {
   const { user, setUser } = useAppContext();
-  const [userImage, setUserImage] = useState<Users>(user);
+  const [values, setValues] = useState<Users>(user);
   const [visible, setVisible] = useState(false);
 
   const sideBarRef = useRef(null);
   const saveUserImage = () => {
-    AuthService.updateById(userImage.id, {
-      avatarId: userImage.avatarId,
-      coverId: userImage.coverId,
-    }).then(response => {
+    AuthService.updateById(user.id, values).then(response => {
       if (response.success) {
         toast.success('Амжилттай хадгаллаа');
       }
@@ -33,13 +30,13 @@ const ProfileLayout: React.FC<Props> = ({ children }) => {
   };
 
   useEffect(() => {
-    userImage &&
+    values &&
       setUser((prevState: Users) => ({
         ...prevState,
-        avatarId: userImage.avatarId,
-        coverId: userImage.coverId,
+        avatarId: values.avatarId,
+        coverId: values.coverId,
       }));
-  }, [userImage]);
+  }, [values]);
   if (!user) {
     return null;
   } else {
@@ -61,12 +58,11 @@ const ProfileLayout: React.FC<Props> = ({ children }) => {
               <div className="absolute bottom-8 right-8">
                 <ImageUpload
                   className="cursor-pointer bg-gray-300 text-base bg-opacity-60 text-white flex flex-row items-center rounded px-4 py-1 min-w-max"
-                  setFileId={fileId => {
-                    console.log('fileId ========>', fileId);
-                    setUserImage((prevState: Users) => ({
-                      ...prevState,
-                      coverId: fileId,
-                    }));
+                  setFileId={coverId => {
+                    setValues({
+                      ...values,
+                      coverId,
+                    });
                     saveUserImage();
                   }}
                 >
@@ -104,10 +100,10 @@ const ProfileLayout: React.FC<Props> = ({ children }) => {
                     className="right-0 bottom-0 cursor-pointer rounded-full bg-gray-100 p-3 text-black absolute w-fit"
                     setFileId={fileId => {
                       console.log('fileId AVATAR========>', fileId);
-                      setUserImage((prevState: Users) => ({
-                        ...prevState,
+                      setValues({
+                        ...values,
                         avatarId: fileId,
-                      }));
+                      });
                       saveUserImage();
                     }}
                   >

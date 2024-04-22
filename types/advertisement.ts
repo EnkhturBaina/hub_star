@@ -25,17 +25,9 @@ export type Advertisement = {
   rating: number;
   images: LocalFile[];
   saveUsers: Users[];
-  progresses: AdvertisementProgress[];
   createdBy: number;
+  createdUser?: Users;
   createdAt: string;
   doingBy: number;
   process: AdProcess;
-};
-export type AdvertisementProgress = {
-  id?: number;
-  advertisementId?: number;
-  advertisement?: Advertisement;
-  process?: AdProcess;
-  isShow?: boolean;
-  point?: number;
 };
