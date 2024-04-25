@@ -1,22 +1,17 @@
-import { Metadata, NextPage } from 'next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { NextPage } from 'next';
+import { SetStateAction, useState } from 'react';
 import Image from 'next/image';
-import { useState } from 'react';
 import { motion } from 'framer-motion';
-import Signup from '@/components/Auth/Signup';
+import EmailOtp from '@/components/Auth/EmailOtp';
 import Verification from '@/components/Auth/Verification';
-import Users from '@/types/user';
+import ChangePassword from '@/components/Auth/ChangePassword';
 
-export const metadata: Metadata = {
-  title: 'Hub star',
-  description: 'All at once',
-  // other metadata
-};
-const SignupPage: NextPage = () => {
+const ForgotPasswordPage: NextPage = () => {
   const [step, setStep] = useState<number>(1);
   const [details, setDetails] = useState<string>('');
-  const [user, setUser] = useState<Users>();
-  const [accessToken, setAccessToken] = useState<string>();
+  const [email, setEmail] = useState<string>('');
+  const [accessToken, setAccessToken] = useState<string>('');
+
   return (
     <section className="flex h-[calc(100vh-100px)] flex-wrap">
       <div className="relative flex h-full w-full flex-col justify-center lg:flex-row">
@@ -48,27 +43,33 @@ const SignupPage: NextPage = () => {
           viewport={{ once: true }}
           className="animate_top flex h-2/3 items-center justify-center self-center sm:w-full md:h-full md:w-1/2 lg:h-full lg:w-1/2"
         >
-          {step == 1 && <Signup step={step} setStep={setStep} setDetails={setDetails} />}
+          {step == 1 && (
+            <EmailOtp
+              email={email}
+              setEmail={setEmail}
+              step={step}
+              setStep={setStep}
+              setDetails={setDetails}
+            />
+          )}
           {step == 2 && (
             <Verification
-              type="Registration"
+              type={'Forget'}
               details={details}
               step={step}
               setStep={setStep}
-              setUser={setUser}
               setAccessToken={setAccessToken}
             />
+          )}
+          {step == 3 && (
+            <div>
+              {accessToken}
+              <ChangePassword email={email} token={accessToken} step={step} setStep={setStep} />
+            </div>
           )}
         </motion.div>
       </div>
     </section>
   );
 };
-export async function getStaticProps({ locale }) {
-  return {
-    props: {
-      ...(await serverSideTranslations(locale, ['common'])),
-    },
-  };
-}
-export default SignupPage;
+export default ForgotPasswordPage;

@@ -229,7 +229,7 @@ const SingleBlogPage: NextPage = () => {
                 <span className="font-bold">Зар байршуулсан</span>
                 <span className="">{data?.createdUser?.firstName}</span>
                 <span className="font-bold">Веб хуудас</span>
-                <span className="">TODO User info</span>
+                <span className="">{data?.createdUser?.webUrl}</span>
                 <span className="font-bold">Имэйл</span>
                 <span className="">{data?.email}</span>
                 <span className="font-bold">Байршил</span>
@@ -332,18 +332,17 @@ const SingleBlogPage: NextPage = () => {
                       inputWrapper: ['custom-input-wrapper', 'bg-white'],
                     }}
                   />
-                  {data.process == 'DOING' && (
-                    <div className="flex flex-row items-center">
-                      {[...Array(5)].map((_, index) => (
-                        <FaStar
-                          key={index}
-                          className={`text-2xl cursor-pointer ${index < data.rating ? 'text-mainColor' : 'text-blue-300'}`}
-                          onClick={() => handleStarClick(index)}
-                        />
-                      ))}
-                      <span className="ml-4">{data.rating}/5</span>
-                    </div>
-                  )}
+
+                  <div className="flex flex-row items-center">
+                    {[...Array(5)].map((_, index) => (
+                      <FaStar
+                        key={index}
+                        className={`text-2xl cursor-pointer ${index < data.rating ? 'text-mainColor' : 'text-blue-300'}`}
+                        onClick={() => handleStarClick(index)}
+                      />
+                    ))}
+                    <span className="ml-4">{data.rating}/5</span>
+                  </div>
                 </ModalBody>
                 <ModalFooter>
                   <Button color="danger" variant="light" onPress={onClose}>

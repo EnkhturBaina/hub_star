@@ -16,7 +16,6 @@ import { Users } from '@/types/user';
 import { AuthService } from '@/service/authentication/authentication.service';
 import { getAccessToken } from '@/service/api.service';
 import { IAdParam } from '@/interfaces/request.interface';
-import { Toaster } from 'react-hot-toast';
 interface IAppContextProps {
   user: Users;
   setUser: Dispatch<SetStateAction<Users>>;

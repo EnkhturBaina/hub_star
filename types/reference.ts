@@ -1,5 +1,7 @@
 import { AdProcess, Advertisement } from './advertisement';
 import Users from './user';
+export type OtpType = 'Registration' | 'Forget' | 'Verification';
+
 export type ProfileRoute = {
   id: number;
   name: string;

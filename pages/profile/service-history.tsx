@@ -18,7 +18,7 @@ const ServiceHistory = () => {
       limit: 10,
       order: 'DESC',
       process: 'DONE',
-      createdBy: user?.id,
+      userBy: user?.id,
     }).then(res => {
       if (res.success) {
         setAdvertisements(res.response.data);

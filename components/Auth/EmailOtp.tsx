@@ -3,20 +3,17 @@ import { Button, Input } from '@nextui-org/react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useMemo, useState } from 'react';
-import { Divider } from 'semantic-ui-react';
 import toast from 'react-hot-toast';
 import { AuthService } from '@/service/authentication/authentication.service';
 
 type Props = {
+  email: string;
+  setEmail: React.Dispatch<React.SetStateAction<string>>;
   step: number;
   setStep: React.Dispatch<React.SetStateAction<number>>;
   setDetails: React.Dispatch<React.SetStateAction<string>>;
 };
-const Signup: React.FC<Props> = ({ step, setStep, setDetails }) => {
-  const [email, setEmail] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
-  const [password2, setPassword2] = useState<string>('');
-
+const EmailOtp: React.FC<Props> = ({ email, setEmail, step, setStep, setDetails }) => {
   const validateEmail = value => value.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}$/i);
 
   const isInvalid = useMemo(() => {
@@ -30,15 +27,9 @@ const Signup: React.FC<Props> = ({ step, setStep, setDetails }) => {
       toast.error('И-Мэйл хаягаа оруулна уу.');
     } else if (isInvalid) {
       toast.error('И-Мэйл хаяг буруу байна.');
-    } else if (password == '') {
-      toast.error('Нууц үгээ оруулна уу.');
-    } else if (password2 == '') {
-      toast.error('Нууц үгээ давтан оруулна уу.');
-    } else if (password != password2) {
-      toast.error('Нууц тохирохгүй байна.');
     } else {
       try {
-        AuthService.register({ email, password })
+        AuthService.emailOtp({ email, type: 'Forget' })
           .then(response => {
             if (response.success) {
               setDetails(response.response.details);
@@ -76,46 +67,12 @@ const Signup: React.FC<Props> = ({ step, setStep, setDetails }) => {
         errorMessage={isInvalid && 'И-Мэйл хаягаа зөв оруулна уу.'}
         onValueChange={setEmail}
       />
-      <Input
-        key="password"
-        type="password"
-        label="Нууц үг"
-        labelPlacement="outside"
-        placeholder="Нууц үг"
-        radius="sm"
-        size="lg"
-        variant="bordered"
-        classNames={{
-          base: 'mb-8',
-          label: 'font-bold',
-          inputWrapper: ['custom-input-wrapper', 'bg-white'],
-        }}
-        value={password}
-        onValueChange={setPassword}
-      />
-      <Input
-        key="repeatPassword"
-        type="password"
-        label="Нууц үг давтах"
-        labelPlacement="outside"
-        placeholder="Нууц үг давтах"
-        radius="sm"
-        size="lg"
-        variant="bordered"
-        classNames={{
-          base: 'mb-8',
-          label: 'font-bold',
-          inputWrapper: ['custom-input-wrapper', 'bg-white'],
-        }}
-        value={password2}
-        onValueChange={setPassword2}
-      />
       <Button
         radius="full"
         className="mb-2 w-full rounded-md bg-mainColor font-bold leading-none text-white"
         onClick={register}
       >
-        Бүртгүүлэх
+        Хүсэлт явуулах
       </Button>
       <div className="text-center text-sm">
         Та бүртгэлтэй юу?{' '}
@@ -123,25 +80,8 @@ const Signup: React.FC<Props> = ({ step, setStep, setDetails }) => {
           Нэвтрэх
         </Link>
       </div>
-      <Divider horizontal className="!my-6 !text-xs !font-normal !normal-case !text-gray-400">
-        Эсвэл
-      </Divider>
-      <Button
-        startContent={<Image src="/facebook.png" alt="google" height="20" width="20" />}
-        radius="full"
-        className="mb-2 flex w-full items-center justify-start rounded-md bg-primary font-bold leading-none text-white"
-      >
-        Continue with Facebook
-      </Button>
-      <Button
-        startContent={<Image src="/google.png" alt="facebook" height="20" width="20" />}
-        radius="full"
-        className="mb-2 flex w-full justify-start rounded-md bg-white font-bold leading-none text-gray-400 shadow-md"
-      >
-        Continue with Google
-      </Button>
     </div>
   );
 };
 
-export default Signup;
+export default EmailOtp;

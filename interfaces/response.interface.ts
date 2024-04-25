@@ -25,6 +25,19 @@ export interface IResponseLogin extends IResponse {
     user: Users;
   };
 }
+export interface IResponseOtp extends IResponse {
+  response: {
+    status: string;
+    details: string;
+  };
+}
+export interface IResponseOtpVerify extends IResponse {
+  response: {
+    user: Users;
+    accessToken: string;
+    refreshToken: string;
+  };
+}
 export interface IResponseProfile extends IResponse {
   response: {
     user: Users;

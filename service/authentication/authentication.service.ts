@@ -1,15 +1,24 @@
-import { IVerifyOtp, IUser } from '@/interfaces/request.interface';
+import { IVerifyOtp, IUser, IEmailOtp, IChangePassword } from '@/interfaces/request.interface';
 import { api } from '../api.service';
-import { IResponse, IResponseLogin, IResponseProfile } from '@/interfaces/response.interface';
+import {
+  IResponse,
+  IResponseLogin,
+  IResponseOtp,
+  IResponseOtpVerify,
+  IResponseProfile,
+} from '@/interfaces/response.interface';
 import { Users } from '@/types/user';
 
-const register = (user: IUser) => {
+const register = (user: IUser): Promise<IResponseOtp> => {
   return api.post('/authentication/register', user);
 };
 const login = (user: IUser): Promise<IResponseLogin> => {
   return api.post('/authentication/login', user);
 };
-const otpVerify = (otp: IVerifyOtp) => {
+const emailOtp = (emailOtp: IEmailOtp): Promise<IResponseOtp> => {
+  return api.post('/authentication/email/otp', emailOtp);
+};
+const otpVerify = (otp: IVerifyOtp): Promise<IResponseOtpVerify> => {
   return api.post('/authentication/verify/otp', otp);
 };
 const logout = (): Promise<IResponse> => {
@@ -21,8 +30,8 @@ const profile = (): Promise<IResponseProfile> => {
 const otherProfile = (id: number): Promise<IResponseProfile> => {
   return api.get('/authentication/' + id);
 };
-const changePassword = (password: string) => {
-  return api.post('/changePassword', { password });
+const changePassword = (changePassword: IChangePassword): Promise<IResponse> => {
+  return api.post('/authentication/change-password', changePassword);
 };
 const updateById = (id: number, user: Users): Promise<IResponseProfile> => {
   return api.patch(`/users/${id}`, user);
@@ -30,6 +39,7 @@ const updateById = (id: number, user: Users): Promise<IResponseProfile> => {
 export const AuthService = {
   register,
   login,
+  emailOtp,
   otpVerify,
   logout,
   profile,

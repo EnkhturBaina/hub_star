@@ -1,6 +1,5 @@
 import { AdProcess } from '@/types/advertisement';
-import { AddressType } from '@/types/reference';
-
+import { AddressType, OtpType } from '@/types/reference';
 export interface IPageOptions {
   order: 'ASC' | 'DESC';
   page: number;
@@ -39,10 +38,19 @@ export interface IUser {
   email: string;
   password: string;
 }
+export interface IEmailOtp {
+  email: string;
+  type: OtpType;
+}
 export interface IVerifyOtp {
   otp: string;
   details: string;
-  type: 'Registration' | 'Forget' | 'Verification';
+  type: OtpType;
+}
+export interface IChangePassword {
+  email: string;
+  password: string;
+  token: string;
 }
 export interface IDirectionParam {
   mainDirectionId?: number;

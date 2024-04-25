@@ -80,6 +80,7 @@ const GridServices = ({
           className="flex h-67 cursor-pointer items-center justify-center rounded-lg bg-mainGray"
           onClick={() => setIsAddService(true)}
         >
+          {/* TODO онцгой үйлчилгээ эсэх гээд check нэмэх */}
           <IoAddCircle className="text-[150px] text-mainBgGray" />
         </div>
       ) : null}

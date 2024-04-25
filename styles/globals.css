@@ -317,3 +317,24 @@ pre {
 .image-gallery-image {
   height: 400px !important;
 }
+.otp-wrapper > div {
+  gap: 15px;
+  width: 100%;
+  margin: 2rem auto;
+}
+
+.otp-wrapper input {
+  flex: 1;
+  height: 40px;
+  width: 40px !important;
+  border-radius: 8px;
+  border: 2px solid black;
+  transition: all 0.3s ease-in-out;
+  color: black;
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.otp-wrapper input:focus {
+  border-color: #555 !important;
+}

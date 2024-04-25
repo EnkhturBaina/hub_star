@@ -1,8 +1,11 @@
 {
-    "back-to-home": "Нүүр хуудас",
-    "error-with-status": "Sul server si verificato un errore ({{statusCode}})",
-    "error-without-status": "Sul server si verificato un errore",
-    "h1": "Un semplice esempio",
-    "title": "Pagina principale | next-i18next",
-    "to-second-page": "Vai alla seconda pagina"
-  }
+  "email": "И-мэйл",
+  "password": "Нууц үг",
+  "forgotPassword": "Нууц үг мартсан",
+  "login": "Нэвтрэх",
+  "doYouHaveAnAccount": "Та бүртгэлтэй юу?",
+  "register": "Бүртгүүлэх",
+  "or": "Эсвэл",
+  "continueWithFacebook": "Фэйсбүүк-р нэвтрэх",
+  "continueWithGoogle": "Google-р нэвтрэх"
+}

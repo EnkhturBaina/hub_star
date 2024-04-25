@@ -1,8 +1,11 @@
 {
-    "back-to-home": "Zurück zur Hauptseite",
-    "error-with-status": "Auf dem Server ist ein Fehler ({{statusCode}}) aufgetreten",
-    "error-without-status": "Auf dem Server ist ein Fehler aufgetreten",
-    "h1": "Ein einfaches Beispiel",
-    "title": "Hauptseite | next-i18next",
-    "to-second-page": "Zur zweiten Seite"
-  }
+  "email": "И-мэйл",
+  "password": "Нууц үг",
+  "forgotPassword": "Нууц үг мартсан",
+  "login": "Нэвтрэх",
+  "doYouHaveAnAccount": "Та бүртгэлтэй юу?",
+  "register": "Бүртгүүлэх",
+  "or": "Эсвэл",
+  "continueWithFacebook": "Фэйсбүүк-р нэвтрэх",
+  "continueWithGoogle": "Google-р нэвтрэх"
+}

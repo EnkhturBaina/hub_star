@@ -117,7 +117,7 @@ const Confirmation = () => {
             </SelectItem>
           ))}
         </Select>
-        <div className="font-bold">Иргэний үнэмлэхний зураг</div>
+        <div className="font-bold">Байгууллагын гэрчилгээний болон Иргэний үнэмлэхний зураг</div>
         <div className="grid grid-cols-3 gap-3">
           <div className="flex h-40 cursor-pointer flex-col items-center justify-center rounded-lg bg-mainGray">
             <ImageUpload

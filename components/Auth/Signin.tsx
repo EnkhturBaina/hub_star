@@ -1,4 +1,3 @@
-'use client';
 import { setAccessToken } from '@/service/api.service';
 import { AuthService } from '@/service/authentication/authentication.service';
 import { Button, Input } from '@nextui-org/react';
@@ -9,10 +8,11 @@ import { useRouter } from 'next/navigation';
 import { useMemo, useState } from 'react';
 import { Divider } from 'semantic-ui-react';
 import toast, { Toaster } from 'react-hot-toast';
-import { error } from 'console';
+import { useTranslation } from 'next-i18next';
 
 const Signin = () => {
   const router = useRouter();
+  const { t } = useTranslation();
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
 
@@ -98,9 +98,9 @@ const Signin = () => {
               <Input
                 key="username"
                 type="email"
-                label="И-Мэйл"
+                label={t('email')}
                 labelPlacement="outside"
-                placeholder="И-Мэйл"
+                placeholder={t('email')}
                 radius="sm"
                 size="lg"
                 variant="bordered"
@@ -117,59 +117,62 @@ const Signin = () => {
               <Input
                 key="password"
                 type="password"
-                label="Нууц үг"
+                label={t('password')}
                 labelPlacement="outside"
-                placeholder="Нууц үг"
+                placeholder={t('password')}
                 radius="sm"
                 size="lg"
                 variant="bordered"
                 classNames={{
-                  base: 'mb-8',
                   label: 'font-bold',
                   inputWrapper: ['custom-input-wrapper', 'bg-white'],
                 }}
                 onValueChange={setPassword}
               />
-              {/* <Link className="text-primary" href="/"> */}
+              <div className="text-right text-sm">
+                <Link className="text-primary" href="/auth/forgot-password">
+                  {t('forgotPassword')}
+                </Link>
+              </div>
+              <Divider horizontal />
               <Button
                 radius="full"
                 className="mb-2 w-full rounded-md bg-mainColor font-bold leading-none text-white"
                 onClick={login}
               >
-                Нэвтрэх
+                {t('login')}
               </Button>
               {/* </Link> */}
               <div className="text-center text-sm">
-                Та бүртгэлтэй юу?{' '}
+                {t('doYouHaveAnAccount')}
                 <Link className="text-primary" href="/auth/signup">
-                  Бүртгүүлэх
+                  {t('register')}
                 </Link>
               </div>
               <Divider
                 horizontal
                 className="!my-6 !text-xs !font-normal !normal-case !text-gray-400"
               >
-                Эсвэл
+                {t('or')}
               </Divider>
               <Button
                 startContent={<Image src="/facebook.png" alt="google" height="20" width="20" />}
                 radius="full"
                 className="mb-2 flex w-full items-center justify-start rounded-md bg-primary font-bold leading-none text-white"
               >
-                Continue with Facebook
+                {t('continueWithFacebook')}
               </Button>
               <Button
                 startContent={<Image src="/google.png" alt="facebook" height="20" width="20" />}
                 radius="full"
                 className="mb-2 flex w-full justify-start rounded-md bg-white font-bold leading-none text-gray-400 shadow-md"
               >
-                Continue with Google
+                {t('continueWithGoogle')}
               </Button>
             </div>
           </motion.div>
         </div>
       </section>
-      {/* <!-- ===== SignIn Form End ===== --> */}
     </>
   );
 };

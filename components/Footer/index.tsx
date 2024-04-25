@@ -1,17 +1,14 @@
 'use client';
-import { Divider, Select, SelectItem } from '@nextui-org/react';
+import { Divider } from '@nextui-org/react';
 import { motion } from 'framer-motion';
-import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { ReferenceService } from '@/service/reference/reference.service';
 import { FooterMenu } from '@/types/reference';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 
 const Footer: React.FC = () => {
   const [menus, setMenus] = useState<FooterMenu[]>([]);
-  const router = useRouter();
   const containerStyle = {
     width: '400px',
     height: '400px',
