@@ -31,6 +31,8 @@ const AdvicePage: NextPage = () => {
   const getData = useCallback(async () => {
     await ReferenceService.getAdvice(params).then(res => {
       if (res.success) {
+        console.log('res.response.data', res.response.data);
+
         setAdvices(res.response.data);
         setPageMeta(res.response.meta);
       }
@@ -65,7 +67,7 @@ const AdvicePage: NextPage = () => {
             </div>
           </div>
         </div>
-        <div className="mx-auto flex max-w-screen-xl gap-4 px-4 md:px-8 2xl:px-0">
+        <div className="flex flex-col md:flex-row mx-auto max-w-screen-xl gap-4 px-4 md:px-8 2xl:px-0">
           <SideCheckDirection
             mainDirection={mainDirection}
             onDirectionIds={directionIds => setParams(prev => ({ ...prev, directionIds }))}
@@ -79,7 +81,7 @@ const AdvicePage: NextPage = () => {
                 size="md"
                 variant="bordered"
                 classNames={{
-                  base: 'w-50',
+                  base: 'w-40 !mt-0',
                   label: 'font-bold',
                   trigger: 'custom-select-trigger bg-white',
                 }}
@@ -102,7 +104,7 @@ const AdvicePage: NextPage = () => {
                 Онцгой үйлчилгээ оруулах
               </Button>
             </div>
-            <div className="grid grid-cols-4 gap-6">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
               {advices.map((item, index) => (
                 <AdviceItem advice={item} key={index} />
               ))}

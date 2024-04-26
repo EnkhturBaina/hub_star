@@ -56,10 +56,11 @@ const AdviceItem: React.FC<Props> = ({ advice }) => {
       <Modal
         backdrop="opaque"
         isOpen={isOpen}
-        size='5xl'
+        size="5xl"
         onOpenChange={onOpenChange}
         classNames={{
           backdrop: 'bg-gradient-to-t from-zinc-900 to-zinc-900/10 backdrop-opacity-20',
+          base: 'my-auto',
         }}
       >
         <ModalContent>
@@ -69,7 +70,7 @@ const AdviceItem: React.FC<Props> = ({ advice }) => {
               <ModalBody
                 style={{
                   width: '100%',
-                  paddingBottom: '56.25%',
+                  marginBottom: '56.25%',
                   position: 'relative',
                 }}
               >
@@ -81,7 +82,7 @@ const AdviceItem: React.FC<Props> = ({ advice }) => {
                     width: '100%',
                     height: '100%',
                   }}
-                  src={process.env.NEXT_PUBLIC_MEDIA_URL + advice.pdfId}
+                  src={process.env.NEXT_PUBLIC_MEDIA_URL + advice.pdfId + '#toolbar=0'}
                 />
               </ModalBody>
               <ModalFooter>
