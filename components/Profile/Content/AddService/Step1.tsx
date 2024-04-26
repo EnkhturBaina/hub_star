@@ -4,9 +4,10 @@ import { motion } from 'framer-motion';
 import { Select, SelectItem } from '@nextui-org/react';
 import React, { useEffect, useState } from 'react';
 import { useAppContext } from '@/app/app-context';
-import { Category, RefDirection, MainDirection, SubDirection } from '@/types/reference';
+import { Category, RefDirection, MainDirection, SubDirection, UserTab } from '@/types/reference';
 import { ICreateAd } from '@/interfaces/request.interface';
 import { ReferenceService } from '@/service/reference/reference.service';
+import UserTabData from '@/app/data/UserTabData';
 interface IProps {
   adData: ICreateAd;
   setAdData: React.Dispatch<React.SetStateAction<ICreateAd>>;
@@ -66,17 +67,17 @@ const Step1: React.FC<IProps> = ({ adData, setAdData }) => {
           label: 'font-bold',
           trigger: 'custom-select-trigger bg-white',
         }}
-        value={adData?.categoryId?.toString()}
+        value={adData?.userType?.toString()}
         onChange={e => {
           setAdData((prevState: ICreateAd) => ({
             ...prevState,
-            categoryId: parseInt(e.target.value),
+            userType: e.target.value,
           }));
         }}
       >
-        {categories?.map((data: Category, index: number) => (
-          <SelectItem key={data.id} value={data.id}>
-            {data.name}
+        {UserTabData?.map((data: UserTab, index: number) => (
+          <SelectItem key={data.type} value={data.type}>
+            {data.title}
           </SelectItem>
         ))}
       </Select>

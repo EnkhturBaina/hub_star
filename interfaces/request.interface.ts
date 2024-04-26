@@ -6,8 +6,8 @@ export interface IPageOptions {
   limit: number;
 }
 export interface IAdParam extends IPageOptions {
-  userType?: UserType;
   categoryId?: number;
+  userType?: UserType;
   process?: AdProcess;
   mainDirectionId?: number;
   directionIds?: number[];
@@ -21,6 +21,7 @@ export interface ICreateAd {
   directionId?: number;
   subDirectionId?: number;
   categoryId?: number;
+  userType?: UserType;
   provinceId?: number;
   districtId?: number;
   khorooId?: number;
@@ -34,6 +35,18 @@ export interface ICreateAd {
   isMessenger?: boolean;
   isTermOfService?: boolean;
   imageIds?: number[];
+  workerCount?: number;
+  isAfternoon?: boolean;
+  productName?: string;
+  unitAmount?: number;
+  packageAmount?: number;
+  machineryTypeId?: number;
+  markId?: number;
+  modelId?: number;
+  powerId?: number;
+  fromAddress?: string;
+  toAddress?: string;
+  measurement?: string;
 }
 export interface IUser {
   email: string;

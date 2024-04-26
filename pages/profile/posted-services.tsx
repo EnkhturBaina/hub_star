@@ -22,13 +22,13 @@ const PostedServices: NextPage = () => {
       page: 1,
       limit: 10,
       order: 'DESC',
-      createdBy: user.id,
+      createdBy: user?.id,
     }).then(res => {
       if (res.success) {
         setAdvertisements(res.response.data);
       }
     });
-  }, [user.id]);
+  }, [user?.id]);
 
   useEffect(() => {
     getData();

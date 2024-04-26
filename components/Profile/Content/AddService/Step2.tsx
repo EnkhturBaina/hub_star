@@ -74,7 +74,9 @@ const Step2: React.FC<IProps> = ({ adData, setAdData }) => {
       viewport={{ once: true }}
       className="mb-4 grid w-full grid-cols-1 gap-y-4 overflow-hidden p-2"
     >
-      <div className="grid grid-cols-2 gap-4">
+      <div
+        className={`grid ${adData?.userType == 'SUBSCRIBER' ? 'grid-cols-1' : 'grid-cols-2'} gap-4`}
+      >
         <Input
           key="postTitle"
           type="text"
@@ -96,27 +98,29 @@ const Step2: React.FC<IProps> = ({ adData, setAdData }) => {
             }));
           }}
         />
-        <Input
-          key="price"
-          type="number"
-          label="Үнэ"
-          labelPlacement="outside"
-          placeholder="--"
-          radius="sm"
-          size="lg"
-          variant="bordered"
-          classNames={{
-            label: 'font-bold',
-            inputWrapper: ['custom-input-wrapper', 'bg-white'],
-          }}
-          value={String(adData.price)}
-          onValueChange={e => {
-            setAdData((prevState: ICreateAd) => ({
-              ...prevState,
-              price: parseInt(e),
-            }));
-          }}
-        />
+        {adData?.userType == 'SUBSCRIBER' ? (
+          <Input
+            key="price"
+            type="number"
+            label="Үнэ"
+            labelPlacement="outside"
+            placeholder="--"
+            radius="sm"
+            size="lg"
+            variant="bordered"
+            classNames={{
+              label: 'font-bold',
+              inputWrapper: ['custom-input-wrapper', 'bg-white'],
+            }}
+            value={String(adData.price)}
+            onValueChange={e => {
+              setAdData((prevState: ICreateAd) => ({
+                ...prevState,
+                price: parseInt(e),
+              }));
+            }}
+          />
+        ) : null}
       </div>
       <div className="grid grid-cols-3 gap-4">
         <Select

@@ -1,4 +1,4 @@
-import { Address, LocalFile } from './reference';
+import { Address, LocalFile, UserType } from './reference';
 import { Users } from './user';
 export type AdProcess = 'CREATED' | 'DOING' | 'DONE';
 export type Advertisement = {
@@ -7,6 +7,7 @@ export type Advertisement = {
   directionId: number;
   subDirectionId: number;
   categoryId: number;
+  userType: UserType;
   provinceId: number;
   province: Address;
   districtId: number;
@@ -30,4 +31,16 @@ export type Advertisement = {
   createdAt: string;
   doingBy: number;
   process: AdProcess;
+  workerCount?: number;
+  isAfternoon?: boolean;
+  productName?: string;
+  unitAmount?: number;
+  packageAmount?: number;
+  machineryTypeId?: number;
+  markId?: number;
+  modelId?: number;
+  powerId?: number;
+  fromAddress?: string;
+  toAddress?: string;
+  measurement?: string;
 };

@@ -34,6 +34,18 @@ const defaultCreateAd: ICreateAd = {
   isMessenger: null,
   isTermOfService: null,
   imageIds: [],
+  workerCount: null,
+  isAfternoon: null,
+  productName: null,
+  unitAmount: null,
+  packageAmount: null,
+  machineryTypeId: null,
+  markId: null,
+  modelId: null,
+  powerId: null,
+  fromAddress: null,
+  toAddress: null,
+  measurement: null,
 };
 const AddService = ({
   isAddService,
@@ -71,7 +83,7 @@ const AddService = ({
     } else if (type == 'next') {
       if (maxStep > step) {
         if (step === 1) {
-          if (createAd?.categoryId == null) {
+          if (createAd?.userType == null) {
             toast.error('Хэрэглэгчийн төрөл сонгоно уу.');
           } else if (createAd?.mainDirectionId == null) {
             toast.error('Үйл ажиллагааны үндсэн чиглэл сонгоно уу.');
@@ -85,7 +97,7 @@ const AddService = ({
         } else if (step == 2) {
           if (createAd?.title == null) {
             toast.error('Зарын гарчиг оруулна уу.');
-          } else if (createAd?.price == null) {
+          } else if (createAd?.userType == 'SUBSCRIBER' && createAd?.price == null) {
             toast.error('Үнэ оруулна уу.');
           } else if (createAd?.provinceId == null) {
             toast.error('Аймаг, Хот сонгоно уу.');
@@ -99,16 +111,100 @@ const AddService = ({
             setStep(step + 1);
           }
         } else if (step == 3) {
-          if (createAd?.counter == null) {
-            toast.error('Ажлын тоо хэмжээ оруулна уу.');
-          } else if (createAd?.desciption == null) {
-            toast.error('Тайлбар оруулна уу.');
-          } else if (createAd?.email == null) {
-            toast.error('Имэйл оруулна уу.');
-          } else if (createAd?.phone == null) {
-            toast.error('Утас оруулна уу.');
-          } else {
-            setStep(step + 1);
+          if (createAd?.userType == 'SUBSCRIBER') {
+            if (createAd?.measurement == null) {
+              toast.error('Хэмжих нэгж оруулна уу.');
+            } else if (createAd?.counter == null) {
+              toast.error('Ажлын тоо хэмжээ оруулна уу.');
+            } else if (createAd?.desciption == null) {
+              toast.error('Тайлбар оруулна уу.');
+            } else if (createAd?.email == null) {
+              toast.error('Имэйл оруулна уу.');
+            } else if (createAd?.phone == null) {
+              toast.error('Утас оруулна уу.');
+            } else {
+              setStep(step + 1);
+            }
+          } else if (createAd?.userType == 'EXECUTOR') {
+            if (createAd?.workerCount == null) {
+              toast.error('Ажилчдын тоо оруулна уу.');
+            } else if (createAd?.counter == null) {
+              toast.error('Ажлын тоо хэмжээ оруулна уу.');
+            } else if (createAd?.price == null) {
+              toast.error('Үнэ оруулна уу.');
+            } else if (createAd?.desciption == null) {
+              toast.error('Тайлбар ба ажлын туршлага оруулна уу.');
+            } else if (createAd?.email == null) {
+              toast.error('Имэйл оруулна уу.');
+            } else if (createAd?.phone == null) {
+              toast.error('Утас оруулна уу.');
+            } else {
+              setStep(step + 1);
+            }
+          } else if (createAd?.userType == 'SUPPLIER') {
+            if (createAd?.productName == null) {
+              toast.error('Бүтээгдэхүүний нэр сонгоно уу.');
+            } else if (createAd?.unitAmount == null) {
+              toast.error('Нэгжийн үнэ оруулна уу.');
+            } else if (createAd?.packageAmount == null) {
+              toast.error('Багцын үнэ оруулна уу.');
+            } else if (createAd?.desciption == null) {
+              toast.error('Бүтээгдэхүүний дэлгэрэнгүй мэдээлэл оруулна уу.');
+            } else if (createAd?.email == null) {
+              toast.error('Имэйл оруулна уу.');
+            } else if (createAd?.phone == null) {
+              toast.error('Утас оруулна уу.');
+            } else {
+              setStep(step + 1);
+            }
+          } else if (createAd?.userType == 'TRANSPORTATION') {
+            if (createAd?.productName == null) {
+              toast.error('Бүтээгдэхүүний нэр сонгоно уу.');
+            } else if (createAd?.machineryTypeId == null) {
+              toast.error('Машин механизмийн төрөл сонгоно уу.');
+            } else if (createAd?.markId == null) {
+              toast.error('Марк сонгоно уу.');
+            } else if (createAd?.powerId == null) {
+              toast.error('Хүчин чадал сонгоно уу.');
+            } else if (createAd?.unitAmount == null) {
+              toast.error('Нэгж үнэлгээ.цаг оруулна уу.');
+            } else if (createAd?.packageAmount == null) {
+              toast.error('Багц үнэлгээ.өдөр оруулна уу.');
+            } else if (createAd?.desciption == null) {
+              toast.error('Тайлбар оруулна уу.');
+            } else if (createAd?.email == null) {
+              toast.error('Имэйл оруулна уу.');
+            } else if (createAd?.phone == null) {
+              toast.error('Утас оруулна уу.');
+            } else {
+              setStep(step + 1);
+            }
+          } else if (createAd?.userType == 'MACHINERY') {
+            if (createAd?.machineryTypeId == null) {
+              toast.error('Машин механизмийн төрөл сонгоно уу.');
+            } else if (createAd?.markId == null) {
+              toast.error('Марк сонгоно уу.');
+            } else if (createAd?.modelId == null) {
+              toast.error('Загвар сонгоно уу.');
+            } else if (createAd?.powerId == null) {
+              toast.error('Хүчин чадал сонгоно уу.');
+            } else if (createAd?.unitAmount == null) {
+              toast.error('Нэгж үнэлгээ.цаг оруулна уу.');
+            } else if (createAd?.packageAmount == null) {
+              toast.error('Багц үнэлгээ.өдөр оруулна уу.');
+            } else if (createAd?.fromAddress == null) {
+              toast.error('Хаанаас гэдгээ оруулна уу.');
+            } else if (createAd?.toAddress == null) {
+              toast.error('Хаашаа гэдгээ оруулна уу.');
+            } else if (createAd?.desciption == null) {
+              toast.error('Тайлбар оруулна уу.');
+            } else if (createAd?.email == null) {
+              toast.error('Имэйл оруулна уу.');
+            } else if (createAd?.phone == null) {
+              toast.error('Утас оруулна уу.');
+            } else {
+              setStep(step + 1);
+            }
           }
         }
       } else if (maxStep == step) {
@@ -154,7 +250,23 @@ const AddService = ({
       />
       {step === 1 && <Step1 adData={createAd} setAdData={setCreateAd} />}
       {step === 2 && <Step2 adData={createAd} setAdData={setCreateAd} />}
-      {step === 3 && <Step3 adData={createAd} setAdData={setCreateAd} />}
+
+      {step === 3 && createAd?.userType == 'SUBSCRIBER' ? (
+        <Subscriber adData={createAd} setAdData={setCreateAd} />
+      ) : null}
+      {step === 3 && createAd?.userType == 'EXECUTOR' ? (
+        <Executor adData={createAd} setAdData={setCreateAd} />
+      ) : null}
+      {step === 3 && createAd?.userType == 'SUPPLIER' ? (
+        <Supplier adData={createAd} setAdData={setCreateAd} />
+      ) : null}
+      {step === 3 && createAd?.userType == 'TRANSPORTATION' ? (
+        <Transportation adData={createAd} setAdData={setCreateAd} />
+      ) : null}
+      {step === 3 && createAd?.userType == 'MACHINERY' ? (
+        <Machinery adData={createAd} setAdData={setCreateAd} />
+      ) : null}
+
       <div className="flex flex-row justify-between">
         <Button
           variant="bordered"

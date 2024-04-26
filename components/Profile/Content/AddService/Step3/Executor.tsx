@@ -31,11 +31,12 @@ const Executor: React.FC<IProps> = ({ adData, setAdData }) => {
       viewport={{ once: true }}
       className="mb-4 grid w-full grid-cols-1 gap-y-4 overflow-hidden p-2"
     >
-      <div className="grid grid-cols-2 gap-4">
+      Executor - Гүйцэтгэгч
+      <div className="grid grid-cols-3 gap-4">
         <Input
-          key="negj"
+          key="workerCount"
           inputMode="text"
-          label="Хэмжих нэгж"
+          label="Ажилчдын тоо"
           labelPlacement="outside"
           placeholder="--"
           radius="sm"
@@ -44,6 +45,13 @@ const Executor: React.FC<IProps> = ({ adData, setAdData }) => {
           classNames={{
             label: 'font-bold',
             inputWrapper: ['custom-input-wrapper', 'bg-white'],
+          }}
+          value={adData?.workerCount && adData.workerCount.toString()}
+          onValueChange={e => {
+            setAdData((prevState: ICreateAd) => ({
+              ...prevState,
+              workerCount: parseInt(e),
+            }));
           }}
         />
         <Input
@@ -64,6 +72,27 @@ const Executor: React.FC<IProps> = ({ adData, setAdData }) => {
             setAdData((prevState: ICreateAd) => ({
               ...prevState,
               counter: parseInt(e),
+            }));
+          }}
+        />
+        <Input
+          key="price"
+          type="number"
+          label="Үнэ"
+          labelPlacement="outside"
+          placeholder="--"
+          radius="sm"
+          size="lg"
+          variant="bordered"
+          classNames={{
+            label: 'font-bold',
+            inputWrapper: ['custom-input-wrapper', 'bg-white'],
+          }}
+          value={String(adData.price)}
+          onValueChange={e => {
+            setAdData((prevState: ICreateAd) => ({
+              ...prevState,
+              price: parseInt(e),
             }));
           }}
         />
@@ -96,10 +125,10 @@ const Executor: React.FC<IProps> = ({ adData, setAdData }) => {
       </div>
       <Textarea
         variant="bordered"
-        label="Тайлбар"
+        label="Тайлбар ба ажлын туршлага"
         labelPlacement="outside"
         radius="sm"
-        placeholder="Тайлбар"
+        placeholder="Тайлбар ба ажлын туршлага"
         classNames={{
           base: 'w-full',
           label: 'font-bold',
@@ -158,6 +187,22 @@ const Executor: React.FC<IProps> = ({ adData, setAdData }) => {
         />
       </div>
       <div className="flex flex-col gap-y-2">
+        <Checkbox
+          value={String(adData?.isAfternoon)}
+          classNames={{
+            base: 'w-full',
+            label: 'w-full',
+            wrapper: 'custom-checkbox w-6 h-6',
+          }}
+          onValueChange={e => {
+            setAdData((prevState: ICreateAd) => ({
+              ...prevState,
+              isAfternoon: e,
+            }));
+          }}
+        >
+          Өдрөөр хийх ажил
+        </Checkbox>
         <Checkbox
           value={String(adData?.isMessenger)}
           classNames={{

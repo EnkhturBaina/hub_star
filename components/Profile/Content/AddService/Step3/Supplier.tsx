@@ -31,11 +31,12 @@ const Supplier: React.FC<IProps> = ({ adData, setAdData }) => {
       viewport={{ once: true }}
       className="mb-4 grid w-full grid-cols-1 gap-y-4 overflow-hidden p-2"
     >
-      <div className="grid grid-cols-2 gap-4">
+      Supplier Ханган нийлүүлэгч
+      <div className="grid grid-cols-3 gap-4">
         <Input
-          key="negj"
-          inputMode="text"
-          label="Хэмжих нэгж"
+          key="productName"
+          type="text"
+          label="Бүтээгдэхүүний нэр"
           labelPlacement="outside"
           placeholder="--"
           radius="sm"
@@ -45,25 +46,53 @@ const Supplier: React.FC<IProps> = ({ adData, setAdData }) => {
             label: 'font-bold',
             inputWrapper: ['custom-input-wrapper', 'bg-white'],
           }}
-        />
-        <Input
-          key="too"
-          inputMode="numeric"
-          label="Ажлын тоо хэмжээ"
-          labelPlacement="outside"
-          placeholder="--"
-          radius="sm"
-          size="lg"
-          variant="bordered"
-          classNames={{
-            label: 'font-bold',
-            inputWrapper: ['custom-input-wrapper', 'bg-white'],
-          }}
-          value={adData?.counter && adData.counter.toString()}
+          value={adData?.productName}
           onValueChange={e => {
             setAdData((prevState: ICreateAd) => ({
               ...prevState,
-              counter: parseInt(e),
+              productName: e,
+            }));
+          }}
+        />
+        <Input
+          key="unitAmount"
+          type="number"
+          label="Нэгжийн үнэ"
+          labelPlacement="outside"
+          placeholder="--"
+          radius="sm"
+          size="lg"
+          variant="bordered"
+          classNames={{
+            label: 'font-bold',
+            inputWrapper: ['custom-input-wrapper', 'bg-white'],
+          }}
+          value={String(adData.unitAmount)}
+          onValueChange={e => {
+            setAdData((prevState: ICreateAd) => ({
+              ...prevState,
+              unitAmount: parseInt(e),
+            }));
+          }}
+        />
+        <Input
+          key="packageAmount"
+          type="number"
+          label="Багцын үнэ"
+          labelPlacement="outside"
+          placeholder="--"
+          radius="sm"
+          size="lg"
+          variant="bordered"
+          classNames={{
+            label: 'font-bold',
+            inputWrapper: ['custom-input-wrapper', 'bg-white'],
+          }}
+          value={String(adData.packageAmount)}
+          onValueChange={e => {
+            setAdData((prevState: ICreateAd) => ({
+              ...prevState,
+              packageAmount: parseInt(e),
             }));
           }}
         />
@@ -96,10 +125,10 @@ const Supplier: React.FC<IProps> = ({ adData, setAdData }) => {
       </div>
       <Textarea
         variant="bordered"
-        label="Тайлбар"
+        label="Бүтээгдэхүүний дэлгэрэнгүй мэдээлэл"
         labelPlacement="outside"
         radius="sm"
-        placeholder="Тайлбар"
+        placeholder="Бүтээгдэхүүний дэлгэрэнгүй мэдээлэл"
         classNames={{
           base: 'w-full',
           label: 'font-bold',

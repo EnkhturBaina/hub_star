@@ -31,10 +31,11 @@ const Subscriber: React.FC<IProps> = ({ adData, setAdData }) => {
       viewport={{ once: true }}
       className="mb-4 grid w-full grid-cols-1 gap-y-4 overflow-hidden p-2"
     >
+      Subscriber Захиалагч
       <div className="grid grid-cols-2 gap-4">
         <Input
-          key="negj"
-          inputMode="text"
+          key="measurement"
+          type="text"
           label="Хэмжих нэгж"
           labelPlacement="outside"
           placeholder="--"
@@ -44,6 +45,13 @@ const Subscriber: React.FC<IProps> = ({ adData, setAdData }) => {
           classNames={{
             label: 'font-bold',
             inputWrapper: ['custom-input-wrapper', 'bg-white'],
+          }}
+          value={adData?.measurement}
+          onValueChange={e => {
+            setAdData((prevState: ICreateAd) => ({
+              ...prevState,
+              measurement: e,
+            }));
           }}
         />
         <Input

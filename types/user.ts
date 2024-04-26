@@ -1,5 +1,5 @@
 import { Advertisement } from './advertisement';
-import { Category, LocalFile, MainDirection } from './reference';
+import { Category, LocalFile, MainDirection, UserType } from './reference';
 /** Хэрэглэгчийн мэдээлэл */
 export type Users = {
   id?: number;
@@ -18,6 +18,7 @@ export type Users = {
   cover?: LocalFile;
   address?: string;
   categoryId?: number;
+  userType: UserType;
   category?: Category; // Хэрэглэгчийн төрөл
   mainDirectionId?: number;
   mainDirection?: MainDirection; // Үйл ажиллагаанийн чиглэл
