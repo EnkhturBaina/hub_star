@@ -1,11 +1,12 @@
 import { AdProcess } from '@/types/advertisement';
-import { AddressType, OtpType } from '@/types/reference';
+import { AddressType, OtpType, UserType } from '@/types/reference';
 export interface IPageOptions {
   order: 'ASC' | 'DESC';
   page: number;
   limit: number;
 }
 export interface IAdParam extends IPageOptions {
+  userType?: UserType;
   categoryId?: number;
   process?: AdProcess;
   mainDirectionId?: number;

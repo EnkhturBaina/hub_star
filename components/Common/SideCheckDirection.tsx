@@ -1,17 +1,12 @@
 import { LuChevronLeft, LuSettings2 } from 'react-icons/lu';
-import LeftFilter from '../Skeleton/LeftFilter';
 import { Checkbox, CheckboxGroup } from '@nextui-org/react';
-import { MainDirection, RefDirection, SubDirection } from '@/types/reference';
-import { useRouter } from 'next/router';
-import { usePathname } from 'next/navigation';
+import { MainDirection, RefDirection } from '@/types/reference';
 
 type Props = {
   mainDirection: MainDirection;
   onDirectionIds: (directionIds: number[]) => void;
 };
 const SideCheckDirection: React.FC<Props> = ({ mainDirection, onDirectionIds }) => {
-  const pathUrl = usePathname();
-  const router = useRouter();
   const onChangeValue = (values: string[]) => {
     const directions = mainDirection.directions.filter(item => values.includes(String(item.id)));
     onDirectionIds(directions.map(item => item.id));
@@ -25,9 +20,7 @@ const SideCheckDirection: React.FC<Props> = ({ mainDirection, onDirectionIds }) 
         </div>
         <LuChevronLeft className="text-2xl" />
       </div>
-      {!mainDirection ? (
-        <LeftFilter />
-      ) : pathUrl == '/advice' ? (
+      {!mainDirection && (
         <CheckboxGroup
           label={''}
           color="warning"
@@ -38,7 +31,7 @@ const SideCheckDirection: React.FC<Props> = ({ mainDirection, onDirectionIds }) 
           }}
           onValueChange={onChangeValue}
         >
-          {mainDirection.directions.map((direction: RefDirection, index: number) => {
+          {mainDirection?.directions.map((direction: RefDirection, index: number) => {
             return (
               <Checkbox
                 value={String(direction.id)}
@@ -57,41 +50,6 @@ const SideCheckDirection: React.FC<Props> = ({ mainDirection, onDirectionIds }) 
             );
           })}
         </CheckboxGroup>
-      ) : (
-        mainDirection.directions.map((direction: RefDirection, index: number) => {
-          return (
-            <CheckboxGroup
-              label={direction.name}
-              color="warning"
-              key={index}
-              // value={adParam.subDirectionIds?.map(item => item.toString())}
-              classNames={{
-                base: 'my-4',
-                label: 'font-bold text-black text-base',
-              }}
-              onValueChange={onChangeValue}
-            >
-              {direction.subDirections.map((subDir: SubDirection, index: number) => {
-                return (
-                  <Checkbox
-                    value={String(subDir.id)}
-                    classNames={{
-                      base: 'w-full max-w-full',
-                      label: 'w-full',
-                      wrapper: 'custom-checkbox w-6 h-6',
-                    }}
-                    key={index}
-                  >
-                    <div className="flex w-full flex-row items-center justify-between">
-                      <span className="text-sm leading-none">{subDir.name}</span>
-                      {/* TODO adv count <span className="text-sm">{subDir.}</span> */}
-                    </div>
-                  </Checkbox>
-                );
-              })}
-            </CheckboxGroup>
-          );
-        })
       )}
     </div>
   );

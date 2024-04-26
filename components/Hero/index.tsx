@@ -153,7 +153,7 @@ const Hero = () => {
               </div>
             </div>
 
-            {!adParam.categoryId && (
+            {!adParam.userType && (
               <div className="w-full md:w-3/4">
                 <div className="mb-4 w-full overflow-hidden">
                   <div className="custom-slider-container relative w-full rounded-xl">

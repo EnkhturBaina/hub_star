@@ -80,7 +80,7 @@ const AdviceItem: React.FC<Props> = ({ advice }) => {
                     top: 0,
                     left: 0,
                     width: '100%',
-                    height: '100%',
+                    height: '500px',
                   }}
                   src={process.env.NEXT_PUBLIC_MEDIA_URL + advice.pdfId + '#toolbar=0'}
                 />

@@ -38,11 +38,6 @@ const AppProvider: React.FC<IProps> = ({ children }) => {
     page: 1,
     limit: 9,
     process: 'CREATED',
-    categoryId: undefined,
-    mainDirectionId: undefined,
-    directionIds: undefined,
-    subDirectionIds: undefined,
-    title: undefined,
   });
   const [user, setUser] = useState<Users>();
   const [mainDirections, setMainDirections] = useState<MainDirection[]>([]);

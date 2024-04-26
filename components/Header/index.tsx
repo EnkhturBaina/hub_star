@@ -64,7 +64,7 @@ const Header = () => {
             className="block w-full hover:cursor-pointer"
             onClick={() => {
               router.push('/');
-              setAdParam(prev => ({ ...prev, categoryId: undefined }));
+              setAdParam(prev => ({ ...prev, userType: undefined }));
             }}
             priority
           />

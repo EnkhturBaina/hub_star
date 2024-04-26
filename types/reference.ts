@@ -1,3 +1,4 @@
+import { ReactNode } from 'react';
 import { AdProcess, Advertisement } from './advertisement';
 import Users from './user';
 export type OtpType = 'Registration' | 'Forget' | 'Verification';
@@ -39,11 +40,35 @@ export type SubDirection = {
   direction: RefDirection;
   name: string;
 };
+
 /** Хэрэглэгчийн төрөл */
+export type UserType = 'SUBSCRIBER' | 'EXECUTOR' | 'SUPPLIER' | 'TRANSPORTATION' | 'MACHINERY';
+
+/** Хэрэглэгчийн таб */
+export type UserTab = {
+  type: UserType;
+  image: string;
+  title: string;
+};
+/** Онцгой үйлчилгээний төрөл */
+export type SpecialServiceType =
+  | 'PUBLIC_SELECTION'
+  | 'INTERNATIONAL_TRADE'
+  | 'CONSULTING_SERVICE'
+  | 'VOCATIONAL_TRAINING'
+  | 'LABORATORY_MATERIAL'
+  | 'MAKE_BUDGET';
+/** Онцгой үйлчилгээ */
+export type SpecialService = {
+  type: SpecialServiceType;
+  icon: ReactNode;
+  title: string;
+};
 export type Category = {
   id: number;
   logoId: number;
   name: string;
+  userType: UserType;
   isSpecial: boolean;
 };
 /** Хаягийн төрөл */
