@@ -1,0 +1,27 @@
+[
+  {
+    "order": "1",
+    "code": "SUBSCRIBER",
+    "name": "Захиалагч"
+  },
+  {
+    "order": "2",
+    "code": "EXECUTOR",
+    "name": "Гүйцэтгэгч"
+  },
+  {
+    "order": "3",
+    "code": "SUPPLIER",
+    "name": "Ханган нийлүүлэгч"
+  },
+  {
+    "order": "4",
+    "code": "TRANSPORTATION",
+    "name": "Тээвэр"
+  },
+  {
+    "order": "5",
+    "code": "MACHINERY",
+    "name": "Машин механизм"
+  }
+]

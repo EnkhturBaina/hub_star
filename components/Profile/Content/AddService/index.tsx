@@ -9,6 +9,13 @@ import Step3 from './Step3';
 import toast, { Toaster } from 'react-hot-toast';
 import { AdvertisementService } from '@/service/advertisement/advertisement.service';
 import { ICreateAd } from '@/interfaces/request.interface';
+
+import Subscriber from '../AddService/Step3/Subscriber';
+import Executor from '../AddService/Step3/Executor';
+import Supplier from '../AddService/Step3/Supplier';
+import Transportation from '../AddService/Step3/Transportation';
+import Machinery from '../AddService/Step3/Machinery';
+
 const defaultCreateAd: ICreateAd = {
   mainDirectionId: null,
   directionId: null,
