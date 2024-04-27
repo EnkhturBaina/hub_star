@@ -1,6 +1,5 @@
 'use client';
 import { MainDirection } from '@/types/reference';
-import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
 type Props = {
@@ -10,26 +9,9 @@ const CatItem: React.FC<Props> = ({ mainDirection }) => {
   const { coverId, name } = mainDirection;
   return (
     <>
-      <motion.div
-        variants={{
-          hidden: {
-            opacity: 0,
-            y: -20,
-          },
-
-          visible: {
-            opacity: 1,
-            y: 0,
-          },
-        }}
-        initial="hidden"
-        whileInView="visible"
-        transition={{ duration: 1, delay: 0.5 }}
-        viewport={{ once: true }}
-        className="animate_top cursor-pointer bg-gradient-to-b shadow-solid-8 hover:bg-gradient-to-t hover:from-mainColor hover:to-transparent"
-      >
+      <div className="cursor-pointer bg-gradient-to-b shadow-solid-8 hover:bg-gradient-to-t hover:from-mainColor hover:to-transparent !w-64 h-36 !flex-none">
         <Link
-          className="relative block h-64 w-full rounded-lg hover:opacity-50"
+          className="relative block h-full rounded-lg hover:opacity-50"
           href={{ pathname: '/advice', query: { mainDirectionId: mainDirection.id } }}
         >
           <Image
@@ -43,7 +25,7 @@ const CatItem: React.FC<Props> = ({ mainDirection }) => {
             {name}
           </span>
         </Link>
-      </motion.div>
+      </div>
     </>
   );
 };

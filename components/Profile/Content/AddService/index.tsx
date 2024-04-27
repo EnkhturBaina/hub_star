@@ -97,17 +97,19 @@ const AddService = ({
         } else if (step == 2) {
           if (createAd?.title == null) {
             toast.error('Зарын гарчиг оруулна уу.');
-          } else if (createAd?.userType == 'SUBSCRIBER' && createAd?.price == null) {
-            toast.error('Үнэ оруулна уу.');
-          } else if (createAd?.provinceId == null) {
-            toast.error('Аймаг, Хот сонгоно уу.');
-          } else if (createAd?.districtId == null) {
-            toast.error('Сум, Дүүрэг сонгоно уу.');
-          } else if (createAd?.khorooId == null) {
-            toast.error('Баг, Хороо сонгоно уу.');
-          } else if (createAd?.address == null) {
-            toast.error('Байршил оруулна уу.');
-          } else {
+          }
+          //  else if (createAd?.userType == 'SUBSCRIBER' && createAd?.price == null) {
+          //   toast.error('Үнэ оруулна уу.');
+          // } else if (createAd?.provinceId == null) {
+          //   toast.error('Аймаг, Хот сонгоно уу.');
+          // } else if (createAd?.districtId == null) {
+          //   toast.error('Сум, Дүүрэг сонгоно уу.');
+          // } else if (createAd?.khorooId == null) {
+          //   toast.error('Баг, Хороо сонгоно уу.');
+          // } else if (createAd?.address == null) {
+          //   toast.error('Байршил оруулна уу.');
+          // }
+          else {
             setStep(step + 1);
           }
         } else if (step == 3) {

@@ -4,13 +4,32 @@ import SingleFeature from './SingleFeature';
 import { useAppContext } from '@/app/app-context';
 import { Button } from '@nextui-org/react';
 import SpecialServiceData from '@/app/data/SpecialServiceData';
+import { motion } from 'framer-motion';
 
 const Feature = () => {
   const { categories } = useAppContext();
   return (
     <>
       {/* <!-- ===== Features Start ===== --> */}
-      <section id="features">
+      <motion.div
+        variants={{
+          hidden: {
+            opacity: 0,
+            y: -20,
+          },
+
+          visible: {
+            opacity: 1,
+            y: 0,
+          },
+        }}
+        initial="hidden"
+        whileInView="visible"
+        transition={{ duration: 1, delay: 0.5 }}
+        viewport={{ once: true }}
+        className="animate_top"
+        id="features"
+      >
         <div className="w-full overflow-hidden">
           <Button
             isDisabled
@@ -30,7 +49,7 @@ const Feature = () => {
             {/* <!-- Features item End --> */}
           </div>
         </div>
-      </section>
+      </motion.div>
 
       {/* <!-- ===== Features End ===== --> */}
     </>
