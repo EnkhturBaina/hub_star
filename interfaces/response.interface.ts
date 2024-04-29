@@ -11,6 +11,7 @@ import {
   Advice,
   RefNotification,
   RefNews,
+  MachineryType,
 } from '@/types/reference';
 import { Users } from '@/types/user';
 export interface IResponse {
@@ -102,4 +103,7 @@ export interface IResponseNews extends IResponse {
 }
 export interface IResponseOneNews extends IResponse {
   response: RefNews;
+}
+export interface IResponseMachinery extends IResponse {
+  response: MachineryType[];
 }

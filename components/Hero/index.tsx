@@ -94,7 +94,7 @@ const Hero = () => {
                                             return (
                                               <li
                                                 key={index}
-                                                className="mb-3 cursor-pointer !text-black transition-all duration-300 last:mb-0 hover:text-mainColor"
+                                                className="mb-3 cursor-pointer !text-black transition-all duration-300 last:mb-0 hover:text-mainColor max-w-96"
                                               >
                                                 <Link
                                                   href={{

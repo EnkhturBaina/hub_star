@@ -45,7 +45,7 @@ const GridServices = ({
           <Link href={'/adv/' + adv.id} className="relative block aspect-[368/239]">
             {/* TODO ene deer yaahii ETR */}
             <Image
-              src={process.env.NEXT_PUBLIC_MEDIA_URL + adv.images[0].id}
+              src={process.env.NEXT_PUBLIC_MEDIA_URL + adv.images[0]?.id}
               // src={''}
               alt={adv.title}
               fill

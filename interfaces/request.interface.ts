@@ -87,3 +87,9 @@ export interface IAdviceParam extends IPageOptions {
 export interface IRefNotificationParam {
   authorId: number;
 }
+export interface IMachineryParam {
+  id: number;
+  name?: string;
+  type?: string;
+  parentId?: number;
+}

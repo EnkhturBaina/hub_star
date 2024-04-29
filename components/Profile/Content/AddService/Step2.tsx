@@ -134,7 +134,7 @@ const Step2: React.FC<IProps> = ({ adData, setAdData }) => {
             label: 'font-bold',
             trigger: 'custom-select-trigger bg-white',
           }}
-          selectedKeys={adData?.provinceId?.toString()}
+          value={adData?.provinceId?.toString()}
           onChange={changeAimag}
         >
           {provinces.map((data: Address) => (
@@ -154,7 +154,7 @@ const Step2: React.FC<IProps> = ({ adData, setAdData }) => {
             label: 'font-bold',
             trigger: 'custom-select-trigger bg-white',
           }}
-          selectedKeys={adData?.districtId?.toString()}
+          value={adData?.districtId?.toString()}
           onChange={changeDuureg}
         >
           {districts.map((data: Address) => (
@@ -174,7 +174,7 @@ const Step2: React.FC<IProps> = ({ adData, setAdData }) => {
             label: 'font-bold',
             trigger: 'custom-select-trigger bg-white',
           }}
-          selectedKeys={adData?.khorooId?.toString()}
+          value={adData?.khorooId?.toString()}
           onChange={changeKhoroo}
         >
           {khoroos.map((data: Address) => (

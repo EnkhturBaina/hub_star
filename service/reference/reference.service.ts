@@ -5,6 +5,7 @@ import {
   IResponseCategories,
   IResponseDirections,
   IResponseLocalFile,
+  IResponseMachinery,
   IResponseMainDirection,
   IResponseMainDirections,
   IResponseMenu,
@@ -20,6 +21,7 @@ import {
   IAddressParam,
   IAdviceParam,
   IDirectionParam,
+  IMachineryParam,
   IRefNotificationParam,
   ISubDirectionParam,
 } from '@/interfaces/request.interface';
@@ -81,6 +83,9 @@ const getNews = (): Promise<IResponseNews> => {
 const getNewsById = (id: number | string): Promise<IResponseOneNews> => {
   return api.get('/reference/news/show/' + id);
 };
+const getMachinery = (params: IMachineryParam): Promise<IResponseMachinery> => {
+  return api.get('/reference/machinery', { params });
+};
 
 export const ReferenceService = {
   getMainDirection,
@@ -100,4 +105,5 @@ export const ReferenceService = {
   removeNotification,
   getNews,
   getNewsById,
+  getMachinery,
 };

@@ -3,17 +3,35 @@
 import { motion } from 'framer-motion';
 import { Checkbox, Input, Select, SelectItem, Textarea } from '@nextui-org/react';
 import { BsImage } from 'react-icons/bs';
-import { ICreateAd } from '@/interfaces/request.interface';
+import { ICreateAd, IMachineryParam } from '@/interfaces/request.interface';
 import ImageUpload from '@/components/Image/image-upload';
 import Image from 'next/image';
 import UserTabData from '@/app/data/UserTabData';
-import { UserTab } from '@/types/reference';
+import { MachineryType, UserTab } from '@/types/reference';
+import { useEffect } from 'react';
 interface IProps {
   adData: ICreateAd;
   setAdData: React.Dispatch<React.SetStateAction<ICreateAd>>;
+  getMachinery: React.Dispatch<React.SetStateAction<IMachineryParam>>;
+  machineryType: MachineryType[];
+  powerData: MachineryType[];
+  markData: MachineryType[];
 }
 //Тээвэр
-const Transportation: React.FC<IProps> = ({ adData, setAdData }) => {
+const Transportation: React.FC<IProps> = ({
+  adData,
+  setAdData,
+  getMachinery,
+  machineryType,
+  markData,
+  powerData,
+}) => {
+  useEffect(() => {
+    getMachinery({ type: 'MACHINERY_TYPE', id: undefined });
+    getMachinery({ type: 'MARK', id: undefined });
+    getMachinery({ type: 'POWER', id: undefined });
+  }, []);
+
   return (
     <motion.div
       variants={{
@@ -75,9 +93,9 @@ const Transportation: React.FC<IProps> = ({ adData, setAdData }) => {
             }));
           }}
         >
-          {UserTabData?.map((data: UserTab, index: number) => (
-            <SelectItem key={data.type} value={data.type}>
-              {data.title}
+          {machineryType?.map((data: MachineryType, index: number) => (
+            <SelectItem key={data.id} value={data.id}>
+              {data.name}
             </SelectItem>
           ))}
         </Select>
@@ -100,9 +118,9 @@ const Transportation: React.FC<IProps> = ({ adData, setAdData }) => {
             }));
           }}
         >
-          {UserTabData?.map((data: UserTab, index: number) => (
-            <SelectItem key={data.type} value={data.type}>
-              {data.title}
+          {markData?.map((data: MachineryType, index: number) => (
+            <SelectItem key={data.id} value={data.id}>
+              {data.name}
             </SelectItem>
           ))}
         </Select>
@@ -125,9 +143,9 @@ const Transportation: React.FC<IProps> = ({ adData, setAdData }) => {
             }));
           }}
         >
-          {UserTabData?.map((data: UserTab, index: number) => (
-            <SelectItem key={data.type} value={data.type}>
-              {data.title}
+          {powerData?.map((data: MachineryType, index: number) => (
+            <SelectItem key={data.id} value={data.id}>
+              {data.name}
             </SelectItem>
           ))}
         </Select>

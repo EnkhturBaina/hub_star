@@ -151,3 +151,9 @@ export type RefNews = {
   relLink: string;
   imageId: number;
 };
+export type MachineryType = {
+  id: number;
+  name: string;
+  type: string;
+  parentId: number;
+};

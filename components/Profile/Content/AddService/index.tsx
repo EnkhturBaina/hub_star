@@ -2,19 +2,21 @@
 import { motion } from 'framer-motion';
 import { Button } from '@nextui-org/react';
 import { Progress } from 'semantic-ui-react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Step1 from './Step1';
 import Step2 from './Step2';
 import Step3 from './Step3';
 import toast, { Toaster } from 'react-hot-toast';
 import { AdvertisementService } from '@/service/advertisement/advertisement.service';
-import { ICreateAd } from '@/interfaces/request.interface';
+import { ICreateAd, IMachineryParam } from '@/interfaces/request.interface';
 
 import Subscriber from '../AddService/Step3/Subscriber';
 import Executor from '../AddService/Step3/Executor';
 import Supplier from '../AddService/Step3/Supplier';
 import Transportation from '../AddService/Step3/Transportation';
 import Machinery from '../AddService/Step3/Machinery';
+import { ReferenceService } from '@/service/reference/reference.service';
+import { MachineryType } from '@/types/reference';
 
 const defaultCreateAd: ICreateAd = {
   mainDirectionId: null,
@@ -57,11 +59,28 @@ const AddService = ({
   const [step, setStep] = useState(1);
   const maxStep = 3;
   const [createAd, setCreateAd] = useState<ICreateAd>(defaultCreateAd);
+
+  const [machineryType, setMachineryType] = useState<MachineryType[]>([]);
+  const [markData, setMarkData] = useState<MachineryType[]>([]);
+  const [powerData, setPowerData] = useState<MachineryType[]>([]);
+  const [modelData, setModelData] = useState<MachineryType[]>([]);
+
   const totalCounter = Object.entries(createAd).reduce((total, _) => total + 1, 0);
   const valueCounter = Object.entries(createAd).reduce(
     (total, item) => total + (item[1] !== null ? 1 : 0),
     0
   );
+
+  const getMachinery = (params: IMachineryParam) => {
+    ReferenceService.getMachinery(params).then(response => {
+      if (response.success) {
+        params.type == 'MACHINERY_TYPE' && setMachineryType(response.response);
+        params.type == 'MARK' && setMarkData(response.response);
+        params.type == 'POWER' && setPowerData(response.response);
+        params.type == 'MODEL' && setModelData(response.response);
+      }
+    });
+  };
 
   const createAdRequest = () => {
     AdvertisementService.create(createAd).then(response => {
@@ -263,10 +282,25 @@ const AddService = ({
         <Supplier adData={createAd} setAdData={setCreateAd} />
       ) : null}
       {step === 3 && createAd?.userType == 'TRANSPORTATION' ? (
-        <Transportation adData={createAd} setAdData={setCreateAd} />
+        <Transportation
+          adData={createAd}
+          setAdData={setCreateAd}
+          getMachinery={getMachinery}
+          machineryType={machineryType}
+          powerData={powerData}
+          markData={markData}
+        />
       ) : null}
       {step === 3 && createAd?.userType == 'MACHINERY' ? (
-        <Machinery adData={createAd} setAdData={setCreateAd} />
+        <Machinery
+          adData={createAd}
+          setAdData={setCreateAd}
+          getMachinery={getMachinery}
+          machineryType={machineryType}
+          powerData={powerData}
+          markData={markData}
+          modelData={modelData}
+        />
       ) : null}
 
       <div className="flex flex-row justify-between">

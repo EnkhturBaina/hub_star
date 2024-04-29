@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import CatItem from './CatItem';
 import { useAppContext } from '@/app/app-context';
 import { Button } from '@nextui-org/react';
 import { motion } from 'framer-motion';
+import { useDraggable } from 'react-use-draggable-scroll';
 
 const GridCategory = () => {
   const { mainDirections } = useAppContext();
+  const ref = useRef(); // We will use React useRef hook to reference the wrapping div:
+  const { events } = useDraggable(ref); // Now we pass the reference to the useDraggable hook:
   return (
     <motion.div
       variants={{
@@ -35,7 +38,7 @@ const GridCategory = () => {
         </Button>
       </div>
       <div className="mx-auto mt-5 max-w-c-1280 overflow-x-auto flex min-w-0">
-        <div className="overflow-x-auto flex gap-8 no-scrollbar">
+        <div className="overflow-x-scroll flex gap-8 no-scrollbar" {...events} ref={ref}>
           {mainDirections.map((item, index) => (
             <CatItem mainDirection={item} key={index} />
           ))}
