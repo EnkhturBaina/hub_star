@@ -15,6 +15,7 @@ export interface IAdParam extends IPageOptions {
   title?: string;
   userBy?: number;
   createdBy?: number;
+  specialService?: string;
 }
 export interface ICreateAd {
   mainDirectionId?: number;

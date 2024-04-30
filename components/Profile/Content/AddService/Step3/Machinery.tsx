@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Checkbox, Input, Textarea, Autocomplete, AutocompleteItem } from '@nextui-org/react';
+import { Checkbox, Input, Textarea } from '@nextui-org/react';
 import { BsImage } from 'react-icons/bs';
 import { ICreateAd, IMachineryParam } from '@/interfaces/request.interface';
 import ImageUpload from '@/components/Image/image-upload';
@@ -9,6 +9,7 @@ import Image from 'next/image';
 import UserTabData from '@/app/data/UserTabData';
 import { MachineryType, UserTab } from '@/types/reference';
 import { useEffect } from 'react';
+import CustomSelect from '@/components/Inputs/Select';
 interface IProps {
   adData: ICreateAd;
   setAdData: React.Dispatch<React.SetStateAction<ICreateAd>>;
@@ -43,6 +44,7 @@ const Machinery: React.FC<IProps> = ({
       getMachinery({ type: 'MODEL', parentId: adData.markId });
     }
   }, [adData.markId]);
+
   return (
     <motion.div
       variants={{
@@ -64,98 +66,52 @@ const Machinery: React.FC<IProps> = ({
     >
       Machinery Машин механизм
       <div className="grid grid-cols-1 gap-4">
-        <Autocomplete
+        <CustomSelect
           label="Машин механизмийн төрөл"
-          labelPlacement="outside"
-          placeholder="Сонгох"
-          radius="sm"
-          size="lg"
-          variant="bordered"
-          classNames={{
-            label: 'font-bold',
-            trigger: 'custom-select-trigger bg-white',
-          }}
           value={adData?.machineryTypeId?.toString()}
-          onChange={e => {
+          onSelectionChange={value => {
             setAdData((prevState: ICreateAd) => ({
               ...prevState,
-              machineryTypeId: parseInt(e.target.value),
+              machineryTypeId: Number(value),
             }));
           }}
-        >
-          {machineryType?.map((data: MachineryType, index: number) => (
-            <AutocompleteItem key={data.id} value={data.id}>
-              {data.name}
-            </AutocompleteItem>
-          ))}
-        </Autocomplete>
+          options={machineryType.map(item => ({ value: item.id, label: item.name }))}
+        />
       </div>
       <div className="grid grid-cols-3 gap-4">
-        <Autocomplete
+        <CustomSelect
           label="Марк"
-          labelPlacement="outside"
-          placeholder="Сонгох"
-          radius="sm"
-          size="lg"
-          variant="bordered"
-          classNames={{
-            label: 'font-bold',
-            trigger: 'custom-select-trigger bg-white',
-          }}
           value={adData?.markId?.toString()}
-          onChange={e => {
+          onSelectionChange={value => {
             setAdData((prevState: ICreateAd) => ({
               ...prevState,
-              markId: parseInt(e.target.value),
+              markId: Number(value),
             }));
           }}
-        >
-          {markData?.map((data: MachineryType, index: number) => (
-            <AutocompleteItem key={data.id} value={data.id}>
-              {data.name}
-            </AutocompleteItem>
-          ))}
-        </Autocomplete>
-        <Autocomplete
+          options={markData.map(item => ({ value: item.id, label: item.name }))}
+        />
+        <CustomSelect
           label="Загвар"
-          labelPlacement="outside"
-          placeholder="Сонгох"
-          radius="sm"
-          size="lg"
-          variant="bordered"
-          classNames={{
-            label: 'font-bold',
-            trigger: 'custom-select-trigger bg-white',
-          }}
           value={adData?.modelId?.toString()}
-          onChange={handleChange('modelId')}
-        >
-          {modelData?.map((data: MachineryType, index: number) => (
-            <AutocompleteItem key={data.id} value={data.id}>
-              {data.name}
-            </AutocompleteItem>
-          ))}
-        </Autocomplete>
-        <Autocomplete
-          label="Хүчин чадал"
-          labelPlacement="outside"
-          placeholder="Сонгох"
-          radius="sm"
-          size="lg"
-          variant="bordered"
-          classNames={{
-            label: 'font-bold',
-            trigger: 'custom-select-trigger bg-white',
+          onSelectionChange={value => {
+            setAdData((prevState: ICreateAd) => ({
+              ...prevState,
+              modelId: Number(value),
+            }));
           }}
+          options={modelData.map(item => ({ value: item.id, label: item.name }))}
+        />
+        <CustomSelect
+          label="Хүчин чадал"
           value={adData?.powerId?.toString()}
-          onChange={handleChange('powerId')}
-        >
-          {powerData?.map((data: MachineryType, index: number) => (
-            <AutocompleteItem key={data.id} value={data.id}>
-              {data.name}
-            </AutocompleteItem>
-          ))}
-        </Autocomplete>
+          onSelectionChange={value => {
+            setAdData((prevState: ICreateAd) => ({
+              ...prevState,
+              powerId: Number(value),
+            }));
+          }}
+          options={powerData.map(item => ({ value: item.id, label: item.name }))}
+        />
       </div>
       <div className="grid grid-cols-2 gap-4">
         <Input

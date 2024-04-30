@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Button, Input, Autocomplete, AutocompleteItem, Textarea } from '@nextui-org/react';
+import { Button, Input, Textarea } from '@nextui-org/react';
 import { Fragment, useCallback, useEffect, useState } from 'react';
 import { BsImage } from 'react-icons/bs';
 import { ReferenceService } from '@/service/reference/reference.service';
@@ -12,6 +12,7 @@ import ImageUpload from '@/components/Image/image-upload';
 import Image from 'next/image';
 import { AuthService } from '@/service/authentication/authentication.service';
 import ConfirmSkeleton from '@/components/Skeleton/ConfirmSkeleton';
+import CustomSelect from '@/components/Inputs/Select';
 
 const Confirmation = () => {
   const { user, setUser } = useAppContext();
@@ -103,46 +104,29 @@ const Confirmation = () => {
               duration: 5000,
             }}
           />
-          <Autocomplete
+
+          <CustomSelect
             label="Хэрэглэгчийн төрөл"
-            labelPlacement="outside"
-            placeholder="Сонгох"
-            radius="sm"
-            size="lg"
-            variant="bordered"
-            classNames={{
-              label: 'font-bold',
-              trigger: 'custom-select-trigger bg-white',
+            value={values?.categoryId?.toString()}
+            onSelectionChange={value => {
+              setValues((prevState: Users) => ({
+                ...prevState,
+                categoryId: Number(value),
+              }));
             }}
-            value={values?.categoryId ?? ''}
-            onChange={handleChange('categoryId')}
-          >
-            {categories.map(item => (
-              <AutocompleteItem key={item.id} value={item.id}>
-                {item.name}
-              </AutocompleteItem>
-            ))}
-          </Autocomplete>
-          <Autocomplete
+            options={categories.map(item => ({ value: item.id, label: item.name }))}
+          />
+          <CustomSelect
             label="Үйл ажиллагааны үндсэн чиглэл"
-            labelPlacement="outside"
-            placeholder="Сонгох"
-            radius="sm"
-            size="lg"
-            variant="bordered"
-            classNames={{
-              label: 'font-bold',
-              trigger: 'custom-select-trigger bg-white',
+            value={values?.mainDirectionId?.toString()}
+            onSelectionChange={value => {
+              setValues((prevState: Users) => ({
+                ...prevState,
+                mainDirectionId: Number(value),
+              }));
             }}
-            value={values?.mainDirectionId ?? ''}
-            onChange={handleChange('mainDirectionId')}
-          >
-            {mainDirections.map(item => (
-              <AutocompleteItem key={item.id} value={item.id}>
-                {item.name}
-              </AutocompleteItem>
-            ))}
-          </Autocomplete>
+            options={mainDirections.map(item => ({ value: item.id, label: item.name }))}
+          />
           <div className="font-bold">Байгууллагын гэрчилгээний болон Иргэний үнэмлэхний зураг</div>
           <div className="grid grid-cols-3 gap-3">
             <div className="flex h-40 cursor-pointer flex-col items-center justify-center rounded-lg bg-mainGray">

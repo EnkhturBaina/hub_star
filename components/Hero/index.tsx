@@ -28,8 +28,6 @@ const Hero = () => {
   const getNews = () => {
     ReferenceService.getNews().then(res => {
       if (res.success) {
-        console.log('res', res.response);
-
         setNews(res.response);
       }
     });

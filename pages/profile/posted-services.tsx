@@ -34,8 +34,6 @@ const PostedServices: NextPage = () => {
     getData();
   }, [getData]);
   if (!isAddService) {
-    console.log('advertisements', advertisements);
-
     return (
       <ProfileLayout>
         <div className="mb-4 w-full overflow-hidden ">

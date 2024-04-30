@@ -1,56 +1,37 @@
 import { useAppContext } from '@/app/app-context';
-import AdviceItem from '@/components/Blog/AdviceItem';
+import BlogItem from '@/components/Blog/BlogItem';
 import BreadCrumbs from '@/components/BreadCrumbs';
 import SideCheckDirection from '@/components/Common/SideCheckDirection';
+import SideCheckSubDirection from '@/components/Common/SideCheckSubDirection';
 import PaginationComp from '@/components/Pagination';
-import { IAdParam, IAdviceParam } from '@/interfaces/request.interface';
-import { ReferenceService } from '@/service/reference/reference.service';
-import { Advice, MainDirection, PageMeta } from '@/types/reference';
+import { IAdParam } from '@/interfaces/request.interface';
+import { MainDirection } from '@/types/reference';
 import { Button, Select, SelectItem } from '@nextui-org/react';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { IoIosAddCircleOutline } from 'react-icons/io';
-
-/** Зөвлөмжүүд */
-const AdvicePage: NextPage = () => {
-  const router = useRouter();
-  const { mainDirections } = useAppContext();
-  const [advices, setAdvices] = useState<Advice[]>([]);
-  const [params, setParams] = useState<IAdviceParam>({ page: 1, limit: 10, order: 'DESC' });
-  const [pageMeta, setPageMeta] = useState<PageMeta>({
-    page: 1,
-    limit: 10,
-    hasNextPage: false,
-    hasPreviousPage: false,
-    itemCount: 0,
-    pageCount: 1,
-  });
+const SpecialService: NextPage = () => {
+  const { mainDirections, adParam, setAdParam, advertisements, adMeta } = useAppContext();
   const [mainDirection, setMainDirection] = useState<MainDirection>();
-
-  const getData = useCallback(async () => {
-    await ReferenceService.getAdvice(params).then(res => {
-      if (res.success) {
-        // console.log('res.response.data', res.response.data);
-
-        setAdvices(res.response.data);
-        setPageMeta(res.response.meta);
-      }
-    });
-  }, [params]);
+  const router = useRouter();
 
   useEffect(() => {
-    if (router.query.mainDirectionId) {
-      setParams(prev => ({ ...prev, mainDirectionId: Number(router.query.mainDirectionId) }));
-      setMainDirection(
-        mainDirections.find(item => Number(router.query.mainDirectionId) === item.id)
-      );
+    const param: IAdParam = {
+      order: 'DESC',
+      page: 1,
+      limit: 10,
+      process: 'CREATED',
+    };
+    if (router.query.specialServiceType) {
+      param.specialService = router.query.specialServiceType;
     }
+    setAdParam(param);
   }, [router.query]);
 
   useEffect(() => {
-    getData();
-  }, [getData]);
+    // setMainDirection(mainDirections.find(item => adParam.mainDirectionId === item.id));
+  }, [mainDirections, adParam.mainDirectionId]);
 
   return (
     <>
@@ -59,7 +40,7 @@ const AdvicePage: NextPage = () => {
           <div className="mx-auto flex max-w-screen-xl flex-row justify-between gap-7.5 py-18 lg:flex-row xl:gap-12.5">
             <div className="flex flex-col">
               <span className="text-xl">
-                Нийт утга: <span className="font-bold">{}</span>
+                Нийт утга: <span className="font-bold">{adMeta.itemCount}</span>
               </span>
               <div>
                 <BreadCrumbs />
@@ -67,11 +48,8 @@ const AdvicePage: NextPage = () => {
             </div>
           </div>
         </div>
-        <div className="flex flex-col md:flex-row mx-auto max-w-screen-xl gap-4 px-4 md:px-8 2xl:px-0">
-          <SideCheckDirection
-            mainDirection={mainDirection}
-            onDirectionIds={directionIds => setParams(prev => ({ ...prev, directionIds }))}
-          />
+        <div className="mx-auto flex max-w-screen-xl gap-4 px-4 md:px-8 2xl:px-0">
+          <SideCheckSubDirection mainDirection={mainDirection} />
           <div className="px-6 pb-6 lg:w-3/4">
             <div className="my-4 flex flex-row justify-between">
               <Select
@@ -81,16 +59,23 @@ const AdvicePage: NextPage = () => {
                 size="md"
                 variant="bordered"
                 classNames={{
-                  base: 'w-40 !mt-0',
+                  base: 'w-50',
                   label: 'font-bold',
                   trigger: 'custom-select-trigger bg-white',
                 }}
                 value="DESC"
                 onChange={e => {
-                  setParams(prev => ({
-                    ...prev,
-                    order: e.target.value == 'ASC' ? 'ASC' : 'DESC',
-                  }));
+                  if (e.target.value == ('ASC' || 'DESC')) {
+                    // setAdParam({
+                    //   order: e.target.value,
+                    //   page: 1,
+                    //   limit: 10,
+                    //   categoryId: adParam.categoryId,
+                    //   mainDirectionId: adParam.mainDirectionId,
+                    //   directionIds: adParam.directionIds,
+                    //   subDirectionIds: adParam.subDirectionIds,
+                    // });
+                  }
                 }}
               >
                 <SelectItem key="DESC">Огноогоор (Z-A)</SelectItem>
@@ -104,12 +89,12 @@ const AdvicePage: NextPage = () => {
                 Онцгой үйлчилгээ оруулах
               </Button>
             </div>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-              {advices.map((item, index) => (
-                <AdviceItem advice={item} key={index} />
+            <div className="grid grid-cols-2 gap-6">
+              {advertisements.map((blog, key) => (
+                <BlogItem blog={blog} key={key} />
               ))}
             </div>
-            <PaginationComp page={pageMeta.page} pageCount={pageMeta.pageCount} />
+            <PaginationComp page={adMeta.page} pageCount={adMeta.pageCount} />
           </div>
         </div>
       </section>
@@ -117,4 +102,4 @@ const AdvicePage: NextPage = () => {
   );
 };
 
-export default AdvicePage;
+export default SpecialService;

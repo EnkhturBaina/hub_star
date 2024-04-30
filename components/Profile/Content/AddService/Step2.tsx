@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Input, Autocomplete, AutocompleteItem, Textarea } from '@nextui-org/react';
+import { Input, Textarea } from '@nextui-org/react';
 import { useEffect, useState } from 'react';
 import { IAddressParam, ICreateAd } from '@/interfaces/request.interface';
 import { Address } from '@/types/reference';
@@ -51,6 +51,7 @@ const Step2: React.FC<IProps> = ({ adData, setAdData }) => {
       getAddress({ type: 'KHOROO', parentId: adData.districtId });
     }
   }, [adData.districtId]);
+
   return (
     <motion.div
       variants={{
@@ -86,7 +87,7 @@ const Step2: React.FC<IProps> = ({ adData, setAdData }) => {
             label: 'font-bold',
             inputWrapper: ['custom-input-wrapper', 'bg-white'],
           }}
-          value={adData?.title}
+          value={adData?.title ?? ''}
           onValueChange={e => {
             setAdData((prevState: ICreateAd) => ({
               ...prevState,
@@ -108,7 +109,7 @@ const Step2: React.FC<IProps> = ({ adData, setAdData }) => {
               label: 'font-bold',
               inputWrapper: ['custom-input-wrapper', 'bg-white'],
             }}
-            value={String(adData.price)}
+            value={String(adData.price) ?? ''}
             onValueChange={e => {
               setAdData((prevState: ICreateAd) => ({
                 ...prevState,
@@ -122,54 +123,36 @@ const Step2: React.FC<IProps> = ({ adData, setAdData }) => {
         <CustomSelect
           label="Аймаг, Хот"
           value={adData?.provinceId?.toString()}
-          onSelectionChange={value =>
+          onSelectionChange={value => {
             setAdData((prevState: ICreateAd) => ({
               ...prevState,
               provinceId: Number(value),
-            }))
-          }
+            }));
+          }}
           options={provinces.map(item => ({ value: item.id, label: item.name }))}
         />
-        <Autocomplete
+        <CustomSelect
           label="Сум, Дүүрэг"
-          labelPlacement="outside"
-          placeholder="Сонгох"
-          radius="sm"
-          size="lg"
-          variant="bordered"
-          classNames={{
-            label: 'font-bold',
-            trigger: 'custom-select-trigger bg-white',
-          }}
           value={adData?.districtId?.toString()}
-          onChange={changeDuureg}
-        >
-          {districts.map((data: Address) => (
-            <AutocompleteItem key={data.id} value={data.id}>
-              {data.name}
-            </AutocompleteItem>
-          ))}
-        </Autocomplete>
-        <Autocomplete
-          label="Баг, Хороо"
-          labelPlacement="outside"
-          placeholder="Сонгох"
-          radius="sm"
-          size="lg"
-          variant="bordered"
-          classNames={{
-            label: 'font-bold',
-            trigger: 'custom-select-trigger bg-white',
+          onSelectionChange={value => {
+            setAdData((prevState: ICreateAd) => ({
+              ...prevState,
+              districtId: Number(value),
+            }));
           }}
+          options={districts.map(item => ({ value: item.id, label: item.name }))}
+        />
+        <CustomSelect
+          label="Баг, Хороо"
           value={adData?.khorooId?.toString()}
-          onChange={changeKhoroo}
-        >
-          {khoroos.map((data: Address) => (
-            <AutocompleteItem key={data.id} value={data.id}>
-              {data.name}
-            </AutocompleteItem>
-          ))}
-        </Autocomplete>
+          onSelectionChange={value => {
+            setAdData((prevState: ICreateAd) => ({
+              ...prevState,
+              khorooId: Number(value),
+            }));
+          }}
+          options={khoroos.map(item => ({ value: item.id, label: item.name }))}
+        />
       </div>
       <Textarea
         variant="bordered"
@@ -182,7 +165,7 @@ const Step2: React.FC<IProps> = ({ adData, setAdData }) => {
           label: 'font-bold',
           inputWrapper: ['custom-input-wrapper', 'bg-white'],
         }}
-        value={adData?.address}
+        value={adData?.address ?? ''}
         onValueChange={e => {
           setAdData((prevState: ICreateAd) => ({
             ...prevState,

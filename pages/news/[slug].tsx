@@ -17,8 +17,6 @@ const MenuPage: NextPage = () => {
       ReferenceService.getNewsById(router.query['slug'].toString())
         .then(res => {
           if (res.success) {
-            console.log('DSSS', res.response);
-
             setPage(res.response);
             setLoading(false);
           }

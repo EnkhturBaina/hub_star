@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Checkbox, Input, Autocomplete, AutocompleteItem, Textarea } from '@nextui-org/react';
+import { Checkbox, Input, Textarea } from '@nextui-org/react';
 import { BsImage } from 'react-icons/bs';
 import { ICreateAd, IMachineryParam } from '@/interfaces/request.interface';
 import ImageUpload from '@/components/Image/image-upload';
@@ -9,6 +9,7 @@ import Image from 'next/image';
 import UserTabData from '@/app/data/UserTabData';
 import { MachineryType, UserTab } from '@/types/reference';
 import { useEffect } from 'react';
+import CustomSelect from '@/components/Inputs/Select';
 interface IProps {
   adData: ICreateAd;
   setAdData: React.Dispatch<React.SetStateAction<ICreateAd>>;
@@ -78,66 +79,40 @@ const Transportation: React.FC<IProps> = ({
             }));
           }}
         />
-        <Autocomplete
+
+        <CustomSelect
           label="Машин механизмийн төрөл"
-          labelPlacement="outside"
-          placeholder="Сонгох"
-          radius="sm"
-          size="lg"
-          variant="bordered"
-          classNames={{
-            label: 'font-bold',
-            trigger: 'custom-select-trigger bg-white',
+          value={adData?.machineryTypeId?.toString()}
+          onSelectionChange={value => {
+            setAdData((prevState: ICreateAd) => ({
+              ...prevState,
+              machineryTypeId: Number(value),
+            }));
           }}
-          value={adData?.machineryTypeId}
-          onChange={handleChange('machineryTypeId')}
-        >
-          {machineryType?.map((data: MachineryType, index: number) => (
-            <AutocompleteItem key={data.id} value={data.id}>
-              {data.name}
-            </AutocompleteItem>
-          ))}
-        </Autocomplete>
-        <Autocomplete
+          options={machineryType.map(item => ({ value: item.id, label: item.name }))}
+        />
+        <CustomSelect
           label="Марк"
-          labelPlacement="outside"
-          placeholder="Сонгох"
-          radius="sm"
-          size="lg"
-          variant="bordered"
-          classNames={{
-            label: 'font-bold',
-            trigger: 'custom-select-trigger bg-white',
+          value={adData?.markId?.toString()}
+          onSelectionChange={value => {
+            setAdData((prevState: ICreateAd) => ({
+              ...prevState,
+              markId: Number(value),
+            }));
           }}
-          value={adData?.markId}
-          onChange={handleChange('markId')}
-        >
-          {markData?.map((data: MachineryType, index: number) => (
-            <AutocompleteItem key={data.id} value={data.id}>
-              {data.name}
-            </AutocompleteItem>
-          ))}
-        </Autocomplete>
-        <Autocomplete
+          options={markData.map(item => ({ value: item.id, label: item.name }))}
+        />
+        <CustomSelect
           label="Хүчин чадал"
-          labelPlacement="outside"
-          placeholder="Сонгох"
-          radius="sm"
-          size="lg"
-          variant="bordered"
-          classNames={{
-            label: 'font-bold',
-            trigger: 'custom-select-trigger bg-white',
+          value={adData?.powerId?.toString()}
+          onSelectionChange={value => {
+            setAdData((prevState: ICreateAd) => ({
+              ...prevState,
+              powerId: Number(value),
+            }));
           }}
-          value={adData?.powerId}
-          onChange={handleChange('powerId')}
-        >
-          {powerData?.map((data: MachineryType, index: number) => (
-            <AutocompleteItem key={data.id} value={data.id}>
-              {data.name}
-            </AutocompleteItem>
-          ))}
-        </Autocomplete>
+          options={powerData.map(item => ({ value: item.id, label: item.name }))}
+        />
 
         <Input
           key="unitAmount"
