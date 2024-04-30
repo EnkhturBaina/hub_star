@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Button, Input, Select, SelectItem, Textarea } from '@nextui-org/react';
+import { Button, Input, Autocomplete, AutocompleteItem, Textarea } from '@nextui-org/react';
 import { Fragment, useCallback, useEffect, useState } from 'react';
 import { BsImage } from 'react-icons/bs';
 import { ReferenceService } from '@/service/reference/reference.service';
@@ -33,7 +33,7 @@ const Confirmation = () => {
       })
       .catch(err => toast.error(err));
   }, []);
-  
+
   useEffect(() => {
     getCategory();
   }, [getCategory]);
@@ -103,7 +103,7 @@ const Confirmation = () => {
               duration: 5000,
             }}
           />
-          <Select
+          <Autocomplete
             label="Хэрэглэгчийн төрөл"
             labelPlacement="outside"
             placeholder="Сонгох"
@@ -118,12 +118,12 @@ const Confirmation = () => {
             onChange={handleChange('categoryId')}
           >
             {categories.map(item => (
-              <SelectItem key={item.id} value={item.id}>
+              <AutocompleteItem key={item.id} value={item.id}>
                 {item.name}
-              </SelectItem>
+              </AutocompleteItem>
             ))}
-          </Select>
-          <Select
+          </Autocomplete>
+          <Autocomplete
             label="Үйл ажиллагааны үндсэн чиглэл"
             labelPlacement="outside"
             placeholder="Сонгох"
@@ -138,11 +138,11 @@ const Confirmation = () => {
             onChange={handleChange('mainDirectionId')}
           >
             {mainDirections.map(item => (
-              <SelectItem key={item.id} value={item.id}>
+              <AutocompleteItem key={item.id} value={item.id}>
                 {item.name}
-              </SelectItem>
+              </AutocompleteItem>
             ))}
-          </Select>
+          </Autocomplete>
           <div className="font-bold">Байгууллагын гэрчилгээний болон Иргэний үнэмлэхний зураг</div>
           <div className="grid grid-cols-3 gap-3">
             <div className="flex h-40 cursor-pointer flex-col items-center justify-center rounded-lg bg-mainGray">

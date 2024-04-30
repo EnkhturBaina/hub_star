@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Input, Select, SelectItem, Textarea } from '@nextui-org/react';
+import { Input, Autocomplete, AutocompleteItem, Textarea } from '@nextui-org/react';
 import { useEffect, useState } from 'react';
 import { IAddressParam, ICreateAd } from '@/interfaces/request.interface';
 import { Address } from '@/types/reference';
@@ -123,7 +123,7 @@ const Step2: React.FC<IProps> = ({ adData, setAdData }) => {
         ) : null}
       </div>
       <div className="grid grid-cols-3 gap-4">
-        <Select
+        <Autocomplete
           label="Аймаг, Хот"
           labelPlacement="outside"
           placeholder="Сонгох"
@@ -138,12 +138,12 @@ const Step2: React.FC<IProps> = ({ adData, setAdData }) => {
           onChange={changeAimag}
         >
           {provinces.map((data: Address) => (
-            <SelectItem key={data.id} value={data.id}>
+            <AutocompleteItem key={data.id} value={data.id}>
               {data.name}
-            </SelectItem>
+            </AutocompleteItem>
           ))}
-        </Select>
-        <Select
+        </Autocomplete>
+        <Autocomplete
           label="Сум, Дүүрэг"
           labelPlacement="outside"
           placeholder="Сонгох"
@@ -158,12 +158,12 @@ const Step2: React.FC<IProps> = ({ adData, setAdData }) => {
           onChange={changeDuureg}
         >
           {districts.map((data: Address) => (
-            <SelectItem key={data.id} value={data.id}>
+            <AutocompleteItem key={data.id} value={data.id}>
               {data.name}
-            </SelectItem>
+            </AutocompleteItem>
           ))}
-        </Select>
-        <Select
+        </Autocomplete>
+        <Autocomplete
           label="Баг, Хороо"
           labelPlacement="outside"
           placeholder="Сонгох"
@@ -178,11 +178,11 @@ const Step2: React.FC<IProps> = ({ adData, setAdData }) => {
           onChange={changeKhoroo}
         >
           {khoroos.map((data: Address) => (
-            <SelectItem key={data.id} value={data.id}>
+            <AutocompleteItem key={data.id} value={data.id}>
               {data.name}
-            </SelectItem>
+            </AutocompleteItem>
           ))}
-        </Select>
+        </Autocomplete>
       </div>
       <Textarea
         variant="bordered"

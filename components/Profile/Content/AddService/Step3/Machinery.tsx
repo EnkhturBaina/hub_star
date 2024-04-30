@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Checkbox, Input, Textarea, Select, SelectItem } from '@nextui-org/react';
+import { Checkbox, Input, Textarea, Autocomplete, AutocompleteItem } from '@nextui-org/react';
 import { BsImage } from 'react-icons/bs';
 import { ICreateAd, IMachineryParam } from '@/interfaces/request.interface';
 import ImageUpload from '@/components/Image/image-upload';
@@ -64,7 +64,7 @@ const Machinery: React.FC<IProps> = ({
     >
       Machinery Машин механизм
       <div className="grid grid-cols-1 gap-4">
-        <Select
+        <Autocomplete
           label="Машин механизмийн төрөл"
           labelPlacement="outside"
           placeholder="Сонгох"
@@ -84,14 +84,14 @@ const Machinery: React.FC<IProps> = ({
           }}
         >
           {machineryType?.map((data: MachineryType, index: number) => (
-            <SelectItem key={data.id} value={data.id}>
+            <AutocompleteItem key={data.id} value={data.id}>
               {data.name}
-            </SelectItem>
+            </AutocompleteItem>
           ))}
-        </Select>
+        </Autocomplete>
       </div>
       <div className="grid grid-cols-3 gap-4">
-        <Select
+        <Autocomplete
           label="Марк"
           labelPlacement="outside"
           placeholder="Сонгох"
@@ -111,12 +111,12 @@ const Machinery: React.FC<IProps> = ({
           }}
         >
           {markData?.map((data: MachineryType, index: number) => (
-            <SelectItem key={data.id} value={data.id}>
+            <AutocompleteItem key={data.id} value={data.id}>
               {data.name}
-            </SelectItem>
+            </AutocompleteItem>
           ))}
-        </Select>
-        <Select
+        </Autocomplete>
+        <Autocomplete
           label="Загвар"
           labelPlacement="outside"
           placeholder="Сонгох"
@@ -131,12 +131,12 @@ const Machinery: React.FC<IProps> = ({
           onChange={handleChange('modelId')}
         >
           {modelData?.map((data: MachineryType, index: number) => (
-            <SelectItem key={data.id} value={data.id}>
+            <AutocompleteItem key={data.id} value={data.id}>
               {data.name}
-            </SelectItem>
+            </AutocompleteItem>
           ))}
-        </Select>
-        <Select
+        </Autocomplete>
+        <Autocomplete
           label="Хүчин чадал"
           labelPlacement="outside"
           placeholder="Сонгох"
@@ -151,11 +151,11 @@ const Machinery: React.FC<IProps> = ({
           onChange={handleChange('powerId')}
         >
           {powerData?.map((data: MachineryType, index: number) => (
-            <SelectItem key={data.id} value={data.id}>
+            <AutocompleteItem key={data.id} value={data.id}>
               {data.name}
-            </SelectItem>
+            </AutocompleteItem>
           ))}
-        </Select>
+        </Autocomplete>
       </div>
       <div className="grid grid-cols-2 gap-4">
         <Input

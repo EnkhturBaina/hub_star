@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Select, SelectItem } from '@nextui-org/react';
+import { Autocomplete, AutocompleteItem } from '@nextui-org/react';
 import React, { useEffect, useState } from 'react';
 import { useAppContext } from '@/app/app-context';
 import { Category, RefDirection, MainDirection, SubDirection, UserTab } from '@/types/reference';
@@ -56,7 +56,7 @@ const Step1: React.FC<IProps> = ({ adData, setAdData }) => {
       viewport={{ once: true }}
       className="mb-4 grid w-full grid-cols-1 gap-y-4 overflow-hidden p-2"
     >
-      <Select
+      <Autocomplete
         label="Хэрэглэгчийн төрөл"
         labelPlacement="outside"
         placeholder="Сонгох"
@@ -76,12 +76,12 @@ const Step1: React.FC<IProps> = ({ adData, setAdData }) => {
         }}
       >
         {UserTabData?.map((data: UserTab, index: number) => (
-          <SelectItem key={data.type} value={data.type}>
+          <AutocompleteItem key={data.type} value={data.type}>
             {data.title}
-          </SelectItem>
+          </AutocompleteItem>
         ))}
-      </Select>
-      <Select
+      </Autocomplete>
+      <Autocomplete
         label="Үйл ажиллагааны үндсэн чиглэл"
         labelPlacement="outside"
         placeholder="Сонгох"
@@ -101,13 +101,13 @@ const Step1: React.FC<IProps> = ({ adData, setAdData }) => {
         value={adData?.mainDirectionId?.toString()}
       >
         {mainDirections.map((data: MainDirection) => (
-          <SelectItem key={data?.id} value={data.id}>
+          <AutocompleteItem key={data?.id} value={data.id}>
             {data.name}
-          </SelectItem>
+          </AutocompleteItem>
         ))}
-      </Select>
+      </Autocomplete>
 
-      <Select
+      <Autocomplete
         label="Үйл ажиллагааны чиглэл"
         labelPlacement="outside"
         placeholder="Сонгох"
@@ -127,12 +127,12 @@ const Step1: React.FC<IProps> = ({ adData, setAdData }) => {
         }}
       >
         {directions.map((data: RefDirection) => (
-          <SelectItem key={data.id} value={data.id}>
+          <AutocompleteItem key={data.id} value={data.id}>
             {data.name}
-          </SelectItem>
+          </AutocompleteItem>
         ))}
-      </Select>
-      <Select
+      </Autocomplete>
+      <Autocomplete
         label="Үйл ажиллагааны нэр"
         labelPlacement="outside"
         placeholder="Сонгох"
@@ -152,11 +152,11 @@ const Step1: React.FC<IProps> = ({ adData, setAdData }) => {
         }}
       >
         {subDirections.map((data: SubDirection) => (
-          <SelectItem key={data.id} value={data.id}>
+          <AutocompleteItem key={data.id} value={data.id}>
             {data.name}
-          </SelectItem>
+          </AutocompleteItem>
         ))}
-      </Select>
+      </Autocomplete>
     </motion.div>
   );
 };

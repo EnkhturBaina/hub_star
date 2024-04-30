@@ -20,7 +20,7 @@ const Profile: NextPage = () => {
     if (profileData == null) {
       setProfileData(user);
     }
-  }, []);
+  }, [user]);
 
   const isInvalid = useMemo(() => {
     if (profileData?.email === '') return false;

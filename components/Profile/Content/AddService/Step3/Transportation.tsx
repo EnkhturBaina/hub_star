@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Checkbox, Input, Select, SelectItem, Textarea } from '@nextui-org/react';
+import { Checkbox, Input, Autocomplete, AutocompleteItem, Textarea } from '@nextui-org/react';
 import { BsImage } from 'react-icons/bs';
 import { ICreateAd, IMachineryParam } from '@/interfaces/request.interface';
 import ImageUpload from '@/components/Image/image-upload';
@@ -78,7 +78,7 @@ const Transportation: React.FC<IProps> = ({
             }));
           }}
         />
-        <Select
+        <Autocomplete
           label="Машин механизмийн төрөл"
           labelPlacement="outside"
           placeholder="Сонгох"
@@ -93,12 +93,12 @@ const Transportation: React.FC<IProps> = ({
           onChange={handleChange('machineryTypeId')}
         >
           {machineryType?.map((data: MachineryType, index: number) => (
-            <SelectItem key={data.id} value={data.id}>
+            <AutocompleteItem key={data.id} value={data.id}>
               {data.name}
-            </SelectItem>
+            </AutocompleteItem>
           ))}
-        </Select>
-        <Select
+        </Autocomplete>
+        <Autocomplete
           label="Марк"
           labelPlacement="outside"
           placeholder="Сонгох"
@@ -113,12 +113,12 @@ const Transportation: React.FC<IProps> = ({
           onChange={handleChange('markId')}
         >
           {markData?.map((data: MachineryType, index: number) => (
-            <SelectItem key={data.id} value={data.id}>
+            <AutocompleteItem key={data.id} value={data.id}>
               {data.name}
-            </SelectItem>
+            </AutocompleteItem>
           ))}
-        </Select>
-        <Select
+        </Autocomplete>
+        <Autocomplete
           label="Хүчин чадал"
           labelPlacement="outside"
           placeholder="Сонгох"
@@ -133,11 +133,11 @@ const Transportation: React.FC<IProps> = ({
           onChange={handleChange('powerId')}
         >
           {powerData?.map((data: MachineryType, index: number) => (
-            <SelectItem key={data.id} value={data.id}>
+            <AutocompleteItem key={data.id} value={data.id}>
               {data.name}
-            </SelectItem>
+            </AutocompleteItem>
           ))}
-        </Select>
+        </Autocomplete>
 
         <Input
           key="unitAmount"
