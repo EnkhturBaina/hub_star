@@ -36,7 +36,7 @@ const ListServices = ({
       whileInView="visible"
       transition={{ duration: 1, delay: 0.5 }}
       viewport={{ once: true }}
-      className="animate_top grid grid-cols-1 gap-3 bg-mainProfileCardBg"
+      className="animate_top grid grid-cols-1 gap-3 bg-white"
     >
       {servicesData.map((blog: Advertisement, index: number) => {
         return (

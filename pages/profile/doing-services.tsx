@@ -8,6 +8,7 @@ import GridServices from '@/components/Profile/Content/GridServices';
 import ListServices from '@/components/Profile/Content/ListServices';
 import ProfileLayout from '@/layouts/profile.layout';
 import { useAppContext } from '@/app/app-context';
+import Empty from '@/components/Empty';
 
 const DoingServices = () => {
   const { user } = useAppContext();
@@ -43,13 +44,17 @@ const DoingServices = () => {
             {isGrid ? <CiGrid2H className="text-4xl" /> : <CiGrid41 className="text-4xl" />}
           </Button>
         </div>
-        <div className="mx-auto mt-4 max-w-c-1280">
-          {isGrid ? (
-            <GridServices servicesData={advertisements} showAddBtn={false} isStars={false} />
-          ) : (
-            <ListServices servicesData={advertisements} showAddBtn={false} isStars={false} />
-          )}
-        </div>
+        {advertisements.length == 0 ? (
+          <Empty />
+        ) : (
+          <div className="mx-auto mt-4 max-w-c-1280">
+            {isGrid ? (
+              <GridServices servicesData={advertisements} showAddBtn={false} isStars={false} />
+            ) : (
+              <ListServices servicesData={advertisements} showAddBtn={false} isStars={false} />
+            )}
+          </div>
+        )}
       </div>
     </ProfileLayout>
   );

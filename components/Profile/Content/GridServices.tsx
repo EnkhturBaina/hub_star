@@ -38,7 +38,7 @@ const GridServices = ({
       whileInView="visible"
       transition={{ duration: 1, delay: 0.5 }}
       viewport={{ once: true }}
-      className="animate_top grid grid-cols-1 gap-6 bg-mainProfileCardBg md:grid-cols-2 lg:grid-cols-3"
+      className="animate_top grid grid-cols-1 gap-6 bg-white md:grid-cols-2 lg:grid-cols-3"
     >
       {servicesData.map((adv: Advertisement, index: number) => (
         <div className="rounded-lg bg-white shadow-solid-8" key={'grid' + index}>

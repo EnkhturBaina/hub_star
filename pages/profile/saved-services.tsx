@@ -5,6 +5,7 @@ import { useAppContext } from '@/app/app-context';
 import GridServices from '@/components/Profile/Content/GridServices';
 import ListServices from '@/components/Profile/Content/ListServices';
 import ProfileLayout from '@/layouts/profile.layout';
+import Empty from '@/components/Empty';
 
 const SavedServices = () => {
   const { user } = useAppContext();
@@ -23,6 +24,9 @@ const SavedServices = () => {
             {isGrid ? <CiGrid2H className="text-4xl" /> : <CiGrid41 className="text-4xl" />}
           </Button>
         </div>
+        {/* {advertisements.length == 0 ? (
+          <Empty />
+        ) : ( */}
         <div className="mx-auto mt-4 max-w-c-1280">
           {isGrid ? (
             <GridServices
@@ -38,6 +42,7 @@ const SavedServices = () => {
             />
           )}
         </div>
+        {/* )} */}
       </div>
     </ProfileLayout>
   );

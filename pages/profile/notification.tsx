@@ -20,6 +20,7 @@ import { AdvertisementService } from '@/service/advertisement/advertisement.serv
 import { Advertisement } from '@/types/advertisement';
 import toast, { Toaster } from 'react-hot-toast';
 import { NextPage } from 'next';
+import Empty from '@/components/Empty';
 
 const Notification: NextPage = () => {
   const { user } = useAppContext();
@@ -85,32 +86,38 @@ const Notification: NextPage = () => {
   return (
     <ProfileLayout>
       <div className="mb-4 w-full overflow-hidden">
-        <div className="notifications">
-          {notifications.map((item, index) => (
-            <Fragment key={index}>
-              <div className={`notification ${item.isSeen ? 'seen' : 'unseen'}`}>
-                <div className="content">
-                  <div
-                    className="docImg"
-                    onClick={() => {
-                      handleSeen(item);
-                    }}
-                  >
-                    <Image src={docSvg} color="red" width={24} height={24} alt="sada" />
+        {notifications.length == 0 ? (
+          <Empty />
+        ) : (
+          <div className="notifications">
+            {notifications.map((item, index) => (
+              <Fragment key={index}>
+                <div className={`notification ${item.isSeen ? 'seen' : 'unseen'}`}>
+                  <div className="content">
+                    <div
+                      className="docImg"
+                      onClick={() => {
+                        handleSeen(item);
+                      }}
+                    >
+                      <Image src={docSvg} color="red" width={24} height={24} alt="sada" />
+                    </div>
+                    <div className="flex flex-col gap-2">
+                      <p className="desc">{item.description}</p>
+                      <Link href={'/profile/information'} className="desc">
+                        {item.createdUser.lastName.substring(0, 1) +
+                          '.' +
+                          item.createdUser.firstName}
+                      </Link>
+                    </div>
                   </div>
-                  <div className="flex flex-col gap-2">
-                    <p className="desc">{item.description}</p>
-                    <Link href={'/profile/information'} className="desc">
-                      {item.createdUser.lastName.substring(0, 1) + '.' + item.createdUser.firstName}
-                    </Link>
-                  </div>
+                  <p className="nofi-time">{format(item.createdAt, 'HH:mm')}</p>
                 </div>
-                <p className="nofi-time">{format(item.createdAt, 'HH:mm')}</p>
-              </div>
-              <div className="w-full h-[1px] bg-[#DADADA]" />
-            </Fragment>
-          ))}
-        </div>
+                <div className="w-full h-[1px] bg-[#DADADA]" />
+              </Fragment>
+            ))}
+          </div>
+        )}
       </div>
       <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
         <ModalContent>
