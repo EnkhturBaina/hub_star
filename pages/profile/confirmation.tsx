@@ -15,7 +15,6 @@ import ConfirmSkeleton from '@/components/Skeleton/ConfirmSkeleton';
 
 const Confirmation = () => {
   const { user, setUser } = useAppContext();
-  console.log('user', user);
 
   const [categories, setCategories] = useState<Category[]>([]);
   const [mainDirections, setMainDirections] = useState<MainDirection[]>([]);
@@ -34,6 +33,7 @@ const Confirmation = () => {
       })
       .catch(err => toast.error(err));
   }, []);
+  
   useEffect(() => {
     getCategory();
   }, [getCategory]);
