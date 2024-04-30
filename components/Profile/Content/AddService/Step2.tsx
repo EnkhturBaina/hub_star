@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import { IAddressParam, ICreateAd } from '@/interfaces/request.interface';
 import { Address } from '@/types/reference';
 import { ReferenceService } from '@/service/reference/reference.service';
+import CustomSelect from '@/components/Inputs/Select';
 interface IProps {
   adData: ICreateAd;
   setAdData: React.Dispatch<React.SetStateAction<ICreateAd>>;
@@ -15,12 +16,7 @@ const Step2: React.FC<IProps> = ({ adData, setAdData }) => {
   const [districts, setDistricts] = useState<Address[]>([]);
   const [khoroos, setKhoroos] = useState<Address[]>([]);
 
-  const changeAimag = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setAdData((prevState: ICreateAd) => ({
-      ...prevState,
-      provinceId: parseInt(e.target.value),
-    }));
-  };
+  const changeAimag = (e: React.ChangeEvent<HTMLSelectElement>) => {};
   const changeDuureg = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setAdData((prevState: ICreateAd) => ({
       ...prevState,
@@ -123,26 +119,17 @@ const Step2: React.FC<IProps> = ({ adData, setAdData }) => {
         ) : null}
       </div>
       <div className="grid grid-cols-3 gap-4">
-        <Autocomplete
+        <CustomSelect
           label="Аймаг, Хот"
-          labelPlacement="outside"
-          placeholder="Сонгох"
-          radius="sm"
-          size="lg"
-          variant="bordered"
-          classNames={{
-            label: 'font-bold',
-            trigger: 'custom-select-trigger bg-white',
-          }}
           value={adData?.provinceId?.toString()}
-          onChange={changeAimag}
-        >
-          {provinces.map((data: Address) => (
-            <AutocompleteItem key={data.id} value={data.id}>
-              {data.name}
-            </AutocompleteItem>
-          ))}
-        </Autocomplete>
+          onSelectionChange={value =>
+            setAdData((prevState: ICreateAd) => ({
+              ...prevState,
+              provinceId: Number(value),
+            }))
+          }
+          options={provinces.map(item => ({ value: item.id, label: item.name }))}
+        />
         <Autocomplete
           label="Сум, Дүүрэг"
           labelPlacement="outside"
