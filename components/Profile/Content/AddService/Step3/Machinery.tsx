@@ -28,6 +28,10 @@ const Machinery: React.FC<IProps> = ({
   powerData,
   modelData,
 }) => {
+  const handleChange =
+    (prop: keyof ICreateAd) => (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+      setAdData({ ...adData, [prop]: event.target.value });
+    };
   useEffect(() => {
     getMachinery({ type: 'MACHINERY_TYPE', id: undefined });
     getMachinery({ type: 'MARK', id: undefined });
@@ -75,7 +79,7 @@ const Machinery: React.FC<IProps> = ({
           onChange={e => {
             setAdData((prevState: ICreateAd) => ({
               ...prevState,
-              machineryTypeId: e.target.value,
+              machineryTypeId: parseInt(e.target.value),
             }));
           }}
         >
@@ -102,7 +106,7 @@ const Machinery: React.FC<IProps> = ({
           onChange={e => {
             setAdData((prevState: ICreateAd) => ({
               ...prevState,
-              markId: e.target.value,
+              markId: parseInt(e.target.value),
             }));
           }}
         >
@@ -124,12 +128,7 @@ const Machinery: React.FC<IProps> = ({
             trigger: 'custom-select-trigger bg-white',
           }}
           value={adData?.modelId?.toString()}
-          onChange={e => {
-            setAdData((prevState: ICreateAd) => ({
-              ...prevState,
-              modelId: e.target.value,
-            }));
-          }}
+          onChange={handleChange('modelId')}
         >
           {modelData?.map((data: MachineryType, index: number) => (
             <SelectItem key={data.id} value={data.id}>
@@ -149,12 +148,7 @@ const Machinery: React.FC<IProps> = ({
             trigger: 'custom-select-trigger bg-white',
           }}
           value={adData?.powerId?.toString()}
-          onChange={e => {
-            setAdData((prevState: ICreateAd) => ({
-              ...prevState,
-              powerId: e.target.value,
-            }));
-          }}
+          onChange={handleChange('powerId')}
         >
           {powerData?.map((data: MachineryType, index: number) => (
             <SelectItem key={data.id} value={data.id}>
@@ -178,12 +172,7 @@ const Machinery: React.FC<IProps> = ({
             inputWrapper: ['custom-input-wrapper', 'bg-white'],
           }}
           value={String(adData.unitAmount)}
-          onValueChange={e => {
-            setAdData((prevState: ICreateAd) => ({
-              ...prevState,
-              unitAmount: parseInt(e),
-            }));
-          }}
+          onChange={handleChange('unitAmount')}
         />
         <Input
           key="packageAmount"
@@ -199,12 +188,7 @@ const Machinery: React.FC<IProps> = ({
             inputWrapper: ['custom-input-wrapper', 'bg-white'],
           }}
           value={String(adData.packageAmount)}
-          onValueChange={e => {
-            setAdData((prevState: ICreateAd) => ({
-              ...prevState,
-              packageAmount: parseInt(e),
-            }));
-          }}
+          onChange={handleChange('packageAmount')}
         />
         <Input
           key="fromAddress"
@@ -220,12 +204,7 @@ const Machinery: React.FC<IProps> = ({
             inputWrapper: ['custom-input-wrapper', 'bg-white'],
           }}
           value={adData?.fromAddress}
-          onValueChange={e => {
-            setAdData((prevState: ICreateAd) => ({
-              ...prevState,
-              fromAddress: e,
-            }));
-          }}
+          onChange={handleChange('fromAddress')}
         />
         <Input
           key="toAddress"
@@ -241,12 +220,7 @@ const Machinery: React.FC<IProps> = ({
             inputWrapper: ['custom-input-wrapper', 'bg-white'],
           }}
           value={adData?.toAddress}
-          onValueChange={e => {
-            setAdData((prevState: ICreateAd) => ({
-              ...prevState,
-              toAddress: e,
-            }));
-          }}
+          onChange={handleChange('toAddress')}
         />
       </div>
       <span className="font-bold">Зураг оруулах</span>
@@ -287,12 +261,7 @@ const Machinery: React.FC<IProps> = ({
           inputWrapper: ['custom-input-wrapper', 'bg-white'],
         }}
         value={adData?.desciption}
-        onValueChange={e => {
-          setAdData((prevState: ICreateAd) => ({
-            ...prevState,
-            desciption: e,
-          }));
-        }}
+        onChange={handleChange('desciption')}
       />
       <div className="grid grid-cols-2 gap-4">
         <Input
@@ -309,12 +278,7 @@ const Machinery: React.FC<IProps> = ({
             inputWrapper: ['custom-input-wrapper', 'bg-white'],
           }}
           value={adData?.email}
-          onValueChange={e => {
-            setAdData((prevState: ICreateAd) => ({
-              ...prevState,
-              email: e,
-            }));
-          }}
+          onChange={handleChange('email')}
         />
         <Input
           key="utas"
@@ -330,44 +294,29 @@ const Machinery: React.FC<IProps> = ({
             inputWrapper: ['custom-input-wrapper', 'bg-white'],
           }}
           value={adData?.phone}
-          onValueChange={e => {
-            setAdData((prevState: ICreateAd) => ({
-              ...prevState,
-              phone: e,
-            }));
-          }}
+          onChange={handleChange('phone')}
         />
       </div>
       <div className="flex flex-col gap-y-2">
         <Checkbox
-          value={String(adData?.isMessenger)}
+          isSelected={adData?.isMessenger}
           classNames={{
             base: 'w-full',
             label: 'w-full',
             wrapper: 'custom-checkbox w-6 h-6',
           }}
-          onValueChange={e => {
-            setAdData((prevState: ICreateAd) => ({
-              ...prevState,
-              isMessenger: e,
-            }));
-          }}
+          onValueChange={isMessenger => setAdData({ ...adData, isMessenger })}
         >
           Мессэнжер нээх
         </Checkbox>
         <Checkbox
-          value={String(adData?.isTermOfService)}
+          isSelected={adData?.isTermOfService}
           classNames={{
             base: 'w-full',
             label: 'w-full',
             wrapper: 'custom-checkbox w-6 h-6',
           }}
-          onValueChange={e => {
-            setAdData((prevState: ICreateAd) => ({
-              ...prevState,
-              isTermOfService: e,
-            }));
-          }}
+          onValueChange={isTermOfService => setAdData({ ...adData, isTermOfService })}
         >
           Үйлчилгээний нөхцөл зөвшөөрөх
         </Checkbox>

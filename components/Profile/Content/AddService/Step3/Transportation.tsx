@@ -26,6 +26,10 @@ const Transportation: React.FC<IProps> = ({
   markData,
   powerData,
 }) => {
+  const handleChange =
+    (prop: keyof ICreateAd) => (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+      setAdData({ ...adData, [prop]: event.target.value });
+    };
   useEffect(() => {
     getMachinery({ type: 'MACHINERY_TYPE', id: undefined });
     getMachinery({ type: 'MARK', id: undefined });
@@ -85,13 +89,8 @@ const Transportation: React.FC<IProps> = ({
             label: 'font-bold',
             trigger: 'custom-select-trigger bg-white',
           }}
-          value={adData?.machineryTypeId?.toString()}
-          onChange={e => {
-            setAdData((prevState: ICreateAd) => ({
-              ...prevState,
-              machineryTypeId: e.target.value,
-            }));
-          }}
+          value={adData?.machineryTypeId}
+          onChange={handleChange('machineryTypeId')}
         >
           {machineryType?.map((data: MachineryType, index: number) => (
             <SelectItem key={data.id} value={data.id}>
@@ -110,13 +109,8 @@ const Transportation: React.FC<IProps> = ({
             label: 'font-bold',
             trigger: 'custom-select-trigger bg-white',
           }}
-          value={adData?.markId?.toString()}
-          onChange={e => {
-            setAdData((prevState: ICreateAd) => ({
-              ...prevState,
-              markId: e.target.value,
-            }));
-          }}
+          value={adData?.markId}
+          onChange={handleChange('markId')}
         >
           {markData?.map((data: MachineryType, index: number) => (
             <SelectItem key={data.id} value={data.id}>
@@ -135,13 +129,8 @@ const Transportation: React.FC<IProps> = ({
             label: 'font-bold',
             trigger: 'custom-select-trigger bg-white',
           }}
-          value={adData?.powerId?.toString()}
-          onChange={e => {
-            setAdData((prevState: ICreateAd) => ({
-              ...prevState,
-              powerId: e.target.value,
-            }));
-          }}
+          value={adData?.powerId}
+          onChange={handleChange('powerId')}
         >
           {powerData?.map((data: MachineryType, index: number) => (
             <SelectItem key={data.id} value={data.id}>
@@ -284,34 +273,24 @@ const Transportation: React.FC<IProps> = ({
       </div>
       <div className="flex flex-col gap-y-2">
         <Checkbox
-          value={String(adData?.isMessenger)}
+          isSelected={adData?.isMessenger}
           classNames={{
             base: 'w-full',
             label: 'w-full',
             wrapper: 'custom-checkbox w-6 h-6',
           }}
-          onValueChange={e => {
-            setAdData((prevState: ICreateAd) => ({
-              ...prevState,
-              isMessenger: e,
-            }));
-          }}
+          onValueChange={isMessenger => setAdData({ ...adData, isMessenger })}
         >
           Мессэнжер нээх
         </Checkbox>
         <Checkbox
-          value={String(adData?.isTermOfService)}
+          isSelected={adData?.isTermOfService}
           classNames={{
             base: 'w-full',
             label: 'w-full',
             wrapper: 'custom-checkbox w-6 h-6',
           }}
-          onValueChange={e => {
-            setAdData((prevState: ICreateAd) => ({
-              ...prevState,
-              isTermOfService: e,
-            }));
-          }}
+          onValueChange={isTermOfService => setAdData({ ...adData, isTermOfService })}
         >
           Үйлчилгээний нөхцөл зөвшөөрөх
         </Checkbox>

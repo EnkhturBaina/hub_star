@@ -88,7 +88,7 @@ export interface IRefNotificationParam {
   authorId: number;
 }
 export interface IMachineryParam {
-  id: number;
+  id?: number;
   name?: string;
   type?: string;
   parentId?: number;

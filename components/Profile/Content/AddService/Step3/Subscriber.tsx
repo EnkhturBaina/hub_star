@@ -12,6 +12,10 @@ interface IProps {
 }
 //Захиалагч
 const Subscriber: React.FC<IProps> = ({ adData, setAdData }) => {
+  const handleChange =
+    (prop: keyof ICreateAd) => (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+      setAdData({ ...adData, [prop]: event.target.value });
+    };
   return (
     <motion.div
       variants={{
@@ -55,8 +59,8 @@ const Subscriber: React.FC<IProps> = ({ adData, setAdData }) => {
           }}
         />
         <Input
-          key="too"
-          inputMode="numeric"
+          key="counter"
+          type="number"
           label="Ажлын тоо хэмжээ"
           labelPlacement="outside"
           placeholder="--"
@@ -67,13 +71,8 @@ const Subscriber: React.FC<IProps> = ({ adData, setAdData }) => {
             label: 'font-bold',
             inputWrapper: ['custom-input-wrapper', 'bg-white'],
           }}
-          value={adData?.counter && adData.counter.toString()}
-          onValueChange={e => {
-            setAdData((prevState: ICreateAd) => ({
-              ...prevState,
-              counter: parseInt(e),
-            }));
-          }}
+          value={adData?.counter}
+          onChange={handleChange('counter')}
         />
       </div>
       <span className="font-bold">Зураг оруулах</span>
@@ -114,12 +113,7 @@ const Subscriber: React.FC<IProps> = ({ adData, setAdData }) => {
           inputWrapper: ['custom-input-wrapper', 'bg-white'],
         }}
         value={adData?.desciption}
-        onValueChange={e => {
-          setAdData((prevState: ICreateAd) => ({
-            ...prevState,
-            desciption: e,
-          }));
-        }}
+        onChange={handleChange('desciption')}
       />
       <div className="grid grid-cols-2 gap-4">
         <Input
@@ -136,15 +130,10 @@ const Subscriber: React.FC<IProps> = ({ adData, setAdData }) => {
             inputWrapper: ['custom-input-wrapper', 'bg-white'],
           }}
           value={adData?.email}
-          onValueChange={e => {
-            setAdData((prevState: ICreateAd) => ({
-              ...prevState,
-              email: e,
-            }));
-          }}
+          onChange={handleChange('email')}
         />
         <Input
-          key="utas"
+          key="phone"
           type="text"
           label="Утас"
           labelPlacement="outside"
@@ -157,44 +146,29 @@ const Subscriber: React.FC<IProps> = ({ adData, setAdData }) => {
             inputWrapper: ['custom-input-wrapper', 'bg-white'],
           }}
           value={adData?.phone}
-          onValueChange={e => {
-            setAdData((prevState: ICreateAd) => ({
-              ...prevState,
-              phone: e,
-            }));
-          }}
+          onChange={handleChange('phone')}
         />
       </div>
       <div className="flex flex-col gap-y-2">
         <Checkbox
-          value={String(adData?.isMessenger)}
+          isSelected={adData?.isMessenger}
           classNames={{
             base: 'w-full',
             label: 'w-full',
             wrapper: 'custom-checkbox w-6 h-6',
           }}
-          onValueChange={e => {
-            setAdData((prevState: ICreateAd) => ({
-              ...prevState,
-              isMessenger: e,
-            }));
-          }}
+          onValueChange={isMessenger => setAdData({ ...adData, isMessenger })}
         >
           Мессэнжер нээх
         </Checkbox>
         <Checkbox
-          value={String(adData?.isTermOfService)}
+          isSelected={adData?.isTermOfService}
           classNames={{
             base: 'w-full',
             label: 'w-full',
             wrapper: 'custom-checkbox w-6 h-6',
           }}
-          onValueChange={e => {
-            setAdData((prevState: ICreateAd) => ({
-              ...prevState,
-              isTermOfService: e,
-            }));
-          }}
+          onValueChange={isTermOfService => setAdData({ ...adData, isTermOfService })}
         >
           Үйлчилгээний нөхцөл зөвшөөрөх
         </Checkbox>

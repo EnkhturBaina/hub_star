@@ -188,50 +188,35 @@ const Executor: React.FC<IProps> = ({ adData, setAdData }) => {
       </div>
       <div className="flex flex-col gap-y-2">
         <Checkbox
-          value={String(adData?.isAfternoon)}
+          isSelected={adData?.isAfternoon}
           classNames={{
             base: 'w-full',
             label: 'w-full',
             wrapper: 'custom-checkbox w-6 h-6',
           }}
-          onValueChange={e => {
-            setAdData((prevState: ICreateAd) => ({
-              ...prevState,
-              isAfternoon: e,
-            }));
-          }}
+          onValueChange={isAfternoon => setAdData({ ...adData, isAfternoon })}
         >
           Өдрөөр хийх ажил
         </Checkbox>
         <Checkbox
-          value={String(adData?.isMessenger)}
+          isSelected={adData?.isMessenger}
           classNames={{
             base: 'w-full',
             label: 'w-full',
             wrapper: 'custom-checkbox w-6 h-6',
           }}
-          onValueChange={e => {
-            setAdData((prevState: ICreateAd) => ({
-              ...prevState,
-              isMessenger: e,
-            }));
-          }}
+          onValueChange={isMessenger => setAdData({ ...adData, isMessenger })}
         >
           Мессэнжер нээх
         </Checkbox>
         <Checkbox
-          value={String(adData?.isTermOfService)}
+          isSelected={adData?.isTermOfService}
           classNames={{
             base: 'w-full',
             label: 'w-full',
             wrapper: 'custom-checkbox w-6 h-6',
           }}
-          onValueChange={e => {
-            setAdData((prevState: ICreateAd) => ({
-              ...prevState,
-              isTermOfService: e,
-            }));
-          }}
+          onValueChange={isTermOfService => setAdData({ ...adData, isTermOfService })}
         >
           Үйлчилгээний нөхцөл зөвшөөрөх
         </Checkbox>
