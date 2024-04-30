@@ -8,7 +8,7 @@ import { useAppContext } from '@/app/app-context';
 import { AuthService } from '@/service/authentication/authentication.service';
 import ProfileLayout from '@/layouts/profile.layout';
 
-const Account:React.FC = () => {
+const Account: React.FC = () => {
   const { user } = useAppContext();
   const [values, setValues] = useState<Users>(user);
   const [isSaving, setIsSaving] = useState<boolean>(false);
@@ -84,7 +84,7 @@ const Account:React.FC = () => {
               label: 'font-bold',
               inputWrapper: ['custom-input-wrapper', 'bg-white'],
             }}
-            value={values?.bank}
+            value={values?.bank ?? ''}
             onChange={handleChange('bank')}
           />
           <Input
@@ -100,7 +100,7 @@ const Account:React.FC = () => {
               label: 'font-bold',
               inputWrapper: ['custom-input-wrapper', 'bg-white'],
             }}
-            value={values?.bankAccountNo}
+            value={values?.bankAccountNo ?? ''}
             onChange={handleChange('bankAccountNo')}
           />
           <Input
@@ -116,7 +116,7 @@ const Account:React.FC = () => {
               label: 'font-bold',
               inputWrapper: ['custom-input-wrapper', 'bg-white'],
             }}
-            value={values?.bankAccount}
+            value={values?.bankAccount ?? ''}
             onChange={handleChange('bankAccount')}
           />
 
