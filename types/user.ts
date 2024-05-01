@@ -1,5 +1,5 @@
 import { Advertisement } from './advertisement';
-import { Category, LocalFile, MainDirection, UserType } from './reference';
+import { LocalFile, MainDirection, UserType } from './reference';
 /** Хэрэглэгчийн мэдээлэл */
 export type Users = {
   id?: number;
@@ -17,9 +17,7 @@ export type Users = {
   coverId?: number;
   cover?: LocalFile;
   address?: string;
-  categoryId?: number;
-  userType: UserType;
-  category?: Category; // Хэрэглэгчийн төрөл
+  userType: UserType; // Хэрэглэгчийн төрөл
   mainDirectionId?: number;
   mainDirection?: MainDirection; // Үйл ажиллагаанийн чиглэл
   frontPassportImageId?: number; // үнэмлэхний урд талын зураг

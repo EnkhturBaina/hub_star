@@ -1,12 +1,21 @@
-import { Address, LocalFile, UserType } from './reference';
+import {
+  Address,
+  LocalFile,
+  MainDirection,
+  RefDirection,
+  SubDirection,
+  UserType,
+} from './reference';
 import { Users } from './user';
 export type AdProcess = 'CREATED' | 'DOING' | 'DONE';
 export type Advertisement = {
   id: number;
   mainDirectionId: number;
+  mainDirection?: MainDirection;
   directionId: number;
+  direction?: RefDirection;
   subDirectionId: number;
-  categoryId: number;
+  subDirection?: SubDirection;
   userType: UserType;
   provinceId: number;
   province: Address;

@@ -1,12 +1,11 @@
 import { AdProcess } from '@/types/advertisement';
-import { AddressType, OtpType, UserType } from '@/types/reference';
+import { AddressType, OrderType, OtpType, SpecialServiceType, UserType } from '@/types/reference';
 export interface IPageOptions {
-  order: 'ASC' | 'DESC';
+  order: OrderType;
   page: number;
   limit: number;
 }
 export interface IAdParam extends IPageOptions {
-  categoryId?: number;
   userType?: UserType;
   process?: AdProcess;
   mainDirectionId?: number;
@@ -15,13 +14,12 @@ export interface IAdParam extends IPageOptions {
   title?: string;
   userBy?: number;
   createdBy?: number;
-  specialService?: string;
+  specialService?: SpecialServiceType;
 }
 export interface ICreateAd {
   mainDirectionId?: number;
   directionId?: number;
   subDirectionId?: number;
-  categoryId?: number;
   userType?: UserType;
   provinceId?: number;
   districtId?: number;
@@ -69,6 +67,7 @@ export interface IChangePassword {
 }
 export interface IDirectionParam {
   mainDirectionId?: number;
+  specialService?: SpecialServiceType;
   name?: string;
 }
 export interface ISubDirectionParam {

@@ -1,6 +1,6 @@
 import { ReferenceService } from '@/service/reference/reference.service';
 import { Advertisement } from '@/types/advertisement';
-import { Category, MainDirection, PageMeta } from '@/types/reference';
+import { MainDirection, PageMeta } from '@/types/reference';
 import {
   Dispatch,
   ReactNode,
@@ -20,7 +20,6 @@ interface IAppContextProps {
   user: Users;
   setUser: Dispatch<SetStateAction<Users>>;
   mainDirections: MainDirection[];
-  categories: Category[];
   adParam: IAdParam;
   setAdParam: Dispatch<SetStateAction<IAdParam>>;
   advertisements: Advertisement[];
@@ -41,7 +40,6 @@ const AppProvider: React.FC<IProps> = ({ children }) => {
   });
   const [user, setUser] = useState<Users>();
   const [mainDirections, setMainDirections] = useState<MainDirection[]>([]);
-  const [categories, setCategories] = useState<Category[]>([]);
   const [advertisements, setAdvertisements] = useState<Advertisement[]>([]);
   const [adMeta, setAdMeta] = useState<PageMeta>({
     page: 1,
@@ -69,27 +67,18 @@ const AppProvider: React.FC<IProps> = ({ children }) => {
     getUser();
   }, [getUser]);
 
-  const getMainDirection = () => {
-    ReferenceService.getMainDirection({ categoryId: adParam.categoryId }).then(res => {
+  const getMainDirection = useCallback(async () => {
+    await ReferenceService.getMainDirection({ userType: adParam.userType }).then(res => {
       if (res.success) {
         setMainDirections(res.response);
       }
     });
-  };
-  const getCategory = () => {
-    ReferenceService.getCategory().then(res => {
-      if (res.success) {
-        setCategories(res.response);
-      }
-    });
-  };
+  }, [adParam.userType]);
 
   useEffect(() => {
-    getCategory();
-  }, []);
-  useEffect(() => {
     getMainDirection();
-  }, [adParam.categoryId]);
+  }, [getMainDirection]);
+
   useEffect(() => {
     AdvertisementService.get(adParam).then(response => {
       if (response.success) {
@@ -101,7 +90,6 @@ const AppProvider: React.FC<IProps> = ({ children }) => {
   const value: IAppContextProps = {
     user,
     mainDirections,
-    categories,
     adParam,
     setAdParam,
     advertisements,

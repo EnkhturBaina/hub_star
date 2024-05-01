@@ -1,7 +1,6 @@
 import { Advertisement } from '@/types/advertisement';
 import {
   Address,
-  Category,
   RefDirection,
   MainDirection,
   PageMeta,
@@ -63,9 +62,6 @@ export interface IResponseDirections extends IResponse {
 }
 export interface IResponseSubDirections extends IResponse {
   response: SubDirection[];
-}
-export interface IResponseCategories extends IResponse {
-  response: Category[];
 }
 export interface IResponseAddresses extends IResponse {
   response: Address[];

@@ -2,7 +2,6 @@ import {
   IResponse,
   IResponseAddresses,
   IResponseAllAdvice,
-  IResponseCategories,
   IResponseDirections,
   IResponseLocalFile,
   IResponseMachinery,
@@ -25,11 +24,11 @@ import {
   IRefNotificationParam,
   ISubDirectionParam,
 } from '@/interfaces/request.interface';
-import { RefNotification } from '@/types/reference';
-const getMainDirection = (params: { categoryId?: number }): Promise<IResponseMainDirections> => {
+import { RefNotification, UserType } from '@/types/reference';
+const getMainDirection = (params: { userType?: UserType }): Promise<IResponseMainDirections> => {
   return api.get('/reference/main-direction', { params });
 };
-const getMainDirectionById = (id: number | string): Promise<IResponseMainDirection> => {
+const getMainDirectionById = (id: number): Promise<IResponseMainDirection> => {
   return api.get('/reference/main-direction/show/' + id);
 };
 const getDirection = (params: IDirectionParam): Promise<IResponseDirections> => {
@@ -39,9 +38,6 @@ const getSubDirection = (params: ISubDirectionParam): Promise<IResponseSubDirect
   return api.get('/reference/sub-direction', {
     params,
   });
-};
-const getCategory = (): Promise<IResponseCategories> => {
-  return api.get('/reference/category');
 };
 const getAddress = (params: IAddressParam): Promise<IResponseAddresses> => {
   return api.get('/reference/address', { params });
@@ -92,7 +88,6 @@ export const ReferenceService = {
   getMainDirectionById,
   getDirection,
   getSubDirection,
-  getCategory,
   getAddress,
   fileUpload,
   removeFileUpload,

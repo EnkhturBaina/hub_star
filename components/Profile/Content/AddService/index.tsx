@@ -2,10 +2,9 @@
 import { motion } from 'framer-motion';
 import { Button } from '@nextui-org/react';
 import { Progress } from 'semantic-ui-react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Step1 from './Step1';
 import Step2 from './Step2';
-import Step3 from './Step3';
 import toast, { Toaster } from 'react-hot-toast';
 import { AdvertisementService } from '@/service/advertisement/advertisement.service';
 import { ICreateAd, IMachineryParam } from '@/interfaces/request.interface';
@@ -22,7 +21,6 @@ const defaultCreateAd: ICreateAd = {
   mainDirectionId: null,
   directionId: null,
   subDirectionId: null,
-  categoryId: null,
   provinceId: null,
   districtId: null,
   khorooId: null,

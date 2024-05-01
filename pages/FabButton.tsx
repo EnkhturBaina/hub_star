@@ -51,7 +51,7 @@ const FabButton = () => {
         className={`w-fit rounded-full p-3 bg-white shadow-lg cursor-pointer mb-2 ${isFabEnabled ? 'invisible' : 'visible'}`}
         onClick={() => {
           router.push('/');
-          setAdParam(prev => ({ ...prev, categoryId: undefined }));
+          setAdParam(prev => ({ ...prev, userType: undefined }));
         }}
       >
         <RiHome5Fill className="text-5xl" />

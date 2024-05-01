@@ -3,7 +3,7 @@ import { Button, Input, Textarea } from '@nextui-org/react';
 import { Fragment, useCallback, useEffect, useState } from 'react';
 import { BsImage } from 'react-icons/bs';
 import { ReferenceService } from '@/service/reference/reference.service';
-import { Category, RefDirection, MainDirection } from '@/types/reference';
+import { MainDirection, UserType } from '@/types/reference';
 import toast, { Toaster } from 'react-hot-toast';
 import ProfileLayout from '@/layouts/profile.layout';
 import Users from '@/types/user';
@@ -13,11 +13,10 @@ import Image from 'next/image';
 import { AuthService } from '@/service/authentication/authentication.service';
 import ConfirmSkeleton from '@/components/Skeleton/ConfirmSkeleton';
 import CustomSelect from '@/components/Inputs/Select';
+import UserTabData from '@/app/data/UserTabData';
 
 const Confirmation = () => {
   const { user, setUser } = useAppContext();
-
-  const [categories, setCategories] = useState<Category[]>([]);
   const [mainDirections, setMainDirections] = useState<MainDirection[]>([]);
   const [values, setValues] = useState<Users>(null);
 
@@ -25,29 +24,15 @@ const Confirmation = () => {
     setValues(user);
   }, []);
 
-  const getCategory = useCallback(() => {
-    ReferenceService.getCategory()
-      .then(res => {
-        if (res.success) {
-          setCategories(res.response);
-        }
-      })
-      .catch(err => toast.error(err));
-  }, []);
-
-  useEffect(() => {
-    getCategory();
-  }, [getCategory]);
-
   const getMainDirection = useCallback(() => {
-    ReferenceService.getMainDirection({ categoryId: values?.categoryId })
+    ReferenceService.getMainDirection({ userType: values?.userType })
       .then(res => {
         if (res.success) {
           setMainDirections(res.response);
         }
       })
       .catch(err => toast.error(err));
-  }, [values?.categoryId]);
+  }, [values?.userType]);
 
   useEffect(() => {
     getMainDirection();
@@ -64,7 +49,7 @@ const Confirmation = () => {
         console.log('res', res);
 
         if (res.success) {
-          setUser(res.response);
+          setUser(res.response.user);
           toast.success('Хэрэглэгчийн мэдээлэл амжилттай баталгаажууллаа.');
         }
       })
@@ -107,14 +92,14 @@ const Confirmation = () => {
 
           <CustomSelect
             label="Хэрэглэгчийн төрөл"
-            value={values?.categoryId?.toString()}
+            value={values?.userType}
             onSelectionChange={value => {
               setValues((prevState: Users) => ({
                 ...prevState,
-                categoryId: Number(value),
+                userType: value as UserType,
               }));
             }}
-            options={categories.map(item => ({ value: item.id, label: item.name }))}
+            options={UserTabData.map(item => ({ value: item.type, label: item.title }))}
           />
           <CustomSelect
             label="Үйл ажиллагааны үндсэн чиглэл"

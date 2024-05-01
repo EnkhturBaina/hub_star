@@ -36,7 +36,7 @@ const PaginationComp: React.FC<IProps> = ({ page, pageCount }) => {
             process: 'CREATED',
             page,
             limit: 10,
-            categoryId: adParam.categoryId,
+            userType: adParam.userType,
             mainDirectionId: adParam.mainDirectionId,
             directionIds: adParam.directionIds,
             subDirectionIds: adParam.subDirectionIds,

@@ -1,19 +1,17 @@
 import { useAppContext } from '@/app/app-context';
 import BlogItem from '@/components/Blog/BlogItem';
 import BreadCrumbs from '@/components/BreadCrumbs';
-import SideCheckDirection from '@/components/Common/SideCheckDirection';
 import SideCheckSubDirection from '@/components/Common/SideCheckSubDirection';
 import PaginationComp from '@/components/Pagination';
 import { IAdParam } from '@/interfaces/request.interface';
-import { MainDirection } from '@/types/reference';
+import { MainDirection, OrderType, SpecialServiceType } from '@/types/reference';
 import { Button, Select, SelectItem } from '@nextui-org/react';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { IoIosAddCircleOutline } from 'react-icons/io';
 const SpecialService: NextPage = () => {
-  const { mainDirections, adParam, setAdParam, advertisements, adMeta } = useAppContext();
-  const [mainDirection, setMainDirection] = useState<MainDirection>();
+  const { adParam, setAdParam, advertisements, adMeta } = useAppContext();
   const router = useRouter();
 
   useEffect(() => {
@@ -24,14 +22,10 @@ const SpecialService: NextPage = () => {
       process: 'CREATED',
     };
     if (router.query.specialServiceType) {
-      param.specialService = router.query.specialServiceType;
+      param.specialService = router.query.specialServiceType as SpecialServiceType;
     }
     setAdParam(param);
   }, [router.query]);
-
-  useEffect(() => {
-    // setMainDirection(mainDirections.find(item => adParam.mainDirectionId === item.id));
-  }, [mainDirections, adParam.mainDirectionId]);
 
   return (
     <>
@@ -43,13 +37,13 @@ const SpecialService: NextPage = () => {
                 Нийт утга: <span className="font-bold">{adMeta.itemCount}</span>
               </span>
               <div>
-                <BreadCrumbs />
+                <BreadCrumbs items={[]} />
               </div>
             </div>
           </div>
         </div>
         <div className="mx-auto flex max-w-screen-xl gap-4 px-4 md:px-8 2xl:px-0">
-          <SideCheckSubDirection mainDirection={mainDirection} />
+          <SideCheckSubDirection specialService={adParam.specialService} />
           <div className="px-6 pb-6 lg:w-3/4">
             <div className="my-4 flex flex-row justify-between">
               <Select
@@ -65,17 +59,12 @@ const SpecialService: NextPage = () => {
                 }}
                 value="DESC"
                 onChange={e => {
-                  if (e.target.value == ('ASC' || 'DESC')) {
-                    // setAdParam({
-                    //   order: e.target.value,
-                    //   page: 1,
-                    //   limit: 10,
-                    //   categoryId: adParam.categoryId,
-                    //   mainDirectionId: adParam.mainDirectionId,
-                    //   directionIds: adParam.directionIds,
-                    //   subDirectionIds: adParam.subDirectionIds,
-                    // });
-                  }
+                  setAdParam({
+                    ...adParam,
+                    order: e.target.value as OrderType,
+                    page: 1,
+                    limit: 10,
+                  });
                 }}
               >
                 <SelectItem key="DESC">Огноогоор (Z-A)</SelectItem>

@@ -1,33 +1,40 @@
 import { LuChevronLeft, LuSettings2 } from 'react-icons/lu';
 import { Checkbox, CheckboxGroup } from '@nextui-org/react';
-import { RefDirection, MainDirection, SubDirection } from '@/types/reference';
+import { RefDirection, SubDirection, SpecialServiceType } from '@/types/reference';
 import { useAppContext } from '@/app/app-context';
-import { usePathname } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+import { ReferenceService } from '@/service/reference/reference.service';
 
 type Props = {
-  mainDirection: MainDirection;
+  mainDirectionId?: number;
+  specialService?: SpecialServiceType;
 };
-const SideCheckSubDirection: React.FC<Props> = ({ mainDirection }) => {
-  const { setAdParam } = useAppContext();
-  const [subDirectionIds, setSubDirectionIds] = useState<string[]>([]);
-  const pathUrl = usePathname();
+const SideCheckSubDirection: React.FC<Props> = ({ mainDirectionId, specialService }) => {
+  const { adParam, setAdParam } = useAppContext();
+  const [directions, setDirections] = useState<RefDirection[]>([]);
 
   const onChangeValue = (value: string[]) => {
-    setSubDirectionIds([...subDirectionIds, ...value]);
-  };
-  useEffect(() => {
-    const directions = mainDirection?.directions.filter(item => {
-      return item.subDirections.some(subdir => subDirectionIds.includes(String(subdir.id)));
+    const currentDirections = directions.filter(item => {
+      return item.subDirections.some(subdir => value.includes(String(subdir.id)));
     });
     setAdParam(prevState => ({
       ...prevState,
       page: 1,
       limit: 10,
-      directionIds: directions?.map(item => item.id),
-      subDirectionIds: subDirectionIds.map(item => Number(item)),
+      directionIds: currentDirections?.map(item => item.id),
+      subDirectionIds: value.map(item => Number(item)),
     }));
-  }, [subDirectionIds]);
+  };
+  const getDirection = useCallback(async () => {
+    await ReferenceService.getDirection({ mainDirectionId, specialService }).then(res => {
+      if (res.success) {
+        setDirections(res.response);
+      }
+    });
+  }, [mainDirectionId, specialService]);
+  useEffect(() => {
+    getDirection();
+  }, [getDirection]);
   return (
     <div className="shadow-[rgba(0,0,15,0.5)_5px_0px_5px_-5px] md:w-1/4 lg:w-[20%]">
       <div className="flex flex-row items-center justify-between border-b p-4">
@@ -37,7 +44,7 @@ const SideCheckSubDirection: React.FC<Props> = ({ mainDirection }) => {
         </div>
         <LuChevronLeft className="text-2xl" />
       </div>
-      {mainDirection?.directions.map((direction: RefDirection, index: number) => {
+      {directions.map((direction: RefDirection, index: number) => {
         return (
           <CheckboxGroup
             label={direction.name}
@@ -47,7 +54,7 @@ const SideCheckSubDirection: React.FC<Props> = ({ mainDirection }) => {
               base: 'my-4',
               label: 'font-bold text-black text-base',
             }}
-            value={subDirectionIds}
+            value={(adParam.subDirectionIds || []).map(item => item.toString())}
             onValueChange={onChangeValue}
           >
             {direction.subDirections.map((subDir: SubDirection, index: number) => {
@@ -63,7 +70,7 @@ const SideCheckSubDirection: React.FC<Props> = ({ mainDirection }) => {
                 >
                   <div className="flex w-full flex-row items-center justify-between">
                     <span className="text-sm leading-none">{subDir.name}</span>
-                    {/* TODO adv count <span className="text-sm">{subDir.}</span> */}
+                    <span className="text-sm">{subDir.advertisements.length}</span>
                   </div>
                 </Checkbox>
               );

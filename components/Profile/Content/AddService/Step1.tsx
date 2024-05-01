@@ -1,15 +1,11 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Autocomplete, AutocompleteItem, Select, SelectItem } from '@nextui-org/react';
 import React, { useEffect, useState } from 'react';
 import { useAppContext } from '@/app/app-context';
 import {
-  Category,
   RefDirection,
-  MainDirection,
   SubDirection,
-  UserTab,
   UserType,
 } from '@/types/reference';
 import { ICreateAd } from '@/interfaces/request.interface';
@@ -21,11 +17,9 @@ interface IProps {
   setAdData: React.Dispatch<React.SetStateAction<ICreateAd>>;
 }
 const Step1: React.FC<IProps> = ({ adData, setAdData }) => {
-  const { categories, mainDirections } = useAppContext();
+  const { mainDirections } = useAppContext();
   const [directions, setDirections] = useState<RefDirection[]>([]);
   const [subDirections, setSubDirections] = useState<SubDirection[]>([]);
-
-  if (!categories) return null;
 
   useEffect(() => {
     ReferenceService.getDirection({

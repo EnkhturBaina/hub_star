@@ -142,7 +142,13 @@ const SingleBlogPage: NextPage = () => {
               <div className="flex flex-col">
                 <span className="text-xl font-bold">{data?.title}</span>
                 <div>
-                  <BreadCrumbs />
+                  <BreadCrumbs
+                    items={[
+                      data?.mainDirection?.name,
+                      data?.direction?.name,
+                      data?.subDirection?.name,
+                    ]}
+                  />
                 </div>
               </div>
               {user && (

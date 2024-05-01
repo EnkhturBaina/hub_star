@@ -2,7 +2,7 @@ import { ReactNode } from 'react';
 import { AdProcess, Advertisement } from './advertisement';
 import Users from './user';
 export type OtpType = 'Registration' | 'Forget' | 'Verification';
-
+export type OrderType = 'ASC' | 'DESC';
 export type ProfileRoute = {
   id: number;
   name: string;
@@ -31,6 +31,7 @@ export type RefDirection = {
   mainDirectionId: number;
   mainDirection: MainDirection;
   name: string;
+  advices: Advice[];
   subDirections: SubDirection[];
 };
 /** Үйл ажиллагааны нэр */
@@ -39,6 +40,7 @@ export type SubDirection = {
   directionId: number;
   direction: RefDirection;
   name: string;
+  advertisements: Advertisement[];
 };
 
 /** Хэрэглэгчийн төрөл */
@@ -63,13 +65,6 @@ export type SpecialService = {
   type: SpecialServiceType;
   icon: ReactNode;
   title: string;
-};
-export type Category = {
-  id: number;
-  logoId: number;
-  name: string;
-  userType: UserType;
-  isSpecial: boolean;
 };
 /** Хаягийн төрөл */
 export type AddressType = 'COUNTRY' | 'PROVINCE' | 'DISTRICT' | 'KHOROO';
