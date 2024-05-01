@@ -53,6 +53,7 @@ const Profile: NextPage = () => {
           phone: profileData.phone,
           jobPosition: profileData.jobPosition,
           address: profileData.address,
+          userType: 'SUBSCRIBER',
         })
           .then(response => {
             // setAuthUserData(response?.data?.response);

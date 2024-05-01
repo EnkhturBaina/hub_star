@@ -30,6 +30,6 @@ export type Users = {
   saveAdvertisements?: Advertisement[];
   role?: string;
   webUrl?: string; // Веб хуудас
-  experience: string; // Байгууллагын танилцуулга ба ажлын туршлага
+  experience?: string; // Байгууллагын танилцуулга ба ажлын туршлага
 };
 export default Users;

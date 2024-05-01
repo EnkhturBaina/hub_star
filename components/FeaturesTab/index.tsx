@@ -1,7 +1,6 @@
 'use client';
 import Image from 'next/image';
 import { useState } from 'react';
-import FeaturesTabItem from './FeaturesTabItem';
 
 import { motion } from 'framer-motion';
 
@@ -120,14 +119,6 @@ const FeaturesTab = () => {
             viewport={{ once: true }}
             className="animate_top mx-auto max-w-c-1154"
           >
-            {/* {featuresTabData.map((feature, key) => (
-              <div
-                className={feature.id === currentTab ? "block" : "hidden"}
-                key={key}
-              >
-                <FeaturesTabItem featureTab={feature} />
-              </div>
-            ))} */}
           </motion.div>
           {/* <!-- Tab Content End --> */}
         </div>
