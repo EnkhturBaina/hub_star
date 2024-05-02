@@ -32,9 +32,9 @@ const Transportation: React.FC<IProps> = ({
       setAdData({ ...adData, [prop]: event.target.value });
     };
   useEffect(() => {
-    getMachinery({ type: 'MACHINERY_TYPE', id: undefined });
-    getMachinery({ type: 'MARK', id: undefined });
-    getMachinery({ type: 'POWER', id: undefined });
+    getMachinery({ type: 'MACHINERY_TYPE' });
+    getMachinery({ type: 'MARK' });
+    getMachinery({ type: 'POWER' });
   }, []);
 
   return (

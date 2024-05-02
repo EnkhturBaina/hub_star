@@ -16,6 +16,7 @@ import Transportation from '../AddService/Step3/Transportation';
 import Machinery from '../AddService/Step3/Machinery';
 import { ReferenceService } from '@/service/reference/reference.service';
 import { MachineryType } from '@/types/reference';
+import Step3 from './Step3';
 
 const defaultCreateAd: ICreateAd = {
   mainDirectionId: null,
@@ -47,13 +48,11 @@ const defaultCreateAd: ICreateAd = {
   toAddress: null,
   measurement: null,
 };
-const AddService = ({
-  isAddService,
-  setIsAddService,
-}: {
-  isAddService?: boolean;
-  setIsAddService?: any;
-}) => {
+type Props = {
+  isSpecial: boolean;
+  setIsAddService: React.Dispatch<React.SetStateAction<boolean>>;
+};
+const AddService: React.FC<Props> = ({ isSpecial, setIsAddService }) => {
   const [step, setStep] = useState(1);
   const maxStep = 3;
   const [createAd, setCreateAd] = useState<ICreateAd>(defaultCreateAd);
@@ -62,6 +61,7 @@ const AddService = ({
   const [markData, setMarkData] = useState<MachineryType[]>([]);
   const [powerData, setPowerData] = useState<MachineryType[]>([]);
   const [modelData, setModelData] = useState<MachineryType[]>([]);
+  const [materials, setMaterials] = useState<MachineryType[]>([]);
 
   const totalCounter = Object.entries(createAd).reduce((total, _) => total + 1, 0);
   const valueCounter = Object.entries(createAd).reduce(
@@ -76,6 +76,7 @@ const AddService = ({
         params.type == 'MARK' && setMarkData(response.response);
         params.type == 'POWER' && setPowerData(response.response);
         params.type == 'MODEL' && setModelData(response.response);
+        params.type == 'MATERIAL' && setMaterials(response.response);
       }
     });
   };
@@ -100,11 +101,18 @@ const AddService = ({
     } else if (type == 'next') {
       if (maxStep > step) {
         if (step === 1) {
-          if (createAd?.userType == null) {
-            toast.error('Хэрэглэгчийн төрөл сонгоно уу.');
-          } else if (createAd?.mainDirectionId == null) {
-            toast.error('Үйл ажиллагааны үндсэн чиглэл сонгоно уу.');
-          } else if (createAd?.directionId == null) {
+          if (isSpecial) {
+            if (!createAd.specialService) {
+              toast.error('Онцгой үйлчилгээ сонгоно уу.');
+            }
+          } else {
+            if (createAd?.userType == null) {
+              toast.error('Хэрэглэгчийн төрөл сонгоно уу.');
+            } else if (createAd?.mainDirectionId == null) {
+              toast.error('Үйл ажиллагааны үндсэн чиглэл сонгоно уу.');
+            }
+          }
+          if (createAd?.directionId == null) {
             toast.error('Үйл ажиллагааны чиглэл сонгоно уу.');
           } else if (createAd?.subDirectionId == null) {
             toast.error('Үйл ажиллагааны нэр сонгоно уу.');
@@ -114,19 +122,17 @@ const AddService = ({
         } else if (step == 2) {
           if (createAd?.title == null) {
             toast.error('Зарын гарчиг оруулна уу.');
-          }
-          //  else if (createAd?.userType == 'SUBSCRIBER' && createAd?.price == null) {
-          //   toast.error('Үнэ оруулна уу.');
-          // } else if (createAd?.provinceId == null) {
-          //   toast.error('Аймаг, Хот сонгоно уу.');
-          // } else if (createAd?.districtId == null) {
-          //   toast.error('Сум, Дүүрэг сонгоно уу.');
-          // } else if (createAd?.khorooId == null) {
-          //   toast.error('Баг, Хороо сонгоно уу.');
-          // } else if (createAd?.address == null) {
-          //   toast.error('Байршил оруулна уу.');
-          // }
-          else {
+          } else if (createAd?.userType == 'SUBSCRIBER' && createAd?.price == null) {
+            toast.error('Үнэ оруулна уу.');
+          } else if (createAd?.provinceId == null) {
+            toast.error('Аймаг, Хот сонгоно уу.');
+          } else if (createAd?.districtId == null) {
+            toast.error('Сум, Дүүрэг сонгоно уу.');
+          } else if (createAd?.khorooId == null) {
+            toast.error('Баг, Хороо сонгоно уу.');
+          } else if (createAd?.address == null) {
+            toast.error('Байршил оруулна уу.');
+          } else {
             setStep(step + 1);
           }
         } else if (step == 3) {
@@ -267,7 +273,7 @@ const AddService = ({
           duration: 5000,
         }}
       />
-      {step === 1 && <Step1 adData={createAd} setAdData={setCreateAd} />}
+      {step === 1 && <Step1 isSpecial={isSpecial} adData={createAd} setAdData={setCreateAd} />}
       {step === 2 && <Step2 adData={createAd} setAdData={setCreateAd} />}
 
       {step === 3 && createAd?.userType == 'SUBSCRIBER' ? (
@@ -277,7 +283,12 @@ const AddService = ({
         <Executor adData={createAd} setAdData={setCreateAd} />
       ) : null}
       {step === 3 && createAd?.userType == 'SUPPLIER' ? (
-        <Supplier adData={createAd} setAdData={setCreateAd} />
+        <Supplier
+          adData={createAd}
+          setAdData={setCreateAd}
+          materials={materials}
+          getMachinery={getMachinery}
+        />
       ) : null}
       {step === 3 && createAd?.userType == 'TRANSPORTATION' ? (
         <Transportation
@@ -300,6 +311,7 @@ const AddService = ({
           modelData={modelData}
         />
       ) : null}
+      {step === 3 && isSpecial ? <Step3 adData={createAd} setAdData={setCreateAd} /> : null}
 
       <div className="flex flex-row justify-between">
         <Button

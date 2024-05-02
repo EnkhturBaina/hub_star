@@ -2,23 +2,10 @@
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
-import { IoAddCircle } from 'react-icons/io5';
 import { FaStar } from 'react-icons/fa';
 import { Advertisement } from '@/types/advertisement';
 
-const ListServices = ({
-  servicesData,
-  showAddBtn,
-  isStars,
-  isAddService,
-  setIsAddService,
-}: {
-  servicesData: any;
-  showAddBtn: boolean;
-  isStars: boolean;
-  isAddService?: boolean;
-  setIsAddService?: any;
-}) => {
+const ListServices = ({ servicesData, isStars }: { servicesData: any; isStars: boolean }) => {
   return (
     <motion.div
       variants={{
@@ -79,14 +66,6 @@ const ListServices = ({
           </div>
         );
       })}
-      {showAddBtn ? (
-        <div
-          className="flex h-25 cursor-pointer items-center justify-center rounded-lg bg-mainGray"
-          onClick={() => setIsAddService(true)}
-        >
-          <IoAddCircle className="text-[70px] text-mainBgGray" />
-        </div>
-      ) : null}
     </motion.div>
   );
 };

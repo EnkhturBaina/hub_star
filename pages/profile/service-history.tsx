@@ -48,9 +48,9 @@ const ServiceHistory = () => {
         ) : (
           <div className="mx-auto mt-4 max-w-c-1280">
             {isGrid ? (
-              <GridServices servicesData={advertisements} showAddBtn={false} isStars={true} />
+              <GridServices servicesData={advertisements} isStars={true} />
             ) : (
-              <ListServices servicesData={advertisements} showAddBtn={false} isStars={true} />
+              <ListServices servicesData={advertisements} isStars={true} />
             )}
           </div>
         )}

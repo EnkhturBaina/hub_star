@@ -1,22 +1,19 @@
 'use client';
-
 import { motion } from 'framer-motion';
 import React, { useEffect, useState } from 'react';
 import { useAppContext } from '@/app/app-context';
-import {
-  RefDirection,
-  SubDirection,
-  UserType,
-} from '@/types/reference';
+import { RefDirection, SpecialServiceType, SubDirection, UserType } from '@/types/reference';
 import { ICreateAd } from '@/interfaces/request.interface';
 import { ReferenceService } from '@/service/reference/reference.service';
 import UserTabData from '@/app/data/UserTabData';
 import CustomSelect from '@/components/Inputs/Select';
+import SpecialServiceData from '@/app/data/SpecialServiceData';
 interface IProps {
+  isSpecial: boolean;
   adData: ICreateAd;
   setAdData: React.Dispatch<React.SetStateAction<ICreateAd>>;
 }
-const Step1: React.FC<IProps> = ({ adData, setAdData }) => {
+const Step1: React.FC<IProps> = ({ isSpecial, adData, setAdData }) => {
   const { mainDirections } = useAppContext();
   const [directions, setDirections] = useState<RefDirection[]>([]);
   const [subDirections, setSubDirections] = useState<SubDirection[]>([]);
@@ -24,20 +21,25 @@ const Step1: React.FC<IProps> = ({ adData, setAdData }) => {
   useEffect(() => {
     ReferenceService.getDirection({
       mainDirectionId: adData.mainDirectionId,
+      specialService: adData.specialService,
+      userType: adData.userType,
     }).then(response => {
       if (response.success) {
         setDirections(response.response);
       }
     });
-  }, [adData.mainDirectionId]);
+  }, [adData.mainDirectionId, adData.specialService, adData.userType]);
 
   useEffect(() => {
-    ReferenceService.getSubDirection({ directionId: adData.directionId }).then(response => {
+    ReferenceService.getSubDirection({
+      directionId: adData.directionId,
+      userType: adData.userType,
+    }).then(response => {
       if (response.success) {
         setSubDirections(response.response);
       }
     });
-  }, [adData.directionId]);
+  }, [adData.directionId, adData.userType]);
 
   return (
     <motion.div
@@ -58,28 +60,44 @@ const Step1: React.FC<IProps> = ({ adData, setAdData }) => {
       viewport={{ once: true }}
       className="mb-4 grid w-full grid-cols-1 gap-y-4 overflow-hidden p-2"
     >
-      <CustomSelect
-        label="Хэрэглэгчийн төрөл"
-        value={adData?.userType?.toString()}
-        onSelectionChange={value => {
-          setAdData((prevState: ICreateAd) => ({
-            ...prevState,
-            userType: value as UserType,
-          }));
-        }}
-        options={UserTabData.map(item => ({ value: item.type, label: item.title }))}
-      />
-      <CustomSelect
-        label="Үйл ажиллагааны үндсэн чиглэл"
-        value={adData.mainDirectionId}
-        onSelectionChange={value => {
-          setAdData((adData: ICreateAd) => ({
-            ...adData,
-            mainDirectionId: Number(value),
-          }));
-        }}
-        options={mainDirections.map(item => ({ value: item.id, label: item.name }))}
-      />
+      {isSpecial ? (
+        <CustomSelect
+          label="Онцгой үйлчилгээ"
+          value={adData?.specialService}
+          onSelectionChange={value => {
+            setAdData((prevState: ICreateAd) => ({
+              ...prevState,
+              specialService: value as SpecialServiceType,
+            }));
+          }}
+          options={SpecialServiceData.map(item => ({ value: item.type, label: item.title }))}
+        />
+      ) : (
+        <>
+          <CustomSelect
+            label="Хэрэглэгчийн төрөл"
+            value={adData?.userType}
+            onSelectionChange={value => {
+              setAdData((prevState: ICreateAd) => ({
+                ...prevState,
+                userType: value as UserType,
+              }));
+            }}
+            options={UserTabData.map(item => ({ value: item.type, label: item.title }))}
+          />
+          <CustomSelect
+            label="Үйл ажиллагааны үндсэн чиглэл"
+            value={adData.mainDirectionId}
+            onSelectionChange={value => {
+              setAdData((adData: ICreateAd) => ({
+                ...adData,
+                mainDirectionId: Number(value),
+              }));
+            }}
+            options={mainDirections.map(item => ({ value: item.id, label: item.name }))}
+          />
+        </>
+      )}
       <CustomSelect
         label="Үйл ажиллагааны чиглэл"
         value={adData?.directionId}

@@ -155,7 +155,17 @@ const Header = () => {
       <div className="mx-4 mt-2 block md:hidden">
         <SearchBox />
       </div>
-      {pathUrl === '/profile' ? null : (
+      {pathUrl === '/profile/information' ||
+      pathUrl === '/profile/messenger' ||
+      pathUrl === '/profile/posted-services' ||
+      pathUrl === '/profile/doing-services' ||
+      pathUrl === '/profile/saved-services' ||
+      pathUrl === '/profile/service-history' ||
+      pathUrl === '/profile/account' ||
+      pathUrl === '/profile/confirmation' ||
+      pathUrl === '/profile/password' ||
+      pathUrl === '/profile/notification' ||
+      pathUrl !== '/profile/advices' && (
         <div className="no-scrollbar mt-2 flex overflow-y-scroll md:justify-center">
           <nav>
             <HeaderMenu />

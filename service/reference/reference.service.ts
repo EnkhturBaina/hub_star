@@ -21,11 +21,12 @@ import {
   IAdviceParam,
   IDirectionParam,
   IMachineryParam,
+  IMainDirectionParam,
   IRefNotificationParam,
   ISubDirectionParam,
 } from '@/interfaces/request.interface';
-import { RefNotification, UserType } from '@/types/reference';
-const getMainDirection = (params: { userType?: UserType }): Promise<IResponseMainDirections> => {
+import { RefNotification } from '@/types/reference';
+const getMainDirection = (params: IMainDirectionParam): Promise<IResponseMainDirections> => {
   return api.get('/reference/main-direction', { params });
 };
 const getMainDirectionById = (id: number): Promise<IResponseMainDirection> => {

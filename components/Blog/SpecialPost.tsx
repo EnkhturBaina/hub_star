@@ -1,11 +1,10 @@
 'use client';
 import { Blog } from '@/types/blog';
 import { motion } from 'framer-motion';
-import Image from 'next/image';
 import Link from 'next/link';
 
 const SpecialPost = ({ blog }: { blog: Blog }) => {
-  const { id, mainImage, title, desciption } = blog;
+  const { title, desciption } = blog;
 
   return (
     <>

@@ -1,5 +1,4 @@
 import React from 'react';
-import Image from 'next/image';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { SpecialService } from '@/types/reference';
@@ -37,7 +36,7 @@ const SingleFeature: React.FC<IProps> = ({ specialService }) => {
           className="flex h-full flex-col items-center justify-center p-2 hover:text-white special-service"
         >
           <div className="flex h-2/3 w-16 rounded-[4px] justify-center">{specialService.icon}</div>
-          <span className=" flex h-1/3 items-center justify-center text-center align-middle text-xs font-bold leading-none hover:text-white">
+          <span className=" flex h-1/3 items-center justify-center text-center align-middle text-xs font-bold leading-none hover:text-white text-[#212529]">
             {specialService.title}
           </span>
         </Link>

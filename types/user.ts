@@ -26,7 +26,7 @@ export type Users = {
   organizationLogoId?: number; // Багууллагын лого
   organizationName?: string; // Байгууллагын нэр
   organizationRegno?: string; // Байгууллагын регистр
-  trainingOrg?: string; // Сургалтын байгууллага
+  trainingOrg?: string; // Байгууллагын үйл ажилгааний чиглэл
   saveAdvertisements?: Advertisement[];
   role?: string;
   webUrl?: string; // Веб хуудас

@@ -243,9 +243,9 @@ const Confirmation = () => {
                 <Input
                   key="trainingOrg"
                   type="text"
-                  label="Сургалтын байгууллага"
+                  label="Байгууллагын үйл ажилгааний чиглэл"
                   labelPlacement="outside"
-                  placeholder="Сургалтын байгууллага"
+                  placeholder="Байгууллагын үйл ажилгааний чиглэл"
                   radius="sm"
                   size="lg"
                   variant="bordered"

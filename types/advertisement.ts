@@ -49,6 +49,7 @@ export type Advertisement = {
   markId?: number;
   modelId?: number;
   powerId?: number;
+  materialId?: number;
   fromAddress?: string;
   toAddress?: string;
   measurement?: string;

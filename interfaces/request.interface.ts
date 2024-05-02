@@ -21,6 +21,7 @@ export interface ICreateAd {
   directionId?: number;
   subDirectionId?: number;
   userType?: UserType;
+  specialService?: SpecialServiceType;
   provinceId?: number;
   districtId?: number;
   khorooId?: number;
@@ -43,6 +44,7 @@ export interface ICreateAd {
   markId?: number;
   modelId?: number;
   powerId?: number;
+  materialId?: number;
   fromAddress?: string;
   toAddress?: string;
   measurement?: string;
@@ -65,14 +67,20 @@ export interface IChangePassword {
   password: string;
   token: string;
 }
+export interface IMainDirectionParam {
+  userType?: UserType;
+  isAdvice?: boolean;
+}
 export interface IDirectionParam {
   mainDirectionId?: number;
   specialService?: SpecialServiceType;
   name?: string;
+  userType?: UserType;
 }
 export interface ISubDirectionParam {
   directionId: number;
   name?: string;
+  userType?: UserType;
 }
 export interface IAddressParam {
   parentId?: number;

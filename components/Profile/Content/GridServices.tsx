@@ -4,20 +4,13 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
 import { FaStar } from 'react-icons/fa';
-import { IoAddCircle } from 'react-icons/io5';
 
 const GridServices = ({
   servicesData,
-  showAddBtn,
   isStars,
-  isAddService,
-  setIsAddService,
 }: {
   servicesData: Advertisement[];
-  showAddBtn: boolean;
   isStars: boolean;
-  isAddService?: boolean;
-  setIsAddService?: any;
 }) => {
   return (
     <motion.div
@@ -41,10 +34,8 @@ const GridServices = ({
       {servicesData.map((adv: Advertisement, index: number) => (
         <div className="rounded-lg bg-white shadow-solid-8" key={'grid' + index}>
           <Link href={'/adv/' + adv.id} className="relative block aspect-[368/239]">
-            {/* TODO ene deer yaahii ETR */}
             <Image
               src={process.env.NEXT_PUBLIC_MEDIA_URL + adv.images[0]?.id}
-              // src={''}
               alt={adv.title}
               fill
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -73,15 +64,6 @@ const GridServices = ({
           </div>
         </div>
       ))}
-      {showAddBtn ? (
-        <div
-          className="flex h-67 cursor-pointer items-center justify-center rounded-lg bg-mainGray"
-          onClick={() => setIsAddService(true)}
-        >
-          {/* TODO онцгой үйлчилгээ эсэх гээд check нэмэх */}
-          <IoAddCircle className="text-[150px] text-mainBgGray" />
-        </div>
-      ) : null}
     </motion.div>
   );
 };

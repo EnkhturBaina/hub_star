@@ -48,9 +48,9 @@ const DoingServices = () => {
         ) : (
           <div className="mx-auto mt-4 max-w-c-1280">
             {isGrid ? (
-              <GridServices servicesData={advertisements} showAddBtn={false} isStars={false} />
+              <GridServices servicesData={advertisements} isStars={false} />
             ) : (
-              <ListServices servicesData={advertisements} showAddBtn={false} isStars={false} />
+              <ListServices servicesData={advertisements} isStars={false} />
             )}
           </div>
         )}

@@ -1,14 +1,27 @@
-import React, { useRef } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import CatItem from './CatItem';
-import { useAppContext } from '@/app/app-context';
 import { Button } from '@nextui-org/react';
 import { motion } from 'framer-motion';
 import { useDraggable } from 'react-use-draggable-scroll';
+import { ReferenceService } from '@/service/reference/reference.service';
+import { MainDirection } from '@/types/reference';
 
 const GridCategory = () => {
-  const { mainDirections } = useAppContext();
   const ref = useRef(); // We will use React useRef hook to reference the wrapping div:
   const { events } = useDraggable(ref); // Now we pass the reference to the useDraggable hook:
+  const [mainDirections, setMainDirections] = useState<MainDirection[]>([]);
+
+  const getMainDirection = useCallback(async () => {
+    await ReferenceService.getMainDirection({ isAdvice: true }).then(res => {
+      if (res.success) {
+        setMainDirections(res.response);
+      }
+    });
+  }, []);
+  useEffect(() => {
+    getMainDirection();
+  }, [getMainDirection]);
+
   return (
     <motion.div
       variants={{

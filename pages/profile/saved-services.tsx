@@ -24,25 +24,23 @@ const SavedServices = () => {
             {isGrid ? <CiGrid2H className="text-4xl" /> : <CiGrid41 className="text-4xl" />}
           </Button>
         </div>
-        {/* {advertisements.length == 0 ? (
+        {user.saveAdvertisements.length == 0 ? (
           <Empty />
-        ) : ( */}
-        <div className="mx-auto mt-4 max-w-c-1280">
-          {isGrid ? (
-            <GridServices
-              servicesData={user.saveAdvertisements}
-              showAddBtn={false}
-              isStars={false}
-            />
-          ) : (
-            <ListServices
-              servicesData={user.saveAdvertisements}
-              showAddBtn={false}
-              isStars={false}
-            />
-          )}
-        </div>
-        {/* )} */}
+        ) : (
+          <div className="mx-auto mt-4 max-w-c-1280">
+            {isGrid ? (
+              <GridServices
+                servicesData={user.saveAdvertisements}
+                isStars={false}
+              />
+            ) : (
+              <ListServices
+                servicesData={user.saveAdvertisements}
+                isStars={false}
+              />
+            )}
+          </div>
+        )}
       </div>
     </ProfileLayout>
   );

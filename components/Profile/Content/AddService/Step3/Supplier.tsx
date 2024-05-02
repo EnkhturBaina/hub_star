@@ -3,15 +3,23 @@
 import { motion } from 'framer-motion';
 import { Checkbox, Input, Textarea } from '@nextui-org/react';
 import { BsImage } from 'react-icons/bs';
-import { ICreateAd } from '@/interfaces/request.interface';
+import { ICreateAd, IMachineryParam } from '@/interfaces/request.interface';
 import ImageUpload from '@/components/Image/image-upload';
 import Image from 'next/image';
+import CustomSelect from '@/components/Inputs/Select';
+import { MachineryType } from '@/types/reference';
+import { useEffect } from 'react';
 interface IProps {
   adData: ICreateAd;
+  materials: MachineryType[];
   setAdData: React.Dispatch<React.SetStateAction<ICreateAd>>;
+  getMachinery: React.Dispatch<React.SetStateAction<IMachineryParam>>;
 }
 //Ханган нийлүүлэгч
-const Supplier: React.FC<IProps> = ({ adData, setAdData }) => {
+const Supplier: React.FC<IProps> = ({ adData, materials, setAdData, getMachinery }) => {
+  useEffect(() => {
+    getMachinery({ type: 'MATERIAL' });
+  }, []);
   return (
     <motion.div
       variants={{
@@ -33,6 +41,17 @@ const Supplier: React.FC<IProps> = ({ adData, setAdData }) => {
     >
       Supplier Ханган нийлүүлэгч
       <div className="grid grid-cols-3 gap-4">
+        <CustomSelect
+          label="Тоног төхөөрөмж"
+          value={adData?.materialId}
+          onSelectionChange={value => {
+            setAdData((prevState: ICreateAd) => ({
+              ...prevState,
+              materialId: Number(value),
+            }));
+          }}
+          options={materials.map(item => ({ value: item.id, label: item.name }))}
+        />
         <Input
           key="productName"
           type="text"

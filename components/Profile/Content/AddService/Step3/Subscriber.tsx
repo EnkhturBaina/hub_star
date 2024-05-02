@@ -71,7 +71,7 @@ const Subscriber: React.FC<IProps> = ({ adData, setAdData }) => {
             label: 'font-bold',
             inputWrapper: ['custom-input-wrapper', 'bg-white'],
           }}
-          value={adData?.counter.toString()}
+          value={adData?.counter?.toString()}
           onChange={handleChange('counter')}
         />
       </div>

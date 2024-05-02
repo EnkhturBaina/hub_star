@@ -22,10 +22,15 @@ const profileRoutes: ProfileRoute[] = [
     name: 'Профайл',
     url: '/profile/information',
   },
+  // {
+  //   id: 2,
+  //   name: 'Мессенжер',
+  //   url: '/profile/messenger',
+  // },
   {
     id: 2,
-    name: 'Мессенжер',
-    url: '/profile/messenger',
+    name: 'Үйлчилгээ байршуулах',
+    url: '/profile/post-service'
   },
   {
     id: 3,
