@@ -250,7 +250,7 @@ const SingleBlogPage: NextPage = () => {
                 >
                   Профайл үзэх
                 </Button>
-                {data?.process == 'DOING' && user.id == data.createdBy && (
+                {data?.process == 'DOING' && user?.id == data.createdBy && (
                   <Button
                     onClick={() => {
                       setData({ ...data, process: 'CREATED' });

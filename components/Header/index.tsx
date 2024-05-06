@@ -134,7 +134,7 @@ const Header = () => {
                       </svg>
                     </Badge>
                   </Link>
-                  <Link href="/profile/posted-services">
+                  <Link href="/profile/post-service">
                     <svg
                       viewBox="0 0 30 30"
                       xmlns="http://www.w3.org/2000/svg"
@@ -156,22 +156,23 @@ const Header = () => {
         <SearchBox />
       </div>
       {pathUrl === '/profile/information' ||
-      pathUrl === '/profile/messenger' ||
-      pathUrl === '/profile/posted-services' ||
-      pathUrl === '/profile/doing-services' ||
-      pathUrl === '/profile/saved-services' ||
-      pathUrl === '/profile/service-history' ||
-      pathUrl === '/profile/account' ||
-      pathUrl === '/profile/confirmation' ||
-      pathUrl === '/profile/password' ||
-      pathUrl === '/profile/notification' ||
-      pathUrl !== '/profile/advices' && (
-        <div className="no-scrollbar mt-2 flex overflow-y-scroll md:justify-center">
-          <nav>
-            <HeaderMenu />
-          </nav>
-        </div>
-      )}
+        pathUrl === '/profile/messenger' ||
+        pathUrl === '/profile/posted-services' ||
+        pathUrl === '/profile/doing-services' ||
+        pathUrl === '/profile/saved-services' ||
+        pathUrl === '/profile/service-history' ||
+        pathUrl === '/profile/account' ||
+        pathUrl === '/profile/confirmation' ||
+        pathUrl === '/profile/password' ||
+        pathUrl === '/profile/notification' ||
+        pathUrl === '/profile/post-service' ||
+        (pathUrl !== '/profile/advices' && (
+          <div className="no-scrollbar mt-2 flex overflow-y-scroll md:justify-center">
+            <nav>
+              <HeaderMenu />
+            </nav>
+          </div>
+        ))}
     </header>
   );
 };

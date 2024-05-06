@@ -14,6 +14,10 @@ export interface IAdParam extends IPageOptions {
   title?: string;
   userBy?: number;
   createdBy?: number;
+  provinceId?:  number;
+  districtId?: number;
+  khorooId?: number;
+  materialId?: number;
   specialService?: SpecialServiceType;
 }
 export interface ICreateAd {

@@ -2,10 +2,11 @@ import { useAppContext } from '@/app/app-context';
 import BlogItem from '@/components/Blog/BlogItem';
 import BreadCrumbs from '@/components/BreadCrumbs';
 import SideCheckSubDirection from '@/components/Common/SideCheckSubDirection';
+import CustomSelect from '@/components/Inputs/Select';
 import PaginationComp from '@/components/Pagination';
-import { IAdParam } from '@/interfaces/request.interface';
+import { IAdParam, IMachineryParam } from '@/interfaces/request.interface';
 import { ReferenceService } from '@/service/reference/reference.service';
-import { MainDirection, OrderType } from '@/types/reference';
+import { Address, MachineryType, MainDirection, OrderType } from '@/types/reference';
 import { Button, Select, SelectItem } from '@nextui-org/react';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
@@ -14,6 +15,10 @@ import { IoIosAddCircleOutline } from 'react-icons/io';
 const BlogPage: NextPage = () => {
   const { adParam, setAdParam, advertisements, adMeta } = useAppContext();
   const [mainDirection, setMainDirection] = useState<MainDirection>();
+  const [materials, setMaterials] = useState<MachineryType[]>([]);
+  const [provinces, setProvinces] = useState<Address[]>([]);
+  const [districts, setDistricts] = useState<Address[]>([]);
+  const [khoroos, setKhoroos] = useState<Address[]>([]);
   const router = useRouter();
 
   const getParam = useCallback(async () => {
@@ -51,6 +56,58 @@ const BlogPage: NextPage = () => {
   useEffect(() => {
     getParam();
   }, [getParam]);
+
+  const getMachinery = useCallback(() => {
+    if (adParam.userType == 'SUPPLIER') {
+      ReferenceService.getMachinery({ type: 'MATERIAL' }).then(response => {
+        if (response.success) {
+          setMaterials(response.response);
+        }
+      });
+    }
+  }, [adParam.userType]);
+
+  useEffect(() => {
+    getMachinery();
+  }, [getMachinery]);
+
+  const getProvince = useCallback(() => {
+    ReferenceService.getAddress({ type: 'PROVINCE' }).then(response => {
+      if (response.success) {
+        setProvinces(response.response);
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    getProvince();
+  }, [getProvince]);
+
+  const getDistrict = useCallback(() => {
+    ReferenceService.getAddress({ type: 'DISTRICT', parentId: adParam.provinceId }).then(
+      response => {
+        if (response.success) {
+          setDistricts(response.response);
+        }
+      }
+    );
+  }, [adParam.provinceId]);
+
+  useEffect(() => {
+    getDistrict();
+  }, [getDistrict]);
+
+  const getKhoroo = useCallback(() => {
+    ReferenceService.getAddress({ type: 'KHOROO', parentId: adParam.districtId }).then(response => {
+      if (response.success) {
+        setKhoroos(response.response);
+      }
+    });
+  }, [adParam.districtId]);
+
+  useEffect(() => {
+    getKhoroo();
+  }, [getKhoroo]);
 
   return (
     <>
@@ -110,6 +167,42 @@ const BlogPage: NextPage = () => {
               >
                 Онцгой үйлчилгээ оруулах
               </Button>
+            </div>
+            <div className="my-4 grid grid-cols-3">
+              {adParam.userType == 'SUPPLIER' && (
+                <CustomSelect
+                  label={'Материалын нэрс орох'}
+                  value={adParam.materialId}
+                  onSelectionChange={value => {
+                    setAdParam({ ...adParam, materialId: Number(value) });
+                  }}
+                  options={materials.map(item => ({ label: item.name, value: item.id }))}
+                />
+              )}
+              <CustomSelect
+                label={'Аймаг, хот'}
+                value={adParam.provinceId}
+                onSelectionChange={value => {
+                  setAdParam({ ...adParam, provinceId: Number(value) });
+                }}
+                options={provinces.map(item => ({ label: item.name, value: item.id }))}
+              />
+              <CustomSelect
+                label={'Сум, дүүрэг'}
+                value={adParam.districtId}
+                onSelectionChange={value => {
+                  setAdParam({ ...adParam, districtId: Number(value) });
+                }}
+                options={districts.map(item => ({ label: item.name, value: item.id }))}
+              />
+              <CustomSelect
+                label={'Баг, хороо'}
+                value={adParam.khorooId}
+                onSelectionChange={value => {
+                  setAdParam({ ...adParam, khorooId: Number(value) });
+                }}
+                options={khoroos.map(item => ({ label: item.name, value: item.id }))}
+              />
             </div>
             <div className="grid grid-cols-2 gap-6">
               {advertisements.map((blog, key) => (
