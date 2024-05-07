@@ -3,6 +3,7 @@ import { api } from '../api.service';
 import {
   IResponse,
   IResponseLogin,
+  IResponseMyProfile,
   IResponseOtp,
   IResponseOtpVerify,
   IResponseProfile,
@@ -24,7 +25,7 @@ const otpVerify = (otp: IVerifyOtp): Promise<IResponseOtpVerify> => {
 const logout = (): Promise<IResponse> => {
   return api.post('/authentication/logout');
 };
-const profile = (): Promise<IResponseProfile> => {
+const profile = (): Promise<IResponseMyProfile> => {
   return api.get('/authentication');
 };
 const otherProfile = (id: number): Promise<IResponseProfile> => {

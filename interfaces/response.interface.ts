@@ -39,9 +39,15 @@ export interface IResponseOtpVerify extends IResponse {
   };
 }
 export interface IResponseProfile extends IResponse {
+  response: Users;
+}
+export interface IResponseMyProfile extends IResponse {
   response: {
     user: Users;
+    accessToken: string;
+    refreshToken: string;
   };
+
 }
 export interface IResponseLocalFile extends IResponse {
   response: {

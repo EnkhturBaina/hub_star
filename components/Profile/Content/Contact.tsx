@@ -1,13 +1,42 @@
-'use client';
 import { motion } from 'framer-motion';
-import { Input, Textarea } from '@nextui-org/react';
 import ProfileFields from '@/components/Skeleton/ProfileFields';
-import { Users } from '@/types/user';
-
+import Users from '@/types/user';
+import { Input, Textarea } from '@nextui-org/react';
+import Rating from '@/components/Common/Rating';
+import { useCallback, useEffect, useState } from 'react';
+import { AdvertisementService } from '@/service/advertisement/advertisement.service';
+import { toInteger } from 'lodash';
 type Props = {
   user: Users;
 };
-const Profile: React.FC<Props> = ({ user }) => {
+const Contact: React.FC<Props> = ({ user }) => {
+  const [rating, setRating] = useState<number>(0);
+
+  const getData = useCallback(async () => {
+    await AdvertisementService.get({
+      page: 1,
+      limit: 300,
+      order: 'DESC',
+      process: 'DOING',
+      userBy: user?.id,
+    }).then(res => {
+      if (res.success) {
+        calculateAverage(res.response.data.map(item => item.rating));
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    getData();
+  }, [getData]);
+
+  const calculateAverage = (arr: number[]) => {
+    let sum = 0;
+    for (let i = 0; i < arr.length; i++) {
+      sum += arr[i];
+    }
+    setRating(toInteger(sum / arr.length));
+  };
   return (
     <>
       {user == null ? (
@@ -31,54 +60,9 @@ const Profile: React.FC<Props> = ({ user }) => {
           viewport={{ once: true }}
           className="mb-4 grid w-full grid-cols-1 gap-y-4 overflow-hidden p-2"
         >
-          <Input
-            disabled
-            key="lastName"
-            type="text"
-            label="Овог"
-            labelPlacement="outside"
-            placeholder="Овог"
-            radius="sm"
-            size="lg"
-            variant="bordered"
-            classNames={{
-              label: 'font-bold',
-              inputWrapper: ['custom-input-wrapper', 'bg-white'],
-            }}
-            value={user?.lastName}
-          />
-          <Input
-            disabled
-            key="firstName"
-            type="text"
-            label="Нэр"
-            labelPlacement="outside"
-            placeholder="Нэр"
-            radius="sm"
-            size="lg"
-            variant="bordered"
-            classNames={{
-              label: 'font-bold',
-              inputWrapper: ['custom-input-wrapper', 'bg-white'],
-            }}
-            value={user?.firstName}
-          />
-          <Input
-            disabled
-            key="jobPosition"
-            type="text"
-            label="Албан тушаал"
-            labelPlacement="outside"
-            placeholder="Албан тушаал"
-            radius="sm"
-            size="lg"
-            variant="bordered"
-            classNames={{
-              label: 'font-bold',
-              inputWrapper: ['custom-input-wrapper', 'bg-white'],
-            }}
-            value={user?.jobPosition}
-          />
+          <div className="items-center">
+            <Rating point={rating} />
+          </div>
           <Input
             disabled
             key="phone"
@@ -97,11 +81,25 @@ const Profile: React.FC<Props> = ({ user }) => {
           />
           <Input
             disabled
+            key="webUrl"
+            type="email"
+            label="Веб хуудас"
+            labelPlacement="outside"
+            radius="sm"
+            size="lg"
+            variant="bordered"
+            classNames={{
+              label: 'font-bold',
+              inputWrapper: ['custom-input-wrapper', 'bg-white'],
+            }}
+            value={user?.webUrl}
+          />
+          <Input
+            disabled
             key="email"
             type="email"
             label="И-мэйл хаяг"
             labelPlacement="outside"
-            placeholder="И-мэйл хаяг"
             radius="sm"
             size="lg"
             variant="bordered"
@@ -130,5 +128,4 @@ const Profile: React.FC<Props> = ({ user }) => {
     </>
   );
 };
-
-export default Profile;
+export default Contact;

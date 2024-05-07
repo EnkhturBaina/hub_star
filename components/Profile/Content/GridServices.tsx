@@ -1,9 +1,9 @@
 'use client';
+import Rating from '@/components/Common/Rating';
 import { Advertisement } from '@/types/advertisement';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
-import { FaStar } from 'react-icons/fa';
 
 const GridServices = ({
   servicesData,
@@ -42,15 +42,7 @@ const GridServices = ({
             />
             {isStars && (
               <div className="absolute right-4 bottom-4 flex flex-row items-center justify-center">
-                <span className="font-bold text-white">Үнэлгээ:</span>
-                <div className="flex flex-row items-center">
-                  {[...Array(5)].map((_, index) => (
-                    <FaStar
-                      key={index}
-                      className={`text-2xl text-mainColor ${index < adv.rating ? 'text-mainColor' : 'text-white'}`}
-                    />
-                  ))}
-                </div>
+                <Rating point={adv.rating} />
               </div>
             )}
           </Link>

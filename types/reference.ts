@@ -8,6 +8,11 @@ export type ProfileRoute = {
   name: string;
   url: string;
 };
+export type OtherProfileMenu = {
+  id: string;
+  name: string;
+  component: ReactNode;
+};
 /** Хуудаслалт  */
 export type PageMeta = {
   page: number;

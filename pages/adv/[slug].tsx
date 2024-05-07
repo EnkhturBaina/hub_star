@@ -27,6 +27,8 @@ import ImageGallery from 'react-image-gallery';
 import { useAppContext } from '@/app/app-context';
 import SpecialPost from '@/components/Blog/SpecialPost';
 import RelatedPost from '@/components/Blog/RelatedPost';
+import Link from 'next/link';
+import Rating from '@/components/Common/Rating';
 
 const SingleBlogPage: NextPage = () => {
   const router = useRouter();
@@ -88,13 +90,13 @@ const SingleBlogPage: NextPage = () => {
       })
       .catch(err => toast.error(err));
   };
-  const viewProfile = () => {
-    AuthService.otherProfile(data.createdBy).then(res => {
-      if (res.success) {
-        router.push('/profile/' + data.createdBy);
-      }
-    });
-  };
+  // const viewProfile = () => {
+  //   AuthService.otherProfile(data.createdBy).then(res => {
+  //     if (res.success) {
+  //       router.push('/profile/' + data.createdBy);
+  //     }
+  //   });
+  // };
   const handleUpdate = async () => {
     await AdvertisementService.update(data).then(res => {
       if (res.success) {
@@ -202,26 +204,17 @@ const SingleBlogPage: NextPage = () => {
             <div className="border-l px-4 md:w-1/4 lg:w-[20%]">
               <div className="flex flex-col gap-y-2">
                 {user && (
-                  <Fragment>
-                    <span className="font-bold">Үнэлгээ</span>
-                    <div
-                      className="flex flex-row items-center"
-                      onClick={() => {
-                        if (user.id == data.createdBy) {
-                          setData({ ...data, process: 'DONE' });
-                          onOpen();
-                        }
-                      }}
-                    >
-                      {[...Array(5)].map((_, index) => (
-                        <FaStar
-                          key={index}
-                          className={`text-2xl cursor-pointer ${index < data?.rating ? 'text-mainColor' : 'text-blue-300'}`}
-                        />
-                      ))}
-                      <span className="ml-4">{data?.rating}/5</span>
-                    </div>
-                  </Fragment>
+                  <div
+                    className="cursor-pointer"
+                    onClick={() => {
+                      if (user.id == data.createdBy) {
+                        setData({ ...data, process: 'DONE' });
+                        onOpen();
+                      }
+                    }}
+                  >
+                    <Rating point={data?.rating} />
+                  </div>
                 )}
                 <span className="font-bold">Үнэ</span>
                 <span className="">{data?.price} ₮</span>
@@ -243,8 +236,7 @@ const SingleBlogPage: NextPage = () => {
                   {data?.address}
                 </span>
                 <Button
-                  onClick={() => viewProfile()}
-                  radius="full"
+                  onClick={() => router.push('/other-profile/' + data.createdBy)}
                   className="mb-2 w-full rounded-md bg-mainColor font-bold leading-none text-white md:w-72"
                 >
                   Профайл үзэх

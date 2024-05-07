@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { FaStar } from 'react-icons/fa';
 import { Advertisement } from '@/types/advertisement';
+import Rating from '@/components/Common/Rating';
 
 const ListServices = ({ servicesData, isStars }: { servicesData: any; isStars: boolean }) => {
   return (
@@ -52,15 +53,7 @@ const ListServices = ({ servicesData, isStars }: { servicesData: any; isStars: b
             </div>
             {isStars && (
               <div className="flex w-50 flex-col items-center justify-center">
-                <span className="font-bold">Үнэлгээ:</span>
-                <div className="flex flex-row items-center">
-                  {[...Array(5)].map((_, index) => (
-                    <FaStar
-                      key={index}
-                      className={`text-2xl text-mainColor ${index < blog.rating ? 'text-mainColor' : 'text-white'}`}
-                    />
-                  ))}
-                </div>
+                <Rating point={blog.rating} />
               </div>
             )}
           </div>

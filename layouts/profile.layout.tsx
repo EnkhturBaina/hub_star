@@ -1,6 +1,6 @@
 'use client';
 import LeftMenu from '@/components/Profile/LeftMenu';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { FaCamera } from 'react-icons/fa';
 import { SidebarPusher, SidebarPushable, Segment, Sidebar } from 'semantic-ui-react';
 import { LuChevronLeft, LuLayoutGrid, LuMenu } from 'react-icons/lu';
@@ -17,26 +17,18 @@ type Props = {
 };
 const ProfileLayout: React.FC<Props> = ({ children }) => {
   const { user, setUser } = useAppContext();
-  const [values, setValues] = useState<Users>(user);
   const [visible, setVisible] = useState(false);
 
   const sideBarRef = useRef(null);
-  const saveUserImage = () => {
-    AuthService.updateById(user.id, values).then(response => {
+
+  const saveUserImage = (value: Users) => {
+    AuthService.updateById(user.id, value).then(response => {
       if (response.success) {
+        setUser(response.response);
         toast.success('Амжилттай хадгаллаа');
       }
     });
   };
-
-  useEffect(() => {
-    values &&
-      setUser((prevState: Users) => ({
-        ...prevState,
-        avatarId: values.avatarId,
-        coverId: values.coverId,
-      }));
-  }, [values]);
   if (!user) {
     return null;
   } else {
@@ -44,7 +36,12 @@ const ProfileLayout: React.FC<Props> = ({ children }) => {
       <section className="bg-gray-100 py-18 lg:py-18 xl:py-18">
         <div className="mx-auto max-w-screen-xl md:px-4 xl:px-0">
           <div className="flex flex-col rounded-xl bg-white">
-            <div className="relative h-64 w-full bg-cover bg-center">
+            <ImageUpload
+              className="cursor-pointer relative h-64 w-full bg-cover bg-center"
+              setFileId={coverId => {
+                saveUserImage({ ...user, coverId });
+              }}
+            >
               <Image
                 src={
                   user.coverId
@@ -56,21 +53,12 @@ const ProfileLayout: React.FC<Props> = ({ children }) => {
                 fill
               />
               <div className="absolute bottom-8 right-8">
-                <ImageUpload
-                  className="cursor-pointer bg-gray-300 text-base bg-opacity-60 text-white flex flex-row items-center rounded px-4 py-1 min-w-max"
-                  setFileId={coverId => {
-                    setValues({
-                      ...values,
-                      coverId,
-                    });
-                    saveUserImage();
-                  }}
-                >
+                <div className="bg-gray-300 text-base bg-opacity-60 text-white flex flex-row items-center rounded px-4 py-1 min-w-max">
                   <FaCamera className="text-lg mr-3" />
                   Дэвсгэр зураг солих
-                </ImageUpload>
+                </div>
               </div>
-            </div>
+            </ImageUpload>
             <div className="relative h-30 mx-5 md:mx-25">
               <div className="absolute w-full left-2 flex flex-row md:-bottom-10 md:left-20 gap-3 -top-[30%] md:-top-2/4">
                 <div className="relative md:mr-6">
@@ -87,13 +75,8 @@ const ProfileLayout: React.FC<Props> = ({ children }) => {
                   />
                   <ImageUpload
                     className="right-0 bottom-0 md:bottom-15 cursor-pointer rounded-full bg-gray-100 p-3 text-black absolute w-fit"
-                    setFileId={fileId => {
-                      console.log('fileId AVATAR========>', fileId);
-                      setValues({
-                        ...values,
-                        avatarId: fileId,
-                      });
-                      saveUserImage();
+                    setFileId={avatarId => {
+                      saveUserImage({ ...user, avatarId });
                     }}
                   >
                     <FaCamera className="text-2xl" />
@@ -103,7 +86,7 @@ const ProfileLayout: React.FC<Props> = ({ children }) => {
                   <span className="mb-0 text-2xl font-bold text-black md:mb-2">
                     <AuthName user={user} />
                   </span>
-                  <span className="text-xl ml-3 mr-5">{user.jobPosition}1212</span>
+                  <span className="text-xl ml-3 mr-5">{user.jobPosition}</span>
                 </div>
               </div>
             </div>
