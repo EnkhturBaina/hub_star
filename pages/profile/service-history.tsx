@@ -8,6 +8,7 @@ import { Advertisement } from '@/types/advertisement';
 import { AdvertisementService } from '@/service/advertisement/advertisement.service';
 import { useAppContext } from '@/app/app-context';
 import Empty from '@/components/Empty';
+import withAuth from '@/components/Common/withAuth';
 
 const ServiceHistory = () => {
   const { user } = useAppContext();
@@ -59,4 +60,4 @@ const ServiceHistory = () => {
   );
 };
 
-export default ServiceHistory;
+export default withAuth(ServiceHistory);

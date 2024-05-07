@@ -8,6 +8,7 @@ import { Users } from '@/types/user';
 import { AuthService } from '@/service/authentication/authentication.service';
 import ProfileLayout from '@/layouts/profile.layout';
 import { NextPage } from 'next';
+import withAuth from '@/components/Common/withAuth';
 
 const Profile: NextPage = () => {
   const { user } = useAppContext();
@@ -246,4 +247,4 @@ const Profile: NextPage = () => {
   );
 };
 
-export default Profile;
+export default withAuth(Profile);

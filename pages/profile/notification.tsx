@@ -21,6 +21,7 @@ import { Advertisement } from '@/types/advertisement';
 import toast, { Toaster } from 'react-hot-toast';
 import { NextPage } from 'next';
 import Empty from '@/components/Empty';
+import withAuth from '@/components/Common/withAuth';
 
 const Notification: NextPage = () => {
   const { user } = useAppContext();
@@ -144,4 +145,4 @@ const Notification: NextPage = () => {
   );
 };
 
-export default Notification;
+export default withAuth(Notification);

@@ -5,6 +5,7 @@ import { IoIosAdd } from 'react-icons/io';
 import { BiSend } from 'react-icons/bi';
 import ProfileLayout from '@/layouts/profile.layout';
 import { NextPage } from 'next';
+import withAuth from '@/components/Common/withAuth';
 
 const Messenger: NextPage = () => {
   return (
@@ -195,4 +196,4 @@ const Messenger: NextPage = () => {
   );
 };
 
-export default Messenger;
+export default withAuth(Messenger);

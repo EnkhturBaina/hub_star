@@ -14,6 +14,7 @@ import { AuthService } from '@/service/authentication/authentication.service';
 import ConfirmSkeleton from '@/components/Skeleton/ConfirmSkeleton';
 import CustomSelect from '@/components/Inputs/Select';
 import UserTabData from '@/app/data/UserTabData';
+import withAuth from '@/components/Common/withAuth';
 
 const Confirmation = () => {
   const { user, setUser } = useAppContext();
@@ -298,4 +299,4 @@ const Confirmation = () => {
   );
 };
 
-export default Confirmation;
+export default withAuth(Confirmation);

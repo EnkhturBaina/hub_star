@@ -7,6 +7,7 @@ import { Users } from '@/types/user';
 import { useAppContext } from '@/app/app-context';
 import { AuthService } from '@/service/authentication/authentication.service';
 import ProfileLayout from '@/layouts/profile.layout';
+import withAuth from '@/components/Common/withAuth';
 
 const Account: React.FC = () => {
   const { user } = useAppContext();
@@ -136,4 +137,4 @@ const Account: React.FC = () => {
     </ProfileLayout>
   );
 };
-export default Account;
+export default withAuth(Account);

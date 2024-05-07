@@ -8,6 +8,7 @@ import ListServices from '@/components/Profile/Content/ListServices';
 import ProfileLayout from '@/layouts/profile.layout';
 import { useAppContext } from '@/app/app-context';
 import Empty from '@/components/Empty';
+import withAuth from '@/components/Common/withAuth';
 
 const DoingServices = () => {
   const { user } = useAppContext();
@@ -59,4 +60,4 @@ const DoingServices = () => {
   );
 };
 
-export default DoingServices;
+export default withAuth(DoingServices);

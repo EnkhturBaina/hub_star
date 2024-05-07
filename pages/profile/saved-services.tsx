@@ -6,6 +6,7 @@ import GridServices from '@/components/Profile/Content/GridServices';
 import ListServices from '@/components/Profile/Content/ListServices';
 import ProfileLayout from '@/layouts/profile.layout';
 import Empty from '@/components/Empty';
+import withAuth from '@/components/Common/withAuth';
 
 const SavedServices = () => {
   const { user } = useAppContext();
@@ -46,4 +47,4 @@ const SavedServices = () => {
   );
 };
 
-export default SavedServices;
+export default withAuth(SavedServices);

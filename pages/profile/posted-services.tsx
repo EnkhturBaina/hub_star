@@ -10,6 +10,7 @@ import { NextPage } from 'next';
 import { Advertisement } from '@/types/advertisement';
 import { AdvertisementService } from '@/service/advertisement/advertisement.service';
 import Empty from '@/components/Empty';
+import withAuth from '@/components/Common/withAuth';
 
 const PostedServices: NextPage = () => {
   const { user } = useAppContext();
@@ -62,4 +63,4 @@ const PostedServices: NextPage = () => {
   );
 };
 
-export default PostedServices;
+export default withAuth(PostedServices);
