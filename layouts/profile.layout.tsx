@@ -71,19 +71,8 @@ const ProfileLayout: React.FC<Props> = ({ children }) => {
                 </ImageUpload>
               </div>
             </div>
-            <div
-              className="relative h-30"
-              style={{
-                marginLeft: 100,
-                marginRight: 100,
-              }}
-            >
-              <div
-                className="absolute w-full left-2 flex flex-row md:-bottom-10 md:left-20 gap-3"
-                style={{
-                  top: '-50%',
-                }}
-              >
+            <div className="relative h-30 mx-5 md:mx-25">
+              <div className="absolute w-full left-2 flex flex-row md:-bottom-10 md:left-20 gap-3 -top-[30%] md:-top-2/4">
                 <div className="relative md:mr-6">
                   <Image
                     className="rounded-full border-5 border-white md:h-40 md:w-40"
@@ -97,7 +86,7 @@ const ProfileLayout: React.FC<Props> = ({ children }) => {
                     height={120}
                   />
                   <ImageUpload
-                    className="right-0 bottom-15 cursor-pointer rounded-full bg-gray-100 p-3 text-black absolute w-fit"
+                    className="right-0 bottom-0 md:bottom-15 cursor-pointer rounded-full bg-gray-100 p-3 text-black absolute w-fit"
                     setFileId={fileId => {
                       console.log('fileId AVATAR========>', fileId);
                       setValues({
@@ -114,7 +103,7 @@ const ProfileLayout: React.FC<Props> = ({ children }) => {
                   <span className="mb-0 text-2xl font-bold text-black md:mb-2">
                     <AuthName user={user} />
                   </span>
-                  <span className="text-xl ml-3 mr-5">{user.jobPosition}</span>
+                  <span className="text-xl ml-3 mr-5">{user.jobPosition}1212</span>
                 </div>
               </div>
             </div>
