@@ -13,6 +13,8 @@ import { usePathname } from 'next/navigation';
 import Header from '@/components/Header';
 import FabButton from '@/components/Common/FabButton';
 import 'react-image-gallery/styles/css/image-gallery.css';
+import { Suspense } from 'react';
+import Loading from '@/components/Common/Loading';
 
 const roboto = Roboto({
   subsets: ['latin'],
@@ -22,22 +24,23 @@ const roboto = Roboto({
 });
 function MyApp({ Component, pageProps }: AppProps) {
   const pathUrl = usePathname();
-
   return (
-    <div className={`dark:bg-black ${roboto.className}`}>
-      <NextUIProvider>
-        <ThemeProvider enableSystem={false} attribute="class" defaultTheme="light">
-          <ToasterContext />
-          <AppProvider>
-            {pathUrl === '/auth/signin' || pathUrl === '/auth/signup' ? null : <Header />}
-            <Component {...pageProps} />
-            <FabButton />
-          </AppProvider>
-          <Footer />
-          <ScrollToTop />
-        </ThemeProvider>
-      </NextUIProvider>
-    </div>
+    <Suspense fallback={<Loading />}>
+      <div className={`dark:bg-black ${roboto.className}`}>
+        <NextUIProvider>
+          <ThemeProvider enableSystem={false} attribute="class" defaultTheme="light">
+            <ToasterContext />
+            <AppProvider>
+              {pathUrl === '/auth/signin' || pathUrl === '/auth/signup' ? null : <Header />}
+              <Component {...pageProps} />
+              <FabButton />
+            </AppProvider>
+            <Footer />
+            <ScrollToTop />
+          </ThemeProvider>
+        </NextUIProvider>
+      </div>
+    </Suspense>
   );
 }
 

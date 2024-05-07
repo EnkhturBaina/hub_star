@@ -58,7 +58,7 @@ const Step3: React.FC<IProps> = ({ adData, setAdData }) => {
             label: 'font-bold',
             inputWrapper: ['custom-input-wrapper', 'bg-white'],
           }}
-          value={adData?.counter && adData.counter.toString()}
+          value={adData?.counter?.toString()}
           onValueChange={e => {
             setAdData((prevState: ICreateAd) => ({
               ...prevState,
