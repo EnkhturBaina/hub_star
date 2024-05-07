@@ -135,7 +135,6 @@ const SingleBlogPage: NextPage = () => {
   return (
     <>
       <section className="pt-35 lg:pt-40 xl:pt-42.5">
-        (
         <Fragment>
           <div className="bg-gray-100 px-4 md:px-8 2xl:px-0 ">
             <div className="mx-auto flex max-w-screen-xl flex-col justify-between gap-7.5 py-10 md:flex-row md:py-18 lg:flex-row xl:gap-12.5">
@@ -307,6 +306,10 @@ const SingleBlogPage: NextPage = () => {
               {/* <div className="my-4 grid grid-cols-1 gap-7.5 md:grid-cols-2 lg:grid-cols-4 xl:gap-10">
                 TODO {BlogData?.splice(0, 4).map((blog, key) => <SpecialPost blog={blog} key={key} />)}
               </div> */}
+            </div>
+          </div>
+          <div className="bg-gray-100 px-4 md:px-8 2xl:px-0">
+            <div className="mx-auto max-w-screen-xl py-10">
               <span className="text-xl font-bold">Ижил төсөөтэй үйлчилгээ</span>
               <div className="my-4 grid grid-cols-1 gap-7.5 md:grid-cols-2 lg:grid-cols-4 xl:gap-10">
                 {/* {advertisements.map((blog, key) => (
@@ -316,7 +319,6 @@ const SingleBlogPage: NextPage = () => {
             </div>
           </div>
         </Fragment>
-        )
         <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
           <ModalContent>
             {onClose => (

@@ -3,13 +3,7 @@ const SpecialServiceData: SpecialService[] = [
   {
     type: 'PUBLIC_SELECTION',
     icon: (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="81"
-        height="60"
-        viewBox="0 0 81 60"
-        fill="none"
-      >
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 81 60" fill="none">
         <g clipPath="url(#clip0_3291_49)">
           <path
             d="M49.8029 9.14458C49.8029 12.8888 47.5311 16.1076 44.278 17.5221C43.4934 17.863 42.6517 18.0991 41.7712 18.2123C41.3785 18.263 40.9776 18.2892 40.5708 18.2892C40.1641 18.2892 39.7632 18.263 39.3701 18.2123C38.464 18.0961 37.5992 17.8495 36.795 17.4922C33.5787 16.0625 31.3387 12.8626 31.3387 9.14458C31.3387 4.09438 35.4719 0 40.5708 0C45.6694 0 49.8029 4.09438 49.8029 9.14458Z"
@@ -69,13 +63,7 @@ const SpecialServiceData: SpecialService[] = [
   {
     type: 'INTERNATIONAL_TRADE',
     icon: (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="59"
-        height="60"
-        viewBox="0 0 59 60"
-        fill="none"
-      >
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 59 60" fill="none">
         <path
           fillRule="evenodd"
           clipRule="evenodd"
@@ -89,13 +77,7 @@ const SpecialServiceData: SpecialService[] = [
   {
     type: 'CONSULTING_SERVICE',
     icon: (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="65"
-        height="60"
-        viewBox="0 0 65 60"
-        fill="none"
-      >
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 65 60" fill="none">
         <path
           fillRule="evenodd"
           clipRule="evenodd"
@@ -109,13 +91,7 @@ const SpecialServiceData: SpecialService[] = [
   {
     type: 'VOCATIONAL_TRAINING',
     icon: (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="43"
-        height="60"
-        viewBox="0 0 43 60"
-        fill="none"
-      >
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 43 60" fill="none">
         <path
           fillRule="evenodd"
           clipRule="evenodd"
@@ -129,13 +105,7 @@ const SpecialServiceData: SpecialService[] = [
   {
     type: 'LABORATORY_MATERIAL',
     icon: (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="59"
-        height="60"
-        viewBox="0 0 59 60"
-        fill="none"
-      >
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 59 60" fill="none">
         <path
           d="M28.4612 49.3699C28.4859 47.7695 29.1453 46.2445 30.2942 45.1302C31.4431 44.0159 32.9875 43.4035 34.5879 43.4276C34.9783 43.414 35.3688 43.4526 35.749 43.5424V38.7432H29.968C29.8492 38.7457 29.7321 38.7148 29.6299 38.6542C29.5278 38.5935 29.4447 38.5055 29.39 38.4C29.2963 38.1845 29.2569 37.9493 29.2752 37.715C29.4995 37.2113 29.6172 36.6666 29.621 36.1152C29.6007 34.9021 29.1045 33.7456 28.2395 32.8948C27.3744 32.0441 26.2098 31.5674 24.9965 31.5674C23.7832 31.5674 22.6186 32.0441 21.7536 32.8948C20.8885 33.7456 20.3924 34.9021 20.3721 36.1152C20.3641 36.668 20.4828 37.2152 20.7191 37.715C20.7848 37.8241 20.8094 37.9531 20.7883 38.0787C20.7673 38.2043 20.702 38.3183 20.6043 38.4C20.5495 38.5054 20.4663 38.5934 20.3642 38.654C20.2621 38.7146 20.1451 38.7455 20.0263 38.7432H14.2453V53.0286C14.2452 53.9508 14.4282 54.8639 14.7837 55.7148C15.1392 56.5657 15.6602 57.3376 16.3163 57.9856C16.9724 58.6337 17.7506 59.145 18.6058 59.49C19.4611 59.835 20.3763 60.0067 21.2984 59.9953H35.7477V55.3096C35.3675 55.3994 34.977 55.438 34.5866 55.4244C32.9749 55.4225 31.4286 54.7862 30.2823 53.6532C29.136 52.5202 28.4818 50.9815 28.4612 49.3699Z"
           fill="#212529"
@@ -159,13 +129,7 @@ const SpecialServiceData: SpecialService[] = [
   {
     type: 'MAKE_BUDGET',
     icon: (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="39"
-        height="60"
-        viewBox="0 0 39 60"
-        fill="none"
-      >
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 39 60" fill="none">
         <path
           fillRule="evenodd"
           clipRule="evenodd"
