@@ -2,12 +2,12 @@ import { Metadata, NextPage } from 'next';
 import Image from 'next/image';
 
 export const metadata: Metadata = {
-  title: 'Error Page - Solid SaaS Boilerplate',
-  description: 'This is Error page for Solid Pro',
+  title: 'Error Page - HUB-STAR',
+  description: 'This is Error page for HUB-STAR',
   // other metadata
 };
 
-const Custom404: NextPage = () => {
+const Error404: NextPage = () => {
   return (
     <section className="overflow-hidden pb-25 pt-45 lg:pb-32.5 lg:pt-50 xl:pb-37.5 xl:pt-55">
       <div className="animate_top mx-auto max-w-[518px] text-center">
@@ -50,4 +50,4 @@ const Custom404: NextPage = () => {
   );
 };
 
-export default Custom404;
+export default Error404;
