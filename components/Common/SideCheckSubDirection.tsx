@@ -8,8 +8,9 @@ import { ReferenceService } from '@/service/reference/reference.service';
 type Props = {
   mainDirectionId?: number;
   specialService?: SpecialServiceType;
+  closeFnc?: () => void;
 };
-const SideCheckSubDirection: React.FC<Props> = ({ mainDirectionId, specialService }) => {
+const SideCheckSubDirection: React.FC<Props> = ({ mainDirectionId, specialService, closeFnc }) => {
   const { adParam, setAdParam } = useAppContext();
   const [directions, setDirections] = useState<RefDirection[]>([]);
 
@@ -36,13 +37,16 @@ const SideCheckSubDirection: React.FC<Props> = ({ mainDirectionId, specialServic
     getDirection();
   }, [getDirection]);
   return (
-    <div className="shadow-[rgba(0,0,15,0.5)_5px_0px_5px_-5px] md:w-1/4 lg:w-[20%]">
+    <div className={`shadow-[rgba(0,0,15,0.5)_5px_0px_5px_-5px]`}>
       <div className="flex flex-row items-center justify-between border-b p-4">
         <div className="flex flex-row items-center justify-center">
           <LuSettings2 className="text-xl" />
           <span className="ml-3 font-bold">Шүүлтүүр</span>
         </div>
-        <LuChevronLeft className="text-2xl" />
+        <LuChevronLeft
+          className="text-2xl"
+          onClick={closeFnc == undefined ? null : () => closeFnc()}
+        />
       </div>
       {directions.map((direction: RefDirection, index: number) => {
         return (
@@ -51,7 +55,7 @@ const SideCheckSubDirection: React.FC<Props> = ({ mainDirectionId, specialServic
             color="warning"
             key={index}
             classNames={{
-              base: 'my-4',
+              base: 'my-4 ml-2',
               label: 'font-bold text-black text-base',
             }}
             value={(adParam.subDirectionIds || []).map(item => item.toString())}

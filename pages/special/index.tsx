@@ -38,7 +38,7 @@ const SpecialService: NextPage = () => {
 
   return (
     <>
-      <section className="pt-30 lg:pt-25 xl:pt-42.5">
+      <section className="pt-30 lg:pt-25 xl:pt-30.5">
         <motion.div
           variants={{
             hidden: {
@@ -94,16 +94,8 @@ const SpecialService: NextPage = () => {
           as={Segment}
           className="custom-sidebar-base mx-auto mt-2 flex max-w-screen-xl flex-col gap-5 rounded-xl bg-mainProfileCardBg p-4 md:mt-6 lg:w-3/4 lg:flex-row"
         >
-          <div
-            className="ml-4 mt-2 w-fit rounded-xl bg-white p-4 md:hidden"
-            onClick={() => {
-              setVisible(true);
-            }}
-          >
-            <LuSettings2 className="text-2xl" />
-          </div>
           <Sidebar
-            animation="overlay"
+            animation="push"
             icon="labeled"
             onHide={() => setVisible(false)}
             visible={visible}
@@ -111,31 +103,40 @@ const SpecialService: NextPage = () => {
             className="!bg-white"
             ref={sideBarRef}
           >
-            <div className="flex flex-row items-center justify-between border-b p-4">
-              <div className="flex flex-row items-center justify-center">
-                <LuLayoutGrid className="text-2xl" />
-                <span className="ml-3 font-bold">Меню</span>
-              </div>
-              <LuChevronLeft className="text-2xl" onClick={() => setVisible(false)} />
-            </div>
-            <div>XXXXXXXXXXXXX2</div>
+            <SideCheckSubDirection
+              specialService={adParam.specialService}
+              closeFnc={() => (visible ? setVisible(false) : undefined)}
+            />
           </Sidebar>
           <SidebarPusher className="!w-full">
             <Segment className="!rounded-xl !border-0">
               <div className="mx-auto flex max-w-screen-xl gap-4 px-4 md:px-8 2xl:px-0">
-                <SideCheckSubDirection specialService={adParam.specialService} />
-                <div className="px-6 pb-6 lg:w-3/4">
-                  <div className="my-4 flex flex-row justify-between">
+                <div className={`hidden md:block md:w-1/4 lg:w-[20%]`}>
+                  <SideCheckSubDirection specialService={adParam.specialService} />
+                </div>
+                <div className="pb-6 lg:w-3/4 w-full">
+                  <div className="mb-4 flex flex-row justify-between">
+                    {!visible ? (
+                      <div
+                        className="w-fit rounded-xl bg-white p-2 md:hidden border-[#e4e4e7] border-2"
+                        onClick={() => {
+                          setVisible(true);
+                        }}
+                      >
+                        <LuSettings2 className="text-2xl" />
+                      </div>
+                    ) : null}
                     <Select
                       label="Эрэмбэлэлт"
-                      labelPlacement="outside"
+                      labelPlacement="inside"
                       radius="sm"
                       size="md"
                       variant="bordered"
                       classNames={{
-                        base: 'w-50',
+                        base: 'w-50 !mt-0',
                         label: 'font-bold',
-                        trigger: 'custom-select-trigger bg-white',
+                        trigger: 'custom-select-trigger bg-white !h-12 !min-h-12',
+                        innerWrapper: '!pt-0',
                       }}
                       value="DESC"
                       onChange={e => {
@@ -150,13 +151,6 @@ const SpecialService: NextPage = () => {
                       <SelectItem key="DESC">Огноогоор (Z-A)</SelectItem>
                       <SelectItem key="ASC">Огноогоор (A-Z)</SelectItem>
                     </Select>
-                    <Button
-                      radius="full"
-                      className="w-65 rounded-md bg-mainColor font-bold leading-none text-white"
-                      startContent={<IoIosAddCircleOutline className="text-xl" />}
-                    >
-                      Онцгой үйлчилгээ оруулах
-                    </Button>
                   </div>
                   <div className="grid grid-cols-2 gap-6">
                     {advertisements.map((blog, key) => (
