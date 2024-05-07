@@ -16,7 +16,7 @@ import { useAppContext } from '@/app/app-context';
 import { RefDirection, MainDirection, RefNews, SubDirection } from '@/types/reference';
 import Link from 'next/link';
 import { Popup } from 'semantic-ui-react';
-import { useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { ReferenceService } from '@/service/reference/reference.service';
 import { useRouter } from 'next/router';
 
@@ -151,48 +151,51 @@ const Hero = () => {
               </div>
             </div>
 
-            {!adParam.userType && (
-              <div className="w-full md:w-3/4">
-                <div className="mb-4 w-full overflow-hidden">
-                  <div className="custom-slider-container relative w-full rounded-xl">
-                    {news ? (
-                      <Fade
-                        {...properties}
-                        transitionDuration={500}
-                        easing="ease"
-                        indicators={indicators}
-                        autoplay={true}
-                      >
-                        {news?.map((el: RefNews, index: number) => {
-                          return (
-                            <div
-                              className="each-slide-effect rounded-xl cursor-pointer"
-                              key={index}
-                              onClick={() => {
-                                router.push({
-                                  pathname: '/news/' + el.id,
-                                });
-                              }}
-                            >
+
+            <div className="w-full md:w-3/4">
+              {!adParam.userType && (
+                <Fragment>
+                  <div className="mb-4 w-full overflow-hidden">
+                    <div className="custom-slider-container relative w-full rounded-xl">
+                      {news ? (
+                        <Fade
+                          {...properties}
+                          transitionDuration={500}
+                          easing="ease"
+                          indicators={indicators}
+                          autoplay={true}
+                        >
+                          {news?.map((el: RefNews, index: number) => {
+                            return (
                               <div
-                                style={{
-                                  backgroundImage: `url(${process.env.NEXT_PUBLIC_MEDIA_URL + el.imageId})`,
-                                  backgroundSize: '100% 100%',
+                                className="each-slide-effect rounded-xl cursor-pointer"
+                                key={index}
+                                onClick={() => {
+                                  router.push({
+                                    pathname: '/news/' + el.id,
+                                  });
                                 }}
-                              ></div>
-                            </div>
-                          );
-                        })}
-                      </Fade>
-                    ) : null}
+                              >
+                                <div
+                                  style={{
+                                    backgroundImage: `url(${process.env.NEXT_PUBLIC_MEDIA_URL + el.imageId})`,
+                                    backgroundSize: '100% 100%',
+                                  }}
+                                ></div>
+                              </div>
+                            );
+                          })}
+                        </Fade>
+                      ) : null}
+                    </div>
                   </div>
-                </div>
-                <Feature />
-                <GridCategory />
-                {mainDirections.length == 0 ? <BlogItemSkeleton /> : <Blog />}
-                <PaginationComp page={0} pageCount={0} />
-              </div>
-            )}
+                  <Feature />
+                  <GridCategory />
+                </Fragment>
+              )}
+              {mainDirections.length == 0 ? <BlogItemSkeleton /> : <Blog />}
+              <PaginationComp page={0} pageCount={0} />
+            </div>
           </div>
         </div>
       </section>

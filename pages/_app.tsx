@@ -11,7 +11,7 @@ import ScrollToTop from '@/components/ScrollToTop';
 import { Roboto } from 'next/font/google';
 import { usePathname } from 'next/navigation';
 import Header from '@/components/Header';
-import FabButton from './FabButton';
+import FabButton from '@/components/Common/FabButton';
 import 'react-image-gallery/styles/css/image-gallery.css';
 
 const roboto = Roboto({
