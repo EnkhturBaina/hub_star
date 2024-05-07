@@ -79,14 +79,14 @@ const ProfileLayout: React.FC<Props> = ({ children }) => {
               }}
             >
               <div
-                className="absolute w-full left-2 flex flex-row md:-bottom-28 md:left-30 gap-3"
+                className="absolute w-full left-2 flex flex-row md:-bottom-10 md:left-20 gap-3"
                 style={{
                   top: '-50%',
                 }}
               >
                 <div className="relative md:mr-6">
                   <Image
-                    className="rounded-full border-5 border-white md:h-60 md:w-60"
+                    className="rounded-full border-5 border-white md:h-40 md:w-40"
                     src={
                       user.avatarId
                         ? `${process.env.NEXT_PUBLIC_BASE_API_URL}local-files/${user.avatarId}`
@@ -97,7 +97,7 @@ const ProfileLayout: React.FC<Props> = ({ children }) => {
                     height={120}
                   />
                   <ImageUpload
-                    className="right-0 bottom-0 cursor-pointer rounded-full bg-gray-100 p-3 text-black absolute w-fit"
+                    className="right-0 bottom-15 cursor-pointer rounded-full bg-gray-100 p-3 text-black absolute w-fit"
                     setFileId={fileId => {
                       console.log('fileId AVATAR========>', fileId);
                       setValues({
@@ -110,7 +110,7 @@ const ProfileLayout: React.FC<Props> = ({ children }) => {
                     <FaCamera className="text-2xl" />
                   </ImageUpload>
                 </div>
-                <div className="flex flex-col justify-end md:mb-2 text-start">
+                <div className="flex flex-col justify-center md:mb-2 text-start">
                   <span className="mb-0 text-2xl font-bold text-black md:mb-2">
                     <AuthName user={user} />
                   </span>
