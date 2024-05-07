@@ -9,6 +9,7 @@ import { IAdviceParam } from '@/interfaces/request.interface';
 import PaginationComp from '@/components/Pagination';
 import AdviceItem from '@/components/Blog/AdviceItem';
 import Empty from '@/components/Empty';
+import withAuth from '@/components/Common/withAuth';
 
 const Advices = () => {
   const { user } = useAppContext();
@@ -76,4 +77,4 @@ const Advices = () => {
   );
 };
 
-export default Advices;
+export default withAuth(Advices);

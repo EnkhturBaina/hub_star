@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { Button, Input } from '@nextui-org/react';
 import ProfileLayout from '@/layouts/profile.layout';
+import withAuth from '@/components/Common/withAuth';
 
 const Password = () => {
   return (
@@ -84,4 +85,4 @@ const Password = () => {
   );
 };
 
-export default Password;
+export default withAuth(Password);

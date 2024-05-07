@@ -1,3 +1,4 @@
+import withAuth from '@/components/Common/withAuth';
 import AddService from '@/components/Profile/Content/AddService';
 import ProfileLayout from '@/layouts/profile.layout';
 import { NextPage } from 'next';
@@ -41,4 +42,4 @@ const PostService: NextPage = () => {
   );
 };
 
-export default PostService;
+export default withAuth(PostService);
