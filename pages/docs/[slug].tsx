@@ -47,7 +47,7 @@ const MenuPage: NextPage = () => {
           viewport={{ once: true }}
           className="animate_top"
         >
-          <section className="mx-auto max-w-screen-xl px-4 md:px-8 2xl:px-0 mb-4">
+          <section className="mx-auto max-w-screen-xl px-4 md:px-8 2xl:px-0 mb-4 pt-4">
             {page.imageId && (
               <Image
                 src={process.env.NEXT_PUBLIC_MEDIA_URL + page.imageId}

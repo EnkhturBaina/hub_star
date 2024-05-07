@@ -55,7 +55,7 @@ const SpecialService: NextPage = () => {
           whileInView="visible"
           transition={{ duration: 0.5 }}
           viewport={{ once: true }}
-          className="animate_top flex no-scrollbar flex-row md:justify-center overflow-x-auto whitespace-nowrap md:flex-nowrap md:items-center lg:gap-7.5 xl:gap-12.5 gap-2 z-40 md:h-30 cursor-pointer items-center transition-all mb-2"
+          className="animate_top flex no-scrollbar flex-row md:justify-center overflow-x-auto whitespace-nowrap md:flex-nowrap md:items-center lg:gap-7.5 xl:gap-5 gap-2 z-40 md:h-30 cursor-pointer items-center transition-all pb-2"
         >
           {SpecialServiceData.map((item: any, index: number) => {
             return (
@@ -66,12 +66,12 @@ const SpecialService: NextPage = () => {
                     specialServiceType: item.type,
                   },
                 }}
-                className="flex h-full flex-row md:flex-col items-center justify-around p-2 md:min-w-4 hover:text-white hover:shadow-solid-4 special-service hover:bg-primary rounded-lg border border-white bg-white shadow-md "
+                className="flex h-full flex-row md:flex-col items-center justify-around p-2 md:min-w-40 hover:text-white hover:shadow-solid-4 special-service hover:bg-primary rounded-lg border border-white bg-white shadow-md group"
               >
                 <div className="h-5 w-5 md:h-16 md:w-16 rounded-[4px] content-center flex">
                   {item.icon}
                 </div>
-                <span className="flex items-center justify-center text-center align-middle text-xs font-bold leading-none hover:text-white text-[#212529] ml-2 md:ml-0 md:max-w-40 md:text-wrap">
+                <span className="flex items-center justify-center text-center align-middle text-xs font-bold leading-none hover:text-white text-[#212529] ml-2 md:ml-0 md:max-w-40 md:text-wrap group-hover:text-white">
                   {item.title}
                 </span>
               </Link>
