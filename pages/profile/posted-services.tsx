@@ -11,11 +11,16 @@ import { Advertisement } from '@/types/advertisement';
 import { AdvertisementService } from '@/service/advertisement/advertisement.service';
 import Empty from '@/components/Empty';
 import withAuth from '@/components/Common/withAuth';
+import AddService from '@/components/Profile/Content/AddService';
+import { ICreateAd } from '@/interfaces/request.interface';
 
 const PostedServices: NextPage = () => {
   const { user } = useAppContext();
   const [isGrid, setIsGrid] = useState(true);
   const [advertisements, setAdvertisements] = useState<Advertisement[]>([]);
+  const [isSpecial, setIsSpecial] = useState<boolean>(false);
+  const [isEditService, setIsEditService] = useState<boolean>(false);
+  const [updateAdv, setUpdateAdv] = useState<ICreateAd>();
 
   const getData = useCallback(async () => {
     await AdvertisementService.get({
@@ -28,11 +33,21 @@ const PostedServices: NextPage = () => {
         setAdvertisements(res.response.data);
       }
     });
-  }, [user?.id]);
+  }, [user?.id, isEditService]);
 
   useEffect(() => {
     getData();
   }, [getData]);
+
+  
+  const removeAdv = async (id: number) => {
+    await AdvertisementService.remove(id).then(res => {
+      if (res.success) {
+        getData();
+      }
+    });
+  };
+
   return (
     <ProfileLayout>
       <div className="mb-4 w-full overflow-hidden ">
@@ -51,10 +66,38 @@ const PostedServices: NextPage = () => {
           <Empty />
         ) : (
           <div className="mx-auto mt-4 max-w-c-1280">
-            {isGrid ? (
-              <GridServices servicesData={advertisements} isStars={false} />
+            {isEditService ? (
+              <AddService
+                isSpecial={isSpecial}
+                setIsAddService={setIsEditService}
+                updateAdv={updateAdv}
+              />
+            ) : isGrid ? (
+              <GridServices servicesData={advertisements} isStars={false}
+              // editAdv={advertisement => {
+              //   setIsEditService(true);
+              //   setIsSpecial(advertisement.specialService !== null);
+              //   setUpdateAdv({
+              //     ...advertisement,
+              //     imageIds: advertisement.images.map(item => item.id),
+              //   });
+              // }}
+              // removeAdv={id => removeAdv(id)} TODO etr eniig aytaihan haragduulaad hiicheech
+               />
             ) : (
-              <ListServices servicesData={advertisements} isStars={false} />
+              <ListServices
+                servicesData={advertisements}
+                isStars={false}
+                editAdv={advertisement => {
+                  setIsEditService(true);
+                  setIsSpecial(advertisement.specialService !== null);
+                  setUpdateAdv({
+                    ...advertisement,
+                    imageIds: advertisement.images.map(item => item.id),
+                  });
+                }}
+                removeAdv={id => removeAdv(id)}
+              />
             )}
           </div>
         )}

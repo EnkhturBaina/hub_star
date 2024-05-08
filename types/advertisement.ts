@@ -3,6 +3,7 @@ import {
   LocalFile,
   MainDirection,
   RefDirection,
+  SpecialServiceType,
   SubDirection,
   UserType,
 } from './reference';
@@ -17,6 +18,7 @@ export type Advertisement = {
   subDirectionId: number;
   subDirection?: SubDirection;
   userType: UserType;
+  specialService: SpecialServiceType;
   provinceId: number;
   province: Address;
   districtId: number;

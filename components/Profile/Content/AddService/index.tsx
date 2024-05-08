@@ -2,7 +2,7 @@
 import { motion } from 'framer-motion';
 import { Button } from '@nextui-org/react';
 import { Progress } from 'semantic-ui-react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Step1 from './Step1';
 import Step2 from './Step2';
 import toast, { Toaster } from 'react-hot-toast';
@@ -51,8 +51,9 @@ const defaultCreateAd: ICreateAd = {
 type Props = {
   isSpecial: boolean;
   setIsAddService: React.Dispatch<React.SetStateAction<boolean>>;
+  updateAdv?: ICreateAd;
 };
-const AddService: React.FC<Props> = ({ isSpecial, setIsAddService }) => {
+const AddService: React.FC<Props> = ({ isSpecial, setIsAddService, updateAdv }) => {
   const [step, setStep] = useState(1);
   const maxStep = 3;
   const [createAd, setCreateAd] = useState<ICreateAd>(defaultCreateAd);
@@ -82,13 +83,23 @@ const AddService: React.FC<Props> = ({ isSpecial, setIsAddService }) => {
   };
 
   const createAdRequest = () => {
-    AdvertisementService.create(createAd).then(response => {
-      if (response.success) {
-        toast.success('Амжилттай хадгаллаа.');
-        setCreateAd(defaultCreateAd);
-        setStep(1);
-      }
-    });
+    if (updateAdv) {
+      AdvertisementService.update(createAd).then(response => {
+        if (response.success) {
+          toast.success('Амжилттай заслаа.');
+          setCreateAd(defaultCreateAd);
+          setIsAddService(false);
+        }
+      });
+    } else {
+      AdvertisementService.create(createAd).then(response => {
+        if (response.success) {
+          toast.success('Амжилттай хадгаллаа.');
+          setCreateAd(defaultCreateAd);
+          setStep(1);
+        }
+      });
+    }
   };
 
   const stepFnc = (type: string) => {
@@ -137,14 +148,11 @@ const AddService: React.FC<Props> = ({ isSpecial, setIsAddService }) => {
       } else if (step == maxStep) {
         if (createAd?.imageIds?.length == 0) {
           toast.error('Зураг оруулна уу.');
-        }
-        if (createAd?.email == null) {
+        } else if (createAd?.email == null) {
           toast.error('Имэйл оруулна уу.');
-        }
-        if (createAd?.phone == null) {
+        } else if (createAd?.phone == null) {
           toast.error('Утас оруулна уу.');
-        }
-        if (createAd?.userType == 'SUBSCRIBER') {
+        } else if (createAd?.userType == 'SUBSCRIBER') {
           if (createAd?.measurement == null) {
             toast.error('Хэмжих нэгж оруулна уу.');
           } else if (createAd?.counter == null) {
@@ -213,6 +221,10 @@ const AddService: React.FC<Props> = ({ isSpecial, setIsAddService }) => {
       }
     }
   };
+
+  useEffect(() => {
+    updateAdv && setCreateAd(updateAdv);
+  }, [updateAdv]);
   return (
     <motion.div
       variants={{
