@@ -17,6 +17,12 @@ import Machinery from '../AddService/Step3/Machinery';
 import { ReferenceService } from '@/service/reference/reference.service';
 import { MachineryType } from '@/types/reference';
 import Step3 from './Step3';
+import PublicSelection from './Step3/PublicSelection';
+import InternationalTrade from './Step3/InternationalTrade';
+import ConsultingService from './Step3/ConsultingService';
+import VocationalTraining from './Step3/VocationalTraining';
+import LaboratoryMaterial from './Step3/LaboratoryMaterial';
+import MakeBudget from './Step3/MakeBudget';
 
 const defaultCreateAd: ICreateAd = {
   mainDirectionId: null,
@@ -299,7 +305,25 @@ const AddService: React.FC<Props> = ({ isSpecial, setIsAddService, updateAdv }) 
           modelData={modelData}
         />
       ) : null}
-      {step === 3 && isSpecial ? <Step3 adData={createAd} setAdData={setCreateAd} /> : null}
+      {step === 3 && createAd.specialService == 'PUBLIC_SELECTION' && (
+        <PublicSelection adData={createAd} setAdData={setCreateAd} />
+      )
+      }
+      {step === 3 && createAd.specialService == 'INTERNATIONAL_TRADE' ? (
+        <InternationalTrade adData={createAd} setAdData={setCreateAd} />
+      ) : null}
+      {step === 3 && createAd.specialService == 'CONSULTING_SERVICE' ? (
+        <ConsultingService adData={createAd} setAdData={setCreateAd} />
+      ) : null}
+      {step === 3 && createAd.specialService == 'VOCATIONAL_TRAINING' ? (
+        <VocationalTraining adData={createAd} setAdData={setCreateAd} />
+      ) : null}
+      {step === 3 && createAd.specialService == 'LABORATORY_MATERIAL' ? (
+        <LaboratoryMaterial adData={createAd} setAdData={setCreateAd} />
+      ) : null}
+      {step === 3 && createAd.specialService == 'MAKE_BUDGET' ? (
+        <MakeBudget adData={createAd} setAdData={setCreateAd} />
+      ) : null}
 
       <div className="flex flex-row justify-between">
         <Button

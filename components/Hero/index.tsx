@@ -19,6 +19,7 @@ import { Popup } from 'semantic-ui-react';
 import { Fragment, useEffect, useState } from 'react';
 import { ReferenceService } from '@/service/reference/reference.service';
 import { useRouter } from 'next/router';
+import Title from '../Common/Title';
 
 const Hero = () => {
   const router = useRouter();
@@ -49,13 +50,7 @@ const Hero = () => {
           <div className="flex flex-row gap-7.5 xl:gap-12.5">
             <div className="hidden md:block md:w-1/4">
               <div className="animate_top mb-10 rounded-md border border-stroke bg-white p-6 shadow-md">
-                <Button
-                  radius="full"
-                  className="mb-6 h-8 w-full bg-gradient-to-tr from-yellow-500 to-pink-500 font-bold uppercase leading-none tracking-widest text-white !opacity-100"
-                  isDisabled
-                >
-                  Үйлчилгээнүүд
-                </Button>
+                <Title label='Үйлчилгээнүүд' />
                 {mainDirections.length == 0 ? (
                   <LeftDirections />
                 ) : (
@@ -150,7 +145,6 @@ const Hero = () => {
                 )}
               </div>
             </div>
-
 
             <div className="w-full md:w-3/4">
               {!adParam.userType && (

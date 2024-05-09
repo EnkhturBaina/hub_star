@@ -54,7 +54,7 @@ const FabButton = () => {
           setAdParam(prev => ({ ...prev, userType: undefined }));
         }}
       >
-        <RiHome5Fill className="text-5xl" />
+        <RiHome5Fill className="text-4xl" />
       </div>
 
       <div className="bg-white shadow-lg h-16 w-16 rounded-full flex items-center justify-center cursor-pointer active:scale-95 transition-all ease-in">
@@ -65,7 +65,7 @@ const FabButton = () => {
               return (
                 <Image
                   key={index}
-                  className="h-14 w-14 transition-all duration-300 hover:opacity-100 dark:hidden"
+                  className="h-10 w-10 transition-all duration-300 hover:opacity-100 dark:hidden"
                   src={el.img}
                   alt={el.name}
                   loading="eager"
@@ -91,7 +91,7 @@ const FabButton = () => {
               <div
                 className={`w-fit rounded-full p-3 bg-white shadow-lg cursor-pointer ${!isFabEnabled ? 'invisible' : 'visible'}`}
               >
-                <RiHome5Fill className="text-5xl" />
+                <RiHome5Fill className="text-4xl" />
               </div>
               <div className="flex flex-col items-center gap-4 bg-white rounded-full shadow-lg p-2">
                 {langs.map((el, index) => {

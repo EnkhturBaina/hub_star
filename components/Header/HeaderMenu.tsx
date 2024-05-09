@@ -5,9 +5,6 @@ import { useAppContext } from '@/app/app-context';
 import { UserTab, UserType } from '@/types/reference';
 import UserTabData from '@/app/data/UserTabData';
 import { usePathname } from 'next/navigation';
-import SpecialServiceData from '@/app/data/SpecialServiceData';
-import SingleFeature from '../Features/SingleFeature';
-import { Button } from '@nextui-org/react';
 
 const HeaderMenu = () => {
   const { adParam, setAdParam } = useAppContext();

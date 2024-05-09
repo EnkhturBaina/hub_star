@@ -1,17 +1,18 @@
 'use client';
 import Rating from '@/components/Common/Rating';
 import { Advertisement } from '@/types/advertisement';
+import { Button, Popover, PopoverContent, PopoverTrigger, Tooltip } from '@nextui-org/react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
-
-const GridServices = ({
-  servicesData,
-  isStars,
-}: {
+import { FaEdit, FaTrash } from 'react-icons/fa';
+type Props = {
   servicesData: Advertisement[];
   isStars: boolean;
-}) => {
+  editAdv: (advertisement: Advertisement) => void;
+  removeAdv: (id: number) => void;
+};
+const GridServices: React.FC<Props> = ({ servicesData, isStars, editAdv, removeAdv }) => {
   return (
     <motion.div
       variants={{
@@ -46,13 +47,36 @@ const GridServices = ({
               </div>
             )}
           </Link>
-
           <div className="flex flex-col px-6 pb-2">
             <h3 className="!mb-1 !mt-2 line-clamp-2 inline-block text-lg font-bold  duration-300 hover:text-primary ">
               {`${adv.title.slice(0, 25)}...`}
             </h3>
             <span className="line-clamp-3">{adv.desciption}</span>
-            <div className="flex flex-row items-center"></div>
+            <div className="flex flex-row items-center">
+              <Tooltip content="Засах">
+                <Button isIconOnly color="primary" onClick={() => editAdv(adv)}>
+                  <FaEdit />
+                </Button>
+              </Tooltip>
+
+              <Popover placement="top" color="danger">
+                <PopoverTrigger>
+                  <Button isIconOnly color="danger">
+                    <FaTrash />
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent>
+                  <div className="px-1 py-2">
+                    <div className="text-wrap font-bold ">
+                      Үйлчилгээг устгахдаа итгэлтэй байна уу?
+                    </div>
+                    <Button variant="solid" color="danger" onClick={() => removeAdv(adv?.id)}>
+                      Тийм
+                    </Button>
+                  </div>
+                </PopoverContent>
+              </Popover>
+            </div>
           </div>
         </div>
       ))}

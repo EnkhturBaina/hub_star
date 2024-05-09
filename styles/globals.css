@@ -341,3 +341,6 @@ pre {
 .special-service:hover svg path {
   fill: white;
 }
+.active-icon path {
+  fill: white;
+}

@@ -59,7 +59,7 @@ const Header = () => {
           <Image
             src="/images/logo/svg_logo.svg"
             alt="logo"
-            width={120}
+            width={172}
             height={40}
             className="block w-full hover:cursor-pointer"
             onClick={() => {

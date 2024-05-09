@@ -4,18 +4,16 @@ import BreadCrumbs from '@/components/BreadCrumbs';
 import SideCheckSubDirection from '@/components/Common/SideCheckSubDirection';
 import PaginationComp from '@/components/Pagination';
 import { IAdParam } from '@/interfaces/request.interface';
-import { MainDirection, OrderType, SpecialServiceType } from '@/types/reference';
-import { Button, Select, SelectItem } from '@nextui-org/react';
+import { OrderType, SpecialServiceType } from '@/types/reference';
+import { Select, SelectItem } from '@nextui-org/react';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import { useEffect, useRef, useState } from 'react';
-import { IoIosAddCircleOutline } from 'react-icons/io';
+import React, { useEffect, useRef, useState } from 'react';
 import { SidebarPusher, SidebarPushable, Segment, Sidebar } from 'semantic-ui-react';
-import { LuChevronLeft, LuLayoutGrid, LuMenu, LuSettings2 } from 'react-icons/lu';
+import { LuSettings2 } from 'react-icons/lu';
 import SpecialServiceData from '@/app/data/SpecialServiceData';
-import SingleFeature from '@/components/Features/SingleFeature';
 import { motion } from 'framer-motion';
-import Link from 'next/link';
+import AdSkeleton from '@/components/Skeleton/AdSkeleton';
 
 const SpecialService: NextPage = () => {
   const { adParam, setAdParam, advertisements, adMeta } = useAppContext();
@@ -34,7 +32,7 @@ const SpecialService: NextPage = () => {
       param.specialService = router.query.specialServiceType as SpecialServiceType;
     }
     setAdParam(param);
-  }, [router.query]);
+  }, [router.query.specialServiceType]);
 
   return (
     <>
@@ -57,24 +55,26 @@ const SpecialService: NextPage = () => {
           viewport={{ once: true }}
           className="animate_top flex no-scrollbar flex-row md:justify-center overflow-x-auto whitespace-nowrap md:flex-nowrap md:items-center lg:gap-7.5 xl:gap-5 gap-2 z-40 md:h-30 cursor-pointer items-center transition-all pb-2"
         >
-          {SpecialServiceData.map((item: any, index: number) => {
+          {SpecialServiceData.map((item, index: number) => {
             return (
-              <Link
-                href={{
-                  pathname: '/special',
-                  query: {
-                    specialServiceType: item.type,
-                  },
+              <div
+                key={index}
+                onClick={() => {
+                  setAdParam({ ...adParam, specialService: item.type });
                 }}
-                className="flex h-full flex-row md:flex-col items-center justify-around p-2 md:min-w-40 hover:text-white hover:shadow-solid-4 special-service hover:bg-primary rounded-lg border border-white bg-white shadow-md group"
+                className={`flex h-full flex-row md:flex-col items-center justify-around p-2 md:min-w-40 special-service hover:bg-primary rounded-lg border border-white group shadow-md ${adParam.specialService == item.type ? 'bg-primary' : 'bg-white'}`}
               >
-                <div className="h-5 w-5 md:h-16 md:w-16 rounded-[4px] content-center flex">
+                <div
+                  className={`h-5 w-5 md:h-16 md:w-16 rounded-[4px] content-center flex ${adParam.specialService === item.type ? 'active-icon' : ''}`}
+                >
                   {item.icon}
                 </div>
-                <span className="flex items-center justify-center text-center align-middle text-xs font-bold leading-none hover:text-white text-[#212529] ml-2 md:ml-0 md:max-w-40 md:text-wrap group-hover:text-white">
+                <span
+                  className={`flex items-center justify-center text-center align-middle text-xs font-bold leading-none text-[#212529] ml-2 md:ml-0 md:max-w-40 md:text-wrap group-hover:text-white ${adParam.specialService == item.type && 'text-white'}`}
+                >
                   {item.title}
                 </span>
-              </Link>
+              </div>
             );
           })}
         </motion.div>
@@ -85,7 +85,12 @@ const SpecialService: NextPage = () => {
                 Нийт утга: <span className="font-bold">{adMeta.itemCount}</span>
               </span>
               <div>
-                <BreadCrumbs items={[]} />
+                <BreadCrumbs
+                  items={[
+                    'Онцгой үйлчилгээ',
+                    SpecialServiceData.find(item => item.type == adParam.specialService)?.title,
+                  ]}
+                />
               </div>
             </div>
           </div>
@@ -103,16 +108,20 @@ const SpecialService: NextPage = () => {
             className="!bg-white"
             ref={sideBarRef}
           >
-            <SideCheckSubDirection
-              specialService={adParam.specialService}
-              closeFnc={() => (visible ? setVisible(false) : undefined)}
-            />
+            {adParam.specialService ? (
+              <SideCheckSubDirection
+                specialService={adParam.specialService}
+                closeFnc={() => (visible ? setVisible(false) : undefined)}
+              />
+            ) : null}
           </Sidebar>
           <SidebarPusher className="!w-full">
             <Segment className="!rounded-xl !border-0">
               <div className="mx-auto flex max-w-screen-xl gap-4 px-4 md:px-8 2xl:px-0">
                 <div className={`hidden md:block md:w-1/4 lg:w-[20%]`}>
-                  <SideCheckSubDirection specialService={adParam.specialService} />
+                  {adParam.specialService ? (
+                    <SideCheckSubDirection specialService={adParam.specialService} />
+                  ) : null}
                 </div>
                 <div className="pb-6 lg:w-3/4 w-full">
                   <div className="mb-4 flex flex-row justify-between">

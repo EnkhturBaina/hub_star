@@ -39,7 +39,6 @@ const PostedServices: NextPage = () => {
     getData();
   }, [getData]);
 
-  
   const removeAdv = async (id: number) => {
     await AdvertisementService.remove(id).then(res => {
       if (res.success) {
@@ -73,17 +72,19 @@ const PostedServices: NextPage = () => {
                 updateAdv={updateAdv}
               />
             ) : isGrid ? (
-              <GridServices servicesData={advertisements} isStars={false}
-              // editAdv={advertisement => {
-              //   setIsEditService(true);
-              //   setIsSpecial(advertisement.specialService !== null);
-              //   setUpdateAdv({
-              //     ...advertisement,
-              //     imageIds: advertisement.images.map(item => item.id),
-              //   });
-              // }}
-              // removeAdv={id => removeAdv(id)} TODO etr eniig aytaihan haragduulaad hiicheech
-               />
+              <GridServices
+                servicesData={advertisements}
+                isStars={false}
+                editAdv={advertisement => {
+                  setIsEditService(true);
+                  setIsSpecial(advertisement.specialService !== null);
+                  setUpdateAdv({
+                    ...advertisement,
+                    imageIds: advertisement.images.map(item => item.id),
+                  });
+                }}
+                removeAdv={id => removeAdv(id)}
+              />
             ) : (
               <ListServices
                 servicesData={advertisements}

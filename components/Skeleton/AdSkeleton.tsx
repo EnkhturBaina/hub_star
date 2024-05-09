@@ -1,7 +1,7 @@
 'use client';
-import { Divider, Skeleton } from '@nextui-org/react';
+import { Skeleton } from '@nextui-org/react';
 
-const AdSkeleton = () => {
+const AdSkeleton: React.FC = () => {
   return (
     <div className="flex w-full flex-col items-center gap-3 p-2">
       <div className="w-full bg-gray-100 px-4 md:px-8 2xl:px-0">
