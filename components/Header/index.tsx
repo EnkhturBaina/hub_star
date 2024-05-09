@@ -51,7 +51,7 @@ const Header = () => {
   return (
     <header
       className={`fixed left-0 top-0 z-99999 w-full bg-white ${
-        pathUrl === '/profile' ? 'py-4' : 'pt-4'
+        pathUrl === '/profile' ? 'py-4' : 'pt-0'
       } shadow ${stickyMenu ? '!pt-4 shadow transition duration-100' : ''}`}
     >
       <div className="relative mx-auto flex max-w-screen-xl flex-row items-center justify-between px-4 md:px-8 xl:flex 2xl:px-0">
@@ -59,14 +59,16 @@ const Header = () => {
           <Image
             src="/images/logo/svg_logo.svg"
             alt="logo"
-            width={172}
-            height={40}
-            className="block w-full hover:cursor-pointer"
             onClick={() => {
               router.push('/');
               setAdParam(prev => ({ ...prev, userType: undefined }));
             }}
             priority
+            className="rounded-md object-contain object-center hover:cursor-pointer"
+            width="0"
+            height="0"
+            sizes="100vw"
+            style={{ width: 190, height: 70 }}
           />
         </div>
         <div className="hidden w-full md:block">

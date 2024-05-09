@@ -12,7 +12,7 @@ const SearchBox: React.FC = () => {
       ...adParam,
       title: searchVal,
     });
-  }
+  };
   return (
     <div className="flex w-full flex-row">
       <DropDown />
