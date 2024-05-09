@@ -32,23 +32,9 @@ const VocationalTraining: React.FC<IProps> = ({ adData, setAdData }) => {
     >
       <div className="grid grid-cols-2 gap-4">
         <Input
-          key="negj"
-          inputMode="text"
-          label="Хэмжих нэгж"
-          labelPlacement="outside"
-          placeholder="--"
-          radius="sm"
-          size="lg"
-          variant="bordered"
-          classNames={{
-            label: 'font-bold',
-            inputWrapper: ['custom-input-wrapper', 'bg-white'],
-          }}
-        />
-        <Input
-          key="too"
+          key="unitAmount"
           inputMode="numeric"
-          label="Ажлын тоо хэмжээ"
+          label="Үйлчилгээний үнэ"
           labelPlacement="outside"
           placeholder="--"
           radius="sm"
@@ -58,11 +44,11 @@ const VocationalTraining: React.FC<IProps> = ({ adData, setAdData }) => {
             label: 'font-bold',
             inputWrapper: ['custom-input-wrapper', 'bg-white'],
           }}
-          value={adData?.counter?.toString()}
+          value={adData?.unitAmount?.toString()}
           onValueChange={e => {
             setAdData((prevState: ICreateAd) => ({
               ...prevState,
-              counter: parseInt(e),
+              unitAmount: parseInt(e),
             }));
           }}
         />
