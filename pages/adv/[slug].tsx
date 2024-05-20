@@ -29,6 +29,8 @@ import SpecialPost from '@/components/Blog/SpecialPost';
 import RelatedPost from '@/components/Blog/RelatedPost';
 import Link from 'next/link';
 import Rating from '@/components/Common/Rating';
+import UserTabData from '@/app/data/UserTabData';
+import SpecialServiceData from '@/app/data/SpecialServiceData';
 
 const SingleBlogPage: NextPage = () => {
   const router = useRouter();
@@ -39,12 +41,32 @@ const SingleBlogPage: NextPage = () => {
   const [description, setDescription] = useState<string>('');
   const [subDirections, setSubDirections] = useState<SubDirection[]>([]);
   const [advices, setAdvices] = useState<Advice[]>([]);
+  const [blogType, setBlogType] = useState('');
+
+  const takeTypeName = () => {
+    if (data.userType !== null) {
+      UserTabData?.map(el => {
+        if (el.type === data.userType) {
+          setBlogType(el.title);
+        }
+      });
+    } else if (data.specialService !== null) {
+      SpecialServiceData?.map(el => {
+        if (el.type === data.specialService) {
+          setBlogType(el.title);
+        }
+      });
+    } else {
+      setBlogType('');
+    }
+  };
 
   const getData = useCallback(async () => {
     if (router.query.slug) {
       await AdvertisementService.getById(router.query.slug).then(res => {
         if (res.success) {
           setData(res.response);
+          console.log('res.response', res.response);
         }
       });
     }
@@ -117,6 +139,13 @@ const SingleBlogPage: NextPage = () => {
   useEffect(() => {
     getData();
   }, [getData]);
+
+  useEffect(() => {
+    if (data) {
+      takeTypeName();
+    }
+  }, [data]);
+
   useEffect(() => {
     if (data) {
       getSubDirections();
@@ -145,6 +174,7 @@ const SingleBlogPage: NextPage = () => {
                 <div>
                   <BreadCrumbs
                     items={[
+                      blogType,
                       data?.mainDirection?.name,
                       data?.direction?.name,
                       data?.subDirection?.name,

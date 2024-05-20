@@ -8,22 +8,18 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
 const BlogItem = ({ blog }: { blog: Blog }) => {
-  // console.log('blog', blog);
   const { id, mainImage, title, desciption, userType, specialService } = blog;
   const [imagePath, setImagePath] = useState('/images/blog_img.jpg');
   const [blogType, setBlogType] = useState('');
 
-  const takeSpecialTypeName = () => {
+  const takeTypeName = () => {
     if (userType !== null) {
-      console.log('userType', userType);
-
       UserTabData?.map(el => {
         if (el.type === userType) {
           setBlogType(el.title);
         }
       });
     } else if (specialService !== null) {
-      console.log('specialService', specialService);
       SpecialServiceData?.map(el => {
         if (el.type === specialService) {
           setBlogType(el.title);
@@ -35,7 +31,7 @@ const BlogItem = ({ blog }: { blog: Blog }) => {
   };
 
   useEffect(() => {
-    takeSpecialTypeName();
+    takeTypeName();
     if (blog.images?.length == 0) {
       setImagePath('/images/blog_img.jpg');
     } else {
