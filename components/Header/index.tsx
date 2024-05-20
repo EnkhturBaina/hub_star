@@ -52,11 +52,11 @@ const Header = () => {
     <header
       className={`fixed left-0 top-0 z-99999 w-full bg-white ${
         pathUrl === '/profile' ? 'py-4' : 'pt-0'
-      } shadow ${stickyMenu ? '!pt-4 shadow transition duration-100' : ''}`}
+      } shadow ${stickyMenu ? 'shadow transition duration-100' : ''}`}
     >
-      <div className="relative mx-auto flex max-w-screen-xl flex-row items-center justify-between px-4 md:px-8 xl:flex 2xl:px-0">
+      <div className="pt-4 relative mx-auto flex max-w-screen-xl flex-row items-center justify-between px-4 md:px-8 xl:flex 2xl:px-0">
         <div className="mr-4 flex items-center justify-between">
-          <Image
+          {/* <Image
             src="/images/logo/svg_logo.svg"
             alt="logo"
             onClick={() => {
@@ -64,12 +64,27 @@ const Header = () => {
               setAdParam(prev => ({ ...prev, userType: undefined }));
             }}
             priority
-            className="rounded-md object-contain object-center hover:cursor-pointer"
+            className="rounded-md object-contain object-center hover:cursor-pointer h-20 w-50"
             width="0"
             height="0"
             sizes="100vw"
-            style={{ width: 190, height: 70 }}
-          />
+          /> */}
+          <div style={{ position: 'relative', width: '170px', height: '50px' }}>
+            <Image
+              src="/images/logo/svg_logo.svg"
+              alt="main_logo"
+              className="rounded-t-lg object-cover hover:cursor-pointer"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              onClick={() => {
+                router.push('/');
+                setAdParam(prev => ({ ...prev, userType: undefined }));
+              }}
+              fill
+              style={{
+                objectFit: 'contain',
+              }}
+            />
+          </div>
         </div>
         <div className="hidden w-full md:block">
           <SearchBox />
@@ -86,7 +101,7 @@ const Header = () => {
           <div className="flex flex-row items-center">
             {!user ? (
               <Link className="text-black hover:text-primary " href="/auth/signin">
-                <Button radius="sm">
+                <Button radius="sm" className="h-12">
                   <span className="font-bold">Нэвтрэх</span>
                 </Button>
               </Link>

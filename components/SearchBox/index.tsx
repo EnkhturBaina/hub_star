@@ -41,7 +41,7 @@ const SearchBox: React.FC = () => {
         radius="none"
         isIconOnly
         aria-label="Like"
-        className="h-10 w-10 rounded-r-md bg-black"
+        className="h-12 w-12 rounded-r-md bg-black"
         onClick={() => onClickSearch()}
       >
         <Image src="/search.svg" alt="logo" width={15} height={15} className="block" />

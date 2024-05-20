@@ -28,7 +28,7 @@ export default function DropDown() {
       onOpenChange={open => setIsOpen(open)}
     >
       <PopoverTrigger>
-        <Button radius="none" className="rounded-l-md bg-white border-1 items-center">
+        <Button radius="none" className="rounded-l-md bg-white border-1 items-center !h-12">
           <div className="flex flex-row items-center">
             <span className="font-bold">Бүгд</span>
             <Image src="/arrow-down.png" alt="add" height={18} width={18} className="ml-2" />
