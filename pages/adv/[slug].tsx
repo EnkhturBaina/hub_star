@@ -66,7 +66,6 @@ const SingleBlogPage: NextPage = () => {
       await AdvertisementService.getById(router.query.slug).then(res => {
         if (res.success) {
           setData(res.response);
-          console.log('res.response', res.response);
         }
       });
     }
