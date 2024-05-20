@@ -1,4 +1,6 @@
 'use client';
+import SpecialServiceData from '@/app/data/SpecialServiceData';
+import UserTabData from '@/app/data/UserTabData';
 import { Blog } from '@/types/blog';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
@@ -6,15 +8,44 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
 const BlogItem = ({ blog }: { blog: Blog }) => {
-  const { id, mainImage, title, desciption } = blog;
+  // console.log('blog', blog);
+  const { id, mainImage, title, desciption, userType, specialService } = blog;
   const [imagePath, setImagePath] = useState('/images/blog_img.jpg');
+  const [blogType, setBlogType] = useState('');
+
+  const takeSpecialTypeName = () => {
+    if (userType !== null) {
+      console.log('userType', userType);
+
+      UserTabData?.map(el => {
+        if (el.type === userType) {
+          setBlogType(el.title);
+        }
+      });
+    } else if (specialService !== null) {
+      console.log('specialService', specialService);
+      SpecialServiceData?.map(el => {
+        if (el.type === specialService) {
+          setBlogType(el.title);
+        }
+      });
+    } else {
+      setBlogType(desciption);
+    }
+  };
+
   useEffect(() => {
+    takeSpecialTypeName();
     if (blog.images?.length == 0) {
       setImagePath('/images/blog_img.jpg');
     } else {
       setImagePath(process.env.NEXT_PUBLIC_MEDIA_URL + blog.images[0]?.id);
     }
   }, []);
+
+  useEffect(() => {
+    console.log('blogType', blogType);
+  }, [blogType]);
 
   return (
     <>
@@ -46,11 +77,14 @@ const BlogItem = ({ blog }: { blog: Blog }) => {
           />
         </Link>
 
-        <div className="flex flex-col px-6 pb-2">
+        <div className="flex flex-col px-6 pb-2 justify-between h-25">
           <h3 className="!mb-1 !mt-2 line-clamp-2 inline-block text-base font-bold text-black duration-300 hover:text-primary">
-            <Link href={`/adv/${id}`}>{`${title.slice(0, 30)}...`}</Link>
+            <Link href={`/adv/${id}`}>
+              {title?.length > 60 ? `${title.slice(0, 60)}...` : title}
+            </Link>
           </h3>
-          <span className="line-clamp-3">{`${desciption?.slice(0, 30)}...`}</span>
+          {/* <span className="line-clamp-3">{`${desciption?.slice(0, 30)}...`}</span> */}
+          <span className="line-clamp-3">{blogType}</span>
         </div>
       </motion.div>
     </>

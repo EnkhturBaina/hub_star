@@ -18,6 +18,8 @@ export type Blog = {
   publishedAt?: string;
   pdfId?: number;
   images?: BlogImage[];
+  userType?: string;
+  specialService?: string;
 };
 
 export type BlogImage = {
