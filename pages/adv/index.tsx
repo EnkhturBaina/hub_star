@@ -162,51 +162,35 @@ const BlogPage: NextPage = () => {
                   <SideCheckSubDirection mainDirectionId={adParam.mainDirectionId} />
                 </div>
                 <div className="pb-6 md:w-3/4">
-                  <div className="my-4 flex flex-row justify-between">
-                    {!visible ? (
-                      <div
-                        className="w-fit rounded-xl bg-white p-2 md:hidden border-[#e4e4e7] border-2"
-                        onClick={() => {
-                          setVisible(true);
-                        }}
-                      >
-                        <LuSettings2 className="text-2xl" />
-                      </div>
-                    ) : null}
-                    <Select
-                      label="Эрэмбэлэлт"
-                      labelPlacement="inside"
-                      radius="sm"
-                      size="md"
-                      variant="bordered"
-                      classNames={{
-                        base: 'w-50 !mt-0',
-                        label: 'font-bold',
-                        trigger: 'custom-select-trigger bg-white !h-12 !min-h-12',
-                        innerWrapper: '!pt-0',
+                  {!visible ? (
+                    <div
+                      className="w-fit rounded-xl bg-white p-2 md:hidden border-[#e4e4e7] border-2"
+                      onClick={() => {
+                        setVisible(true);
                       }}
-                      value="DESC"
-                      onChange={e => {
+                    >
+                      <LuSettings2 className="text-2xl" />
+                    </div>
+                  ) : null}
+                  <div className="my-4 justify-between grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <CustomSelect
+                      label={'Эрэмбэлэлт'}
+                      value={adParam?.order}
+                      onSelectionChange={value => {
+                        console.log('value', value);
+
                         setAdParam({
                           ...adParam,
-                          order: e.target.value as OrderType,
+                          order: value as OrderType,
                           page: 1,
                           limit: 10,
                         });
                       }}
-                    >
-                      <SelectItem key="DESC">Огноогоор (Z-A)</SelectItem>
-                      <SelectItem key="ASC">Огноогоор (A-Z)</SelectItem>
-                    </Select>
-                    {/* <Button
-                      radius="full"
-                      className="w-65 rounded-md bg-mainColor font-bold leading-none text-white"
-                      startContent={<IoIosAddCircleOutline className="text-xl" />}
-                    >
-                      Онцгой үйлчилгээ оруулах
-                    </Button> */}
-                  </div>
-                  <div className="my-4 grid grid-cols-3 gap-2">
+                      options={[
+                        { label: 'Огноогоор (Z-A)', value: 'DESC' },
+                        { label: 'Огноогоор (A-Z)', value: 'ASC' },
+                      ]}
+                    />
                     {adParam.userType == 'SUPPLIER' && (
                       <CustomSelect
                         label={'Материалын нэрс орох'}
@@ -241,7 +225,15 @@ const BlogPage: NextPage = () => {
                       }}
                       options={khoroos.map(item => ({ label: item.name, value: item.id }))}
                     />
+                    {/* <Button
+                      radius="full"
+                      className="w-65 rounded-md bg-mainColor font-bold leading-none text-white"
+                      startContent={<IoIosAddCircleOutline className="text-xl" />}
+                    >
+                      Онцгой үйлчилгээ оруулах
+                    </Button> */}
                   </div>
+                  <div className="my-4 grid grid-cols-3 gap-2"></div>
                   <div className="grid grid-cols-2 gap-6">
                     {advertisements.map((blog, key) => (
                       <BlogItem blog={blog} key={key} />
