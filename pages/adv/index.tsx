@@ -177,8 +177,6 @@ const BlogPage: NextPage = () => {
                       label={'Эрэмбэлэлт'}
                       value={adParam?.order}
                       onSelectionChange={value => {
-                        console.log('value', value);
-
                         setAdParam({
                           ...adParam,
                           order: value as OrderType,
