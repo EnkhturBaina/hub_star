@@ -1,10 +1,13 @@
 'use client';
+import SpecialServiceData from '@/app/data/SpecialServiceData';
+import UserTabData from '@/app/data/UserTabData';
 import Rating from '@/components/Common/Rating';
 import { Advertisement } from '@/types/advertisement';
 import { Button, Popover, PopoverContent, PopoverTrigger, Tooltip } from '@nextui-org/react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useState } from 'react';
 import { FaEdit, FaTrash } from 'react-icons/fa';
 type Props = {
   servicesData: Advertisement[];
@@ -13,6 +16,33 @@ type Props = {
   removeAdv: (id: number) => void;
 };
 const GridServices: React.FC<Props> = ({ servicesData, isStars, editAdv, removeAdv }) => {
+  console.log('servicesData', servicesData);
+
+  const [blogType, setBlogType] = useState('');
+
+  function takeTypeName({
+    userType,
+    specialService,
+  }: {
+    userType: string;
+    specialService: string;
+  }) {
+    if (userType !== null) {
+      UserTabData?.map(el => {
+        if (el.type === userType) {
+          return <span className="line-clamp-3">{el.title}</span>;
+        }
+      });
+    } else if (specialService !== null) {
+      SpecialServiceData?.map(el => {
+        if (el.type === specialService) {
+          return <span className="line-clamp-3">{el.title}</span>;
+        }
+      });
+    } else {
+      return false;
+    }
+  }
   return (
     <motion.div
       variants={{
@@ -49,9 +79,9 @@ const GridServices: React.FC<Props> = ({ servicesData, isStars, editAdv, removeA
           </Link>
           <div className="flex flex-col px-6 pb-2">
             <h3 className="!mb-1 !mt-2 line-clamp-2 inline-block text-lg font-bold  duration-300 hover:text-primary ">
-              {`${adv.title.slice(0, 25)}...`}
+              {adv.title?.length > 60 ? `${adv.title.slice(0, 60)}...` : adv.title}
             </h3>
-            <span className="line-clamp-3">{adv.desciption}</span>
+            {takeTypeName({ userType: adv.userType, specialService: adv.specialService })}
             <div className="flex flex-row items-center">
               <Tooltip content="Засах">
                 <Button isIconOnly color="primary" onClick={() => editAdv(adv)}>
