@@ -12,8 +12,8 @@ import { FaEdit, FaTrash } from 'react-icons/fa';
 type Props = {
   servicesData: Advertisement[];
   isStars: boolean;
-  editAdv: (advertisement: Advertisement) => void;
-  removeAdv: (id: number) => void;
+  editAdv?: (advertisement: Advertisement) => void;
+  removeAdv?: (id: number) => void;
 };
 const GridServices: React.FC<Props> = ({ servicesData, isStars, editAdv, removeAdv }) => {
   console.log('servicesData', servicesData);
@@ -30,13 +30,21 @@ const GridServices: React.FC<Props> = ({ servicesData, isStars, editAdv, removeA
     if (userType !== null) {
       UserTabData?.map(el => {
         if (el.type === userType) {
-          return <span className="line-clamp-3">{el.title}</span>;
+          return (
+            <span className="line-clamp-3" key={el.type}>
+              {el.title}
+            </span>
+          );
         }
       });
     } else if (specialService !== null) {
       SpecialServiceData?.map(el => {
         if (el.type === specialService) {
-          return <span className="line-clamp-3">{el.title}</span>;
+          return (
+            <span className="line-clamp-3" key={el.type}>
+              {el.title}
+            </span>
+          );
         }
       });
     } else {
@@ -83,29 +91,33 @@ const GridServices: React.FC<Props> = ({ servicesData, isStars, editAdv, removeA
             </h3>
             {takeTypeName({ userType: adv.userType, specialService: adv.specialService })}
             <div className="flex flex-row items-center">
-              <Tooltip content="Засах">
-                <Button isIconOnly color="primary" onClick={() => editAdv(adv)}>
-                  <FaEdit />
-                </Button>
-              </Tooltip>
-
-              <Popover placement="top" color="danger">
-                <PopoverTrigger>
-                  <Button isIconOnly color="danger">
-                    <FaTrash />
+              {editAdv && (
+                <Tooltip content="Засах">
+                  <Button isIconOnly color="primary" onClick={() => editAdv(adv)}>
+                    <FaEdit />
                   </Button>
-                </PopoverTrigger>
-                <PopoverContent>
-                  <div className="px-1 py-2">
-                    <div className="text-wrap font-bold ">
-                      Үйлчилгээг устгахдаа итгэлтэй байна уу?
-                    </div>
-                    <Button variant="solid" color="danger" onClick={() => removeAdv(adv?.id)}>
-                      Тийм
+                </Tooltip>
+              )}
+
+              {removeAdv && (
+                <Popover placement="top" color="danger">
+                  <PopoverTrigger>
+                    <Button isIconOnly color="danger">
+                      <FaTrash />
                     </Button>
-                  </div>
-                </PopoverContent>
-              </Popover>
+                  </PopoverTrigger>
+                  <PopoverContent>
+                    <div className="px-1 py-2">
+                      <div className="text-wrap font-bold ">
+                        Үйлчилгээг устгахдаа итгэлтэй байна уу?
+                      </div>
+                      <Button variant="solid" color="danger" onClick={() => removeAdv(adv?.id)}>
+                        Тийм
+                      </Button>
+                    </div>
+                  </PopoverContent>
+                </Popover>
+              )}
             </div>
           </div>
         </div>

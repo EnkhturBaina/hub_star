@@ -14,7 +14,7 @@ export interface IAdParam extends IPageOptions {
   title?: string;
   userBy?: number;
   createdBy?: number;
-  provinceId?:  number;
+  provinceId?: number;
   districtId?: number;
   khorooId?: number;
   materialId?: number;
@@ -35,6 +35,7 @@ export interface ICreateAd {
   desciption?: string;
   price?: number;
   counter?: number;
+  process?: AdProcess;
   email?: string;
   phone?: string;
   isMessenger?: boolean;
@@ -53,6 +54,7 @@ export interface ICreateAd {
   fromAddress?: string;
   toAddress?: string;
   measurement?: string;
+  doingBy?: number;
 }
 export interface IUser {
   email: string;

@@ -11,8 +11,8 @@ import { useState } from 'react';
 type Props = {
   servicesData: Advertisement[];
   isStars: boolean;
-  editAdv: (advertisement: Advertisement) => void;
-  removeAdv: (id: number) => void;
+  editAdv?: (advertisement: Advertisement) => void;
+  removeAdv?: (id: number) => void;
 };
 const ListServices: React.FC<Props> = ({ servicesData, isStars, editAdv, removeAdv }) => {
   return (
@@ -61,29 +61,33 @@ const ListServices: React.FC<Props> = ({ servicesData, isStars, editAdv, removeA
             </div>
             <div className="flex w-50 flex-row items-center justify-center gap-4">
               {isStars && <Rating point={adv?.rating} />}
-              <Tooltip content="Засах">
-                <Button isIconOnly color="primary" onClick={() => editAdv(adv)}>
-                  <FaEdit />
-                </Button>
-              </Tooltip>
-
-              <Popover placement="top" color="danger">
-                <PopoverTrigger>
-                  <Button isIconOnly color="danger">
-                    <FaTrash />
+              {editAdv && (
+                <Tooltip content="Засах">
+                  <Button isIconOnly color="primary" onClick={() => editAdv(adv)}>
+                    <FaEdit />
                   </Button>
-                </PopoverTrigger>
-                <PopoverContent>
-                  <div className="px-1 py-2">
-                    <div className="text-wrap font-bold ">
-                      Үйлчилгээг устгахдаа итгэлтэй байна уу?
-                    </div>
-                    <Button variant="solid" color="danger" onClick={() => removeAdv(adv?.id)}>
-                      Тийм
+                </Tooltip>
+              )}
+
+              {removeAdv && (
+                <Popover placement="top" color="danger">
+                  <PopoverTrigger>
+                    <Button isIconOnly color="danger">
+                      <FaTrash />
                     </Button>
-                  </div>
-                </PopoverContent>
-              </Popover>
+                  </PopoverTrigger>
+                  <PopoverContent>
+                    <div className="px-1 py-2">
+                      <div className="text-wrap font-bold ">
+                        Үйлчилгээг устгахдаа итгэлтэй байна уу?
+                      </div>
+                      <Button variant="solid" color="danger" onClick={() => removeAdv(adv?.id)}>
+                        Тийм
+                      </Button>
+                    </div>
+                  </PopoverContent>
+                </Popover>
+              )}
             </div>
           </div>
         );

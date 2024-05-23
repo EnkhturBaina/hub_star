@@ -50,7 +50,7 @@ const Confirmation = () => {
         console.log('res', res);
 
         if (res.success) {
-          setUser(res.response.user);
+          setUser(res.response);
           toast.success('Хэрэглэгчийн мэдээлэл амжилттай баталгаажууллаа.');
         }
       })

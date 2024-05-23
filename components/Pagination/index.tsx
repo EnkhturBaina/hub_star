@@ -1,14 +1,23 @@
 'use client';
 import { useAppContext } from '@/app/app-context';
+import { setAdvParam } from '@/app/lib/features/adv-param';
+import { useTypedSelector } from '@/app/lib/reducer';
+import { IAdParam } from '@/interfaces/request.interface';
 import { Pagination } from '@nextui-org/react';
 import { motion } from 'framer-motion';
 import React from 'react';
+import { useDispatch } from 'react-redux';
 interface IProps {
   page: number;
   pageCount: number;
 }
 const PaginationComp: React.FC<IProps> = ({ page, pageCount }) => {
-  const { adParam, setAdParam } = useAppContext();
+  const dispatch = useDispatch();
+  const advParam = useTypedSelector(state => state.advParam);
+
+  const handlePagination = (param: IAdParam) => {
+    dispatch(setAdvParam(param));
+  };
   return (
     <motion.div
       variants={{
@@ -31,15 +40,11 @@ const PaginationComp: React.FC<IProps> = ({ page, pageCount }) => {
       <Pagination
         showControls
         onChange={page =>
-          setAdParam({
-            order: adParam.order,
+          handlePagination({
+            ...advParam,
             process: 'CREATED',
             page,
             limit: 10,
-            userType: adParam.userType,
-            mainDirectionId: adParam.mainDirectionId,
-            directionIds: adParam.directionIds,
-            subDirectionIds: adParam.subDirectionIds,
           })
         }
         total={pageCount}

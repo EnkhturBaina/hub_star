@@ -5,6 +5,8 @@ import { RiHome5Fill } from 'react-icons/ri';
 import { useRouter } from 'next/router';
 import { useTranslation, Trans } from 'next-i18next';
 import { useAppContext } from '@/app/app-context';
+import { useDispatch } from 'react-redux';
+import { emptyAdvParam } from '@/app/lib/features/adv-param';
 
 const container = {
   hidden: {
@@ -22,10 +24,9 @@ const container = {
 
 const FabButton = () => {
   const router = useRouter();
-
+  const dispatch = useDispatch();
   const { t, i18n } = useTranslation('common');
   const [isFabEnabled, setIsFabEnabled] = useState(false);
-  const { setAdParam } = useAppContext();
 
   const toggleFAB = useCallback(() => {
     setIsFabEnabled(prevState => !prevState);
@@ -43,16 +44,17 @@ const FabButton = () => {
     // Redirect to the same page with the new language
     router.push(router.pathname, router.asPath, { locale: languageCode });
   };
+  const handleHome = () => {
+    dispatch(emptyAdvParam());
+    router.push('/');
+  };
 
   return (
     // FAB button container
     <div className="fixed bottom-25 right-5 flex flex-col items-center z-99999">
       <div
         className={`w-fit rounded-full p-3 bg-white shadow-lg cursor-pointer mb-2 ${isFabEnabled ? 'invisible' : 'visible'}`}
-        onClick={() => {
-          router.push('/');
-          setAdParam(prev => ({ ...prev, userType: undefined }));
-        }}
+        onClick={handleHome}
       >
         <RiHome5Fill className="text-4xl" />
       </div>
