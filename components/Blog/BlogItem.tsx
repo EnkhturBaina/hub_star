@@ -75,9 +75,7 @@ const BlogItem = ({ blog }: { blog: Blog }) => {
 
         <div className="flex flex-col px-6 pb-2 justify-between h-22">
           <h3 className="!mb-1 !mt-2 line-clamp-2 inline-block text-base font-bold text-black duration-300 hover:text-primary">
-            <Link href={`/adv/${id}`}>
-              {title?.length > 60 ? `${title.slice(0, 60)}...` : title}
-            </Link>
+            <Link href={`/adv/${id}`}>{title}</Link>
           </h3>
           {/* <span className="line-clamp-3">{`${desciption?.slice(0, 30)}...`}</span> */}
           <span className="line-clamp-3">{blogType}</span>

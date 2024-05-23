@@ -1,11 +1,21 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Checkbox, Input, Textarea } from '@nextui-org/react';
+import {
+  Button,
+  Card,
+  CardFooter,
+  CardHeader,
+  Checkbox,
+  Image,
+  Input,
+  Textarea,
+} from '@nextui-org/react';
 import { BsImage } from 'react-icons/bs';
 import { ICreateAd } from '@/interfaces/request.interface';
 import ImageUpload from '@/components/Image/image-upload';
-import Image from 'next/image';
+import ImageList from '../AdvImageUpload';
+import AdvImageUpload from '../AdvImageUpload';
 interface IProps {
   adData: ICreateAd;
   setAdData: React.Dispatch<React.SetStateAction<ICreateAd>>;
@@ -75,32 +85,7 @@ const Subscriber: React.FC<IProps> = ({ adData, setAdData }) => {
           onChange={handleChange('counter')}
         />
       </div>
-      <span className="font-bold">Зураг оруулах</span>
-      <div className="grid grid-cols-3 gap-4">
-        {adData.imageIds.map((item, index) => {
-          return (
-            <Image
-              key={index}
-              src={process.env.NEXT_PUBLIC_MEDIA_URL + item}
-              alt="Зарын зураг"
-              width={160}
-              height={160}
-              className="flex h-40 cursor-pointer items-center justify-center rounded-lg bg-mainGray"
-            />
-          );
-        })}
-        <ImageUpload
-          className="flex h-40 cursor-pointer items-center justify-center rounded-lg bg-mainGray"
-          setFileId={fileId =>
-            setAdData(previousValue => ({
-              ...previousValue,
-              imageIds: [...previousValue.imageIds, fileId],
-            }))
-          }
-        >
-          <BsImage className="text-2xl text-gray-500" />
-        </ImageUpload>
-      </div>
+      <AdvImageUpload adData={adData} setAdData={setAdData} />
       <Textarea
         variant="bordered"
         label="Тайлбар"

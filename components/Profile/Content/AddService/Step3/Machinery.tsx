@@ -9,6 +9,7 @@ import Image from 'next/image';
 import { MachineryType } from '@/types/reference';
 import { useEffect } from 'react';
 import CustomSelect from '@/components/Inputs/Select';
+import AdvImageUpload from '../AdvImageUpload';
 interface IProps {
   adData: ICreateAd;
   setAdData: React.Dispatch<React.SetStateAction<ICreateAd>>;
@@ -178,32 +179,7 @@ const Machinery: React.FC<IProps> = ({
           onChange={handleChange('toAddress')}
         />
       </div>
-      <span className="font-bold">Зураг оруулах</span>
-      <div className="grid grid-cols-3 gap-4">
-        {adData.imageIds.map((item, index) => {
-          return (
-            <Image
-              key={index}
-              src={process.env.NEXT_PUBLIC_MEDIA_URL + item}
-              alt="Зарын зураг"
-              width={160}
-              height={160}
-              className="flex h-40 cursor-pointer items-center justify-center rounded-lg bg-mainGray"
-            />
-          );
-        })}
-        <ImageUpload
-          className="flex h-40 cursor-pointer items-center justify-center rounded-lg bg-mainGray"
-          setFileId={fileId =>
-            setAdData(previousValue => ({
-              ...previousValue,
-              imageIds: [...previousValue.imageIds, fileId],
-            }))
-          }
-        >
-          <BsImage className="text-2xl text-gray-500" />
-        </ImageUpload>
-      </div>
+      <AdvImageUpload adData={adData} setAdData={setAdData} />
       <Textarea
         variant="bordered"
         label="Тайлбар"

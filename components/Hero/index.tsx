@@ -14,16 +14,21 @@ import LeftDirections from '../Skeleton/LeftDirections';
 import BlogItemSkeleton from '../Skeleton/BlogItemSkeleton';
 import { useAppContext } from '@/app/app-context';
 import { RefDirection, MainDirection, RefNews, SubDirection } from '@/types/reference';
-import Link from 'next/link';
 import { Popup } from 'semantic-ui-react';
 import { Fragment, useEffect, useState } from 'react';
 import { ReferenceService } from '@/service/reference/reference.service';
 import { useRouter } from 'next/router';
 import Title from '../Common/Title';
+import { setAdvParam } from '@/app/lib/features/adv-param';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '@/app/lib/store';
+import { useTypedSelector } from '@/app/lib/reducer';
 
 const Hero = () => {
   const router = useRouter();
-  const { mainDirections, adParam } = useAppContext();
+  const { mainDirections } = useAppContext();
+  const advParam = useTypedSelector(state => state.advParam);
+  const dispatch = useDispatch<AppDispatch>();
   const [openPopover, setOpenPopover] = useState({});
   const [news, setNews] = useState<RefNews[]>([]);
   const getNews = () => {
@@ -50,7 +55,7 @@ const Hero = () => {
           <div className="flex flex-row gap-7.5 xl:gap-12.5">
             <div className="hidden md:block md:w-1/4">
               <div className="animate_top mb-10 rounded-md border border-stroke bg-white p-6 shadow-md">
-                <Title label='Үйлчилгээнүүд' />
+                <Title label="Үйлчилгээнүүд" />
                 {mainDirections.length == 0 ? (
                   <LeftDirections />
                 ) : (
@@ -89,19 +94,25 @@ const Hero = () => {
                                                 key={index}
                                                 className="mb-3 cursor-pointer !text-black transition-all duration-300 last:mb-0 hover:text-mainColor max-w-96"
                                               >
-                                                <Link
-                                                  href={{
-                                                    pathname: '/adv',
-                                                    query: {
-                                                      mainDirectionId: md.id,
-                                                      directionId: d.id,
-                                                      subDirectionId: sub.id,
-                                                    },
+                                                <div
+                                                  onClick={() => {
+                                                    dispatch(
+                                                      setAdvParam({
+                                                        mainDirectionId: md.id,
+                                                        directionIds: [d.id],
+                                                        subDirectionIds: [sub.id],
+                                                        order: 'DESC',
+                                                        page: 1,
+                                                        limit: 10,
+                                                      })
+                                                    );
+                                                    console.log('is working ======>');
+                                                    router.push('/adv');
                                                   }}
                                                   className="!text-black"
                                                 >
                                                   {sub.name}
-                                                </Link>
+                                                </div>
                                               </li>
                                             );
                                           }
@@ -147,7 +158,7 @@ const Hero = () => {
             </div>
 
             <div className="w-full md:w-3/4">
-              {!adParam.userType && (
+              {!advParam.userType && (
                 <Fragment>
                   <div className="mb-4 w-full overflow-hidden">
                     <div className="custom-slider-container relative w-full rounded-xl">
@@ -188,7 +199,6 @@ const Hero = () => {
                 </Fragment>
               )}
               {mainDirections.length == 0 ? <BlogItemSkeleton /> : <Blog />}
-              <PaginationComp page={0} pageCount={0} />
             </div>
           </div>
         </div>

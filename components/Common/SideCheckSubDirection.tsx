@@ -1,38 +1,45 @@
 import { LuChevronLeft, LuSettings2 } from 'react-icons/lu';
 import { Checkbox, CheckboxGroup } from '@nextui-org/react';
 import { RefDirection, SubDirection, SpecialServiceType } from '@/types/reference';
-import { useAppContext } from '@/app/app-context';
 import { useCallback, useEffect, useState } from 'react';
 import { ReferenceService } from '@/service/reference/reference.service';
+import { useTypedSelector } from '@/app/lib/reducer';
+import { useDispatch } from 'react-redux';
+import { setAdvParam } from '@/app/lib/features/adv-param';
 
 type Props = {
-  mainDirectionId?: number;
-  specialService?: SpecialServiceType;
   closeFnc?: () => void;
 };
-const SideCheckSubDirection: React.FC<Props> = ({ mainDirectionId, specialService, closeFnc }) => {
-  const { adParam, setAdParam } = useAppContext();
+const SideCheckSubDirection: React.FC<Props> = ({ closeFnc }) => {
+  const advParam = useTypedSelector(state => state.advParam);
+  const dispatch = useDispatch();
   const [directions, setDirections] = useState<RefDirection[]>([]);
 
   const onChangeValue = (value: string[]) => {
     const currentDirections = directions.filter(item => {
       return item.subDirections.some(subdir => value.includes(String(subdir.id)));
     });
-    setAdParam(prevState => ({
-      ...prevState,
-      page: 1,
-      limit: 10,
-      directionIds: currentDirections?.map(item => item.id),
-      subDirectionIds: value.map(item => Number(item)),
-    }));
+    dispatch(
+      setAdvParam({
+        ...advParam,
+        page: 1,
+        limit: 10,
+        directionIds: currentDirections?.map(item => item.id),
+        subDirectionIds: value.map(item => Number(item)),
+      })
+    );
   };
   const getDirection = useCallback(async () => {
-    await ReferenceService.getDirection({ mainDirectionId, specialService }).then(res => {
+    await ReferenceService.getDirection({
+      mainDirectionId: advParam.mainDirectionId,
+      specialService: advParam.specialService,
+      userType: advParam.userType,
+    }).then(res => {
       if (res.success) {
         setDirections(res.response);
       }
     });
-  }, [mainDirectionId, specialService]);
+  }, [advParam.mainDirectionId, advParam.specialService, advParam.userType]);
   useEffect(() => {
     getDirection();
   }, [getDirection]);
@@ -58,7 +65,7 @@ const SideCheckSubDirection: React.FC<Props> = ({ mainDirectionId, specialServic
               base: 'my-4 ml-2',
               label: 'font-bold text-black text-base',
             }}
-            value={(adParam.subDirectionIds || []).map(item => item.toString())}
+            value={(advParam.subDirectionIds || []).map(item => item.toString())}
             onValueChange={onChangeValue}
           >
             {direction.subDirections.map((subDir: SubDirection, index: number) => {

@@ -32,12 +32,9 @@ const Feature = () => {
       </div>
       <div className="max-w-c-1315 lg:mx-auto lg:px-4 xl:px-0">
         <div className="my-2 grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-6">
-          {/* <!-- Features item Start --> */}
-
           {SpecialServiceData.map((item, index) => (
             <SingleFeature specialService={item} key={index} />
           ))}
-          {/* <!-- Features item End --> */}
         </div>
       </div>
     </motion.div>

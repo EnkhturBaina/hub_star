@@ -16,12 +16,11 @@ import { Users } from '@/types/user';
 import { AuthService } from '@/service/authentication/authentication.service';
 import { getAccessToken } from '@/service/api.service';
 import { IAdParam } from '@/interfaces/request.interface';
+import { useTypedSelector } from './lib/reducer';
 interface IAppContextProps {
   user: Users;
   setUser: Dispatch<SetStateAction<Users>>;
   mainDirections: MainDirection[];
-  adParam: IAdParam;
-  setAdParam: Dispatch<SetStateAction<IAdParam>>;
   advertisements: Advertisement[];
   adMeta: PageMeta;
 }
@@ -32,12 +31,13 @@ interface IProps {
   children: ReactNode;
 }
 const AppProvider: React.FC<IProps> = ({ children }) => {
-  const [adParam, setAdParam] = useState<IAdParam>({
-    order: 'DESC',
-    page: 1,
-    limit: 9,
-    process: 'CREATED',
-  });
+  // const [adParam, setAdParam] = useState<IAdParam>({
+  //   order: 'DESC',
+  //   page: 1,
+  //   limit: 9,
+  //   process: 'CREATED',
+  // });
+  const advParam = useTypedSelector(state => state.advParam);
   const [user, setUser] = useState<Users>();
   const [mainDirections, setMainDirections] = useState<MainDirection[]>([]);
   const [advertisements, setAdvertisements] = useState<Advertisement[]>([]);
@@ -68,30 +68,28 @@ const AppProvider: React.FC<IProps> = ({ children }) => {
   }, [getUser]);
 
   const getMainDirection = useCallback(async () => {
-    await ReferenceService.getMainDirection({ userType: adParam.userType }).then(res => {
+    await ReferenceService.getMainDirection({ userType: advParam.userType }).then(res => {
       if (res.success) {
         setMainDirections(res.response);
       }
     });
-  }, [adParam.userType]);
+  }, [advParam.userType]);
 
   useEffect(() => {
     getMainDirection();
   }, [getMainDirection]);
 
   useEffect(() => {
-    AdvertisementService.get(adParam).then(response => {
+    AdvertisementService.get(advParam).then(response => {
       if (response.success) {
         setAdvertisements(response.response.data);
         setAdMeta(response.response.meta);
       }
     });
-  }, [adParam]);
+  }, [advParam]);
   const value: IAppContextProps = {
     user,
     mainDirections,
-    adParam,
-    setAdParam,
     advertisements,
     adMeta,
     setUser,

@@ -10,9 +10,12 @@ import { useAppContext } from '@/app/app-context';
 import AuthName from '../Auth/auth-name';
 import useSocket from '@/service/socket-client';
 import { useRouter } from 'next/router';
+import { useDispatch } from 'react-redux';
+import { emptyAdvParam } from '@/app/lib/features/adv-param';
 
 const Header = () => {
-  const { user, setAdParam } = useAppContext();
+  const { user } = useAppContext();
+  const dispatch = useDispatch();
   const router = useRouter();
   const socket = useSocket();
   const [navigationOpen, setNavigationOpen] = useState(false);
@@ -29,6 +32,10 @@ const Header = () => {
     } else {
       setStickyMenu(false);
     }
+  };
+  const handleHome = () => {
+    dispatch(emptyAdvParam());
+    router.push('/');
   };
   useEffect(() => {
     if (socket) {
@@ -75,10 +82,7 @@ const Header = () => {
               alt="main_logo"
               className="rounded-t-lg object-cover hover:cursor-pointer"
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              onClick={() => {
-                router.push('/');
-                setAdParam(prev => ({ ...prev, userType: undefined }));
-              }}
+              onClick={() => handleHome()}
               fill
               style={{
                 objectFit: 'contain',
@@ -108,7 +112,11 @@ const Header = () => {
             ) : (
               <>
                 <Link href="/profile/information" className="flex flex-row items-center">
-                  <Avatar name={user?.firstName} className="h-12 w-12 text-lg" />
+                  <Avatar
+                    name={user?.firstName}
+                    src={process.env.NEXT_PUBLIC_MEDIA_URL + user.avatarId}
+                    className="h-12 w-12 text-lg"
+                  />
                   <div className="hidden md:block">
                     <AuthName user={user} />
                   </div>

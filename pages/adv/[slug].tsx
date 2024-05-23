@@ -31,9 +31,14 @@ import Link from 'next/link';
 import Rating from '@/components/Common/Rating';
 import UserTabData from '@/app/data/UserTabData';
 import SpecialServiceData from '@/app/data/SpecialServiceData';
+import { useTypedSelector } from '@/app/lib/reducer';
+import { useDispatch } from 'react-redux';
+import { setAdvParam } from '@/app/lib/features/adv-param';
 
 const SingleBlogPage: NextPage = () => {
   const router = useRouter();
+  const advParam = useTypedSelector(state => state.advParam);
+  const dispatch = useDispatch();
   const { user, advertisements } = useAppContext();
   const { isOpen, onOpen, onClose, onOpenChange } = useDisclosure();
   const [data, setData] = useState<Advertisement>();
@@ -66,6 +71,14 @@ const SingleBlogPage: NextPage = () => {
       await AdvertisementService.getById(router.query.slug).then(res => {
         if (res.success) {
           setData(res.response);
+          dispatch(setAdvParam({
+            page: 1,
+            limit: 10,
+            order: 'DESC',
+            userType: res.response.userType,
+            specialService: res.response.specialService,
+            mainDirectionId: res.response.mainDirectionId,
+          }));
         }
       });
     }

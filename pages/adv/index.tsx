@@ -4,73 +4,49 @@ import BreadCrumbs from '@/components/BreadCrumbs';
 import SideCheckSubDirection from '@/components/Common/SideCheckSubDirection';
 import CustomSelect from '@/components/Inputs/Select';
 import PaginationComp from '@/components/Pagination';
-import { IAdParam, IMachineryParam } from '@/interfaces/request.interface';
+import { IAdParam } from '@/interfaces/request.interface';
 import { ReferenceService } from '@/service/reference/reference.service';
 import { Address, MachineryType, MainDirection, OrderType } from '@/types/reference';
-import { Button, Select, SelectItem } from '@nextui-org/react';
 import { NextPage } from 'next';
-import { useRouter } from 'next/router';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { IoIosAddCircleOutline } from 'react-icons/io';
 import { SidebarPusher, SidebarPushable, Segment, Sidebar } from 'semantic-ui-react';
 import { LuSettings2 } from 'react-icons/lu';
+import { useTypedSelector } from '@/app/lib/reducer';
+import { useDispatch } from 'react-redux';
+import { setAdvParam } from '@/app/lib/features/adv-param';
 
 const BlogPage: NextPage = () => {
-  const { adParam, setAdParam, advertisements, adMeta } = useAppContext();
+  const { advertisements, adMeta } = useAppContext();
+  const advParam = useTypedSelector(state => state.advParam);
+  const dispatch = useDispatch();
   const [mainDirection, setMainDirection] = useState<MainDirection>();
   const [materials, setMaterials] = useState<MachineryType[]>([]);
   const [provinces, setProvinces] = useState<Address[]>([]);
   const [districts, setDistricts] = useState<Address[]>([]);
   const [khoroos, setKhoroos] = useState<Address[]>([]);
-  const router = useRouter();
   const [visible, setVisible] = useState(false);
   const sideBarRef = useRef(null);
 
-  const getParam = useCallback(async () => {
-    const param: IAdParam = {
-      order: 'DESC',
-      page: 1,
-      limit: 10,
-      userType: adParam.userType,
-      process: 'CREATED',
-    };
-    if (
-      isNaN(Number(router.query.mainDirectionId)) ||
-      isNaN(Number(router.query.directionId)) ||
-      isNaN(Number(router.query.subDirectionId))
-    ) {
-      router.push('/');
+  const getMainDirection = useCallback(() => {
+    if (advParam.mainDirectionId) {
+      ReferenceService.getMainDirectionById(advParam.mainDirectionId).then(response => {
+        if (response.success) {
+          setMainDirection(response.response);
+        }
+      });
     }
-    if (router.query.mainDirectionId) {
-      param.mainDirectionId = Number(router.query.mainDirectionId);
-    }
-    if (router.query.directionId) {
-      param.directionIds = [Number(router.query.directionId)];
-    }
-    if (router.query.subDirectionId) {
-      param.subDirectionIds = [Number(router.query.subDirectionId)];
-    }
-    setAdParam(param);
-    await ReferenceService.getMainDirectionById(param.mainDirectionId).then(res => {
-      if (res.success) {
-        setMainDirection(res.response);
-      }
-    });
-  }, [router.query.mainDirectionId, router.query.directionId, router.query.subDirectionId]);
+  }, [advParam.mainDirectionId]);
 
-  useEffect(() => {
-    getParam();
-  }, [getParam]);
-
+  useEffect(() => getMainDirection(), [getMainDirection]);
   const getMachinery = useCallback(() => {
-    if (adParam.userType == 'SUPPLIER') {
+    if (advParam.userType == 'SUPPLIER') {
       ReferenceService.getMachinery({ type: 'MATERIAL' }).then(response => {
         if (response.success) {
           setMaterials(response.response);
         }
       });
     }
-  }, [adParam.userType]);
+  }, [advParam.userType]);
 
   useEffect(() => {
     getMachinery();
@@ -89,31 +65,36 @@ const BlogPage: NextPage = () => {
   }, [getProvince]);
 
   const getDistrict = useCallback(() => {
-    ReferenceService.getAddress({ type: 'DISTRICT', parentId: adParam.provinceId }).then(
+    ReferenceService.getAddress({ type: 'DISTRICT', parentId: advParam.provinceId }).then(
       response => {
         if (response.success) {
           setDistricts(response.response);
         }
       }
     );
-  }, [adParam.provinceId]);
+  }, [advParam.provinceId]);
 
   useEffect(() => {
     getDistrict();
   }, [getDistrict]);
 
   const getKhoroo = useCallback(() => {
-    ReferenceService.getAddress({ type: 'KHOROO', parentId: adParam.districtId }).then(response => {
-      if (response.success) {
-        setKhoroos(response.response);
+    ReferenceService.getAddress({ type: 'KHOROO', parentId: advParam.districtId }).then(
+      response => {
+        if (response.success) {
+          setKhoroos(response.response);
+        }
       }
-    });
-  }, [adParam.districtId]);
+    );
+  }, [advParam.districtId]);
 
   useEffect(() => {
     getKhoroo();
   }, [getKhoroo]);
 
+  const onAdvParam = (param: IAdParam) => {
+    dispatch(setAdvParam(param));
+  };
   return (
     <>
       <section className="pt-35 lg:pt-40 xl:pt-42.5">
@@ -128,7 +109,7 @@ const BlogPage: NextPage = () => {
                   items={[
                     mainDirection?.name,
                     mainDirection?.directions
-                      .filter(item => adParam.directionIds.includes(item.id))
+                      .filter(item => advParam.directionIds?.includes(item.id))
                       .map(item => item.name)
                       .join(', '),
                   ]}
@@ -150,16 +131,13 @@ const BlogPage: NextPage = () => {
             className="!bg-white"
             ref={sideBarRef}
           >
-            <SideCheckSubDirection
-              specialService={adParam.specialService}
-              closeFnc={() => (visible ? setVisible(false) : undefined)}
-            />
+            <SideCheckSubDirection closeFnc={() => (visible ? setVisible(false) : undefined)} />
           </Sidebar>
           <SidebarPusher className="!w-full">
             <Segment className="!rounded-xl !border-0">
               <div className="mx-auto flex max-w-screen-xl gap-4 px-4 md:px-8 2xl:px-0 justify-between">
                 <div className={`hidden md:block md:w-1/4 lg:w-[20%]`}>
-                  <SideCheckSubDirection mainDirectionId={adParam.mainDirectionId} />
+                  <SideCheckSubDirection />
                 </div>
                 <div className="pb-6 md:w-3/4">
                   {!visible ? (
@@ -175,10 +153,10 @@ const BlogPage: NextPage = () => {
                   <div className="my-4 justify-between grid grid-cols-2 md:grid-cols-4 gap-4">
                     <CustomSelect
                       label={'Эрэмбэлэлт'}
-                      value={adParam?.order}
+                      value={advParam?.order}
                       onSelectionChange={value => {
-                        setAdParam({
-                          ...adParam,
+                        onAdvParam({
+                          ...advParam,
                           order: value as OrderType,
                           page: 1,
                           limit: 10,
@@ -189,37 +167,37 @@ const BlogPage: NextPage = () => {
                         { label: 'Огноогоор (A-Z)', value: 'ASC' },
                       ]}
                     />
-                    {adParam.userType == 'SUPPLIER' && (
+                    {advParam.userType == 'SUPPLIER' && (
                       <CustomSelect
                         label={'Материалын нэрс орох'}
-                        value={adParam.materialId}
+                        value={advParam.materialId}
                         onSelectionChange={value => {
-                          setAdParam({ ...adParam, materialId: Number(value) });
+                          onAdvParam({ ...advParam, materialId: Number(value) });
                         }}
                         options={materials.map(item => ({ label: item.name, value: item.id }))}
                       />
                     )}
                     <CustomSelect
                       label={'Аймаг, хот'}
-                      value={adParam.provinceId}
+                      value={advParam.provinceId}
                       onSelectionChange={value => {
-                        setAdParam({ ...adParam, provinceId: Number(value) });
+                        onAdvParam({ ...advParam, provinceId: Number(value) });
                       }}
                       options={provinces.map(item => ({ label: item.name, value: item.id }))}
                     />
                     <CustomSelect
                       label={'Сум, дүүрэг'}
-                      value={adParam.districtId}
+                      value={advParam.districtId}
                       onSelectionChange={value => {
-                        setAdParam({ ...adParam, districtId: Number(value) });
+                        onAdvParam({ ...advParam, districtId: Number(value) });
                       }}
                       options={districts.map(item => ({ label: item.name, value: item.id }))}
                     />
                     <CustomSelect
                       label={'Баг, хороо'}
-                      value={adParam.khorooId}
+                      value={advParam.khorooId}
                       onSelectionChange={value => {
-                        setAdParam({ ...adParam, khorooId: Number(value) });
+                        onAdvParam({ ...advParam, khorooId: Number(value) });
                       }}
                       options={khoroos.map(item => ({ label: item.name, value: item.id }))}
                     />

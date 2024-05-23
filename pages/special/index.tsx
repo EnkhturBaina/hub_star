@@ -13,71 +13,24 @@ import { SidebarPusher, SidebarPushable, Segment, Sidebar } from 'semantic-ui-re
 import { LuSettings2 } from 'react-icons/lu';
 import SpecialServiceData from '@/app/data/SpecialServiceData';
 import { motion } from 'framer-motion';
-import AdSkeleton from '@/components/Skeleton/AdSkeleton';
+import { useTypedSelector } from '@/app/lib/reducer';
+import { useDispatch } from 'react-redux';
+import { setAdvParam } from '@/app/lib/features/adv-param';
 
 const SpecialService: NextPage = () => {
-  const { adParam, setAdParam, advertisements, adMeta } = useAppContext();
-  const router = useRouter();
+  const { advertisements, adMeta } = useAppContext();
+  const advParam = useTypedSelector(state => state.advParam);
+  const dispatch = useDispatch();
   const [visible, setVisible] = useState(false);
   const sideBarRef = useRef(null);
 
-  useEffect(() => {
-    const param: IAdParam = {
-      order: 'DESC',
-      page: 1,
-      limit: 10,
-      process: 'CREATED',
-    };
-    if (router.query.specialServiceType) {
-      param.specialService = router.query.specialServiceType as SpecialServiceType;
-    }
-    setAdParam(param);
-  }, [router.query.specialServiceType]);
+  const onAdvParam = (param: IAdParam) => {
+    dispatch(setAdvParam(param));
+  };
 
   return (
     <>
-      <section className="pt-30 lg:pt-25 xl:pt-30.5">
-        <motion.div
-          variants={{
-            hidden: {
-              opacity: 0,
-              y: -10,
-            },
-
-            visible: {
-              opacity: 1,
-              y: 0,
-            },
-          }}
-          initial="hidden"
-          whileInView="visible"
-          transition={{ duration: 0.5 }}
-          viewport={{ once: true }}
-          className="animate_top flex no-scrollbar flex-row md:justify-center overflow-x-auto whitespace-nowrap md:flex-nowrap md:items-center lg:gap-7.5 xl:gap-5 gap-2 z-40 md:h-30 cursor-pointer items-center transition-all pb-2"
-        >
-          {SpecialServiceData.map((item, index: number) => {
-            return (
-              <div
-                key={index}
-                onClick={() => {
-                  setAdParam({ ...adParam, specialService: item.type });
-                }}
-                className={`flex h-full flex-row md:flex-col items-center justify-around p-2 md:min-w-40 special-service hover:bg-primary rounded-lg border border-white group shadow-md ${adParam.specialService == item.type ? 'bg-primary' : 'bg-white'}`}
-              >
-                <div
-                  className={`h-5 w-5 md:h-16 md:w-16 rounded-[4px] content-center flex ${adParam.specialService === item.type ? 'active-icon' : ''}`}
-                >
-                  {item.icon}
-                </div>
-                <span
-                  className={`flex items-center justify-center text-center align-middle text-xs font-bold leading-none text-[#212529] ml-2 md:ml-0 md:max-w-40 md:text-wrap group-hover:text-white ${adParam.specialService == item.type && 'text-white'}`}
-                >
-                  {item.title}
-                </span>
-              </div>
-            );
-          })}
-        </motion.div>
+      <section className="pt-30 lg:pt-30 xl:pt-30.5">
         <div className="bg-gray-100 px-4 md:px-8 2xl:px-0 ">
           <div className="mx-auto flex max-w-screen-xl flex-row justify-between gap-7.5 py-18 lg:flex-row xl:gap-12.5">
             <div className="flex flex-col">
@@ -88,7 +41,7 @@ const SpecialService: NextPage = () => {
                 <BreadCrumbs
                   items={[
                     'Онцгой үйлчилгээ',
-                    SpecialServiceData.find(item => item.type == adParam.specialService)?.title,
+                    SpecialServiceData.find(item => item.type == advParam.specialService)?.title,
                   ]}
                 />
               </div>
@@ -108,20 +61,15 @@ const SpecialService: NextPage = () => {
             className="!bg-white"
             ref={sideBarRef}
           >
-            {adParam.specialService ? (
-              <SideCheckSubDirection
-                specialService={adParam.specialService}
-                closeFnc={() => (visible ? setVisible(false) : undefined)}
-              />
+            {advParam.specialService ? (
+              <SideCheckSubDirection closeFnc={() => (visible ? setVisible(false) : undefined)} />
             ) : null}
           </Sidebar>
           <SidebarPusher className="!w-full">
             <Segment className="!rounded-xl !border-0">
               <div className="mx-auto flex max-w-screen-xl gap-4 px-4 md:px-8 2xl:px-0">
                 <div className={`hidden md:block md:w-1/4 lg:w-[20%]`}>
-                  {adParam.specialService ? (
-                    <SideCheckSubDirection specialService={adParam.specialService} />
-                  ) : null}
+                  {advParam.specialService ? <SideCheckSubDirection /> : null}
                 </div>
                 <div className="pb-6 lg:w-3/4 w-full">
                   <div className="mb-4 flex flex-row justify-between">
@@ -149,12 +97,7 @@ const SpecialService: NextPage = () => {
                       }}
                       value="DESC"
                       onChange={e => {
-                        setAdParam({
-                          ...adParam,
-                          order: e.target.value as OrderType,
-                          page: 1,
-                          limit: 10,
-                        });
+                        onAdvParam({ ...advParam, order: e.target.value as OrderType });
                       }}
                     >
                       <SelectItem key="DESC">Огноогоор (Z-A)</SelectItem>

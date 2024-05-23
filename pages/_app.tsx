@@ -15,6 +15,8 @@ import FabButton from '@/components/Common/FabButton';
 import 'react-image-gallery/styles/css/image-gallery.css';
 import { Suspense } from 'react';
 import Loading from '@/components/Common/Loading';
+import { Provider } from 'react-redux';
+import { store } from '@/app/lib/store';
 
 const roboto = Roboto({
   subsets: ['latin'],
@@ -28,16 +30,18 @@ function MyApp({ Component, pageProps }: AppProps) {
     <Suspense fallback={<Loading />}>
       <div className={`dark:bg-black ${roboto.className}`}>
         <NextUIProvider>
-          <ThemeProvider enableSystem={false} attribute="class" defaultTheme="light">
-            <ToasterContext />
-            <AppProvider>
-              {pathUrl === '/auth/signin' || pathUrl === '/auth/signup' ? null : <Header />}
-              <Component {...pageProps} />
-              <FabButton />
-            </AppProvider>
-            <Footer />
-            <ScrollToTop />
-          </ThemeProvider>
+          <Provider store={store}>
+            <ThemeProvider enableSystem={false} attribute="class" defaultTheme="light">
+              <ToasterContext />
+              <AppProvider>
+                {pathUrl === '/auth/signin' || pathUrl === '/auth/signup' ? null : <Header />}
+                <Component {...pageProps} />
+                <FabButton />
+              </AppProvider>
+              <Footer />
+              <ScrollToTop />
+            </ThemeProvider>
+          </Provider>
         </NextUIProvider>
       </div>
     </Suspense>
