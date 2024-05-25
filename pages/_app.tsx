@@ -17,6 +17,7 @@ import { Suspense } from 'react';
 import Loading from '@/components/Common/Loading';
 import { Provider } from 'react-redux';
 import { store } from '@/app/lib/store';
+import { Toaster } from 'react-hot-toast';
 
 const roboto = Roboto({
   subsets: ['latin'],
@@ -34,6 +35,16 @@ function MyApp({ Component, pageProps }: AppProps) {
             <ThemeProvider enableSystem={false} attribute="class" defaultTheme="light">
               <ToasterContext />
               <AppProvider>
+                <Toaster
+                  position="top-center"
+                  reverseOrder={false}
+                  gutter={8}
+                  containerClassName=""
+                  containerStyle={{}}
+                  toastOptions={{
+                    duration: 5000,
+                  }}
+                />
                 {pathUrl === '/auth/signin' || pathUrl === '/auth/signup' ? null : <Header />}
                 <Component {...pageProps} />
                 <FabButton />

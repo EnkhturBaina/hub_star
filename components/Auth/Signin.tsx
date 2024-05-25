@@ -7,7 +7,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useMemo, useState } from 'react';
 import { Divider } from 'semantic-ui-react';
-import toast, { Toaster } from 'react-hot-toast';
+import toast from 'react-hot-toast';
 import { useTranslation } from 'next-i18next';
 
 const Signin = () => {
@@ -52,16 +52,6 @@ const Signin = () => {
   return (
     <>
       {/* <!-- ===== SignIn Form Start ===== --> */}
-      <Toaster
-        position="top-center"
-        reverseOrder={false}
-        gutter={8}
-        containerClassName=""
-        containerStyle={{}}
-        toastOptions={{
-          duration: 5000,
-        }}
-      />
       <section className="flex h-[calc(100vh-100px)] flex-wrap">
         <div className="relative flex h-full w-full flex-col justify-center lg:flex-row">
           <div className="relative hidden h-full w-full md:block md:h-1/3 lg:h-full lg:w-1/2">
