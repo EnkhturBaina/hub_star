@@ -54,7 +54,9 @@ const Profile: NextPage = () => {
           phone: profileData.phone,
           jobPosition: profileData.jobPosition,
           address: profileData.address,
-          userType: 'SUBSCRIBER',
+          userType: profileData.userType,
+          isConfirm: profileData.isConfirm,
+          isCitizen: profileData.isCitizen,
         })
           .then(response => {
             // setAuthUserData(response?.data?.response);
