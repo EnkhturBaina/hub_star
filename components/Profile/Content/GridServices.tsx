@@ -14,8 +14,9 @@ type Props = {
   isStars: boolean;
   editAdv?: (advertisement: Advertisement) => void;
   removeAdv?: (id: number) => void;
+  onIgeree?: () => void;
 };
-const GridServices: React.FC<Props> = ({ servicesData, isStars, editAdv, removeAdv }) => {
+const GridServices: React.FC<Props> = ({ servicesData, isStars, editAdv, removeAdv, onIgeree }) => {
   console.log('servicesData', servicesData);
 
   const [blogType, setBlogType] = useState('');
@@ -117,6 +118,11 @@ const GridServices: React.FC<Props> = ({ servicesData, isStars, editAdv, removeA
                     </div>
                   </PopoverContent>
                 </Popover>
+              )}
+              {onIgeree && (
+                <Button color="primary" onClick={() => onIgeree()}>
+                  Гэрээ байгуулах
+                </Button>
               )}
             </div>
           </div>

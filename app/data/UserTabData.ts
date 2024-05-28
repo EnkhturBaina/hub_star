@@ -4,27 +4,27 @@ const UserTabData: UserTab[] = [
   {
     type: 'SUBSCRIBER',
     image: '/images/user-type/subscriber.svg',
-    title: 'ЗАХИАЛАГЧ',
+    title: 'Захиалагч',
   },
   {
     type: 'EXECUTOR',
     image: '/images/user-type/executor.svg',
-    title: 'ГҮЙЦЭТГЭГЧ',
+    title: 'Гүйцэтгэгч',
   },
   {
     type: 'SUPPLIER',
     image: '/images/user-type/supplier.svg',
-    title: 'ХАНГАН НИЙЛҮҮЛЭГЧ',
+    title: 'Ханган нийлүүлэгч',
   },
   {
     type: 'TRANSPORTATION',
     image: '/images/user-type/transportation.svg',
-    title: 'ТЭЭВЭР',
+    title: 'Тээвэр',
   },
   {
     type: 'MACHINERY',
     image: '/images/user-type/machinery.svg',
-    title: 'МАШИН МЕХАНИЗМ',
+    title: 'Машин механизм',
   },
 ];
 

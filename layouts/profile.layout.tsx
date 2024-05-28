@@ -5,12 +5,13 @@ import { FaCamera } from 'react-icons/fa';
 import { SidebarPusher, SidebarPushable, Segment, Sidebar } from 'semantic-ui-react';
 import { LuChevronLeft, LuLayoutGrid, LuMenu } from 'react-icons/lu';
 import AuthName from '@/components/Auth/auth-name';
-import Image from 'next/image';
+// import Image from 'next/image';
 import ImageUpload from '@/components/Image/image-upload';
 import { Users } from '@/types/user';
 import { AuthService } from '@/service/authentication/authentication.service';
 import toast from 'react-hot-toast';
 import { useAppContext } from '@/app/app-context';
+import { Image } from '@nextui-org/react';
 
 type Props = {
   children: React.ReactNode;
@@ -49,8 +50,8 @@ const ProfileLayout: React.FC<Props> = ({ children }) => {
                     : '/images/profile_bg.jpg'
                 }
                 alt={'ковер'}
-                className="h-65"
-                fill
+                removeWrapper
+                className="z-0 w-full h-full object-cover"
               />
               <div className="absolute bottom-8 right-8">
                 <div className="bg-gray-300 text-base bg-opacity-60 text-white flex flex-row items-center rounded px-4 py-1 min-w-max">
@@ -61,20 +62,20 @@ const ProfileLayout: React.FC<Props> = ({ children }) => {
             </ImageUpload>
             <div className="relative h-30 mx-5 md:mx-25">
               <div className="absolute w-full left-2 flex flex-row md:-bottom-10 md:left-20 gap-3 -top-[30%] md:-top-2/4">
-                <div className="relative md:mr-6">
+                <div className="relative md:mr-6 rounded-full border-5 border-white">
                   <Image
-                    className="rounded-full border-5 border-white md:h-40 md:w-40"
+                    className="z-10 rounded-full w-full h-full object-cover"
                     src={
                       user.avatarId
                         ? `${process.env.NEXT_PUBLIC_BASE_API_URL}local-files/${user.avatarId}`
                         : '/images/user/user-01.png'
                     }
                     alt=""
-                    width={120}
-                    height={120}
-                  />
+                    removeWrapper
+                    // className="z-0 w-full h-full object-cover"
+                  ></Image>
                   <ImageUpload
-                    className="right-0 bottom-0 md:bottom-15 cursor-pointer rounded-full bg-gray-100 p-3 text-black absolute w-fit"
+                    className="z-20 right-0 bottom-0 cursor-pointer rounded-full bg-gray-100 p-3 text-black absolute w-fit"
                     setFileId={avatarId => {
                       saveUserImage({ ...user, avatarId });
                     }}

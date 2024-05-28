@@ -41,6 +41,12 @@ const SingleBlogPage: NextPage = () => {
   const dispatch = useDispatch();
   const { user, advertisements } = useAppContext();
   const { isOpen, onOpen, onClose, onOpenChange } = useDisclosure();
+  const {
+    isOpen: isConfirmOpen,
+    onOpen: onConfirmOpen,
+    onClose: onConfirmClose,
+    onOpenChange: onConfirmOpenChange,
+  } = useDisclosure();
   const [data, setData] = useState<Advertisement>();
   const [slideImages, setSlideImages] = useState<any>([]);
   const [description, setDescription] = useState<string>('');
@@ -71,14 +77,16 @@ const SingleBlogPage: NextPage = () => {
       await AdvertisementService.getById(router.query.slug).then(res => {
         if (res.success) {
           setData(res.response);
-          dispatch(setAdvParam({
-            page: 1,
-            limit: 10,
-            order: 'DESC',
-            userType: res.response.userType,
-            specialService: res.response.specialService,
-            mainDirectionId: res.response.mainDirectionId,
-          }));
+          dispatch(
+            setAdvParam({
+              page: 1,
+              limit: 10,
+              order: 'DESC',
+              userType: res.response.userType,
+              specialService: res.response.specialService,
+              mainDirectionId: res.response.mainDirectionId,
+            })
+          );
         }
       });
     }
@@ -108,7 +116,9 @@ const SingleBlogPage: NextPage = () => {
     ReferenceService.createNotification(notification)
       .then(res => {
         if (res.success) {
-          toast.success('Үйлчилгээг амжилттай захиаллаа.');
+          toast.success(
+            'Таны үйлчилгээ захиалагдлаа. Таны үйлчилгээ профайл/хийгдэж буй үйлчилгээ лүү орно.'
+          );
         }
       })
       .catch(err => {
@@ -124,13 +134,6 @@ const SingleBlogPage: NextPage = () => {
       })
       .catch(err => toast.error(err));
   };
-  // const viewProfile = () => {
-  //   AuthService.otherProfile(data.createdBy).then(res => {
-  //     if (res.success) {
-  //       router.push('/profile/' + data.createdBy);
-  //     }
-  //   });
-  // };
   const handleUpdate = async () => {
     await AdvertisementService.update(data).then(res => {
       if (res.success) {
@@ -197,15 +200,7 @@ const SingleBlogPage: NextPage = () => {
               {user && (
                 <div className="flex flex-row">
                   <Button
-                    onClick={() =>
-                      handleNotification({
-                        id: 0,
-                        authorId: data.createdBy,
-                        advertisementId: data.id,
-                        process: 'DOING',
-                        description: 'Таньд ирсэн захиалга.',
-                      })
-                    }
+                    onClick={onConfirmOpen}
                     radius="full"
                     className="mb-2 w-full rounded-md bg-mainColor font-bold leading-none text-white md:w-72"
                   >
@@ -392,6 +387,38 @@ const SingleBlogPage: NextPage = () => {
                   </Button>
                   <Button color="primary" onPress={onClose} onClick={() => handleUpdate()}>
                     Хадгалах
+                  </Button>
+                </ModalFooter>
+              </>
+            )}
+          </ModalContent>
+        </Modal>
+        <Modal isOpen={isConfirmOpen} onOpenChange={onConfirmOpenChange}>
+          <ModalContent>
+            {onConfirmClose => (
+              <>
+                <ModalHeader className="flex flex-col gap-1">Үйлчилгээ захиалах</ModalHeader>
+                <ModalBody>
+                  <p>Та энэхүү үйлчилгээг захиалахдаа итгэлтэй байна уу.</p>
+                </ModalBody>
+                <ModalFooter>
+                  <Button color="default" variant="light" onPress={onConfirmClose}>
+                    Үгүй
+                  </Button>
+                  <Button
+                    color="primary"
+                    onPress={onConfirmClose}
+                    onClick={() =>
+                      handleNotification({
+                        id: 0,
+                        authorId: data.createdBy,
+                        advertisementId: data.id,
+                        process: 'DOING',
+                        description: 'Таньд ирсэн захиалга.',
+                      })
+                    }
+                  >
+                    Тийм
                   </Button>
                 </ModalFooter>
               </>

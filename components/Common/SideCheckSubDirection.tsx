@@ -1,5 +1,5 @@
 import { LuChevronLeft, LuSettings2 } from 'react-icons/lu';
-import { Checkbox, CheckboxGroup } from '@nextui-org/react';
+import { Accordion, AccordionItem, Checkbox, CheckboxGroup } from '@nextui-org/react';
 import { RefDirection, SubDirection, SpecialServiceType } from '@/types/reference';
 import { useCallback, useEffect, useState } from 'react';
 import { ReferenceService } from '@/service/reference/reference.service';
@@ -55,40 +55,40 @@ const SideCheckSubDirection: React.FC<Props> = ({ closeFnc }) => {
           onClick={closeFnc == undefined ? null : () => closeFnc()}
         />
       </div>
-      {directions.map((direction: RefDirection, index: number) => {
-        return (
-          <CheckboxGroup
-            label={direction.name}
-            color="warning"
+      <Accordion>
+        {directions.map((direction: RefDirection, index: number) => (
+          <AccordionItem
             key={index}
-            classNames={{
-              base: 'my-4 ml-2',
-              label: 'font-bold text-black text-base',
-            }}
-            value={(advParam.subDirectionIds || []).map(item => item.toString())}
-            onValueChange={onChangeValue}
+            title={<span className="text-sm text-black leading-normal">{direction.name}</span>}
           >
-            {direction.subDirections.map((subDir: SubDirection, index: number) => {
-              return (
-                <Checkbox
-                  value={String(subDir.id)}
-                  classNames={{
-                    base: 'w-full max-w-full',
-                    label: 'w-full',
-                    wrapper: 'custom-checkbox w-6 h-6',
-                  }}
-                  key={index}
-                >
-                  <div className="flex w-full flex-row items-center justify-between">
-                    <span className="text-sm leading-none">{subDir.name}</span>
-                    <span className="text-sm">{subDir.advertisements.length}</span>
-                  </div>
-                </Checkbox>
-              );
-            })}
-          </CheckboxGroup>
-        );
-      })}
+            <CheckboxGroup
+              color="warning"
+              key={index}
+              value={(advParam.subDirectionIds || []).map(item => item.toString())}
+              onValueChange={onChangeValue}
+            >
+              {direction.subDirections.map((subDir: SubDirection, index: number) => {
+                return (
+                  <Checkbox
+                    value={String(subDir.id)}
+                    classNames={{
+                      base: 'w-full max-w-full',
+                      label: 'w-full',
+                      wrapper: 'custom-checkbox w-6 h-6',
+                    }}
+                    key={index}
+                  >
+                    <div className="flex w-full flex-row items-center justify-between">
+                      <span className="text-sm leading-none">{subDir.name}</span>
+                      <span className="text-sm">{subDir.advertisements.length}</span>
+                    </div>
+                  </Checkbox>
+                );
+              })}
+            </CheckboxGroup>
+          </AccordionItem>
+        ))}
+      </Accordion>
     </div>
   );
 };

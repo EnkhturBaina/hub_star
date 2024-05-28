@@ -13,6 +13,7 @@ type Props = {
 const DoingServices: React.FC<Props> = ({ userId }) => {
   const [isGrid, setIsGrid] = useState(true);
   const [advertisements, setAdvertisements] = useState<Advertisement[]>([]);
+
   const getData = useCallback(async () => {
     await AdvertisementService.get({
       page: 1,
@@ -29,6 +30,10 @@ const DoingServices: React.FC<Props> = ({ userId }) => {
   useEffect(() => {
     getData();
   }, [getData]);
+
+  const onIgeree = () => {
+    window.open('http://192.82.92.170:3000/build/1881', '_blank');
+  };
   return (
     <div className="mb-4 w-full overflow-hidden ">
       <div className="flex justify-end">
@@ -47,7 +52,7 @@ const DoingServices: React.FC<Props> = ({ userId }) => {
       ) : (
         <div className="mx-auto mt-4 max-w-c-1280">
           {isGrid ? (
-            <GridServices servicesData={advertisements} isStars={false} />
+            <GridServices servicesData={advertisements} isStars={false} onIgeree={onIgeree} />
           ) : (
             <ListServices servicesData={advertisements} isStars={false} />
           )}

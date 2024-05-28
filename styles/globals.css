@@ -344,3 +344,10 @@ pre {
 .active-icon path {
   fill: white;
 }
+.custom-toast-container {
+  position: absolute;
+  top: 500px;
+  right: 0;
+  left: auto;
+  z-index: 9999;
+}

@@ -5,7 +5,6 @@ import '@/styles/globals.css';
 import 'semantic-ui-css/semantic.min.css';
 import { NextUIProvider } from '@nextui-org/react';
 import { ThemeProvider } from 'next-themes';
-import ToasterContext from '@/app/ToastContext';
 import Footer from '@/components/Footer';
 import ScrollToTop from '@/components/ScrollToTop';
 import { Roboto } from 'next/font/google';
@@ -33,14 +32,12 @@ function MyApp({ Component, pageProps }: AppProps) {
         <NextUIProvider>
           <Provider store={store}>
             <ThemeProvider enableSystem={false} attribute="class" defaultTheme="light">
-              <ToasterContext />
               <AppProvider>
                 <Toaster
-                  position="top-center"
+                  position="top-right"
                   reverseOrder={false}
                   gutter={8}
-                  containerClassName=""
-                  containerStyle={{}}
+                  containerClassName="custom-toast-container"
                   toastOptions={{
                     duration: 5000,
                   }}

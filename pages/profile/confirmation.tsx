@@ -1,23 +1,23 @@
 import { motion } from 'framer-motion';
-import { Button, Input, Textarea } from '@nextui-org/react';
+import { Button, Image, Input, Textarea } from '@nextui-org/react';
 import { Fragment, useCallback, useEffect, useState } from 'react';
 import { BsImage } from 'react-icons/bs';
 import { ReferenceService } from '@/service/reference/reference.service';
 import { MainDirection, UserType } from '@/types/reference';
-import toast, { Toaster } from 'react-hot-toast';
+import toast from 'react-hot-toast';
 import ProfileLayout from '@/layouts/profile.layout';
 import Users from '@/types/user';
 import { useAppContext } from '@/app/app-context';
 import ImageUpload from '@/components/Image/image-upload';
-import Image from 'next/image';
 import { AuthService } from '@/service/authentication/authentication.service';
-import ConfirmSkeleton from '@/components/Skeleton/ConfirmSkeleton';
 import CustomSelect from '@/components/Inputs/Select';
 import UserTabData from '@/app/data/UserTabData';
 import withAuth from '@/components/Common/withAuth';
+import { GrOrganization, GrUser } from 'react-icons/gr';
 
 const Confirmation = () => {
   const { user, setUser } = useAppContext();
+  const [step, setStep] = useState<number>(1);
   const [mainDirections, setMainDirections] = useState<MainDirection[]>([]);
   const [values, setValues] = useState<Users>(null);
 
@@ -44,6 +44,13 @@ const Confirmation = () => {
       setValues({ ...values, [prop]: event.target.value });
     };
 
+  const handleIsCitizen = (value: boolean) => {
+    setValues((prevState: Users) => ({
+      ...prevState,
+      isCitizen: value,
+    }));
+    setStep(2);
+  };
   const handleSubmit = async () => {
     AuthService.updateById(user.id, values)
       .then(res => {
@@ -58,39 +65,45 @@ const Confirmation = () => {
         console.log('ERROR', error);
       });
   };
+
   return (
     <ProfileLayout>
-      {!values ? (
-        <ConfirmSkeleton />
+      <motion.div
+        variants={{
+          hidden: {
+            opacity: 0,
+            y: -20,
+          },
+          visible: {
+            opacity: 1,
+            y: 0,
+          },
+        }}
+        initial="hidden"
+        whileInView="visible"
+        transition={{ duration: 1, delay: 0.5 }}
+        viewport={{ once: true }}
+        className="mb-4 grid w-full grid-cols-1 gap-y-4 overflow-hidden p-2"
+      ></motion.div>
+      {step == 1 ? (
+        <div className="flex flex-col md:flex-row justify-center items-start gap-6">
+          <div
+            className="flex h-50 md:w-1/2 w-full p-2 flex-col justify-center items-center gap-2 rounded bg-slate-100 flex-grow flex-shrink-0"
+            onClick={() => handleIsCitizen(false)}
+          >
+            <GrOrganization className="text-[150px] text-mainBgGray hover:text-mainBlue cursor-pointer" />
+            <div className="font-medium text-center text-2xl">Хуулийн этгээд</div>
+          </div>
+          <div
+            className="flex h-50 md:w-1/2 w-full p-2 flex-col justify-center items-center gap-2 rounded bg-slate-100 flex-grow flex-shrink-0"
+            onClick={() => handleIsCitizen(false)}
+          >
+            <GrUser className="text-[150px] text-mainBgGray hover:text-mainBlue cursor-pointer" />
+            <div className="font-medium text-center text-2xl">Хувь хүн</div>
+          </div>
+        </div>
       ) : (
-        <motion.div
-          variants={{
-            hidden: {
-              opacity: 0,
-              y: -20,
-            },
-            visible: {
-              opacity: 1,
-              y: 0,
-            },
-          }}
-          initial="hidden"
-          whileInView="visible"
-          transition={{ duration: 1, delay: 0.5 }}
-          viewport={{ once: true }}
-          className="mb-4 grid w-full grid-cols-1 gap-y-4 overflow-hidden p-2"
-        >
-          <Toaster
-            position="top-center"
-            reverseOrder={false}
-            gutter={8}
-            containerClassName=""
-            containerStyle={{}}
-            toastOptions={{
-              duration: 5000,
-            }}
-          />
-
+        <>
           <CustomSelect
             label="Хэрэглэгчийн төрөл"
             value={values?.userType}
@@ -113,7 +126,15 @@ const Confirmation = () => {
             }}
             options={mainDirections.map(item => ({ value: item.id, label: item.name }))}
           />
-          <div className="font-bold">Байгууллагын гэрчилгээний болон Иргэний үнэмлэхний зураг</div>
+          {user.isCitizen ? (
+            <>
+              <div className="font-bold">Иргэний үнэмлэхний зураг</div>
+            </>
+          ) : (
+            <>
+              <div className="font-bold">Байгууллагын гэрчилгээ</div>
+            </>
+          )}
           <div className="grid grid-cols-3 gap-3">
             <div className="flex h-40 cursor-pointer flex-col items-center justify-center rounded-lg bg-mainGray">
               <ImageUpload
@@ -123,8 +144,8 @@ const Confirmation = () => {
                   <Image
                     src={process.env.NEXT_PUBLIC_MEDIA_URL + values?.frontPassportImageId}
                     alt="Үнэмлэхний урд талын зураг"
-                    width={45}
-                    height={45}
+                    removeWrapper
+                    className="z-0 w-full h-40 object-cover"
                   />
                 ) : (
                   <Fragment>
@@ -140,8 +161,8 @@ const Confirmation = () => {
                   <Image
                     src={process.env.NEXT_PUBLIC_MEDIA_URL + values.selfieImageId}
                     alt="Селфи зураг"
-                    width={45}
-                    height={45}
+                    removeWrapper
+                    className="z-0 w-full h-40 object-cover"
                   />
                 ) : (
                   <Fragment>
@@ -159,8 +180,8 @@ const Confirmation = () => {
                   <Image
                     src={process.env.NEXT_PUBLIC_MEDIA_URL + values.behindPassportImageId}
                     alt="Үнэмлэхний ард талын зураг"
-                    width={45}
-                    height={45}
+                    removeWrapper
+                    className="z-0 w-full h-40 object-cover"
                   />
                 ) : (
                   <Fragment>
@@ -171,130 +192,139 @@ const Confirmation = () => {
               </ImageUpload>
             </div>
           </div>
-          <div className="flex flex-row gap-4">
-            <div className="flex h-45 w-45 min-w-[180px] cursor-pointer flex-col items-center justify-center rounded-lg bg-mainGray">
-              <ImageUpload
-                setFileId={organizationLogoId => setValues({ ...values, organizationLogoId })}
-              >
-                {values?.organizationLogoId ? (
-                  <Image
-                    src={process.env.NEXT_PUBLIC_MEDIA_URL + values.organizationLogoId}
-                    alt="Лого"
-                    width={45}
-                    height={45}
-                  />
-                ) : (
-                  <Fragment>
-                    <BsImage className="text-2xl text-mainBgGray" />
-                    <span className="mt-2 text-sm">Лого</span>
-                  </Fragment>
-                )}
-              </ImageUpload>
-            </div>
-            <div className="flex w-full flex-col gap-4 p-1">
-              <div className="grid grid-cols-2 gap-4">
-                <Input
-                  key="organizationName"
-                  type="text"
-                  label="Байгууллагын нэр"
-                  labelPlacement="outside"
-                  placeholder="Байгууллагын нэр"
-                  radius="sm"
-                  size="lg"
-                  variant="bordered"
-                  classNames={{
-                    label: 'font-bold',
-                    inputWrapper: ['custom-input-wrapper', 'bg-white'],
-                  }}
-                  value={values?.organizationName ?? ''}
-                  onChange={handleChange('organizationName')}
-                />
-                <Input
-                  key="webUrl"
-                  type="text"
-                  label="Веб хуудас"
-                  labelPlacement="outside"
-                  placeholder="Веб хуудас"
-                  radius="sm"
-                  size="lg"
-                  variant="bordered"
-                  classNames={{
-                    label: 'font-bold',
-                    inputWrapper: ['custom-input-wrapper', 'bg-white'],
-                  }}
-                  value={values?.webUrl ?? ''}
-                  onChange={handleChange('webUrl')}
-                />
-                <Input
-                  key="organizationRegno"
-                  type="text"
-                  label="Байгууллагын регистрийн дугаар"
-                  labelPlacement="outside"
-                  placeholder="Байгууллагын регистрийн дугаар"
-                  radius="sm"
-                  size="lg"
-                  variant="bordered"
-                  classNames={{
-                    label: 'font-bold',
-                    inputWrapper: ['custom-input-wrapper', 'bg-white'],
-                  }}
-                  value={values?.organizationRegno ?? ''}
-                  onChange={handleChange('organizationRegno')}
-                />
-                <Input
-                  key="trainingOrg"
-                  type="text"
-                  label="Байгууллагын үйл ажилгааний чиглэл"
-                  labelPlacement="outside"
-                  placeholder="Байгууллагын үйл ажилгааний чиглэл"
-                  radius="sm"
-                  size="lg"
-                  variant="bordered"
-                  classNames={{
-                    label: 'font-bold',
-                    inputWrapper: ['custom-input-wrapper', 'bg-white'],
-                  }}
-                  value={values?.trainingOrg ?? ''}
-                  onChange={handleChange('trainingOrg')}
-                />
+          {!user.isCitizen && (
+            <>
+              <div className="flex flex-row gap-4">
+                <div className="flex h-45 w-45 min-w-[180px] cursor-pointer flex-col items-center justify-center rounded-lg bg-mainGray">
+                  <ImageUpload
+                    setFileId={organizationLogoId => setValues({ ...values, organizationLogoId })}
+                  >
+                    {values?.organizationLogoId ? (
+                      <Image
+                        src={process.env.NEXT_PUBLIC_MEDIA_URL + values.organizationLogoId}
+                        alt="Лого"
+                        removeWrapper
+                        className="z-0 w-full h-45 object-cover"
+                      />
+                    ) : (
+                      <Fragment>
+                        <BsImage className="text-2xl text-mainBgGray" />
+                        <span className="mt-2 text-sm">Лого</span>
+                      </Fragment>
+                    )}
+                  </ImageUpload>
+                </div>
+                <div className="flex w-full flex-col gap-4 p-1">
+                  <div className="grid grid-cols-2 gap-4">
+                    <Input
+                      key="organizationName"
+                      type="text"
+                      label="Байгууллагын нэр"
+                      labelPlacement="outside"
+                      placeholder="Байгууллагын нэр"
+                      radius="sm"
+                      size="lg"
+                      variant="bordered"
+                      classNames={{
+                        label: 'font-bold',
+                        inputWrapper: ['custom-input-wrapper', 'bg-white'],
+                      }}
+                      value={values?.organizationName ?? ''}
+                      onChange={handleChange('organizationName')}
+                    />
+                    <Input
+                      key="webUrl"
+                      type="text"
+                      label="Веб хуудас"
+                      labelPlacement="outside"
+                      placeholder="Веб хуудас"
+                      radius="sm"
+                      size="lg"
+                      variant="bordered"
+                      classNames={{
+                        label: 'font-bold',
+                        inputWrapper: ['custom-input-wrapper', 'bg-white'],
+                      }}
+                      value={values?.webUrl ?? ''}
+                      onChange={handleChange('webUrl')}
+                    />
+                    <Input
+                      key="organizationRegno"
+                      type="text"
+                      label="Байгууллагын регистрийн дугаар"
+                      labelPlacement="outside"
+                      placeholder="Байгууллагын регистрийн дугаар"
+                      radius="sm"
+                      size="lg"
+                      variant="bordered"
+                      classNames={{
+                        label: 'font-bold',
+                        inputWrapper: ['custom-input-wrapper', 'bg-white'],
+                      }}
+                      value={values?.organizationRegno ?? ''}
+                      onChange={handleChange('organizationRegno')}
+                    />
+                    <Input
+                      key="trainingOrg"
+                      type="text"
+                      label="Байгууллагын үйл ажилгааний чиглэл"
+                      labelPlacement="outside"
+                      placeholder="Байгууллагын үйл ажилгааний чиглэл"
+                      radius="sm"
+                      size="lg"
+                      variant="bordered"
+                      classNames={{
+                        label: 'font-bold',
+                        inputWrapper: ['custom-input-wrapper', 'bg-white'],
+                      }}
+                      value={values?.trainingOrg ?? ''}
+                      onChange={handleChange('trainingOrg')}
+                    />
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-          <Textarea
-            variant="bordered"
-            label="Байгууллагын  танилцуулга ба ажлын туршлага"
-            labelPlacement="outside"
-            radius="sm"
-            minRows={5}
-            placeholder="Байгууллагын  танилцуулга ба ажлын туршлага"
-            classNames={{
-              base: 'w-full',
-              label: 'font-bold',
-              inputWrapper: ['custom-input-wrapper', 'bg-white'],
-            }}
-            value={values?.experience ?? ''}
-            onChange={handleChange('experience')}
-          />
-          <div className="flex flex-row justify-end">
-            <Button
-              className="mr-4 bg-mainColor !text-white"
-              radius="sm"
-              size="md"
-              onClick={handleSubmit}
-            >
-              Хадгалах
-            </Button>
-            <Button
-              variant="bordered"
-              radius="sm"
-              className="border-mainGray !bg-white !text-black"
-              size="md"
-            >
-              Цуцлах
-            </Button>
-          </div>
-        </motion.div>
+              <Textarea
+                variant="bordered"
+                label="Байгууллагын  танилцуулга ба ажлын туршлага"
+                labelPlacement="outside"
+                radius="sm"
+                minRows={5}
+                placeholder="Байгууллагын  танилцуулга ба ажлын туршлага"
+                classNames={{
+                  base: 'w-full',
+                  label: 'font-bold',
+                  inputWrapper: ['custom-input-wrapper', 'bg-white'],
+                }}
+                value={values?.experience ?? ''}
+                onChange={handleChange('experience')}
+              />
+            </>
+          )}
+        </>
       )}
+      <div className="flex flex-row justify-end">
+        {step > 1 && (
+          <Button
+            variant="bordered"
+            radius="sm"
+            className="border-mainGray !bg-white !text-black"
+            size="md"
+            onClick={() => setStep(1)}
+          >
+            Өмнөх
+          </Button>
+        )}
+        {step == 2 && (
+          <Button
+            className="mr-4 bg-mainColor !text-white"
+            radius="sm"
+            size="md"
+            onClick={handleSubmit}
+          >
+            Хадгалах
+          </Button>
+        )}
+      </div>
     </ProfileLayout>
   );
 };

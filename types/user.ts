@@ -31,5 +31,7 @@ export type Users = {
   role?: string;
   webUrl?: string; // Веб хуудас
   experience?: string; // Байгууллагын танилцуулга ба ажлын туршлага
+  isConfirm: boolean; // Баталгаажсан эсэх
+  isCitizen: boolean; // Иргэн эсэх
 };
 export default Users;
