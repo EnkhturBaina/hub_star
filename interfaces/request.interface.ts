@@ -8,7 +8,7 @@ export interface IPageOptions {
 export interface IAdParam extends IPageOptions {
   userType?: UserType;
   process?: AdProcess;
-  mainDirectionId?: number;
+  mainDirectionIds?: number[];
   directionIds?: number[];
   subDirectionIds?: number[];
   title?: string;
@@ -75,17 +75,21 @@ export interface IChangePassword {
   token: string;
 }
 export interface IMainDirectionParam {
+  ids?: number[];
   userType?: UserType;
+  specialService?: SpecialServiceType;
   isAdvice?: boolean;
 }
 export interface IDirectionParam {
+  ids?: number[];
   mainDirectionId?: number;
   specialService?: SpecialServiceType;
   name?: string;
   userType?: UserType;
 }
 export interface ISubDirectionParam {
-  directionId: number;
+  ids?: number[];
+  directionId?: number;
   name?: string;
   userType?: UserType;
 }

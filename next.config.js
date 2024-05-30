@@ -16,7 +16,7 @@ module.exports = phase => {
     images: {
       deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
       minimumCacheTTL: 60,
-      domains: ['localhost', '192.82.92.170', '192.168.5.120'],
+      domains: ['localhost', '192.82.92.170', '192.168.5.114'],
     },
     eslint: {
       ignoreDuringBuilds: true,

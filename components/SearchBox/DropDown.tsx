@@ -4,21 +4,28 @@ import Image from 'next/image';
 import { useAppContext } from '@/app/app-context';
 import { RefDirection, MainDirection } from '@/types/reference';
 import { useRouter } from 'next/router';
+import { useDispatch } from 'react-redux';
+import { setAdvParam } from '@/app/lib/features/adv-param';
 
 export default function DropDown() {
   // Sticky menu
   const router = useRouter();
   const { mainDirections } = useAppContext();
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const dispatch = useDispatch();
+
   const onClickDirection = (direction: RefDirection) => {
     setIsOpen(false);
-    router.push({
-      pathname: '/adv',
-      query: {
-        mainDirectionId: direction.mainDirectionId,
-        directionId: direction.id,
-      },
-    });
+    router.push('/adv');
+    dispatch(
+      setAdvParam({
+        order: 'DESC',
+        page: 1,
+        limit: 10,
+        mainDirectionIds: [direction.mainDirectionId],
+        directionIds: [direction.id],
+      })
+    );
   };
   return (
     <Popover

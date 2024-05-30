@@ -52,7 +52,7 @@ const Confirmation = () => {
     setStep(2);
   };
   const handleSubmit = async () => {
-    AuthService.updateById(user.id, values)
+    AuthService.updateById(user.id, {...values, isConfirm: true })
       .then(res => {
         console.log('res', res);
 

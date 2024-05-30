@@ -84,7 +84,7 @@ const SingleBlogPage: NextPage = () => {
               order: 'DESC',
               userType: res.response.userType,
               specialService: res.response.specialService,
-              mainDirectionId: res.response.mainDirectionId,
+              mainDirectionIds: [res.response.mainDirectionId],
             })
           );
         }

@@ -98,7 +98,7 @@ const Hero = () => {
                                                   onClick={() => {
                                                     dispatch(
                                                       setAdvParam({
-                                                        mainDirectionId: md.id,
+                                                        mainDirectionIds: [md.id],
                                                         directionIds: [d.id],
                                                         subDirectionIds: [sub.id],
                                                         order: 'DESC',

@@ -15,7 +15,6 @@ import { AdvertisementService } from '@/service/advertisement/advertisement.serv
 import { Users } from '@/types/user';
 import { AuthService } from '@/service/authentication/authentication.service';
 import { getAccessToken } from '@/service/api.service';
-import { IAdParam } from '@/interfaces/request.interface';
 import { useTypedSelector } from './lib/reducer';
 interface IAppContextProps {
   user: Users;
@@ -68,12 +67,16 @@ const AppProvider: React.FC<IProps> = ({ children }) => {
   }, [getUser]);
 
   const getMainDirection = useCallback(async () => {
-    await ReferenceService.getMainDirection({ userType: advParam.userType }).then(res => {
+    await ReferenceService.getMainDirection({
+      ids: advParam.mainDirectionIds,
+      userType: advParam.userType,
+      specialService: advParam.specialService,
+    }).then(res => {
       if (res.success) {
         setMainDirections(res.response);
       }
     });
-  }, [advParam.userType]);
+  }, [advParam.userType, advParam.specialService, advParam.mainDirectionIds]);
 
   useEffect(() => {
     getMainDirection();

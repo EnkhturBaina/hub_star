@@ -11,7 +11,9 @@ const SearchBox: React.FC = () => {
   const dispatch = useDispatch();
 
   const handleSelection = (mainDirectionId: number) => {
-    dispatch(setAdvParam({ page: 1, limit: 10, order: 'DESC', mainDirectionId }));
+    dispatch(
+      setAdvParam({ page: 1, limit: 10, order: 'DESC', mainDirectionIds: [mainDirectionId] })
+    );
   };
   return (
     <div className="flex w-full flex-row">

@@ -6,7 +6,15 @@ import CustomSelect from '@/components/Inputs/Select';
 import PaginationComp from '@/components/Pagination';
 import { IAdParam } from '@/interfaces/request.interface';
 import { ReferenceService } from '@/service/reference/reference.service';
-import { Address, MachineryType, MainDirection, OrderType } from '@/types/reference';
+import {
+  Address,
+  MachineryType,
+  MainDirection,
+  OrderType,
+  RefDirection,
+  SubDirection,
+  UserType,
+} from '@/types/reference';
 import { NextPage } from 'next';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { SidebarPusher, SidebarPushable, Segment, Sidebar } from 'semantic-ui-react';
@@ -14,30 +22,54 @@ import { LuSettings2 } from 'react-icons/lu';
 import { useTypedSelector } from '@/app/lib/reducer';
 import { useDispatch } from 'react-redux';
 import { setAdvParam } from '@/app/lib/features/adv-param';
+import UserTabData from '@/app/data/UserTabData';
 
 const BlogPage: NextPage = () => {
   const { advertisements, adMeta } = useAppContext();
   const advParam = useTypedSelector(state => state.advParam);
   const dispatch = useDispatch();
-  const [mainDirection, setMainDirection] = useState<MainDirection>();
   const [materials, setMaterials] = useState<MachineryType[]>([]);
   const [provinces, setProvinces] = useState<Address[]>([]);
   const [districts, setDistricts] = useState<Address[]>([]);
   const [khoroos, setKhoroos] = useState<Address[]>([]);
+  const [userTypeName, setUserTypeName] = useState<string>('');
+  const [mainDirections, setMainDirections] = useState<MainDirection[]>([]);
+  const [directions, setDirections] = useState<RefDirection[]>([]);
   const [visible, setVisible] = useState(false);
   const sideBarRef = useRef(null);
 
+  const getUserTypeName = useCallback(() => {
+    const currentIndex = UserTabData.findIndex(item => item.type == advParam.userType);
+    if (currentIndex > -1) {
+      setUserTypeName(UserTabData[currentIndex].title);
+    } else {
+      setUserTypeName('');
+    }
+  }, [advParam.userType]);
+  useEffect(() => getUserTypeName(), [getUserTypeName]);
+
   const getMainDirection = useCallback(() => {
-    if (advParam.mainDirectionId) {
-      ReferenceService.getMainDirectionById(advParam.mainDirectionId).then(response => {
+    if (advParam.mainDirectionIds && advParam.mainDirectionIds.length > 0) {
+      ReferenceService.getMainDirection({ ids: advParam.mainDirectionIds }).then(response => {
         if (response.success) {
-          setMainDirection(response.response);
+          setMainDirections(response.response);
         }
       });
     }
-  }, [advParam.mainDirectionId]);
-
+  }, [advParam.mainDirectionIds]);
   useEffect(() => getMainDirection(), [getMainDirection]);
+
+  const getDirection = useCallback(() => {
+    if (advParam.directionIds && advParam.directionIds.length > 0) {
+      ReferenceService.getDirection({ ids: advParam.directionIds }).then(response => {
+        if (response.success) {
+          setDirections(response.response);
+        }
+      });
+    }
+  }, [advParam.directionIds]);
+  useEffect(() => getDirection(), [getDirection]);
+
   const getMachinery = useCallback(() => {
     if (advParam.userType == 'SUPPLIER') {
       ReferenceService.getMachinery({ type: 'MATERIAL' }).then(response => {
@@ -107,13 +139,70 @@ const BlogPage: NextPage = () => {
               <div>
                 <BreadCrumbs
                   items={[
-                    mainDirection?.name,
-                    mainDirection?.directions
-                      .filter(item => advParam.directionIds?.includes(item.id))
-                      .map(item => item.name)
-                      .join(', '),
+                    userTypeName,
+                    mainDirections.map(item => item.name).join(', '),
+                    directions.map(item => item.name).join(', '),
                   ]}
                 />
+              </div>
+              <div className="my-4 grid grid-cols-2 md:grid-cols-4 gap-4">
+                <CustomSelect
+                  label={'Эрэмбэлэлт'}
+                  value={advParam?.order}
+                  onSelectionChange={value => {
+                    onAdvParam({
+                      ...advParam,
+                      order: value as OrderType,
+                      page: 1,
+                      limit: 10,
+                    });
+                  }}
+                  options={[
+                    { label: 'Огноогоор (Z-A)', value: 'DESC' },
+                    { label: 'Огноогоор (A-Z)', value: 'ASC' },
+                  ]}
+                />
+                {advParam.userType == 'SUPPLIER' && (
+                  <CustomSelect
+                    label={'Бараа материалын төрөл'}
+                    value={advParam.materialId}
+                    onSelectionChange={value => {
+                      onAdvParam({ ...advParam, materialId: Number(value) });
+                    }}
+                    options={materials.map(item => ({ label: item.name, value: item.id }))}
+                  />
+                )}
+                <CustomSelect
+                  label={'Аймаг, хот'}
+                  value={advParam.provinceId}
+                  onSelectionChange={value => {
+                    onAdvParam({ ...advParam, provinceId: Number(value) });
+                  }}
+                  options={provinces.map(item => ({ label: item.name, value: item.id }))}
+                />
+                <CustomSelect
+                  label={'Сум, дүүрэг'}
+                  value={advParam.districtId}
+                  onSelectionChange={value => {
+                    onAdvParam({ ...advParam, districtId: Number(value) });
+                  }}
+                  options={districts.map(item => ({ label: item.name, value: item.id }))}
+                />
+                <CustomSelect
+                  label={'Баг, хороо'}
+                  value={advParam.khorooId}
+                  onSelectionChange={value => {
+                    onAdvParam({ ...advParam, khorooId: Number(value) });
+                  }}
+                  options={khoroos.map(item => ({ label: item.name, value: item.id }))}
+                />
+                {/* <Button
+                      radius="full"
+                      className="w-65 rounded-md bg-mainColor font-bold leading-none text-white"
+                      startContent={<IoIosAddCircleOutline className="text-xl" />}
+                    >
+                      Онцгой үйлчилгээ оруулах
+                    </Button> */}
               </div>
             </div>
           </div>
@@ -150,65 +239,6 @@ const BlogPage: NextPage = () => {
                       <LuSettings2 className="text-2xl" />
                     </div>
                   ) : null}
-                  <div className="my-4 justify-between grid grid-cols-2 md:grid-cols-4 gap-4">
-                    <CustomSelect
-                      label={'Эрэмбэлэлт'}
-                      value={advParam?.order}
-                      onSelectionChange={value => {
-                        onAdvParam({
-                          ...advParam,
-                          order: value as OrderType,
-                          page: 1,
-                          limit: 10,
-                        });
-                      }}
-                      options={[
-                        { label: 'Огноогоор (Z-A)', value: 'DESC' },
-                        { label: 'Огноогоор (A-Z)', value: 'ASC' },
-                      ]}
-                    />
-                    {advParam.userType == 'SUPPLIER' && (
-                      <CustomSelect
-                        label={'Материалын нэрс орох'}
-                        value={advParam.materialId}
-                        onSelectionChange={value => {
-                          onAdvParam({ ...advParam, materialId: Number(value) });
-                        }}
-                        options={materials.map(item => ({ label: item.name, value: item.id }))}
-                      />
-                    )}
-                    <CustomSelect
-                      label={'Аймаг, хот'}
-                      value={advParam.provinceId}
-                      onSelectionChange={value => {
-                        onAdvParam({ ...advParam, provinceId: Number(value) });
-                      }}
-                      options={provinces.map(item => ({ label: item.name, value: item.id }))}
-                    />
-                    <CustomSelect
-                      label={'Сум, дүүрэг'}
-                      value={advParam.districtId}
-                      onSelectionChange={value => {
-                        onAdvParam({ ...advParam, districtId: Number(value) });
-                      }}
-                      options={districts.map(item => ({ label: item.name, value: item.id }))}
-                    />
-                    <CustomSelect
-                      label={'Баг, хороо'}
-                      value={advParam.khorooId}
-                      onSelectionChange={value => {
-                        onAdvParam({ ...advParam, khorooId: Number(value) });
-                      }}
-                      options={khoroos.map(item => ({ label: item.name, value: item.id }))}
-                    />
-                    {/* <Button
-                      radius="full"
-                      className="w-65 rounded-md bg-mainColor font-bold leading-none text-white"
-                      startContent={<IoIosAddCircleOutline className="text-xl" />}
-                    >
-                      Онцгой үйлчилгээ оруулах
-                    </Button> */}
-                  </div>
                   <div className="my-4 grid grid-cols-3 gap-2"></div>
                   <div className="grid grid-cols-2 gap-6">
                     {advertisements.map((blog, key) => (
