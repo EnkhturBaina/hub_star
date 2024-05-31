@@ -1,30 +1,29 @@
 import { UserTab } from '@/types/reference';
-
 const UserTabData: UserTab[] = [
   {
     type: 'SUBSCRIBER',
     image: '/images/user-type/subscriber.svg',
-    title: 'Захиалагч',
+    title: 'subscriber',
   },
   {
     type: 'EXECUTOR',
     image: '/images/user-type/executor.svg',
-    title: 'Гүйцэтгэгч',
+    title: 'executor',
   },
   {
     type: 'SUPPLIER',
     image: '/images/user-type/supplier.svg',
-    title: 'Ханган нийлүүлэгч',
+    title: 'supplier',
   },
   {
     type: 'TRANSPORTATION',
     image: '/images/user-type/transportation.svg',
-    title: 'Тээвэр',
+    title: 'transportation',
   },
   {
     type: 'MACHINERY',
     image: '/images/user-type/machinery.svg',
-    title: 'Машин механизм',
+    title: 'machinery',
   },
 ];
 

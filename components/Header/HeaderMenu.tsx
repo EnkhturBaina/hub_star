@@ -9,10 +9,12 @@ import { useTypedSelector } from '@/app/lib/reducer';
 import SpecialServiceData from '@/app/data/SpecialServiceData';
 import { IAdParam } from '@/interfaces/request.interface';
 import { useRouter } from 'next/router';
+import { useTranslation } from 'next-i18next';
 
 const HeaderMenu = () => {
   const dispatch = useDispatch();
   const advParam = useTypedSelector(state => state.advParam);
+  const { t } = useTranslation();
   const router = useRouter();
 
   const onAdvParam = (param: IAdParam) => {
@@ -63,7 +65,7 @@ const HeaderMenu = () => {
                 className="block h-6 w-6 md:h-12 md:w-12"
                 sizes="100vw"
               />
-              <div className="text-xs font-semibold text-black xl:text-sm">{item.title}</div>
+              <div className="text-xs font-semibold text-black xl:text-sm">{t(item.title)}</div>
             </div>
           );
         })}

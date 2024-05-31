@@ -7,5 +7,10 @@
   "register": "Register",
   "or": "Or",
   "continueWithFacebook": "Continue with Facebook",
-  "continueWithGoogle": "Continue with Google"
+  "continueWithGoogle": "Continue with Google",
+  "subscriber": "Subscriber",
+  "executor": "Contractor",
+  "supplier": "Supplier",
+  "machinery": "Machinery Meachnisms and Equipment",
+  "transportation": "Transportation"
 }
