@@ -16,6 +16,7 @@ import { motion } from 'framer-motion';
 import { useTypedSelector } from '@/app/lib/reducer';
 import { useDispatch } from 'react-redux';
 import { setAdvParam } from '@/app/lib/features/adv-param';
+import SideCheckSpecialDirection from '@/components/Common/SideCheckSpecialDirection';
 
 const SpecialService: NextPage = () => {
   const { advertisements, adMeta } = useAppContext();
@@ -61,15 +62,13 @@ const SpecialService: NextPage = () => {
             className="!bg-white"
             ref={sideBarRef}
           >
-            {advParam.specialService ? (
-              <SideCheckSubDirection closeFnc={() => (visible ? setVisible(false) : undefined)} />
-            ) : null}
+            <SideCheckSpecialDirection closeFnc={() => (visible ? setVisible(false) : undefined)} />
           </Sidebar>
           <SidebarPusher className="!w-full">
             <Segment className="!rounded-xl !border-0">
               <div className="mx-auto flex max-w-screen-xl gap-4 px-4 md:px-8 2xl:px-0">
                 <div className={`hidden md:block md:w-1/4 lg:w-[20%]`}>
-                  {advParam.specialService ? <SideCheckSubDirection /> : null}
+                  <SideCheckSpecialDirection />
                 </div>
                 <div className="pb-6 lg:w-3/4 w-full">
                   <div className="mb-4 flex flex-row justify-between">

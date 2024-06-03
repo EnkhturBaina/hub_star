@@ -1,12 +1,13 @@
 import AdSkeleton from '@/components/Skeleton/AdSkeleton';
 import { ReferenceService } from '@/service/reference/reference.service';
 import { FooterMenuPage, RefNews } from '@/types/reference';
-import { NextPage } from 'next';
+import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useCallback, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { motion } from 'framer-motion';
+import { withTranslationProps } from '@/app/lib/with-translation';
 
 const MenuPage: NextPage = () => {
   const router = useRouter();
@@ -70,4 +71,8 @@ const MenuPage: NextPage = () => {
     </section>
   );
 };
+export const getStaticPaths: GetStaticPaths<{ slug: string }> = async () => {
+  return { paths: [], fallback: false };
+};
+export const getStaticProps: GetStaticProps = withTranslationProps();
 export default MenuPage;

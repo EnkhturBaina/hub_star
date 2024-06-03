@@ -83,7 +83,7 @@ export interface IMainDirectionParam {
 export interface IDirectionParam {
   ids?: number[];
   mainDirectionId?: number;
-  specialService?: SpecialServiceType;
+  specialServices?: SpecialServiceType[];
   name?: string;
   userType?: UserType;
 }

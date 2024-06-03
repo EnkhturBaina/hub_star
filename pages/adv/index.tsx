@@ -6,16 +6,8 @@ import CustomSelect from '@/components/Inputs/Select';
 import PaginationComp from '@/components/Pagination';
 import { IAdParam } from '@/interfaces/request.interface';
 import { ReferenceService } from '@/service/reference/reference.service';
-import {
-  Address,
-  MachineryType,
-  MainDirection,
-  OrderType,
-  RefDirection,
-  SubDirection,
-  UserType,
-} from '@/types/reference';
-import { NextPage } from 'next';
+import { Address, MachineryType, MainDirection, OrderType, RefDirection } from '@/types/reference';
+import { GetStaticProps, NextPage } from 'next';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { SidebarPusher, SidebarPushable, Segment, Sidebar } from 'semantic-ui-react';
 import { LuSettings2 } from 'react-icons/lu';
@@ -23,6 +15,7 @@ import { useTypedSelector } from '@/app/lib/reducer';
 import { useDispatch } from 'react-redux';
 import { setAdvParam } from '@/app/lib/features/adv-param';
 import UserTabData from '@/app/data/UserTabData';
+import { withTranslationProps } from '@/app/lib/with-translation';
 
 const BlogPage: NextPage = () => {
   const { advertisements, adMeta } = useAppContext();
@@ -255,5 +248,5 @@ const BlogPage: NextPage = () => {
     </>
   );
 };
-
+export const getStaticProps: GetStaticProps = withTranslationProps();
 export default BlogPage;

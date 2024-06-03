@@ -12,9 +12,13 @@ import useSocket from '@/service/socket-client';
 import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
 import { emptyAdvParam } from '@/app/lib/features/adv-param';
+import { useTypedSelector } from '@/app/lib/reducer';
+import SpecialTypeMenu from './SpecialTypeMenu';
+import UserTypeMenu from './UserTypeMenu';
 
 const Header = () => {
   const { user } = useAppContext();
+  const advParam = useTypedSelector(state => state.advParam);
   const dispatch = useDispatch();
   const router = useRouter();
   const socket = useSocket();
@@ -180,24 +184,24 @@ const Header = () => {
       <div className="mx-4 mt-2 block md:hidden">
         <SearchBox />
       </div>
-      {pathUrl === '/profile/information' ||
-        pathUrl === '/profile/messenger' ||
-        pathUrl === '/profile/posted-services' ||
-        pathUrl === '/profile/doing-services' ||
-        pathUrl === '/profile/saved-services' ||
-        pathUrl === '/profile/service-history' ||
-        pathUrl === '/profile/account' ||
-        pathUrl === '/profile/confirmation' ||
-        pathUrl === '/profile/password' ||
-        pathUrl === '/profile/notification' ||
-        pathUrl === '/profile/post-service' ||
-        (pathUrl !== '/profile/advices' && (
-          <div className="no-scrollbar mt-2 flex overflow-y-scroll md:justify-center">
-            <nav>
-              <HeaderMenu />
-            </nav>
-          </div>
-        ))}
+      {[
+        '/profile/information',
+        '/profile/messenger',
+        '/profile/posted-services',
+        '/profile/doing-services',
+        '/profile/service-history',
+        '/profile/account',
+        '/profile/password',
+        '/profile/notification',
+        '/profile/post-service',
+      ].includes(pathUrl) || (
+        <div className="no-scrollbar mt-2 flex overflow-y-scroll md:justify-center">
+          <nav>
+            {advParam?.specialService ? <SpecialTypeMenu /> : <UserTypeMenu />}
+            {/* <HeaderMenu /> */}
+          </nav>
+        </div>
+      )}
     </header>
   );
 };

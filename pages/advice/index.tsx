@@ -1,4 +1,5 @@
 import { useAppContext } from '@/app/app-context';
+import { withTranslationProps } from '@/app/lib/with-translation';
 import AdviceItem from '@/components/Blog/AdviceItem';
 import BreadCrumbs from '@/components/BreadCrumbs';
 import SideCheckDirection from '@/components/Common/SideCheckDirection';
@@ -7,7 +8,7 @@ import { IAdviceParam } from '@/interfaces/request.interface';
 import { ReferenceService } from '@/service/reference/reference.service';
 import { Advice, MainDirection, PageMeta } from '@/types/reference';
 import { Button, Select, SelectItem } from '@nextui-org/react';
-import { NextPage } from 'next';
+import { GetStaticProps, NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useCallback, useEffect, useState } from 'react';
 import { IoIosAddCircleOutline } from 'react-icons/io';
@@ -126,5 +127,5 @@ const AdvicePage: NextPage = () => {
     </section>
   );
 };
-
+export const getStaticProps: GetStaticProps = withTranslationProps();
 export default AdvicePage;

@@ -70,13 +70,12 @@ const AppProvider: React.FC<IProps> = ({ children }) => {
     await ReferenceService.getMainDirection({
       ids: advParam.mainDirectionIds,
       userType: advParam.userType,
-      specialService: advParam.specialService,
     }).then(res => {
       if (res.success) {
         setMainDirections(res.response);
       }
     });
-  }, [advParam.userType, advParam.specialService, advParam.mainDirectionIds]);
+  }, [advParam.userType, advParam.mainDirectionIds]);
 
   useEffect(() => {
     getMainDirection();

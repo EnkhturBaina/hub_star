@@ -22,7 +22,7 @@ import { AuthService } from '@/service/authentication/authentication.service';
 import { useRouter } from 'next/router';
 import { Advice, RefNotification, SubDirection } from '@/types/reference';
 import { ReferenceService } from '@/service/reference/reference.service';
-import { NextPage } from 'next';
+import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import ImageGallery from 'react-image-gallery';
 import { useAppContext } from '@/app/app-context';
 import SpecialPost from '@/components/Blog/SpecialPost';
@@ -34,6 +34,9 @@ import SpecialServiceData from '@/app/data/SpecialServiceData';
 import { useTypedSelector } from '@/app/lib/reducer';
 import { useDispatch } from 'react-redux';
 import { setAdvParam } from '@/app/lib/features/adv-param';
+import { withTranslationProps } from '@/app/lib/with-translation';
+import UserTypeMenu from '@/components/Header/UserTypeMenu';
+import SpecialTypeMenu from '@/components/Header/SpecialTypeMenu';
 
 const SingleBlogPage: NextPage = () => {
   const router = useRouter();
@@ -429,5 +432,8 @@ const SingleBlogPage: NextPage = () => {
     </>
   );
 };
-
+export const getStaticPaths: GetStaticPaths<{ slug: string }> = async () => {
+  return { paths: [], fallback: false };
+};
+export const getStaticProps: GetStaticProps = withTranslationProps();
 export default SingleBlogPage;

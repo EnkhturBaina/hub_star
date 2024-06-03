@@ -1,6 +1,7 @@
+import { withTranslationProps } from '@/app/lib/with-translation';
 import Hero from '@/components/Hero';
-import { Metadata, NextPage } from 'next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { GetStaticProps, Metadata, NextPage } from 'next';
+
 export const metadata: Metadata = {
   title: 'Hub star',
   description: 'All at once',
@@ -13,11 +14,5 @@ const HomePage: NextPage = () => {
     </main>
   );
 };
-export async function getStaticProps({ locale }) {
-  return {
-    props: {
-      ...(await serverSideTranslations(locale, ['common'])),
-    },
-  };
-}
+export const getStaticProps: GetStaticProps = withTranslationProps();
 export default HomePage;
