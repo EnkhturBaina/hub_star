@@ -21,7 +21,7 @@ const Step1: React.FC<IProps> = ({ isSpecial, adData, setAdData }) => {
   useEffect(() => {
     ReferenceService.getDirection({
       mainDirectionId: adData.mainDirectionId,
-      specialService: adData.specialService,
+      specialServices: [adData.specialService],
       userType: adData.userType,
     }).then(response => {
       if (response.success) {
