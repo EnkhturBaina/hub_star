@@ -6,12 +6,13 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 const BlogItem = ({ blog }: { blog: Blog }) => {
+  const { t } = useTranslation();
   const { id, mainImage, title, desciption, userType, specialService } = blog;
   const [imagePath, setImagePath] = useState('/images/blog_img.jpg');
   const [blogType, setBlogType] = useState('');
-
   const takeTypeName = () => {
     if (userType !== null) {
       UserTabData?.map(el => {
@@ -38,10 +39,6 @@ const BlogItem = ({ blog }: { blog: Blog }) => {
       setImagePath(process.env.NEXT_PUBLIC_MEDIA_URL + blog.images[0]?.id);
     }
   }, []);
-
-  useEffect(() => {
-    console.log('blogType', blogType);
-  }, [blogType]);
 
   return (
     <>
@@ -78,7 +75,7 @@ const BlogItem = ({ blog }: { blog: Blog }) => {
             <Link href={`/adv/${id}`}>{title}</Link>
           </h3>
           {/* <span className="line-clamp-3">{`${desciption?.slice(0, 30)}...`}</span> */}
-          <span className="line-clamp-3">{blogType}</span>
+          <span className="line-clamp-3">{t(blogType)}</span>
         </div>
       </motion.div>
     </>

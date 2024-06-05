@@ -14,8 +14,12 @@ import CustomSelect from '@/components/Inputs/Select';
 import UserTabData from '@/app/data/UserTabData';
 import withAuth from '@/components/Common/withAuth';
 import { GrOrganization, GrUser } from 'react-icons/gr';
+import { GetStaticProps } from 'next';
+import { withTranslationProps } from '@/app/lib/with-translation';
+import { useTranslation } from 'react-i18next';
 
 const Confirmation = () => {
+  const { t } = useTranslation();
   const { user, setUser } = useAppContext();
   const [step, setStep] = useState<number>(1);
   const [mainDirections, setMainDirections] = useState<MainDirection[]>([]);
@@ -113,7 +117,7 @@ const Confirmation = () => {
                 userType: value as UserType,
               }));
             }}
-            options={UserTabData.map(item => ({ value: item.type, label: item.title }))}
+            options={UserTabData.map(item => ({ value: item.type, label: t(item.title) }))}
           />
           <CustomSelect
             label="Үйл ажиллагааны үндсэн чиглэл"
@@ -328,5 +332,5 @@ const Confirmation = () => {
     </ProfileLayout>
   );
 };
-
+export const getStaticProps: GetStaticProps = withTranslationProps();
 export default withAuth(Confirmation);

@@ -1,4 +1,5 @@
 'use client';
+import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import React, { useEffect, useState } from 'react';
 import { useAppContext } from '@/app/app-context';
@@ -14,6 +15,7 @@ interface IProps {
   setAdData: React.Dispatch<React.SetStateAction<ICreateAd>>;
 }
 const Step1: React.FC<IProps> = ({ isSpecial, adData, setAdData }) => {
+  const { t } = useTranslation();
   const { mainDirections } = useAppContext();
   const [directions, setDirections] = useState<RefDirection[]>([]);
   const [subDirections, setSubDirections] = useState<SubDirection[]>([]);
@@ -83,7 +85,7 @@ const Step1: React.FC<IProps> = ({ isSpecial, adData, setAdData }) => {
                 userType: value as UserType,
               }));
             }}
-            options={UserTabData.map(item => ({ value: item.type, label: item.title }))}
+            options={UserTabData.map(item => ({ value: item.type, label: t(item.title) }))}
           />
           <CustomSelect
             label="Үйл ажиллагааны үндсэн чиглэл"

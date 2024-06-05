@@ -106,7 +106,6 @@ const Hero = () => {
                                                         limit: 10,
                                                       })
                                                     );
-                                                    console.log('is working ======>');
                                                     router.push('/adv');
                                                   }}
                                                   className="!text-black"

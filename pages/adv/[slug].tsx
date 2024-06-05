@@ -1,4 +1,5 @@
 'use client';
+import { useTranslation } from 'react-i18next';
 import {
   Button,
   Chip,
@@ -35,10 +36,9 @@ import { useTypedSelector } from '@/app/lib/reducer';
 import { useDispatch } from 'react-redux';
 import { setAdvParam } from '@/app/lib/features/adv-param';
 import { withTranslationProps } from '@/app/lib/with-translation';
-import UserTypeMenu from '@/components/Header/UserTypeMenu';
-import SpecialTypeMenu from '@/components/Header/SpecialTypeMenu';
 
 const SingleBlogPage: NextPage = () => {
+  const { t } = useTranslation();
   const router = useRouter();
   const advParam = useTypedSelector(state => state.advParam);
   const dispatch = useDispatch();
@@ -192,7 +192,7 @@ const SingleBlogPage: NextPage = () => {
                 <div>
                   <BreadCrumbs
                     items={[
-                      blogType,
+                      t(blogType),
                       data?.mainDirection?.name,
                       data?.direction?.name,
                       data?.subDirection?.name,
