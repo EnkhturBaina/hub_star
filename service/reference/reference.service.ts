@@ -56,6 +56,9 @@ const removeFileUpload = (id: number): Promise<IResponse> => {
 const getMenu = (): Promise<IResponseMenu> => {
   return api.get('/reference/menu');
 };
+const getPageByType = (type: 'TERM_OF_SERVICE'): Promise<IResponsePage> => {
+  return api.get('/reference/pages/' + type);
+};
 const getMenuPage = (menuId: any): Promise<IResponsePage> => {
   return api.get('/reference/pages/menu/' + menuId);
 };
@@ -94,6 +97,7 @@ export const ReferenceService = {
   removeFileUpload,
   getMenu,
   getMenuPage,
+  getPageByType,
   getAdvice,
   getNotification,
   createNotification,

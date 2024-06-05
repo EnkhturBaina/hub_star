@@ -22,25 +22,7 @@ const Supplier: React.FC<IProps> = ({ adData, materials, setAdData, getMachinery
     getMachinery({ type: 'MATERIAL' });
   }, []);
   return (
-    <motion.div
-      variants={{
-        hidden: {
-          opacity: 0,
-          y: -20,
-        },
-
-        visible: {
-          opacity: 1,
-          y: 0,
-        },
-      }}
-      initial="hidden"
-      whileInView="visible"
-      transition={{ duration: 1, delay: 0.5 }}
-      viewport={{ once: true }}
-      className="mb-4 grid w-full grid-cols-1 gap-y-4 overflow-hidden p-2"
-    >
-      Supplier Ханган нийлүүлэгч
+    <>
       <div className="grid grid-cols-3 gap-4">
         <CustomSelect
           label="Тоног төхөөрөмж"
@@ -181,31 +163,7 @@ const Supplier: React.FC<IProps> = ({ adData, materials, setAdData, getMachinery
           }}
         />
       </div>
-      <div className="flex flex-col gap-y-2">
-        <Checkbox
-          isSelected={adData?.isMessenger}
-          classNames={{
-            base: 'w-full',
-            label: 'w-full',
-            wrapper: 'custom-checkbox w-6 h-6',
-          }}
-          onValueChange={isMessenger => setAdData({ ...adData, isMessenger })}
-        >
-          Мессэнжер нээх
-        </Checkbox>
-        <Checkbox
-          isSelected={adData?.isTermOfService}
-          classNames={{
-            base: 'w-full',
-            label: 'w-full',
-            wrapper: 'custom-checkbox w-6 h-6',
-          }}
-          onValueChange={isTermOfService => setAdData({ ...adData, isTermOfService })}
-        >
-          Үйлчилгээний нөхцөл зөвшөөрөх
-        </Checkbox>
-      </div>
-    </motion.div>
+    </>
   );
 };
 

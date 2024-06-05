@@ -13,7 +13,7 @@ const PostService: NextPage = () => {
   const [isSpecial, setIsSpecial] = useState<boolean>(false);
 
   const handleChoose = (isSpecial: boolean) => {
-    if (!user.isConfirm) {
+    if (!user?.isConfirm) {
       toast.error('Баталгаажуулалт хийнэ үү.');
       return;
     }
@@ -27,7 +27,7 @@ const PostService: NextPage = () => {
         <AddService isSpecial={isSpecial} setIsAddService={setIsAddService} />
       ) : (
         <>
-          {!user.isConfirm && (
+          {!user?.isConfirm && (
             <Card className="bg-orange-300 my-5">
               <CardBody>
                 <p>

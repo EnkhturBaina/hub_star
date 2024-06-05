@@ -1,8 +1,8 @@
 'use client';
 import { motion } from 'framer-motion';
-import { Button } from '@nextui-org/react';
+import { Button, Checkbox } from '@nextui-org/react';
 import { Progress } from 'semantic-ui-react';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import Step1 from './Step1';
 import Step2 from './Step2';
 import toast, { Toaster } from 'react-hot-toast';
@@ -16,7 +16,6 @@ import Transportation from '../AddService/Step3/Transportation';
 import Machinery from '../AddService/Step3/Machinery';
 import { ReferenceService } from '@/service/reference/reference.service';
 import { MachineryType } from '@/types/reference';
-import Step3 from './Step3';
 import PublicSelection from './Step3/PublicSelection';
 import InternationalTrade from './Step3/InternationalTrade';
 import ConsultingService from './Step3/ConsultingService';
@@ -75,6 +74,14 @@ const AddService: React.FC<Props> = ({ isSpecial, setIsAddService, updateAdv }) 
     (total, item) => total + (item[1] !== null ? 1 : 0),
     0
   );
+
+  const onTermOfService = async () => {
+    await ReferenceService.getPageByType('TERM_OF_SERVICE').then(res => {
+      if (res.success) {
+        window.open('/docs/' + res.response.menuId, '_blank');
+      }
+    });
+  };
 
   const getMachinery = (params: IMachineryParam) => {
     ReferenceService.getMachinery(params).then(response => {
@@ -270,61 +277,109 @@ const AddService: React.FC<Props> = ({ isSpecial, setIsAddService, updateAdv }) 
       {step === 1 && <Step1 isSpecial={isSpecial} adData={createAd} setAdData={setCreateAd} />}
       {step === 2 && <Step2 adData={createAd} setAdData={setCreateAd} />}
 
-      {step === 3 && createAd?.userType == 'SUBSCRIBER' ? (
-        <Subscriber adData={createAd} setAdData={setCreateAd} />
-      ) : null}
-      {step === 3 && createAd?.userType == 'EXECUTOR' ? (
-        <Executor adData={createAd} setAdData={setCreateAd} />
-      ) : null}
-      {step === 3 && createAd?.userType == 'SUPPLIER' ? (
-        <Supplier
-          adData={createAd}
-          setAdData={setCreateAd}
-          materials={materials}
-          getMachinery={getMachinery}
-        />
-      ) : null}
-      {step === 3 && createAd?.userType == 'TRANSPORTATION' ? (
-        <Transportation
-          adData={createAd}
-          setAdData={setCreateAd}
-          getMachinery={getMachinery}
-          machineryType={machineryType}
-          powerData={powerData}
-          markData={markData}
-        />
-      ) : null}
-      {step === 3 && createAd?.userType == 'MACHINERY' ? (
-        <Machinery
-          adData={createAd}
-          setAdData={setCreateAd}
-          getMachinery={getMachinery}
-          machineryType={machineryType}
-          powerData={powerData}
-          markData={markData}
-          modelData={modelData}
-        />
-      ) : null}
-      {step === 3 && createAd.specialService == 'PUBLIC_SELECTION' && (
-        <PublicSelection adData={createAd} setAdData={setCreateAd} />
-      )
-      }
-      {step === 3 && createAd.specialService == 'INTERNATIONAL_TRADE' ? (
-        <InternationalTrade adData={createAd} setAdData={setCreateAd} />
-      ) : null}
-      {step === 3 && createAd.specialService == 'CONSULTING_SERVICE' ? (
-        <ConsultingService adData={createAd} setAdData={setCreateAd} />
-      ) : null}
-      {step === 3 && createAd.specialService == 'VOCATIONAL_TRAINING' ? (
-        <VocationalTraining adData={createAd} setAdData={setCreateAd} />
-      ) : null}
-      {step === 3 && createAd.specialService == 'LABORATORY_MATERIAL' ? (
-        <LaboratoryMaterial adData={createAd} setAdData={setCreateAd} />
-      ) : null}
-      {step === 3 && createAd.specialService == 'MAKE_BUDGET' ? (
-        <MakeBudget adData={createAd} setAdData={setCreateAd} />
-      ) : null}
+      {step === 3 && (
+        <motion.div
+          variants={{
+            hidden: {
+              opacity: 0,
+              y: -20,
+            },
 
+            visible: {
+              opacity: 1,
+              y: 0,
+            },
+          }}
+          initial="hidden"
+          whileInView="visible"
+          transition={{ duration: 1, delay: 0.5 }}
+          viewport={{ once: true }}
+          className="mb-4 grid w-full grid-cols-1 gap-y-4 overflow-hidden p-2"
+        >
+          {createAd?.userType == 'SUBSCRIBER' && (
+            <Subscriber adData={createAd} setAdData={setCreateAd} />
+          )}
+          {createAd?.userType == 'EXECUTOR' && (
+            <Executor adData={createAd} setAdData={setCreateAd} />
+          )}
+          {createAd?.userType == 'SUPPLIER' && (
+            <Supplier
+              adData={createAd}
+              setAdData={setCreateAd}
+              materials={materials}
+              getMachinery={getMachinery}
+            />
+          )}
+          {createAd?.userType == 'TRANSPORTATION' && (
+            <Transportation
+              adData={createAd}
+              setAdData={setCreateAd}
+              getMachinery={getMachinery}
+              machineryType={machineryType}
+              powerData={powerData}
+              markData={markData}
+            />
+          )}
+          {createAd?.userType == 'MACHINERY' && (
+            <Machinery
+              adData={createAd}
+              setAdData={setCreateAd}
+              getMachinery={getMachinery}
+              machineryType={machineryType}
+              powerData={powerData}
+              markData={markData}
+              modelData={modelData}
+            />
+          )}
+          {createAd?.specialService == 'PUBLIC_SELECTION' && (
+            <PublicSelection adData={createAd} setAdData={setCreateAd} />
+          )}
+          {createAd?.specialService == 'INTERNATIONAL_TRADE' && (
+            <InternationalTrade adData={createAd} setAdData={setCreateAd} />
+          )}
+          {createAd?.specialService == 'CONSULTING_SERVICE' && (
+            <ConsultingService adData={createAd} setAdData={setCreateAd} />
+          )}
+          {createAd?.specialService == 'VOCATIONAL_TRAINING' && (
+            <VocationalTraining adData={createAd} setAdData={setCreateAd} />
+          )}
+          {createAd?.specialService == 'LABORATORY_MATERIAL' && (
+            <LaboratoryMaterial adData={createAd} setAdData={setCreateAd} />
+          )}
+          {createAd?.specialService == 'MAKE_BUDGET' && (
+            <MakeBudget adData={createAd} setAdData={setCreateAd} />
+          )}
+          <div className="flex flex-col gap-y-2">
+            <Checkbox
+              isSelected={createAd?.isMessenger}
+              classNames={{
+                base: 'w-full',
+                label: 'w-full',
+                wrapper: 'custom-checkbox w-6 h-6',
+              }}
+              onValueChange={isMessenger => setCreateAd({ ...createAd, isMessenger })}
+            >
+              Мессэнжер нээх
+            </Checkbox>
+            <Checkbox
+              isSelected={createAd?.isTermOfService}
+              classNames={{
+                base: 'w-full',
+                label: 'w-full',
+                wrapper: 'custom-checkbox w-6 h-6',
+              }}
+              onValueChange={isTermOfService => setCreateAd({ ...createAd, isTermOfService })}
+            >
+              <span>
+                Үйлчилгээний нөхцөл зөвшөөрөх{' '}
+                <Button variant="light" onClick={onTermOfService}>
+                  Үйлчилгээний нөхцөл
+                </Button>
+              </span>
+            </Checkbox>
+          </div>
+        </motion.div>
+      )}
       <div className="flex flex-row justify-between">
         <Button
           variant="bordered"
