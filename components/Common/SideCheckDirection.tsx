@@ -3,24 +3,26 @@ import { Checkbox, CheckboxGroup } from '@nextui-org/react';
 import { useCallback, useEffect, useState } from 'react';
 import { ReferenceService } from '@/service/reference/reference.service';
 import { RefDirection } from '@/types/reference';
+import { useRouter } from 'next/router';
 
 type Props = {
   mainDirectionId?: number;
   onDirectionIds: (directionIds: number[]) => void;
 };
 const SideCheckDirection: React.FC<Props> = ({ mainDirectionId, onDirectionIds }) => {
+  const router = useRouter();
   const [directions, setDirections] = useState<RefDirection[]>([]);
   const onChangeValue = (values: string[]) => {
     const currentDirections = directions.filter(item => values.includes(String(item?.id)));
     onDirectionIds(currentDirections.map(item => item?.id));
   };
   const getDirection = useCallback(async () => {
-    await ReferenceService.getDirection({ mainDirectionId }).then(res => {
+    await ReferenceService.getDirection({ mainDirectionId, lang: router.locale }).then(res => {
       if (res.success) {
         setDirections(res.response);
       }
     });
-  }, [mainDirectionId]);
+  }, [mainDirectionId, router.locale]);
 
   useEffect(() => {
     getDirection();

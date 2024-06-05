@@ -79,6 +79,7 @@ export interface IMainDirectionParam {
   userType?: UserType;
   specialService?: SpecialServiceType;
   isAdvice?: boolean;
+  lang?: string;
 }
 export interface IDirectionParam {
   ids?: number[];
@@ -86,6 +87,7 @@ export interface IDirectionParam {
   specialServices?: SpecialServiceType[];
   name?: string;
   userType?: UserType;
+  lang?: string;
 }
 export interface ISubDirectionParam {
   ids?: number[];

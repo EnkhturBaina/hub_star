@@ -16,6 +16,7 @@ import { Users } from '@/types/user';
 import { AuthService } from '@/service/authentication/authentication.service';
 import { getAccessToken } from '@/service/api.service';
 import { useTypedSelector } from './lib/reducer';
+import { useRouter } from 'next/router';
 interface IAppContextProps {
   user: Users;
   setUser: Dispatch<SetStateAction<Users>>;
@@ -36,6 +37,7 @@ const AppProvider: React.FC<IProps> = ({ children }) => {
   //   limit: 9,
   //   process: 'CREATED',
   // });
+  const router = useRouter();
   const advParam = useTypedSelector(state => state.advParam);
   const [user, setUser] = useState<Users>();
   const [mainDirections, setMainDirections] = useState<MainDirection[]>([]);
@@ -70,12 +72,13 @@ const AppProvider: React.FC<IProps> = ({ children }) => {
     await ReferenceService.getMainDirection({
       ids: advParam.mainDirectionIds,
       userType: advParam.userType,
+      lang: router.locale,
     }).then(res => {
       if (res.success) {
         setMainDirections(res.response);
       }
     });
-  }, [advParam.userType, advParam.mainDirectionIds]);
+  }, [advParam.userType, advParam.mainDirectionIds, router.locale]);
 
   useEffect(() => {
     getMainDirection();
