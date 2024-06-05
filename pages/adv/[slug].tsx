@@ -433,7 +433,11 @@ const SingleBlogPage: NextPage = () => {
   );
 };
 export const getStaticPaths: GetStaticPaths<{ slug: string }> = async () => {
-  return { paths: [], fallback: false };
+  const res = await AdvertisementService.get({ page: 1, limit: 100, order: 'DESC' });
+  return {
+    paths: res.response.data.map(item => ({ params: { slug: item.id.toString() } })),
+    fallback: false,
+  };
 };
 export const getStaticProps: GetStaticProps = withTranslationProps();
 export default SingleBlogPage;
