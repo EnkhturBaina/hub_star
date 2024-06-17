@@ -19,6 +19,7 @@ export interface IAdParam extends IPageOptions {
   khorooId?: number;
   materialId?: number;
   specialService?: SpecialServiceType;
+  isSpecial?: boolean;
 }
 export interface ICreateAd {
   id?: number;

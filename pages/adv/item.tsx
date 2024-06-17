@@ -36,6 +36,8 @@ import { useTypedSelector } from '@/app/lib/reducer';
 import { useDispatch } from 'react-redux';
 import { setAdvParam } from '@/app/lib/features/adv-param';
 import { withTranslationProps } from '@/app/lib/with-translation';
+import { useSearchParams } from 'next/navigation';
+import BlogItem from '@/components/Blog/BlogItem';
 
 const SingleBlogPage: NextPage = () => {
   const { t } = useTranslation();
@@ -55,7 +57,9 @@ const SingleBlogPage: NextPage = () => {
   const [description, setDescription] = useState<string>('');
   const [subDirections, setSubDirections] = useState<SubDirection[]>([]);
   const [advices, setAdvices] = useState<Advice[]>([]);
+  const [specialAdvertisements, setSpecialAdvertisements] = useState<Advertisement[]>([]);
   const [blogType, setBlogType] = useState('');
+  const searchParams = useSearchParams();
 
   const takeTypeName = () => {
     if (data.userType !== null) {
@@ -76,8 +80,8 @@ const SingleBlogPage: NextPage = () => {
   };
 
   const getData = useCallback(async () => {
-    if (router.query.slug) {
-      await AdvertisementService.getById(router.query.slug).then(res => {
+    if (searchParams.get('id')) {
+      await AdvertisementService.getById(searchParams.get('id')).then(res => {
         if (res.success) {
           setData(res.response);
           dispatch(
@@ -93,7 +97,7 @@ const SingleBlogPage: NextPage = () => {
         }
       });
     }
-  }, [router.query.slug]);
+  }, [searchParams.get('id')]);
 
   const getSubDirections = () => {
     ReferenceService.getSubDirection({ directionId: data.directionId }).then(res => {
@@ -112,6 +116,18 @@ const SingleBlogPage: NextPage = () => {
     }).then(res => {
       if (res.success) {
         setAdvices(res.response.data);
+      }
+    });
+  };
+  const getSpecialAdv = () => {
+    AdvertisementService.get({
+      isSpecial: true,
+      order: 'DESC',
+      page: 1,
+      limit: 10,
+    }).then(res => {
+      if (res.success) {
+        setSpecialAdvertisements(res.response.data);
       }
     });
   };
@@ -168,6 +184,7 @@ const SingleBlogPage: NextPage = () => {
     if (data) {
       getSubDirections();
       getAdvice();
+      getSpecialAdv();
       slideImages?.length !== data.images?.length &&
         data.images?.map((el: any) => {
           setSlideImages(slideImages => [
@@ -335,18 +352,20 @@ const SingleBlogPage: NextPage = () => {
           <div className="bg-gray-100 px-4 md:px-8 2xl:px-0">
             <div className="mx-auto max-w-screen-xl py-10">
               <span className="text-xl font-bold">Онцгой үйлчилгээ</span>
-              {/* <div className="my-4 grid grid-cols-1 gap-7.5 md:grid-cols-2 lg:grid-cols-4 xl:gap-10">
-                TODO {BlogData?.splice(0, 4).map((blog, key) => <SpecialPost blog={blog} key={key} />)}
-              </div> */}
+              <div className="my-4 grid grid-cols-1 gap-7.5 md:grid-cols-2 lg:grid-cols-4 xl:gap-10">
+                {specialAdvertisements.map((blog, key) => (
+                  <BlogItem blog={blog} key={key} />
+                ))}
+              </div>
             </div>
           </div>
           <div className="bg-gray-100 px-4 md:px-8 2xl:px-0">
             <div className="mx-auto max-w-screen-xl py-10">
               <span className="text-xl font-bold">Ижил төсөөтэй үйлчилгээ</span>
               <div className="my-4 grid grid-cols-1 gap-7.5 md:grid-cols-2 lg:grid-cols-4 xl:gap-10">
-                {/* {advertisements.map((blog, key) => (
-                  <RelatedPost blog={blog} key={key} />
-                ))} */}
+                {advertisements.map((blog, key) => (
+                  <BlogItem blog={blog} key={key} />
+                ))}
               </div>
             </div>
           </div>
@@ -433,9 +452,9 @@ const SingleBlogPage: NextPage = () => {
   );
 };
 export const getStaticPaths: GetStaticPaths<{ slug: string }> = async () => {
-  const res = await AdvertisementService.get({ page: 1, limit: 100, order: 'DESC' });
+  const res = await ReferenceService.getMenu();
   return {
-    paths: res.response.data.map(item => ({ params: { slug: item.id.toString() } })),
+    paths: res.response.map(item => ({ params: { slug: item.id.toString() } })),
     fallback: false,
   };
 };

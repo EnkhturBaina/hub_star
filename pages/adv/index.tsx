@@ -16,8 +16,10 @@ import { useDispatch } from 'react-redux';
 import { setAdvParam } from '@/app/lib/features/adv-param';
 import UserTabData from '@/app/data/UserTabData';
 import { withTranslationProps } from '@/app/lib/with-translation';
+import { useTranslation } from 'react-i18next';
 
 const BlogPage: NextPage = () => {
+  const { t } = useTranslation();
   const { advertisements, adMeta } = useAppContext();
   const advParam = useTypedSelector(state => state.advParam);
   const dispatch = useDispatch();
@@ -127,7 +129,7 @@ const BlogPage: NextPage = () => {
           <div className="mx-auto flex max-w-screen-xl flex-row justify-between gap-7.5 py-18 lg:flex-row xl:gap-12.5">
             <div className="flex flex-col">
               <span className="text-xl">
-                Нийт утга: <span className="font-bold">{adMeta.itemCount}</span>
+                {t('totalValue')}: <span className="font-bold">{adMeta.itemCount}</span>
               </span>
               <div>
                 <BreadCrumbs

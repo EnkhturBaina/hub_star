@@ -60,7 +60,7 @@ const BlogItem = ({ blog }: { blog: Blog }) => {
         viewport={{ once: true }}
         className="animate_top rounded-lg bg-white shadow-md"
       >
-        <Link href={`/adv/${id}`} className="relative block h-56 w-full">
+        <Link href={{ pathname: 'adv/item', query: { id } }} className="relative block h-56 w-full">
           <Image
             src={imagePath}
             alt={title}
@@ -72,7 +72,7 @@ const BlogItem = ({ blog }: { blog: Blog }) => {
 
         <div className="flex flex-col px-6 pb-2 justify-between h-22">
           <h3 className="!mb-1 !mt-2 line-clamp-2 inline-block text-base font-bold text-black duration-300 hover:text-primary">
-            <Link href={`/adv/${id}`}>{title}</Link>
+            <Link href={{ pathname: 'adv/item', query: { id } }}>{title}</Link>
           </h3>
           {/* <span className="line-clamp-3">{`${desciption?.slice(0, 30)}...`}</span> */}
           <span className="line-clamp-3">{t(blogType)}</span>

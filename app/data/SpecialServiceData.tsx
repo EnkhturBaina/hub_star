@@ -58,7 +58,7 @@ const SpecialServiceData: SpecialService[] = [
         </defs>
       </svg>
     ),
-    title: 'Нээлттэй сонгон шалгаруулалт',
+    title: 'publicSelection',
   },
   {
     type: 'INTERNATIONAL_TRADE',
@@ -72,7 +72,7 @@ const SpecialServiceData: SpecialService[] = [
         />
       </svg>
     ),
-    title: 'Олон улсын худалдаа',
+    title: 'internationalTrade',
   },
   {
     type: 'CONSULTING_SERVICE',
@@ -86,7 +86,7 @@ const SpecialServiceData: SpecialService[] = [
         />
       </svg>
     ),
-    title: 'Зөвлөх үйлчилгээ',
+    title: 'consultingService',
   },
   {
     type: 'VOCATIONAL_TRAINING',
@@ -100,7 +100,7 @@ const SpecialServiceData: SpecialService[] = [
         />
       </svg>
     ),
-    title: 'Мэргэжилийн сургалт',
+    title: 'vocationalTraining',
   },
   {
     type: 'LABORATORY_MATERIAL',
@@ -124,7 +124,7 @@ const SpecialServiceData: SpecialService[] = [
         />
       </svg>
     ),
-    title: 'Материалын лаборатори шинжилгээ',
+    title: 'laboratoryMaterial',
   },
   {
     type: 'MAKE_BUDGET',
@@ -138,7 +138,7 @@ const SpecialServiceData: SpecialService[] = [
         />
       </svg>
     ),
-    title: 'Төсөв гаргах',
+    title: 'makeBudget',
   },
 ];
 export default SpecialServiceData;

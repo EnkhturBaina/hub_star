@@ -12,5 +12,15 @@
   "executor": "Гүйцэтгэгч",
   "supplier": "Ханган нийлүүлэгч",
   "machinery": "Машин механизм",
-  "transportation": "Тээвэр"
+  "transportation": "Тээвэр",
+  "services": "Үйлчилгээнүүд",
+  "specialService": "Онцгой үйлчилгээ",
+  "publicSelection": "Нээлттэй сонгон шалгаруулалт",
+  "internationalTrade": "Олон улсын худалдаа",
+  "consultingService": "Зөвлөх үйлчилгээ",
+  "vocationalTraining": "Мэргэжилийн сургалт",
+  "laboratoryMaterial": "Материалын лаборатори шинжилгээ",
+  "makeBudget": "Төсөв гаргах",
+  "advices": "Зөвлөмжүүд",
+  "totalValue": "Нийт утга"
 }

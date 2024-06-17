@@ -5,12 +5,14 @@ import { SpecialService, SpecialServiceType } from '@/types/reference';
 import { useDispatch } from 'react-redux';
 import { setAdvParam } from '@/app/lib/features/adv-param';
 import { useRouter } from 'next/router';
+import { useTranslation } from 'react-i18next';
 interface IProps {
   specialService: SpecialService;
 }
 const SingleFeature: React.FC<IProps> = ({ specialService }) => {
   const dispatch = useDispatch();
   const router = useRouter();
+  const { t } = useTranslation();
   const handleSpecialService = (type: SpecialServiceType) => {
     dispatch(
       setAdvParam({
@@ -47,7 +49,7 @@ const SingleFeature: React.FC<IProps> = ({ specialService }) => {
       >
         <div className="flex h-2/3 w-16 rounded-[4px] justify-center">{specialService.icon}</div>
         <span className=" flex h-1/3 items-center justify-center text-center align-middle text-xs font-bold leading-none hover:text-white text-[#212529] group-hover:text-white">
-          {specialService.title}
+          {t(specialService.title)}
         </span>
       </div>
     </motion.div>

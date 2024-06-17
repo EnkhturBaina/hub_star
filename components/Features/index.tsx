@@ -1,12 +1,13 @@
 'use client';
 import React from 'react';
 import SingleFeature from './SingleFeature';
-import { Button } from '@nextui-org/react';
 import SpecialServiceData from '@/app/data/SpecialServiceData';
 import { motion } from 'framer-motion';
 import Title from '../Common/Title';
+import { useTranslation } from 'react-i18next';
 
 const Feature = () => {
+  const { t } = useTranslation();
   return (
     <motion.div
       variants={{
@@ -28,7 +29,7 @@ const Feature = () => {
       id="features"
     >
       <div className="w-full overflow-hidden">
-        <Title label="Онцгой үйлчилгээ" />
+        <Title label={t('specialService')} />
       </div>
       <div className="max-w-c-1315 lg:mx-auto lg:px-4 xl:px-0">
         <div className="my-2 grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-6">

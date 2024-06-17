@@ -12,5 +12,15 @@
   "executor": "Contractor",
   "supplier": "Supplier",
   "machinery": "Machinery Meachnisms and Equipment",
-  "transportation": "Transportation"
+  "transportation": "Transportation",
+  "services": "Services",
+  "specialService": "Special Service",
+  "publicSelection": "Public selection",
+  "internationalTrade": "International Trade",
+  "consultingService": "Consulting Service",
+  "vocationalTraining": "Vocational Training",
+  "laboratoryMaterial": "Material Laboratory Examination",
+  "makeBudget": "Make Budget",
+  "advices": "Advices",
+  "totalValue": "Total value"
 }

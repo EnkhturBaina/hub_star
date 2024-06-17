@@ -6,11 +6,13 @@ import { useDraggable } from 'react-use-draggable-scroll';
 import { ReferenceService } from '@/service/reference/reference.service';
 import { MainDirection } from '@/types/reference';
 import Title from '../Common/Title';
+import { useTranslation } from 'react-i18next';
 
 const GridCategory = () => {
   const ref = useRef(); // We will use React useRef hook to reference the wrapping div:
   const { events } = useDraggable(ref); // Now we pass the reference to the useDraggable hook:
   const [mainDirections, setMainDirections] = useState<MainDirection[]>([]);
+  const { t } = useTranslation();
 
   const getMainDirection = useCallback(async () => {
     await ReferenceService.getMainDirection({ isAdvice: true }).then(res => {
@@ -43,7 +45,7 @@ const GridCategory = () => {
       className="animate_top relative overflow-auto mt-6"
     >
       <div className="w-full overflow-hidden">
-        <Title label="Зөвлөмжүүд" />
+        <Title label={t("advices")} />
       </div>
       <div className="mx-auto mt-5 max-w-c-1280 overflow-x-auto flex min-w-0">
         <div className="overflow-x-scroll flex gap-8 no-scrollbar" {...events} ref={ref}>

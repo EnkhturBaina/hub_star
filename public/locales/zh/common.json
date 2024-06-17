@@ -12,5 +12,15 @@
   "executor": "承包商",
   "supplier": "供应商",
   "machinery": "电子机械机构及设备",
-  "transportation": "交通"
+  "transportation": "交通",
+  "services": "服務",
+  "specialService": "特別服務",
+  "publicSelection": "公開評選",
+  "internationalTrade": "國際貿易",
+  "consultingService": "諮詢服務",
+  "vocationalTraining": "職業訓練",
+  "laboratoryMaterial": "材料實驗室檢驗",
+  "makeBudget": "制定預算",
+  "advices": "建議",
+  "totalValue": "總價值"
 }

@@ -23,9 +23,11 @@ import { setAdvParam } from '@/app/lib/features/adv-param';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '@/app/lib/store';
 import { useTypedSelector } from '@/app/lib/reducer';
+import { useTranslation } from 'react-i18next';
 
 const Hero = () => {
   const router = useRouter();
+  const { t } = useTranslation();
   const { mainDirections } = useAppContext();
   const advParam = useTypedSelector(state => state.advParam);
   const dispatch = useDispatch<AppDispatch>();
@@ -55,7 +57,7 @@ const Hero = () => {
           <div className="flex flex-row gap-7.5 xl:gap-12.5">
             <div className="hidden md:block md:w-1/4">
               <div className="animate_top mb-10 rounded-md border border-stroke bg-white p-6 shadow-md">
-                <Title label="Үйлчилгээнүүд" />
+                <Title label={t("services")} />
                 {mainDirections.length == 0 ? (
                   <LeftDirections />
                 ) : (

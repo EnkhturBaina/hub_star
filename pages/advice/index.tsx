@@ -11,10 +11,12 @@ import { Button, Select, SelectItem } from '@nextui-org/react';
 import { GetStaticProps, NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useCallback, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { IoIosAddCircleOutline } from 'react-icons/io';
 
 /** Зөвлөмжүүд */
 const AdvicePage: NextPage = () => {
+  const { t } = useTranslation();
   const router = useRouter();
   const [advices, setAdvices] = useState<Advice[]>([]);
   const [params, setParams] = useState<IAdviceParam>({ page: 1, limit: 10, order: 'DESC' });
@@ -62,12 +64,12 @@ const AdvicePage: NextPage = () => {
         <div className="mx-auto flex max-w-screen-xl flex-row justify-between gap-7.5 py-18 lg:flex-row xl:gap-12.5">
           <div className="flex flex-col">
             <span className="text-xl">
-              Нийт утга: <span className="font-bold">{pageMeta.itemCount}</span>
+              {t('totalValue')}: <span className="font-bold">{pageMeta.itemCount}</span>
             </span>
             <div>
               <BreadCrumbs
                 items={[
-                  'Зөвлөмжүүд',
+                  t('advices'),
                   mainDirection?.name,
                   mainDirection?.directions
                     .filter(item => (params.directionIds || []).includes(item.id))
