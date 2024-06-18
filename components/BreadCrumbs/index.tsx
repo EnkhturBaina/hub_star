@@ -4,7 +4,6 @@ type Props = {
   items: string[];
 };
 const BreadCrumbs: React.FC<Props> = ({ items }) => {
-  console.log({ items });
   return (
     <Breadcrumbs
       separator="/"
