@@ -122,27 +122,30 @@ const BlogPage: NextPage = () => {
   const onAdvParam = (param: IAdParam) => {
     dispatch(setAdvParam(param));
   };
+
   return (
     <>
-      <section className="pt-35 lg:pt-40 xl:pt-42.5">
-        <div className="bg-gray-100 px-4 md:px-8 2xl:px-0 ">
-          <div className="mx-auto flex max-w-screen-xl flex-row justify-between gap-7.5 py-18 lg:flex-row xl:gap-12.5">
-            <div className="flex flex-col">
+      <section className="pt-35 lg:pt-40 xl:pt-46">
+        <div className="mb-1 bg-gray-100 py-2 flex justify-center">
+          <div className="max-w-screen-xl w-full">
+            <BreadCrumbs
+              items={[
+                userTypeName,
+                mainDirections.map(item => item.name).join(', '),
+                directions.map(item => item.name).join(', '),
+              ]}
+            />
+          </div>
+        </div>
+        {/* <div className="bg-gray-100 px-4 md:px-8 2xl:px-0 ">
+          <div className="mx-auto flex max-w-screen-xl flex-row justify-between gap-7.5 py-6 lg:flex-row xl:gap-12.5">
+            <div className="w-full flex flex-col">
               <span className="text-xl">
                 {t('totalValue')}: <span className="font-bold">{adMeta.itemCount}</span>
               </span>
-              <div>
-                <BreadCrumbs
-                  items={[
-                    userTypeName,
-                    mainDirections.map(item => item.name).join(', '),
-                    directions.map(item => item.name).join(', '),
-                  ]}
-                />
-              </div>
               <div className="my-4 grid grid-cols-2 md:grid-cols-4 gap-4">
                 <CustomSelect
-                  label={'Эрэмбэлэлт'}
+                  label={'Эрэмбэлэх'}
                   value={advParam?.order}
                   onSelectionChange={value => {
                     onAdvParam({
@@ -153,9 +156,10 @@ const BlogPage: NextPage = () => {
                     });
                   }}
                   options={[
-                    { label: 'Огноогоор (Z-A)', value: 'DESC' },
-                    { label: 'Огноогоор (A-Z)', value: 'ASC' },
+                    { label: 'Хуучин нь эхэндээ', value: 'DESC' },
+                    { label: 'Шинэ нь эхэндээ', value: 'ASC' },
                   ]}
+                  className="max-w-[240px]"
                 />
                 {advParam.userType == 'SUPPLIER' && (
                   <CustomSelect
@@ -165,6 +169,7 @@ const BlogPage: NextPage = () => {
                       onAdvParam({ ...advParam, materialId: Number(value) });
                     }}
                     options={materials.map(item => ({ label: item.name, value: item.id }))}
+                    className="max-w-[240px]"
                   />
                 )}
                 <CustomSelect
@@ -174,6 +179,7 @@ const BlogPage: NextPage = () => {
                     onAdvParam({ ...advParam, provinceId: Number(value) });
                   }}
                   options={provinces.map(item => ({ label: item.name, value: item.id }))}
+                  className="max-w-[240px]"
                 />
                 <CustomSelect
                   label={'Сум, дүүрэг'}
@@ -182,6 +188,7 @@ const BlogPage: NextPage = () => {
                     onAdvParam({ ...advParam, districtId: Number(value) });
                   }}
                   options={districts.map(item => ({ label: item.name, value: item.id }))}
+                  className="max-w-[240px]"
                 />
                 <CustomSelect
                   label={'Баг, хороо'}
@@ -190,21 +197,15 @@ const BlogPage: NextPage = () => {
                     onAdvParam({ ...advParam, khorooId: Number(value) });
                   }}
                   options={khoroos.map(item => ({ label: item.name, value: item.id }))}
+                  className="max-w-[240px]"
                 />
-                {/* <Button
-                      radius="full"
-                      className="w-65 rounded-md bg-mainColor font-bold leading-none text-white"
-                      startContent={<IoIosAddCircleOutline className="text-xl" />}
-                    >
-                      Онцгой үйлчилгээ оруулах
-                    </Button> */}
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
         <SidebarPushable
           as={Segment}
-          className="custom-sidebar-base mx-auto mt-2 flex max-w-screen-xl flex-col gap-5 rounded-xl bg-mainProfileCardBg p-4 md:mt-6 lg:w-3/4 lg:flex-row"
+          className="custom-sidebar-base mx-auto mt-2 flex max-w-screen-2xl w-[80%] flex-col gap-5 rounded-xl bg-mainProfileCardBg p-4 md:mt-6  lg:flex-row"
         >
           <Sidebar
             animation="push"
@@ -218,9 +219,9 @@ const BlogPage: NextPage = () => {
             <SideCheckSubDirection closeFnc={() => (visible ? setVisible(false) : undefined)} />
           </Sidebar>
           <SidebarPusher className="!w-full">
-            <Segment className="!rounded-xl !border-0">
-              <div className="mx-auto flex max-w-screen-xl gap-4 px-4 md:px-8 2xl:px-0 justify-between">
-                <div className={`hidden md:block md:w-1/4 lg:w-[20%]`}>
+            <Segment className="!w-full !rounded-xl !border-0">
+              <div className=" flex w-full gap-8 justify-between">
+                <div className={`hidden md:block w-fit min-w-[340px] max-w-[340px]`}>
                   <SideCheckSubDirection />
                 </div>
                 <div className="pb-6 md:w-3/4">
@@ -234,8 +235,82 @@ const BlogPage: NextPage = () => {
                       <LuSettings2 className="text-2xl" />
                     </div>
                   ) : null}
-                  <div className="my-4 grid grid-cols-3 gap-2"></div>
-                  <div className="grid grid-cols-2 gap-6">
+                  {/* <div className="my-4 grid grid-cols-3 gap-2"></div> */}
+                  <div className="w-full flex flex-col">
+                    <div className="w-full flex justify-between items-center">
+                      <span className="text-xl">
+                        {t('services')} |{' '}
+                        <span className="!font-semibold">
+                          {adMeta.itemCount + ' ' + t('service').toLowerCase()}
+                        </span>
+                      </span>
+                      <CustomSelect
+                        value={advParam?.order}
+                        onSelectionChange={value => {
+                          onAdvParam({
+                            ...advParam,
+                            order: value as OrderType,
+                            page: 1,
+                            limit: 10,
+                          });
+                        }}
+                        options={[
+                          { label: 'Хуучин нь эхэндээ', value: 'DESC' },
+                          { label: 'Шинэ нь эхэндээ', value: 'ASC' },
+                        ]}
+                        className="max-w-[240px] !outline-none"
+                        size="sm"
+                      />
+                    </div>
+                    <div className="w-full my-4 flex gap-4 justify-between">
+                      {advParam.userType == 'SUPPLIER' && (
+                        <CustomSelect
+                          label={'Бараа материалын төрөл'}
+                          value={advParam.materialId}
+                          onSelectionChange={value => {
+                            onAdvParam({ ...advParam, materialId: Number(value) });
+                          }}
+                          options={materials.map(item => ({
+                            label: item.name,
+                            value: item.id,
+                          }))}
+                          className="max-w-[240px]"
+                          size="sm"
+                        />
+                      )}
+                      <CustomSelect
+                        label={'Аймаг, хот'}
+                        value={advParam.provinceId}
+                        onSelectionChange={value => {
+                          onAdvParam({ ...advParam, provinceId: Number(value) });
+                        }}
+                        options={provinces.map(item => ({ label: item.name, value: item.id }))}
+                        className="max-w-[240px]"
+                        size="sm"
+                      />
+                      <CustomSelect
+                        label={'Сум, дүүрэг'}
+                        value={advParam.districtId}
+                        onSelectionChange={value => {
+                          onAdvParam({ ...advParam, districtId: Number(value) });
+                        }}
+                        options={districts.map(item => ({ label: item.name, value: item.id }))}
+                        className="max-w-[240px]"
+                        size="sm"
+                      />
+                      <CustomSelect
+                        label={'Баг, хороо'}
+                        value={advParam.khorooId}
+                        onSelectionChange={value => {
+                          onAdvParam({ ...advParam, khorooId: Number(value) });
+                        }}
+                        options={khoroos.map(item => ({ label: item.name, value: item.id }))}
+                        className="max-w-[240px]"
+                        size="sm"
+                      />
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-3 gap-6 mt-4">
                     {advertisements.map((blog, key) => (
                       <BlogItem blog={blog} key={key} />
                     ))}

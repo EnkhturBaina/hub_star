@@ -30,7 +30,7 @@ const profileRoutes: ProfileRoute[] = [
   {
     id: 2,
     name: 'Үйлчилгээ байршуулах',
-    url: '/profile/post-service'
+    url: '/profile/post-service',
   },
   {
     id: 3,

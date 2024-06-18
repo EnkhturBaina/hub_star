@@ -4,25 +4,38 @@ interface IOption {
   value?: string | number;
 }
 type Props = {
-  label: string;
+  label?: string;
   value?: string | number;
   onSelectionChange?: (key: string | number) => void;
   options: IOption[];
+  className?: string;
+  size?: 'sm' | 'md' | 'lg';
 };
-const CustomSelect: React.FC<Props> = ({ label, value, onSelectionChange, options }) => {
+const CustomSelect: React.FC<Props> = ({
+  size = 'lg',
+  className,
+  label,
+  value,
+  onSelectionChange,
+  options,
+}) => {
   return (
     <Autocomplete
+      className={className}
       label={label}
       labelPlacement="outside"
       placeholder="Сонгох"
       radius="sm"
-      size="lg"
+      size={size}
       variant="bordered"
       selectedKey={String(value)}
       onSelectionChange={onSelectionChange}
+      clearIcon={false}
       inputProps={{
         classNames: {
           label: 'font-bold',
+          input: '!outline-none !shadow-none',
+          inputWrapper: '!outline-none !shadow-none',
         },
       }}
     >

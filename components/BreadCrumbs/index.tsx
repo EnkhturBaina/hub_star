@@ -4,18 +4,22 @@ type Props = {
   items: string[];
 };
 const BreadCrumbs: React.FC<Props> = ({ items }) => {
+  console.log({ items });
   return (
     <Breadcrumbs
       separator="/"
       itemClasses={{
-        separator: 'px-2',
+        separator: 'px-1',
+        item: '!text-black',
       }}
     >
-      {items
-        ?.filter(el => el !== undefined && el !== null)
-        ?.map((item, index) => {
-          return <BreadcrumbItem key={index}>{item}</BreadcrumbItem>;
-        })}
+      {items?.filter(Boolean)?.map((item, index) => {
+        return (
+          <BreadcrumbItem key={index} className="!text-black">
+            {item}
+          </BreadcrumbItem>
+        );
+      })}
     </Breadcrumbs>
   );
 };

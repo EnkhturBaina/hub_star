@@ -70,7 +70,7 @@ const AppProvider: React.FC<IProps> = ({ children }) => {
 
   const getMainDirection = useCallback(async () => {
     await ReferenceService.getMainDirection({
-      ids: advParam.mainDirectionIds,
+      // ids: advParam.mainDirectionIds,
       userType: advParam.userType,
       lang: router.locale,
     }).then(res => {

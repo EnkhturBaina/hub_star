@@ -9,9 +9,9 @@ const Blog = () => {
   const { advertisements, adMeta } = useAppContext();
   const { t } = useTranslation();
   return (
-    <section className="">
+    <section className="mt-4">
       <div className="w-full overflow-hidden">
-        <Title label={t("services")} />
+        <Title label={t('services')} />
       </div>
       <div className="mx-auto mt-10 max-w-c-1280">
         <div className="grid grid-cols-1 gap-7.5 md:grid-cols-2 lg:grid-cols-3 xl:gap-10">

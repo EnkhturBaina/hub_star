@@ -51,7 +51,7 @@ const PaginationComp: React.FC<IProps> = ({ page, pageCount }) => {
         initialPage={page}
         classNames={{
           wrapper: 'w-full gap-4',
-          cursor: 'bg-mainColor shadow-lg text-white font-bold',
+          cursor: 'bg-mainColor text-white font-bold',
         }}
       />
     </motion.div>

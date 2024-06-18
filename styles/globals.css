@@ -4,8 +4,20 @@
 html {
   font-family: var(--font-roboto);
 }
-/* third-party libraries CSS */
+#maxZindex {
+  z-index: 9999 !important;
+}
 
+.removeMarginFromH2 h2 {
+  margin: 0 !important;
+}
+
+.removeMarginFromH2 button {
+  padding-top: 8px !important;
+  padding-bottom: 10px !important;
+}
+
+/* third-party libraries CSS */
 .testimonial-01 .swiper-pagination-bullet {
   @apply h-2.5 w-2.5 bg-stroke opacity-100;
 }
@@ -210,13 +222,14 @@ pre {
 .custom-slider-container > div > .indicators {
   bottom: 2%;
   position: absolute;
-  z-index: 9999;
+  z-index: 900;
   margin-left: auto;
   margin-right: auto;
   left: 0;
   right: 0;
   text-align: center;
 }
+
 .custom-input-wrapper:focus-within {
   border-color: #f7941d !important;
 }

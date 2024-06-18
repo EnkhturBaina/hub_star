@@ -78,7 +78,7 @@ const Footer: React.FC = () => {
                         .map(item => (
                           <li key={item.id}>
                             <Link
-                              href={'/docs/' + item.id}
+                              href={`/docs?id=${item.id}`}
                               className="mb-3 inline-block text-white hover:text-mainColor"
                             >
                               {item.title}

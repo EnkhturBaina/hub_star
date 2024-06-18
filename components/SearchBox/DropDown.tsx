@@ -6,6 +6,7 @@ import { RefDirection, MainDirection } from '@/types/reference';
 import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
 import { setAdvParam } from '@/app/lib/features/adv-param';
+import { BiRightArrow, BiSolidRightArrow, BiSolidRightArrowAlt } from 'react-icons/bi';
 
 export default function DropDown() {
   // Sticky menu
@@ -35,10 +36,11 @@ export default function DropDown() {
       onOpenChange={open => setIsOpen(open)}
     >
       <PopoverTrigger>
-        <Button radius="none" className="rounded-l-md bg-white border-1 items-center !h-12">
+        <Button radius="none" className="rounded-l-md bg-white border-1 items-center">
           <div className="flex flex-row items-center">
             <span className="font-bold">Бүгд</span>
-            <Image src="/arrow-down.png" alt="add" height={18} width={18} className="ml-2" />
+            {/* <Image src="/arrow-down.png" alt="add" height={18} width={18} className="ml-2" /> */}
+            <BiSolidRightArrowAlt size={20} />
           </div>
         </Button>
       </PopoverTrigger>

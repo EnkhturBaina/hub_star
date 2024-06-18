@@ -1,12 +1,15 @@
-import { LuChevronLeft, LuSettings2 } from 'react-icons/lu';
+import { LuChevronRight, LuSettings2 } from 'react-icons/lu';
 import { Accordion, AccordionItem, Checkbox, CheckboxGroup, Image } from '@nextui-org/react';
 import { RefDirection, SubDirection, SpecialServiceType } from '@/types/reference';
-import { useCallback, useEffect, useState } from 'react';
-import { ReferenceService } from '@/service/reference/reference.service';
 import { useTypedSelector } from '@/app/lib/reducer';
 import { useDispatch } from 'react-redux';
 import { setAdvParam } from '@/app/lib/features/adv-param';
 import { useAppContext } from '@/app/app-context';
+import { BsArrowRight, BsArrowRightShort, BsBagPlus, BsPlus, BsPlusSquare } from 'react-icons/bs';
+import { useState } from 'react';
+import { BiExpand, BiMinus, BiMinusBack, BiMinusFront, BiPlus } from 'react-icons/bi';
+import { PiPlusCircleDuotone } from 'react-icons/pi';
+import { FaMinus } from 'react-icons/fa';
 
 type Props = {
   closeFnc?: () => void;
@@ -15,6 +18,8 @@ const SideCheckSubDirection: React.FC<Props> = ({ closeFnc }) => {
   const advParam = useTypedSelector(state => state.advParam);
   const { mainDirections } = useAppContext();
   const dispatch = useDispatch();
+
+  const [openParentAccordion, setOpenParentAccordion] = useState<any[]>([]);
 
   const onChangeValue = (value: string[]) => {
     const filteredMainDirections = mainDirections
@@ -37,61 +42,71 @@ const SideCheckSubDirection: React.FC<Props> = ({ closeFnc }) => {
         limit: 10,
         mainDirectionIds,
         directionIds,
-        subDirectionIds: value.map(item => (parseInt(item))),
+        subDirectionIds: value.map(item => parseInt(item)),
       })
     );
   };
   return (
     <div className={`shadow-[rgba(0,0,15,0.5)_5px_0px_5px_-5px]`}>
-      <div className="flex flex-row items-center justify-between border-b p-4">
-        <div className="flex flex-row items-center justify-center">
-          <LuSettings2 className="text-xl" />
-          <span className="ml-3 font-bold">Шүүлтүүр</span>
-        </div>
-        <LuChevronLeft
-          className="text-2xl"
-          onClick={closeFnc == undefined ? null : () => closeFnc()}
-        />
+      <div className="flex flex-row items-center justify-between border-b py-4 pr-2 mb-2">
+        <span className="ml-1 font-bold text-lg">Шүүлтүүр</span>
+        <LuSettings2 className="text-xl" />
       </div>
       {mainDirections.map((mainDirection, index) => (
         <div className="mb-5" key={index}>
-          <h4 className="!mt-0 ml-2 self-center text-lg font-semibold text-black">
+          <h4
+            className="!my-0 ml-1 pr-2 self-center text-lg font-semibold text-black cursor-pointer"
+            onClick={() => {
+              setOpenParentAccordion(prev =>
+                prev.some(pp => pp === mainDirection.id)
+                  ? prev.filter(pp => pp !== mainDirection.id)
+                  : [...prev, mainDirection.id]
+              );
+            }}
+          >
             {mainDirection?.name}
           </h4>
-          <Accordion>
-            {mainDirection.directions.map((direction: RefDirection, refIndex: number) => (
-              <AccordionItem
-                key={refIndex}
-                title={<span className="text-sm text-black leading-normal">{direction.name}</span>}
-              >
-                <CheckboxGroup
-                  color="warning"
-                  key={index}
-                  value={(advParam.subDirectionIds || []).map(item => item.toString())}
-                  onValueChange={onChangeValue}
+
+          {!openParentAccordion.includes(mainDirection.id) && (
+            <Accordion>
+              {mainDirection.directions.map((direction: RefDirection, refIndex: number) => (
+                <AccordionItem
+                  key={refIndex}
+                  indicator={<BsPlus />}
+                  title={
+                    <span className="text-sm text-black leading-normal ml-1">{direction.name}</span>
+                  }
+                  className="removeMarginFromH2"
                 >
-                  {direction.subDirections.map((subDir: SubDirection, index: number) => {
-                    return (
-                      <Checkbox
-                        value={String(subDir.id)}
-                        classNames={{
-                          base: 'w-full max-w-full',
-                          label: 'w-full',
-                          wrapper: 'custom-checkbox w-6 h-6',
-                        }}
-                        key={index}
-                      >
-                        <div className="flex w-full flex-row items-center justify-between">
-                          <span className="text-sm leading-none">{subDir.name}</span>
-                          <span className="text-sm">{subDir?.advertisements?.length}</span>
-                        </div>
-                      </Checkbox>
-                    );
-                  })}
-                </CheckboxGroup>
-              </AccordionItem>
-            ))}
-          </Accordion>
+                  <CheckboxGroup
+                    key={index}
+                    color="warning"
+                    onValueChange={onChangeValue}
+                    value={(advParam.subDirectionIds || []).map(item => item.toString())}
+                  >
+                    {direction.subDirections.map((subDir: SubDirection, index: number) => {
+                      return (
+                        <Checkbox
+                          key={index}
+                          value={String(subDir.id)}
+                          classNames={{
+                            label: 'w-full',
+                            base: 'w-full max-w-full',
+                            wrapper: 'custom-checkbox w-6 h-6',
+                          }}
+                        >
+                          <div className="flex w-full flex-row items-center justify-between">
+                            <span className="text-sm leading-4">{subDir.name}</span>
+                            <span className="text-sm">{subDir?.advertisements?.length}</span>
+                          </div>
+                        </Checkbox>
+                      );
+                    })}
+                  </CheckboxGroup>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          )}
         </div>
       ))}
     </div>
