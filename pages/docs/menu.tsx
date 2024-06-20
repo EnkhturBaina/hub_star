@@ -1,21 +1,21 @@
 import AdSkeleton from '@/components/Skeleton/AdSkeleton';
 import { ReferenceService } from '@/service/reference/reference.service';
 import { FooterMenuPage } from '@/types/reference';
-import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
+import { GetStaticProps, NextPage } from 'next';
 import Image from 'next/image';
-import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { motion } from 'framer-motion';
 import { withTranslationProps } from '@/app/lib/with-translation';
+import { useSearchParams } from 'next/navigation';
 
 const MenuPage: NextPage = () => {
-  const router = useRouter();
   const [loading, setLoading] = useState<boolean>(true);
   const [page, setPage] = useState<FooterMenuPage>();
+  const searchParams = useSearchParams();
   useEffect(() => {
-    if (router.query.slug) {
-      ReferenceService.getMenuPage(router.query['slug'])
+    if (searchParams.get('menuId')) {
+      ReferenceService.getMenuPage(searchParams.get('menuId'))
         .then(res => {
           if (res.success) {
             setPage(res.response);
@@ -24,7 +24,7 @@ const MenuPage: NextPage = () => {
         })
         .catch(err => toast.error(err));
     }
-  }, [router.query['slug']]);
+  }, [searchParams.get('menuId')]);
   return (
     <section className="pt-35 lg:pt-40 xl:pt-42.5">
       {loading ? (
@@ -71,8 +71,6 @@ const MenuPage: NextPage = () => {
     </section>
   );
 };
-export const getStaticPaths: GetStaticPaths<{ slug: string }> = async () => {
-  return { paths: [], fallback: false };
-};
+
 export const getStaticProps: GetStaticProps = withTranslationProps();
 export default MenuPage;
