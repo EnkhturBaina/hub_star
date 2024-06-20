@@ -16,19 +16,9 @@ const Signin = () => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
 
-  const validateEmail = value => value.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}$/i);
-
-  const isInvalid = useMemo(() => {
-    if (email === '') return false;
-
-    return validateEmail(email) ? false : true;
-  }, [email]);
-
   const login = () => {
     if (email == '') {
-      toast.error('И-Мэйл хаягаа оруулна уу.');
-    } else if (isInvalid) {
-      toast.error('И-Мэйл хаяг буруу байна.');
+      toast.error('И-Мэйл эсвэл утас оруулна уу.');
     } else if (password == '') {
       toast.error('Нууц үгээ оруулна уу.');
     } else {
@@ -87,10 +77,9 @@ const Signin = () => {
             <div className="mx-auto mb-10 grid w-[350px] grid-cols-1 rounded-md border border-stroke bg-gray-50 p-6 shadow-md">
               <Input
                 key="username"
-                type="email"
-                label={t('email')}
+                label={t('emailOrPhone')}
                 labelPlacement="outside"
-                placeholder={t('email')}
+                placeholder={t('emailOrPhone')}
                 radius="sm"
                 size="lg"
                 variant="bordered"
@@ -99,9 +88,6 @@ const Signin = () => {
                   label: 'font-bold',
                   inputWrapper: ['custom-input-wrapper', 'bg-white'],
                 }}
-                isInvalid={isInvalid}
-                color={isInvalid ? 'danger' : 'default'}
-                errorMessage={isInvalid && 'И-Мэйл хаягаа зөв оруулна уу.'}
                 onValueChange={setEmail}
               />
               <Input

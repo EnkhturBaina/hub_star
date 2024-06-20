@@ -451,12 +451,5 @@ const SingleBlogPage: NextPage = () => {
     </>
   );
 };
-export const getStaticPaths: GetStaticPaths<{ slug: string }> = async () => {
-  const res = await ReferenceService.getMenu();
-  return {
-    paths: res.response.map(item => ({ params: { slug: item.id.toString() } })),
-    fallback: false,
-  };
-};
 export const getStaticProps: GetStaticProps = withTranslationProps();
 export default SingleBlogPage;
