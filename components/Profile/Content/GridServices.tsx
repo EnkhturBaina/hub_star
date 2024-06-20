@@ -19,8 +19,6 @@ type Props = {
 const GridServices: React.FC<Props> = ({ servicesData, isStars, editAdv, removeAdv, onIgeree }) => {
   console.log('servicesData', servicesData);
 
-  const [blogType, setBlogType] = useState('');
-
   function takeTypeName({
     userType,
     specialService,
@@ -30,6 +28,7 @@ const GridServices: React.FC<Props> = ({ servicesData, isStars, editAdv, removeA
   }) {
     if (userType !== null) {
       UserTabData?.map(el => {
+        console.log(el.type, userType, 'aaaaaa');
         if (el.type === userType) {
           return (
             <span className="line-clamp-3" key={el.type}>
@@ -69,7 +68,7 @@ const GridServices: React.FC<Props> = ({ servicesData, isStars, editAdv, removeA
       whileInView="visible"
       transition={{ duration: 1, delay: 0.5 }}
       viewport={{ once: true }}
-      className="animate_top grid grid-cols-1 gap-6 bg-white md:grid-cols-2 lg:grid-cols-3"
+      className="animate_top grid gap-6 bg-white grid-cols-2 lg:grid-cols-3"
     >
       {servicesData.map((adv: Advertisement, index: number) => (
         <div className="rounded-lg bg-white shadow-solid-8" key={'grid' + index}>
@@ -86,12 +85,12 @@ const GridServices: React.FC<Props> = ({ servicesData, isStars, editAdv, removeA
               </div>
             )}
           </Link>
-          <div className="flex flex-col px-6 pb-2">
-            <h3 className="!mb-1 !mt-2 line-clamp-2 inline-block text-lg font-bold  duration-300 hover:text-primary ">
+          <div className="flex flex-col px-3 pb-2 gap-2">
+            <h3 className="!mb-1 !mt-2 line-clamp-2 inline-block text-base font-bold  duration-300 hover:text-primary ">
               {adv.title?.length > 60 ? `${adv.title.slice(0, 60)}...` : adv.title}
             </h3>
             {takeTypeName({ userType: adv.userType, specialService: adv.specialService })}
-            <div className="flex flex-row items-center">
+            <div className="flex flex-row items-center justify-end gap-2">
               {editAdv && (
                 <Tooltip content="Засах">
                   <Button isIconOnly color="primary" onClick={() => editAdv(adv)}>

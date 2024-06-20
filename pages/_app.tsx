@@ -7,7 +7,7 @@ import { NextUIProvider } from '@nextui-org/react';
 import { ThemeProvider } from 'next-themes';
 import Footer from '@/components/Footer';
 import ScrollToTop from '@/components/ScrollToTop';
-import { Commissioner } from 'next/font/google';
+import { Nunito_Sans } from 'next/font/google';
 import { usePathname } from 'next/navigation';
 import Header from '@/components/Header';
 import FabButton from '@/components/Common/FabButton';
@@ -18,9 +18,9 @@ import { Provider } from 'react-redux';
 import { store } from '@/app/lib/store';
 import { Toaster } from 'react-hot-toast';
 
-const roboto = Commissioner({
+const roboto = Nunito_Sans({
   subsets: ['latin'],
-  weight: ['100', '300', '400', '500', '700', '900'],
+  weight: ['200', '300', '400', '500', '700', '900'],
   display: 'swap',
   variable: '--font-roboto',
 });

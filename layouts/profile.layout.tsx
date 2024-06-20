@@ -61,19 +61,19 @@ const ProfileLayout: React.FC<Props> = ({ children }) => {
               </div>
             </ImageUpload>
             <div className="relative h-30 mx-5 md:mx-25">
-              <div className="absolute w-full left-2 flex flex-row md:-bottom-10 md:left-20 gap-3 -top-[30%] md:-top-2/4">
-                <div className="relative md:mr-6 rounded-full border-5 border-white">
+              <div className="absolute w-full left-2 flex flex-row md:-bottom-10 md:left-20 gap-3 -top-[60%] md:-top-2/4">
+                <div className="w-fit h-fit relative md:mr-6 rounded-full border-5 border-white">
                   <Image
-                    className="z-10 rounded-full w-full h-full object-cover"
+                    alt=""
+                    removeWrapper
+                    className="z-10 rounded-full w-full h-fit max-w-[170px] object-cover"
                     src={
                       user.avatarId
                         ? `${process.env.NEXT_PUBLIC_BASE_API_URL}local-files/${user.avatarId}`
                         : '/images/user/user-01.png'
                     }
-                    alt=""
-                    removeWrapper
                     // className="z-0 w-full h-full object-cover"
-                  ></Image>
+                  />
                   <ImageUpload
                     className="z-20 right-0 bottom-0 cursor-pointer rounded-full bg-gray-100 p-3 text-black absolute w-fit"
                     setFileId={avatarId => {
@@ -95,10 +95,10 @@ const ProfileLayout: React.FC<Props> = ({ children }) => {
         </div>
         <SidebarPushable
           as={Segment}
-          className="custom-sidebar-base mx-auto mt-2 flex max-w-screen-xl flex-col gap-5 rounded-xl bg-mainProfileCardBg p-4 md:mt-6 lg:w-3/4 lg:flex-row"
+          className="custom-sidebar-base mx-auto mt-2 flex max-w-screen-xl gap-5 rounded-xl bg-mainProfileCardBg p-4 md:mt-6 flex-row"
         >
           <div
-            className="ml-4 mt-2 w-fit rounded-xl bg-white p-4 md:hidden"
+            className="ml-4 w-fit rounded-xl bg-white p-4 md:hidden"
             onClick={() => {
               setVisible(true);
             }}

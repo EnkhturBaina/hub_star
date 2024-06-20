@@ -56,7 +56,7 @@ const Confirmation = () => {
     setStep(2);
   };
   const handleSubmit = async () => {
-    AuthService.updateById(user.id, {...values, isConfirm: true })
+    AuthService.updateById(user.id, { ...values, isConfirm: true })
       .then(res => {
         console.log('res', res);
 
@@ -129,17 +129,18 @@ const Confirmation = () => {
               }));
             }}
             options={mainDirections.map(item => ({ value: item.id, label: item.name }))}
+            className="mt-3"
           />
           {user.isCitizen ? (
             <>
-              <div className="font-bold">Иргэний үнэмлэхний зураг</div>
+              <div className="font-bold mt-3">Иргэний үнэмлэхний зураг</div>
             </>
           ) : (
             <>
-              <div className="font-bold">Байгууллагын гэрчилгээ</div>
+              <div className="font-bold mt-3">Байгууллагын гэрчилгээ</div>
             </>
           )}
-          <div className="grid grid-cols-3 gap-3">
+          <div className="grid grid-cols-3 gap-3 mt-3">
             <div className="flex h-40 cursor-pointer flex-col items-center justify-center rounded-lg bg-mainGray">
               <ImageUpload
                 setFileId={frontPassportImageId => setValues({ ...values, frontPassportImageId })}
@@ -178,14 +179,15 @@ const Confirmation = () => {
             </div>
             <div className="flex h-40 cursor-pointer flex-col items-center justify-center rounded-lg bg-mainGray">
               <ImageUpload
+                className="!w-full"
                 setFileId={behindPassportImageId => setValues({ ...values, behindPassportImageId })}
               >
                 {values?.behindPassportImageId ? (
                   <Image
-                    src={process.env.NEXT_PUBLIC_MEDIA_URL + values.behindPassportImageId}
                     alt="Үнэмлэхний ард талын зураг"
+                    src={process.env.NEXT_PUBLIC_MEDIA_URL + values.behindPassportImageId}
+                    className="z-0 !w-full h-40 object-cover"
                     removeWrapper
-                    className="z-0 w-full h-40 object-cover"
                   />
                 ) : (
                   <Fragment>
@@ -198,7 +200,7 @@ const Confirmation = () => {
           </div>
           {!user.isCitizen && (
             <>
-              <div className="flex flex-row gap-4">
+              <div className="flex flex-row gap-4 mt-3">
                 <div className="flex h-45 w-45 min-w-[180px] cursor-pointer flex-col items-center justify-center rounded-lg bg-mainGray">
                   <ImageUpload
                     setFileId={organizationLogoId => setValues({ ...values, organizationLogoId })}
@@ -299,6 +301,7 @@ const Confirmation = () => {
                   label: 'font-bold',
                   inputWrapper: ['custom-input-wrapper', 'bg-white'],
                 }}
+                className="mt-3"
                 value={values?.experience ?? ''}
                 onChange={handleChange('experience')}
               />

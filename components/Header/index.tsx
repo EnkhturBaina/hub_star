@@ -15,6 +15,9 @@ import { emptyAdvParam } from '@/app/lib/features/adv-param';
 import { useTypedSelector } from '@/app/lib/reducer';
 import SpecialTypeMenu from './SpecialTypeMenu';
 import UserTypeMenu from './UserTypeMenu';
+import { Menu, MenuButton, MenuItem, MenuItems, Transition } from '@headlessui/react';
+import { HeartIcon, PencilSquareIcon, TrashIcon } from '@heroicons/react/20/solid';
+import { classNames } from '@/utils/util';
 
 const Header = () => {
   const { user } = useAppContext();
@@ -22,6 +25,7 @@ const Header = () => {
   const dispatch = useDispatch();
   const router = useRouter();
   const socket = useSocket();
+
   const [navigationOpen, setNavigationOpen] = useState(false);
   const [stickyMenu, setStickyMenu] = useState(false);
   const [countNoti, setCountNoti] = useState(0);
@@ -118,16 +122,89 @@ const Header = () => {
               </Link>
             ) : (
               <>
-                <Link href="/profile/information" className="flex flex-row items-center">
-                  <Avatar
-                    name={user?.firstName}
-                    src={process.env.NEXT_PUBLIC_MEDIA_URL + user.avatarId}
-                    className="h-12 w-12 text-lg"
-                  />
-                  <div className="hidden md:block">
-                    <AuthName user={user} />
-                  </div>
-                </Link>
+                <Menu as="div" className="relative inline-block text-left">
+                  <MenuButton className="inline-flex w-full justify-center gap-x-1.5 rounded-lg bg-transparent px-3 py-2 transition-all ease-out duration-300 hover:bg-gray-50">
+                    <div className="flex flex-row items-center">
+                      <Avatar
+                        name={user?.firstName}
+                        src={process.env.NEXT_PUBLIC_MEDIA_URL + user.avatarId}
+                        className="h-12 w-12 text-lg"
+                        onClick={() => router.pathname === '/profile/information'}
+                      />
+                      <div className="hidden md:block">
+                        <AuthName user={user} />
+                      </div>
+                    </div>
+                  </MenuButton>
+                  <Transition
+                    enter="transition ease-out duration-100"
+                    enterFrom="transform opacity-0 scale-95"
+                    enterTo="transform opacity-100 scale-100"
+                    leave="transition ease-in duration-75"
+                    leaveFrom="transform opacity-100 scale-100"
+                    leaveTo="transform opacity-0 scale-95"
+                  >
+                    <MenuItems className="absolute right-0 z-10 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                      <div className="py-1">
+                        <MenuItem>
+                          {({ focus }) => (
+                            <a
+                              href="#"
+                              className={classNames(
+                                focus ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                                'group flex items-center px-4 py-2 text-sm'
+                              )}
+                            >
+                              <PencilSquareIcon
+                                className="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500"
+                                aria-hidden="true"
+                              />
+                              Edit
+                            </a>
+                          )}
+                        </MenuItem>
+
+                        <MenuItem>
+                          {({ focus }) => (
+                            <a
+                              href="#"
+                              className={classNames(
+                                focus ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                                'group flex items-center px-4 py-2 text-sm'
+                              )}
+                            >
+                              <HeartIcon
+                                className="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500"
+                                aria-hidden="true"
+                              />
+                              Add to favorites
+                            </a>
+                          )}
+                        </MenuItem>
+                        <div className="py-1">
+                          <MenuItem>
+                            {({ focus }) => (
+                              <a
+                                href="#"
+                                className={classNames(
+                                  focus ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                                  'group flex items-center px-4 py-2 text-sm'
+                                )}
+                              >
+                                <TrashIcon
+                                  className="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500"
+                                  aria-hidden="true"
+                                />
+                                Delete
+                              </a>
+                            )}
+                          </MenuItem>
+                        </div>
+                      </div>
+                    </MenuItems>
+                  </Transition>
+                </Menu>
+
                 <div className="flex w-30 flex-row justify-around gap-2">
                   <Link href="/profile/notification">
                     <Badge content={countNoti}>

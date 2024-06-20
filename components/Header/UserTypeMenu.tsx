@@ -53,7 +53,7 @@ const UserTypeMenu: React.FC = () => {
             <div
               key={index}
               onClick={() => onAdvParam({ page: 1, limit: 10, order: 'DESC', userType: item.type })}
-              className={`relative text-xs xl:text-base flex h-full w-fit cursor-pointer mr-2 items-center border-b justify-center border-stroke px-6 py-2 last:border-0 flex-row md:flex-col md:w-auto md:border-0 xl:px-13.5 xl:pt-5 ${
+              className={`relative text-base xl:text-base flex h-full w-fit cursor-pointer mr-2 items-center border-b justify-center border-stroke px-6 py-2 last:border-0 flex-row md:flex-col md:w-auto md:border-0 xl:px-13.5 xl:pt-5 ${
                 advParam.userType === item.type
                   ? 'active before:absolute before:bottom-0 before:left-0 before:h-1 before:w-full before:rounded-tl-[4px] before:rounded-tr-[4px] before:bg-mainColor before:!text-xl before:text-[#f7941d] !font-semibold'
                   : 'text-black font-normal'
@@ -64,7 +64,7 @@ const UserTypeMenu: React.FC = () => {
                 alt="logo"
                 width={advParam.userType === item.type ? 50 : 40}
                 height={advParam.userType === item.type ? 50 : 40}
-                className="block h-6 w-6 md:h-12 md:w-12"
+                className="block h-7 w-7 md:h-12 md:w-12"
                 sizes="100vw"
               />
               {t(item.title)}

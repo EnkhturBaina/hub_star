@@ -63,9 +63,9 @@ const Hero = () => {
 
   return (
     <>
-      <section className="pb-2 pt-45 md:pt-30 lg:pb-2 lg:pt-35 xl:pb-4 xl:pt-52">
+      <section className="pb-2 lg:pb-2 xl:pb-4 pt-52">
         <div className="mx-auto max-w-screen-2xl px-4 md:px-8 2xl:px-0">
-          <div className="flex flex-row gap-7.5 xl:gap-12.5">
+          <div className="flex flex-row gap-7.5 xl:gap-12.5 justify-center items-start">
             <div className="hidden md:block md:w-1/4">
               <div className="animate_top mb-10 rounded-md border border-stroke bg-white p-6 shadow-md">
                 <Title label={t('services')} />

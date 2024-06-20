@@ -165,6 +165,9 @@ pre {
   .each-slide-effect {
     height: 200px;
   }
+  .ui.segment {
+padding: 0 !important;
+  }
 }
 @media (min-width: 600px) {
   .each-slide-effect {

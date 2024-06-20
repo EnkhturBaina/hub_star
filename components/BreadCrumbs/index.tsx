@@ -14,7 +14,7 @@ const BreadCrumbs: React.FC<Props> = ({ items }) => {
     >
       {items?.filter(Boolean)?.map((item, index) => {
         return (
-          <BreadcrumbItem key={index} className="!text-black">
+          <BreadcrumbItem key={index} className="!text-black sm:text-sm text-xs">
             {item}
           </BreadcrumbItem>
         );

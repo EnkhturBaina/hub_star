@@ -70,12 +70,14 @@ const BlogItem = ({ blog }: { blog: Blog }) => {
           />
         </Link>
 
-        <div className="flex flex-col px-6 pb-2 justify-between h-22">
-          <h3 className="!mb-1 !mt-2 line-clamp-2 inline-block text-base font-bold text-black duration-300 hover:text-primary">
+        <div className="flex flex-col px-3 pb-2 justify-between h-24">
+          <h3 className="!mb-1 !mt-2 line-clamp-2 inline-block text-base font-semibold text-black duration-300 hover:text-primary">
             <Link href={{ pathname: 'adv/item', query: { id } }}>{title}</Link>
           </h3>
           {/* <span className="line-clamp-3">{`${desciption?.slice(0, 30)}...`}</span> */}
-          <span className="line-clamp-3">{t(blogType)}</span>
+          <span className="line-clamp-3 !m-0 !p-0 min-h-8 max-h-8 flex items-center">
+            {t(blogType)}
+          </span>
         </div>
       </motion.div>
     </>
