@@ -1,5 +1,6 @@
 {
   "email": "E-mail",
+  "emailOrPhone": "E-mail or Phone",
   "password": "Password",
   "forgotPassword": "Forgot password",
   "login": "Login",

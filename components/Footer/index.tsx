@@ -78,7 +78,7 @@ const Footer: React.FC = () => {
                         .map(item => (
                           <li key={item.id}>
                             <Link
-                              href={`/docs?id=${item.id}`}
+                              href={{ pathname: '/docs/menu', query: { menuId: item.id } }}
                               className="mb-3 inline-block text-white hover:text-mainColor"
                             >
                               {item.title}
@@ -114,7 +114,7 @@ const Footer: React.FC = () => {
                         .map(item => (
                           <li key={item.id}>
                             <Link
-                              href={'/docs/' + item.id}
+                              href={{ pathname: '/docs/menu', query: { menuId: item.id } }}
                               className="mb-3 inline-block text-white hover:text-mainColor"
                             >
                               {item.title}
@@ -232,7 +232,10 @@ const Footer: React.FC = () => {
                   .filter(item => item.type == 'TOOL')
                   .map((item, index) => (
                     <li key={item.id} className="flex flex-row">
-                      <Link href={'/docs/' + item.id} className="text-white hover:text-mainColor">
+                      <Link
+                        href={{ pathname: '/docs/menu', query: { menuId: item.id } }}
+                        className="text-white hover:text-mainColor"
+                      >
                         {item.title}
                       </Link>
                       {index == menus?.filter(item => item.type == 'TOOL')?.length - 1 ? null : (

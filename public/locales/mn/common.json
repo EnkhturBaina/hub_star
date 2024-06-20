@@ -1,5 +1,6 @@
 {
   "email": "И-мэйл",
+  "emailOrPhone": "И-мэйл эсвэл утас",
   "password": "Нууц үг",
   "forgotPassword": "Нууц үг мартсан",
   "login": "Нэвтрэх",
