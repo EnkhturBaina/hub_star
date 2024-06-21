@@ -4,6 +4,16 @@
 html {
   font-family: var(--font-roboto);
 }
+
+main {
+  background: #FAFAFA;
+}
+
+section {
+  background: #FAFAFA;
+}
+ 
+
 #maxZindex {
   z-index: 9999 !important;
 }

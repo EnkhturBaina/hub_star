@@ -38,6 +38,7 @@ import { setAdvParam } from '@/app/lib/features/adv-param';
 import { withTranslationProps } from '@/app/lib/with-translation';
 import { useSearchParams } from 'next/navigation';
 import BlogItem from '@/components/Blog/BlogItem';
+import { dateFormat, moneyFormat } from '@/utils/util';
 
 const SingleBlogPage: NextPage = () => {
   const { t } = useTranslation();
@@ -203,9 +204,8 @@ const SingleBlogPage: NextPage = () => {
       <section className="pt-35 lg:pt-40 xl:pt-42.5">
         <Fragment>
           <div className="bg-gray-100 px-4 md:px-8 2xl:px-0 ">
-            <div className="mx-auto flex max-w-screen-xl flex-col justify-between gap-7.5 py-10 md:flex-row md:py-18 lg:flex-row xl:gap-12.5">
+            <div className="mx-auto flex max-w-screen-xl flex-col justify-between gap-7.5 py-6 md:flex-row md:py-18 lg:flex-row xl:gap-12.5">
               <div className="flex flex-col">
-                <span className="text-xl font-bold">{data?.title}</span>
                 <div>
                   <BreadCrumbs
                     items={[
@@ -220,15 +220,15 @@ const SingleBlogPage: NextPage = () => {
               {user && (
                 <div className="flex flex-row">
                   <Button
-                    onClick={onConfirmOpen}
                     radius="full"
                     className="mb-2 w-full rounded-md bg-mainColor font-bold leading-none text-white md:w-72"
+                    onClick={onConfirmOpen}
                   >
                     Үйлчилгээг захиалах
                   </Button>
                   <Button
-                    className="ml-4 min-w-unit-12 border-1 bg-white !px-0"
                     radius="sm"
+                    className="ml-4 min-w-unit-12 border-1 bg-white !px-0"
                     onClick={() => onSave()}
                   >
                     <PiFlagThin className="text-2xl" />
@@ -260,38 +260,61 @@ const SingleBlogPage: NextPage = () => {
             </div>
             <div className="border-l px-4 md:w-1/4 lg:w-[20%]">
               <div className="flex flex-col gap-y-2">
-                {user && (
-                  <div
-                    className="cursor-pointer"
-                    onClick={() => {
-                      if (user.id == data.createdBy) {
-                        setData({ ...data, process: 'DONE' });
-                        onOpen();
-                      }
-                    }}
-                  >
-                    <Rating point={data?.rating} />
+                <div>
+                  <span className="text-xl font-bold">{data?.title}</span>
+                  {user && (
+                    <div
+                      className="cursor-pointer"
+                      onClick={() => {
+                        if (user.id == data.createdBy) {
+                          setData({ ...data, process: 'DONE' });
+                          onOpen();
+                        }
+                      }}
+                    >
+                      <Rating point={data?.rating} noText />
+                    </div>
+                  )}
+                </div>
+                <div className="flex flex-col">
+                  <span>Үнэ: </span>
+                  <strong className="text-2xl ">{moneyFormat(data?.price)} ₮</strong>
+                </div>
+                <div className="flex flex-col">
+                  <span>Нийтэлсэн огноо:</span>
+                  <span className="font-semibold">{dateFormat(data?.createdAt)}</span>
+                </div>
+                <div className="flex flex-col">
+                  <span>Зарын дугаар:</span>
+                  <span className="font-bold">{data?.id}</span>
+                </div>
+                <div className="flex flex-col">
+                  <span>Утасны дугаар:</span>
+                  <span className="font-bold">{data?.phone}</span>
+                </div>
+                {!!data?.createdUser?.firstName && (
+                  <div className="flex flex-col">
+                    <span>Зар байршуулсан:</span>
+                    <span className="font-bold">{data?.createdUser?.firstName || ''}</span>
                   </div>
                 )}
-                <span className="font-bold">Үнэ</span>
-                <span className="">{data?.price} ₮</span>
-                <span className="font-bold">Нийтэлсэн огноо</span>
-                <span className="">{data?.createdAt}</span>
-                <span className="font-bold">Зарын дугаар</span>
-                <span className="">{data?.id}</span>
-                <span className="font-bold">Утасны дугаар</span>
-                <span className="">{data?.phone}</span>
-                <span className="font-bold">Зар байршуулсан</span>
-                <span className="">{data?.createdUser?.firstName}</span>
-                <span className="font-bold">Веб хуудас</span>
-                <span className="">{data?.createdUser?.webUrl}</span>
-                <span className="font-bold">Имэйл</span>
-                <span className="">{data?.email}</span>
-                <span className="font-bold">Байршил</span>
-                <span className="">
-                  {data?.province?.name}, {data?.district?.name}, {data?.khoroo?.name},{' '}
-                  {data?.address}
-                </span>
+                {data?.createdUser?.webUrl && (
+                  <div className="flex flex-col">
+                    <span>Веб хуудас:</span>
+                    <span className="font-bold">{data?.createdUser?.webUrl}</span>
+                  </div>
+                )}
+                <div className="flex flex-col">
+                  <span>Имэйл:</span>
+                  <span className="font-bold">{data?.email}</span>
+                </div>
+                <div className="flex flex-col">
+                  <span>Байршил:</span>
+                  <span className="font-bold">
+                    {data?.province?.name}, {data?.district?.name}, {data?.khoroo?.name},{' '}
+                    {data?.address}
+                  </span>
+                </div>
                 <Button
                   onClick={() => router.push('/other-profile/' + data.createdBy)}
                   className="mb-2 w-full rounded-md bg-mainColor font-bold leading-none text-white md:w-72"

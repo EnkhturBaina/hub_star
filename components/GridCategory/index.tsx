@@ -45,7 +45,7 @@ const GridCategory = () => {
       className="animate_top relative overflow-auto mt-6"
     >
       <div className="w-full overflow-hidden">
-        <Title label={t("advices")} />
+        <Title label={t('advices')} />
       </div>
       <div className="mx-auto mt-5 max-w-c-1280 overflow-x-auto flex min-w-0">
         <div className="overflow-x-scroll flex gap-8 no-scrollbar" {...events} ref={ref}>

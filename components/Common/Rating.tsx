@@ -3,11 +3,12 @@ import { FaStar } from 'react-icons/fa';
 
 type Props = {
   point: number;
+  noText?: boolean;
 };
-const Rating: React.FC<Props> = ({ point = 0 }) => {
+const Rating: React.FC<Props> = ({ point = 0, noText = false }) => {
   return (
     <Fragment>
-      <span className="font-bold">Үнэлгээ:</span>
+      {!noText && <span className="font-bold">Үнэлгээ:</span>}
       <div className="flex flex-row items-center">
         {[...Array(5)].map((_, index) => (
           <FaStar
