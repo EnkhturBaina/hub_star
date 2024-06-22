@@ -78,7 +78,7 @@ const AddService: React.FC<Props> = ({ isSpecial, setIsAddService, updateAdv }) 
   const onTermOfService = async () => {
     await ReferenceService.getPageByType('TERM_OF_SERVICE').then(res => {
       if (res.success) {
-        window.open('/docs/' + res.response.menuId, '_blank');
+        window.open('/docs/menu?menuId=' + res.response.menuId, '_blank');
       }
     });
   };

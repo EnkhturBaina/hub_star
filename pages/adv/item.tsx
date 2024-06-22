@@ -2,7 +2,6 @@
 import { useTranslation } from 'react-i18next';
 import {
   Button,
-  Chip,
   Modal,
   ModalBody,
   ModalContent,
@@ -12,23 +11,18 @@ import {
   useDisclosure,
 } from '@nextui-org/react';
 import Image from 'next/image';
-import { PiFlagThin } from 'react-icons/pi';
 import BreadCrumbs from '@/components/BreadCrumbs';
 import { FaStar } from 'react-icons/fa';
 import { Fragment, useCallback, useEffect, useState } from 'react';
 import { AdvertisementService } from '@/service/advertisement/advertisement.service';
-import { AdProcess, Advertisement } from '@/types/advertisement';
+import { Advertisement } from '@/types/advertisement';
 import toast from 'react-hot-toast';
-import { AuthService } from '@/service/authentication/authentication.service';
 import { useRouter } from 'next/router';
 import { Advice, RefNotification, SubDirection } from '@/types/reference';
 import { ReferenceService } from '@/service/reference/reference.service';
-import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
+import { GetStaticProps, NextPage } from 'next';
 import ImageGallery from 'react-image-gallery';
 import { useAppContext } from '@/app/app-context';
-import SpecialPost from '@/components/Blog/SpecialPost';
-import RelatedPost from '@/components/Blog/RelatedPost';
-import Link from 'next/link';
 import Rating from '@/components/Common/Rating';
 import UserTabData from '@/app/data/UserTabData';
 import SpecialServiceData from '@/app/data/SpecialServiceData';
@@ -57,9 +51,7 @@ const SingleBlogPage: NextPage = () => {
   const [data, setData] = useState<Advertisement>();
   const [slideImages, setSlideImages] = useState<any>([]);
   const [description, setDescription] = useState<string>('');
-  const [subDirections, setSubDirections] = useState<SubDirection[]>([]);
   const [advices, setAdvices] = useState<Advice[]>([]);
-  const [specialAdvertisements, setSpecialAdvertisements] = useState<Advertisement[]>([]);
   const [blogType, setBlogType] = useState('');
   const searchParams = useSearchParams();
 
@@ -101,13 +93,6 @@ const SingleBlogPage: NextPage = () => {
     }
   }, [searchParams.get('id')]);
 
-  const getSubDirections = () => {
-    ReferenceService.getSubDirection({ directionId: data.directionId }).then(res => {
-      if (res.success) {
-        setSubDirections(res.response);
-      }
-    });
-  };
   const getAdvice = () => {
     ReferenceService.getAdvice({
       page: 1,
@@ -118,18 +103,6 @@ const SingleBlogPage: NextPage = () => {
     }).then(res => {
       if (res.success) {
         setAdvices(res.response.data);
-      }
-    });
-  };
-  const getSpecialAdv = () => {
-    AdvertisementService.get({
-      isSpecial: true,
-      order: 'DESC',
-      page: 1,
-      limit: 10,
-    }).then(res => {
-      if (res.success) {
-        setSpecialAdvertisements(res.response.data);
       }
     });
   };
@@ -184,9 +157,7 @@ const SingleBlogPage: NextPage = () => {
 
   useEffect(() => {
     if (data) {
-      getSubDirections();
       getAdvice();
-      getSpecialAdv();
       slideImages?.length !== data.images?.length &&
         data.images?.map((el: any) => {
           setSlideImages(slideImages => [
@@ -337,7 +308,7 @@ const SingleBlogPage: NextPage = () => {
               </div>
             </div>
           </div>
-          <div className="bg-gray-100 px-4 md:px-8 2xl:px-0 ">
+          {/* <div className="bg-gray-100 px-4 md:px-8 2xl:px-0 ">
             <div className="mx-auto flex max-w-screen-xl flex-row justify-between gap-7.5 py-10 lg:flex-row xl:gap-12.5">
               <div className="flex flex-col">
                 <span className="mb-4 font-bold">ТӨРӨЛ</span>
@@ -358,7 +329,7 @@ const SingleBlogPage: NextPage = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
           <div className="mx-4 my-14 max-w-screen-xl md:mx-auto">
             <span className="text-xl font-bold">Таны авсан үйлчилгээтэй холбоотой зөвлөмжүүд</span>
             <div className="grid grid-cols-2 gap-3 md:grid-cols-7">
@@ -373,7 +344,7 @@ const SingleBlogPage: NextPage = () => {
               ))}
             </div>
           </div>
-          <div className="bg-gray-100 px-4 md:px-8 2xl:px-0">
+          {/* <div className="bg-gray-100 px-4 md:px-8 2xl:px-0">
             <div className="mx-auto max-w-screen-xl py-10">
               <span className="text-xl font-bold">Онцгой үйлчилгээ</span>
               <div className="my-4 grid grid-cols-1 gap-7.5 md:grid-cols-2 lg:grid-cols-4 xl:gap-10">
@@ -382,7 +353,7 @@ const SingleBlogPage: NextPage = () => {
                 ))}
               </div>
             </div>
-          </div>
+          </div> */}
           <div className="bg-gray-100 px-4 md:px-8 2xl:px-0">
             <div className="mx-auto max-w-screen-xl py-10">
               <span className="text-xl font-bold">Ижил төсөөтэй үйлчилгээ</span>
