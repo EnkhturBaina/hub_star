@@ -18,6 +18,7 @@ const Account: React.FC = () => {
     (prop: keyof Users) => (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
       setValues({ ...values, [prop]: event.target.value });
     };
+
   const handleSubmit = () => {
     if (!values?.bank) {
       toast.error('Банкны нэр оруулна уу.');

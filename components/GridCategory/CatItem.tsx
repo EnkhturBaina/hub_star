@@ -21,7 +21,7 @@ const CatItem: React.FC<Props> = ({ mainDirection }) => {
             fill
             sizes="(max-width: 768px) 100vw"
           />
-          <span className="absolute left-1/2 top-1/2 z-999 w-full -translate-x-1/2 -translate-y-1/2 text-center text-2xl uppercase text-white">
+          <span className="absolute left-1/2 top-1/2 z-99 w-full -translate-x-1/2 -translate-y-1/2 text-center text-2xl uppercase text-white">
             {name}
           </span>
         </Link>

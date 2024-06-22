@@ -39,6 +39,7 @@ import { withTranslationProps } from '@/app/lib/with-translation';
 import { useSearchParams } from 'next/navigation';
 import BlogItem from '@/components/Blog/BlogItem';
 import { dateFormat, moneyFormat } from '@/utils/util';
+import { BiHeart } from 'react-icons/bi';
 
 const SingleBlogPage: NextPage = () => {
   const { t } = useTranslation();
@@ -204,37 +205,17 @@ const SingleBlogPage: NextPage = () => {
       <section className="pt-35 lg:pt-40 xl:pt-42.5">
         <Fragment>
           <div className="bg-gray-100 px-4 md:px-8 2xl:px-0 ">
-            <div className="mx-auto flex max-w-screen-xl flex-col justify-between gap-7.5 py-6 md:flex-row md:py-18 lg:flex-row xl:gap-12.5">
-              <div className="flex flex-col">
-                <div>
-                  <BreadCrumbs
-                    items={[
-                      t(blogType),
-                      data?.mainDirection?.name,
-                      data?.direction?.name,
-                      data?.subDirection?.name,
-                    ]}
-                  />
-                </div>
+            <div className="mx-auto max-w-screen-xl pt-12 pb-3">
+              <div>
+                <BreadCrumbs
+                  items={[
+                    t(blogType),
+                    data?.mainDirection?.name,
+                    data?.direction?.name,
+                    data?.subDirection?.name,
+                  ]}
+                />
               </div>
-              {user && (
-                <div className="flex flex-row">
-                  <Button
-                    radius="full"
-                    className="mb-2 w-full rounded-md bg-mainColor font-bold leading-none text-white md:w-72"
-                    onClick={onConfirmOpen}
-                  >
-                    Үйлчилгээг захиалах
-                  </Button>
-                  <Button
-                    radius="sm"
-                    className="ml-4 min-w-unit-12 border-1 bg-white !px-0"
-                    onClick={() => onSave()}
-                  >
-                    <PiFlagThin className="text-2xl" />
-                  </Button>
-                </div>
-              )}
             </div>
           </div>
           <div className="mx-auto flex max-w-screen-xl flex-col gap-4 px-4 py-6 md:flex-row md:px-8 2xl:px-0">
@@ -258,35 +239,46 @@ const SingleBlogPage: NextPage = () => {
                 </div>
               </div>
             </div>
-            <div className="border-l px-4 md:w-1/4 lg:w-[20%]">
+            <div className="border-l px-4 md:w-2/5">
               <div className="flex flex-col gap-y-2">
                 <div>
-                  <span className="text-xl font-bold">{data?.title}</span>
-                  {user && (
-                    <div
-                      className="cursor-pointer"
-                      onClick={() => {
-                        if (user.id == data.createdBy) {
-                          setData({ ...data, process: 'DONE' });
-                          onOpen();
-                        }
-                      }}
-                    >
-                      <Rating point={data?.rating} noText />
+                  <div className="w-full flex justify-between items-center gap-2">
+                    <div className="flex gap-1 items-center text-xl font-bold">
+                      #{data?.id} {data?.title}
                     </div>
-                  )}
+                    <Button
+                      radius="sm"
+                      className="ml-4 min-w-unit-10 h-fit py-1 border-1 bg-white !px-0 hover:border-orange-400 hover:text-red-400"
+                      onClick={() => onSave()}
+                    >
+                      <BiHeart className="text-2xl" />
+                    </Button>
+                  </div>
+                  <div className="w-full flex justify-between items-end gap-2">
+                    {user && (
+                      <div
+                        className="cursor-pointer"
+                        onClick={() => {
+                          if (user.id == data.createdBy) {
+                            setData({ ...data, process: 'DONE' });
+                            onOpen();
+                          }
+                        }}
+                      >
+                        <Rating point={data?.rating} noText />
+                      </div>
+                    )}
+                  </div>
                 </div>
+                <div className="w-full border-b border-dashed border-y-gray-500" />
                 <div className="flex flex-col">
                   <span>Үнэ: </span>
-                  <strong className="text-2xl ">{moneyFormat(data?.price)} ₮</strong>
+                  <strong className="text-4xl ">{moneyFormat(data?.price)} ₮</strong>
                 </div>
+                <div className="w-full border-b border-dashed border-y-gray-500" />
                 <div className="flex flex-col">
                   <span>Нийтэлсэн огноо:</span>
-                  <span className="font-semibold">{dateFormat(data?.createdAt)}</span>
-                </div>
-                <div className="flex flex-col">
-                  <span>Зарын дугаар:</span>
-                  <span className="font-bold">{data?.id}</span>
+                  <span className="font-semibold text-xl">{dateFormat(data?.createdAt)}</span>
                 </div>
                 <div className="flex flex-col">
                   <span>Утасны дугаар:</span>
@@ -310,11 +302,20 @@ const SingleBlogPage: NextPage = () => {
                 </div>
                 <div className="flex flex-col">
                   <span>Байршил:</span>
-                  <span className="font-bold">
+                  <span className="font-bold text-sm text-justify">
                     {data?.province?.name}, {data?.district?.name}, {data?.khoroo?.name},{' '}
                     {data?.address}
                   </span>
                 </div>
+                {user && (
+                  <Button
+                    radius="full"
+                    className="mb-2 w-full min-h-[40px] rounded-md bg-mainColor font-bold leading-none text-white"
+                    onClick={onConfirmOpen}
+                  >
+                    Үйлчилгээг захиалах
+                  </Button>
+                )}{' '}
                 <Button
                   onClick={() => router.push('/other-profile/' + data.createdBy)}
                   className="mb-2 w-full rounded-md bg-mainColor font-bold leading-none text-white md:w-72"

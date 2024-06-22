@@ -26,7 +26,7 @@ const Drawer = ({ children, setIsOpen = (v: boolean) => {}, isOpen = false }) =>
       {/* Drawer */}
       <div
         id="maxZindex"
-        className={`p-8 fixed inset-y-0 left-0 bg-white  lg:w-[45%] w-[60%] shadow-lg transform transition-transform duration-300 ${isOpen ? 'translate-x-0' : '-translate-x-full'}`}
+        className={`p-8 fixed inset-y-0 left-0 bg-white  lg:w-[45%] w-[80%] shadow-lg transform transition-transform duration-300 ${isOpen ? 'translate-x-0' : '-translate-x-full'}`}
         style={{ visibility: isOpen ? 'visible' : 'hidden' }}
       >
         {children}

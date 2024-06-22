@@ -107,7 +107,7 @@ const Confirmation = () => {
           </div>
         </div>
       ) : (
-        <>
+        <div className="px-4">
           <CustomSelect
             label="Хэрэглэгчийн төрөл"
             value={values?.userType}
@@ -140,9 +140,10 @@ const Confirmation = () => {
               <div className="font-bold mt-3">Байгууллагын гэрчилгээ</div>
             </>
           )}
-          <div className="grid grid-cols-3 gap-3 mt-3">
+          <div className="grid md:grid-cols-3 grid-cols-1 gap-3 mt-3">
             <div className="flex h-40 cursor-pointer flex-col items-center justify-center rounded-lg bg-mainGray">
               <ImageUpload
+                className="flex justify-center items-center"
                 setFileId={frontPassportImageId => setValues({ ...values, frontPassportImageId })}
               >
                 {values?.frontPassportImageId ? (
@@ -153,14 +154,14 @@ const Confirmation = () => {
                     className="z-0 w-full h-40 object-cover"
                   />
                 ) : (
-                  <Fragment>
+                  <div className="w-fit h-fit margin-auto flex gap-2 items-center">
                     <BsImage className="text-2xl text-mainBgGray" />
-                    <span className="mt-2 text-sm">Үнэмлэхний урд талын зураг</span>
-                  </Fragment>
+                    <span className="text-sm">Гэрчилгээний урд талын зураг</span>
+                  </div>
                 )}
               </ImageUpload>
             </div>
-            <div className="flex h-40 cursor-pointer flex-col items-center justify-center rounded-lg bg-mainGray">
+            {/* <div className="flex h-40 cursor-pointer flex-col items-center justify-center rounded-lg bg-mainGray">
               <ImageUpload setFileId={selfieImageId => setValues({ ...values, selfieImageId })}>
                 {values?.selfieImageId ? (
                   <Image
@@ -176,10 +177,10 @@ const Confirmation = () => {
                   </Fragment>
                 )}
               </ImageUpload>
-            </div>
+            </div> */}
             <div className="flex h-40 cursor-pointer flex-col items-center justify-center rounded-lg bg-mainGray">
               <ImageUpload
-                className="!w-full"
+                className="!w-full flex justify-center items-center"
                 setFileId={behindPassportImageId => setValues({ ...values, behindPassportImageId })}
               >
                 {values?.behindPassportImageId ? (
@@ -190,10 +191,30 @@ const Confirmation = () => {
                     removeWrapper
                   />
                 ) : (
-                  <Fragment>
+                  <div className="w-fit h-fit margin-auto flex gap-2 items-center">
                     <BsImage className="text-2xl text-mainBgGray" />
-                    <span className="mt-2 text-sm">Үнэмлэхний ард талын зураг</span>
-                  </Fragment>
+                    <span className="text-sm">Гэрчилгээний ард талын зураг</span>
+                  </div>
+                )}
+              </ImageUpload>
+            </div>
+            <div className="flex h-45 w-45 min-w-[180px] cursor-pointer flex-col items-center justify-center rounded-lg bg-mainGray">
+              <ImageUpload
+                className="flex justify-center items-center"
+                setFileId={organizationLogoId => setValues({ ...values, organizationLogoId })}
+              >
+                {values?.organizationLogoId ? (
+                  <Image
+                    src={process.env.NEXT_PUBLIC_MEDIA_URL + values.organizationLogoId}
+                    alt="Лого"
+                    removeWrapper
+                    className="z-0 w-full h-45 object-cover"
+                  />
+                ) : (
+                  <div className="w-fit h-fit margin-auto flex gap-2 items-center">
+                    <BsImage className="text-2xl text-mainBgGray" />
+                    <span className="mt-2 text-sm">Лого</span>
+                  </div>
                 )}
               </ImageUpload>
             </div>
@@ -201,27 +222,8 @@ const Confirmation = () => {
           {!user.isCitizen && (
             <>
               <div className="flex flex-row gap-4 mt-3">
-                <div className="flex h-45 w-45 min-w-[180px] cursor-pointer flex-col items-center justify-center rounded-lg bg-mainGray">
-                  <ImageUpload
-                    setFileId={organizationLogoId => setValues({ ...values, organizationLogoId })}
-                  >
-                    {values?.organizationLogoId ? (
-                      <Image
-                        src={process.env.NEXT_PUBLIC_MEDIA_URL + values.organizationLogoId}
-                        alt="Лого"
-                        removeWrapper
-                        className="z-0 w-full h-45 object-cover"
-                      />
-                    ) : (
-                      <Fragment>
-                        <BsImage className="text-2xl text-mainBgGray" />
-                        <span className="mt-2 text-sm">Лого</span>
-                      </Fragment>
-                    )}
-                  </ImageUpload>
-                </div>
                 <div className="flex w-full flex-col gap-4 p-1">
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="grid md:grid-cols-2 grid-cols-1 gap-4">
                     <Input
                       key="organizationName"
                       type="text"
@@ -307,9 +309,9 @@ const Confirmation = () => {
               />
             </>
           )}
-        </>
+        </div>
       )}
-      <div className="flex flex-row justify-end">
+      <div className="flex flex-row justify-end my-2">
         {step > 1 && (
           <Button
             variant="bordered"
