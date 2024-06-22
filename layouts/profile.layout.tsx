@@ -61,12 +61,12 @@ const ProfileLayout: React.FC<Props> = ({ children }) => {
               </div>
             </ImageUpload>
             <div className="relative h-30 mx-5 md:mx-25">
-              <div className="absolute w-full left-2 flex flex-row md:-bottom-10 md:left-20 gap-3 -top-[60%] md:-top-2/4">
                 <div className="w-fit h-fit relative md:mr-6 rounded-full border-5 border-white">
+              <div className="absolute w-full left-2 flex flex-row md:-bottom-10 md:left-20 gap-3 -top-[60%] md:-top-2/4 sm:">
                   <Image
                     alt=""
                     removeWrapper
-                    className="z-10 rounded-full w-full h-fit max-w-[170px] object-cover"
+                    className="z-10 rounded-full w-full h-full object-contain"
                     src={
                       user.avatarId
                         ? `${process.env.NEXT_PUBLIC_BASE_API_URL}local-files/${user.avatarId}`

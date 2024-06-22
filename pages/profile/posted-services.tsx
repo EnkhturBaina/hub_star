@@ -6,13 +6,14 @@ import { useAppContext } from '@/app/app-context';
 import GridServices from '@/components/Profile/Content/GridServices';
 import ListServices from '@/components/Profile/Content/ListServices';
 import ProfileLayout from '@/layouts/profile.layout';
-import { NextPage } from 'next';
+import { GetStaticProps, NextPage } from 'next';
 import { Advertisement } from '@/types/advertisement';
 import { AdvertisementService } from '@/service/advertisement/advertisement.service';
 import Empty from '@/components/Empty';
 import withAuth from '@/components/Common/withAuth';
 import AddService from '@/components/Profile/Content/AddService';
 import { ICreateAd } from '@/interfaces/request.interface';
+import { withTranslationProps } from '@/app/lib/with-translation';
 
 const PostedServices: NextPage = () => {
   const { user } = useAppContext();
@@ -106,5 +107,5 @@ const PostedServices: NextPage = () => {
     </ProfileLayout>
   );
 };
-
+export const getStaticProps: GetStaticProps = withTranslationProps();
 export default withAuth(PostedServices);

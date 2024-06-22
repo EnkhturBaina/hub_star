@@ -107,7 +107,7 @@ const FabButton = () => {
                       }}
                     >
                       <Image
-                        className="h-14 w-14 transition-all duration-300 hover:opacity-100 dark:hidden"
+                        className="h-14 w-14 sm:h-10 sm:w-10 transition-all duration-300 hover:opacity-100 dark:hidden"
                         src={el.img}
                         alt={el.name}
                         width="0"
