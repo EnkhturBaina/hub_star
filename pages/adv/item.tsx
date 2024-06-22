@@ -278,7 +278,7 @@ const SingleBlogPage: NextPage = () => {
                 <div className="w-full border-b border-dashed border-y-gray-500" />
                 <div className="flex flex-col">
                   <span>Нийтэлсэн огноо:</span>
-                  <span className="font-semibold text-xl">{dateFormat(data?.createdAt)}</span>
+                  <span className="font-semibold">{dateFormat(data?.createdAt)}</span>
                 </div>
                 <div className="flex flex-col">
                   <span>Утасны дугаар:</span>

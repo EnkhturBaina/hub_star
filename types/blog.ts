@@ -20,6 +20,7 @@ export type Blog = {
   images?: BlogImage[];
   userType?: string;
   specialService?: string;
+  price?: number |string
 };
 
 export type BlogImage = {

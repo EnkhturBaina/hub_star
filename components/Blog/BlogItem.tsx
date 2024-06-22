@@ -2,6 +2,7 @@
 import SpecialServiceData from '@/app/data/SpecialServiceData';
 import UserTabData from '@/app/data/UserTabData';
 import { Blog } from '@/types/blog';
+import { moneyFormat } from '@/utils/util';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -40,6 +41,8 @@ const BlogItem = ({ blog }: { blog: Blog }) => {
     }
   }, []);
 
+  console.log({ blog });
+
   return (
     <>
       <motion.div
@@ -75,9 +78,14 @@ const BlogItem = ({ blog }: { blog: Blog }) => {
             <Link href={{ pathname: 'adv/item', query: { id } }}>{title}</Link>
           </h3>
           {/* <span className="line-clamp-3">{`${desciption?.slice(0, 30)}...`}</span> */}
-          <span className="line-clamp-3 !m-0 !p-0 min-h-8 max-h-8 flex items-center">
-            {t(blogType)}
-          </span>
+          <div className="flex justify-between">
+            <span className="  line-clamp-3 !m-0 !p-0 min-h-8 max-h-8 flex items-center">
+              {t(blogType)}
+            </span>
+            <strong className="text-xl text-orange-500 underline underline-offset-2">
+              {moneyFormat(blog?.price)} ₮
+            </strong>
+          </div>
         </div>
       </motion.div>
     </>
