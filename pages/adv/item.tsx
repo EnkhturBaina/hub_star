@@ -156,7 +156,7 @@ const SingleBlogPage: NextPage = () => {
       .catch(err => toast.error(err));
   };
   const handleUpdate = async () => {
-    await AdvertisementService.update(data).then(res => {
+    await AdvertisementService.update({ ...data, process: 'DONE' }).then(res => {
       if (res.success) {
         getData();
       }

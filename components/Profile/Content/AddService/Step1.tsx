@@ -72,7 +72,7 @@ const Step1: React.FC<IProps> = ({ isSpecial, adData, setAdData }) => {
               specialService: value as SpecialServiceType,
             }));
           }}
-          options={SpecialServiceData.map(item => ({ value: item.type, label: item.title }))}
+          options={SpecialServiceData.map(item => ({ value: item.type, label: t(item.title) }))}
         />
       ) : (
         <>

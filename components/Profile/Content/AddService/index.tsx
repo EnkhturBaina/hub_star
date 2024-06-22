@@ -159,6 +159,9 @@ const AddService: React.FC<Props> = ({ isSpecial, setIsAddService, updateAdv }) 
           setStep(step + 1);
         }
       } else if (step == maxStep) {
+        if (createAd.isTermOfService) {
+          toast.error('Үйлчилгээний нөхцөл зөвшөөрнө үү.');
+        }
         if (createAd?.imageIds?.length == 0) {
           toast.error('Зураг оруулна уу.');
         } else if (createAd?.email == null) {

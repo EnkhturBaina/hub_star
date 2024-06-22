@@ -65,7 +65,7 @@ const SpecialTypeMenu: React.FC = () => {
           <span
             className={`flex items-center justify-center text-center align-middle text-xs font-bold leading-none text-[#212529] ml-2 md:ml-0 md:max-w-40 md:text-wrap group-hover:text-white ${advParam.specialService == item.type && 'text-white'}`}
           >
-            {item.title}
+            {t(item.title)}
           </span>
         </div>
       ))}

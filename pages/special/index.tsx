@@ -6,7 +6,7 @@ import PaginationComp from '@/components/Pagination';
 import { IAdParam } from '@/interfaces/request.interface';
 import { OrderType, SpecialServiceType } from '@/types/reference';
 import { Select, SelectItem } from '@nextui-org/react';
-import { NextPage } from 'next';
+import { GetStaticProps, NextPage } from 'next';
 import { useRouter } from 'next/router';
 import React, { useRef, useState } from 'react';
 import { SidebarPusher, SidebarPushable, Segment, Sidebar } from 'semantic-ui-react';
@@ -17,6 +17,7 @@ import { useDispatch } from 'react-redux';
 import { setAdvParam } from '@/app/lib/features/adv-param';
 import SideCheckSpecialDirection from '@/components/Common/SideCheckSpecialDirection';
 import { useTranslation } from 'react-i18next';
+import { withTranslationProps } from '@/app/lib/with-translation';
 
 const SpecialService: NextPage = () => {
   const { t } = useTranslation();
@@ -43,7 +44,7 @@ const SpecialService: NextPage = () => {
                 <BreadCrumbs
                   items={[
                     t('specialService'),
-                    SpecialServiceData.find(item => item.type == advParam.specialService)?.title,
+                    t(SpecialServiceData.find(item => item.type == advParam.specialService)?.title),
                   ]}
                 />
               </div>
@@ -119,5 +120,5 @@ const SpecialService: NextPage = () => {
     </>
   );
 };
-
+export const getStaticProps: GetStaticProps = withTranslationProps();
 export default SpecialService;

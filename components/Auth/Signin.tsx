@@ -125,7 +125,7 @@ const Signin = () => {
                   {t('register')}
                 </Link>
               </div>
-              <Divider
+              {/* <Divider
                 horizontal
                 className="!my-6 !text-xs !font-normal !normal-case !text-gray-400"
               >
@@ -144,7 +144,7 @@ const Signin = () => {
                 className="mb-2 flex w-full justify-start rounded-md bg-white font-bold leading-none text-gray-400 shadow-md"
               >
                 {t('continueWithGoogle')}
-              </Button>
+              </Button> */}
             </div>
           </motion.div>
         </div>

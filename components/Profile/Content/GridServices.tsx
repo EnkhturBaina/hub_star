@@ -72,7 +72,7 @@ const GridServices: React.FC<Props> = ({ servicesData, isStars, editAdv, removeA
     >
       {servicesData.map((adv: Advertisement, index: number) => (
         <div className="rounded-lg bg-white shadow-solid-8" key={'grid' + index}>
-          <Link href={'/adv/' + adv.id} className="relative block aspect-[368/239]">
+          <Link href={'/adv/item?id=' + adv.id} className="relative block aspect-[368/239]">
             <Image
               src={process.env.NEXT_PUBLIC_MEDIA_URL + adv.images[0]?.id}
               alt={adv.title}
