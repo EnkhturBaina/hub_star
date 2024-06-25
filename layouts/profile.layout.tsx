@@ -62,7 +62,6 @@ const ProfileLayout: React.FC<Props> = ({ children }) => {
             </ImageUpload>
 
             <div className="w-[90%] mx-auto h-[110px] py-2 relative">
-              asdas
               <div className="w-[120px] h-[120px] absolute left-0 -top-[50%] shadow-sm shadow-black/50 rounded-full">
                 <Image
                   alt=""
@@ -90,37 +89,6 @@ const ProfileLayout: React.FC<Props> = ({ children }) => {
                 <span className="text-lg ml-3 mr-5">{user.jobPosition}</span>
               </div>
             </div>
-            {/* <div className="relative h-[120px] mx-5 md:mx-25">
-              <div className="w-fit h-full relative md:mr-6 rounded-full border-5 border-white">
-                <div className="absolute w-full h-full left-2 flex flex-row md:-bottom-10 md:left-20 gap-3 -top-[60%] md:-top-2/4">
-                  <Image
-                    alt=""
-                    removeWrapper
-                    className="z-10 rounded-full w-fit h-full object-cover bg-cover"
-                    src={
-                      user.avatarId
-                        ? `${process.env.NEXT_PUBLIC_BASE_API_URL}local-files/${user.avatarId}`
-                        : '/images/user/user-01.png'
-                    }
-                    // className="z-0 w-full h-full object-cover"
-                  />
-                  <ImageUpload
-                    className="z-20 right-0 bottom-0 cursor-pointer rounded-full bg-gray-100 p-3 text-black absolute w-fit"
-                    setFileId={avatarId => {
-                      saveUserImage({ ...user, avatarId });
-                    }}
-                  >
-                    <FaCamera className="text-2xl" />
-                  </ImageUpload>
-                </div>
-                <div className="flex flex-col justify-center md:mb-2 text-start">
-                  <span className="mb-0 text-2xl font-bold text-black md:mb-2">
-                    <AuthName user={user} />
-                  </span>
-                  <span className="text-xl ml-3 mr-5">{user.jobPosition}</span>
-                </div>
-              </div>
-            </div> */}
           </div>
         </div>
         <SidebarPushable

@@ -130,7 +130,7 @@ const BlogPage: NextPage = () => {
           <div className="2xl:max-w-screen-2xl w-[90%] sm:px-6 sm:pt-0 pt-1">
             <BreadCrumbs
               items={[
-                userTypeName,
+                t(userTypeName),
                 mainDirections.map(item => item.name).join(', '),
                 directions.map(item => item.name).join(', '),
               ]}

@@ -5,17 +5,20 @@ html {
   font-family: var(--font-roboto);
 }
 
-  main {
-  background: #FAFAFA;
+main {
+  background: #fafafa;
 }
 /* 
 section {
   background: #FAFAFA;
 }   */
- 
 
 #maxZindex {
   z-index: 9999 !important;
+}
+
+#spanTextWrap span {
+  text-wrap: wrap !important;
 }
 
 .removeMarginFromH2 h2 {
@@ -176,7 +179,7 @@ pre {
     height: 200px;
   }
   .ui.segment {
-padding: 0 !important;
+    padding: 0 !important;
   }
 }
 @media (min-width: 600px) {

@@ -10,9 +10,11 @@ import { Advice, MainDirection, PageMeta } from '@/types/reference';
 import { Button, Select, SelectItem } from '@nextui-org/react';
 import { GetStaticProps, NextPage } from 'next';
 import { useRouter } from 'next/router';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { IoIosAddCircleOutline } from 'react-icons/io';
+import { LuSettings2 } from 'react-icons/lu';
+import { Sidebar } from 'semantic-ui-react';
 
 /** Зөвлөмжүүд */
 const AdvicePage: NextPage = () => {
@@ -29,6 +31,8 @@ const AdvicePage: NextPage = () => {
     pageCount: 1,
   });
   const [mainDirection, setMainDirection] = useState<MainDirection>();
+  const [visible, setVisible] = useState(false);
+  const sideBarRef = useRef(null);
 
   const getData = useCallback(async () => {
     await ReferenceService.getAdvice(params).then(res => {
@@ -82,12 +86,35 @@ const AdvicePage: NextPage = () => {
         </div>
       </div>
       <div className="flex flex-col md:flex-row mx-auto max-w-screen-xl gap-4 px-4 md:px-8 2xl:px-0">
+        <Sidebar
+          animation="push"
+          icon="labeled"
+          onHide={() => setVisible(false)}
+          visible={visible}
+          width="wide"
+          className="!bg-white pt-52 pl-4"
+          ref={sideBarRef}
+        >
+          <SideCheckDirection
+            mainDirectionId={Number(router.query.mainDirectionId)}
+            onDirectionIds={directionIds => setParams(prev => ({ ...prev, directionIds }))}
+          />
+        </Sidebar>
         <SideCheckDirection
+          className="md:block hidden"
           mainDirectionId={Number(router.query.mainDirectionId)}
           onDirectionIds={directionIds => setParams(prev => ({ ...prev, directionIds }))}
         />
         <div className="px-6 pb-6 lg:w-3/4">
           <div className="my-4 flex flex-row justify-between">
+            <div
+              className="w-fit rounded-xl bg-white p-2 md:hidden block border-[#e4e4e7] border-2"
+              onClick={() => {
+                setVisible(true);
+              }}
+            >
+              <LuSettings2 className="text-2xl" />
+            </div>
             <Select
               label="Эрэмбэлэлт"
               labelPlacement="outside"

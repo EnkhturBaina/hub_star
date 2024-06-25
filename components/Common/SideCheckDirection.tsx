@@ -8,8 +8,13 @@ import { useRouter } from 'next/router';
 type Props = {
   mainDirectionId?: number;
   onDirectionIds: (directionIds: number[]) => void;
+  className?: string;
 };
-const SideCheckDirection: React.FC<Props> = ({ mainDirectionId, onDirectionIds }) => {
+const SideCheckDirection: React.FC<Props> = ({
+  mainDirectionId,
+  onDirectionIds,
+  className = '',
+}) => {
   const router = useRouter();
   const [directions, setDirections] = useState<RefDirection[]>([]);
   const onChangeValue = (values: string[]) => {
@@ -29,7 +34,7 @@ const SideCheckDirection: React.FC<Props> = ({ mainDirectionId, onDirectionIds }
   }, [getDirection]);
 
   return (
-    <div className="shadow-[rgba(0,0,15,0.5)_5px_0px_5px_-5px] md:w-1/4 lg:w-[20%]">
+    <div className={`shadow-[rgba(0,0,15,0.5)_5px_0px_5px_-5px] md:w-1/4 lg:w-[20%] ${className}`}>
       <div className="flex flex-row items-center justify-between border-b p-4">
         <div className="flex flex-row items-center justify-center">
           <LuSettings2 className="text-xl" />

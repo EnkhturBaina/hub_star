@@ -12,11 +12,10 @@ import { usePathname } from 'next/navigation';
 import Header from '@/components/Header';
 import FabButton from '@/components/Common/FabButton';
 import 'react-image-gallery/styles/css/image-gallery.css';
-import { Suspense } from 'react';
-import Loading from '@/components/Common/Loading';
 import { Provider } from 'react-redux';
 import { store } from '@/app/lib/store';
 import { Toaster } from 'react-hot-toast';
+import LoadingProvider from '@/components/Common/Loading';
 
 const roboto = Nunito_Sans({
   subsets: ['latin'],
@@ -26,35 +25,36 @@ const roboto = Nunito_Sans({
 });
 function MyApp({ Component, pageProps }: AppProps) {
   const pathUrl = usePathname();
+
   return (
-    <Suspense fallback={<Loading />}>
-      <div className={`dark:bg-black ${roboto.className}`}>
-        <NextUIProvider>
-          <Provider store={store}>
-            <ThemeProvider enableSystem={false} attribute="class" defaultTheme="light">
-              <div className="w-full min-h-screen flex flex-col justify-between">
-                <AppProvider>
-                  <Toaster
-                    position="top-right"
-                    reverseOrder={false}
-                    gutter={8}
-                    containerClassName="custom-toast-container"
-                    toastOptions={{
-                      duration: 5000,
-                    }}
-                  />
-                  {pathUrl === '/auth/signin' || pathUrl === '/auth/signup' ? null : <Header />}
+    <div className={`dark:bg-black ${roboto.className}`}>
+      <NextUIProvider>
+        <Provider store={store}>
+          <ThemeProvider enableSystem={false} attribute="class" defaultTheme="light">
+            <div className="w-full min-h-screen flex flex-col justify-between">
+              <AppProvider>
+                <Toaster
+                  position="top-right"
+                  reverseOrder={false}
+                  gutter={8}
+                  containerClassName="custom-toast-container"
+                  toastOptions={{
+                    duration: 5000,
+                  }}
+                />
+                {pathUrl === '/auth/signin' || pathUrl === '/auth/signup' ? null : <Header />}
+                <LoadingProvider>
                   <Component {...pageProps} />
-                  <FabButton />
-                </AppProvider>
-                <Footer />
-                <ScrollToTop />
-              </div>
-            </ThemeProvider>
-          </Provider>
-        </NextUIProvider>
-      </div>
-    </Suspense>
+                </LoadingProvider>
+                <FabButton />
+              </AppProvider>
+              <Footer />
+              <ScrollToTop />
+            </div>
+          </ThemeProvider>
+        </Provider>
+      </NextUIProvider>
+    </div>
   );
 }
 
