@@ -270,7 +270,11 @@ const Footer: React.FC = () => {
             >
               <ul className="flex items-center gap-5">
                 <li>
-                  <a href="#" aria-label="social icon">
+                  <a
+                    href="https://www.facebook.com/HubStarMN?mibextid=ZbWKwL"
+                    aria-label="social icon"
+                    target="_blank"
+                  >
                     <svg
                       className="fill-[#D1D8E0] transition-all duration-300 hover:fill-primary"
                       width="24"

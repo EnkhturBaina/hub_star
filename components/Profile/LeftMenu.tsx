@@ -131,7 +131,7 @@ const LeftMenu = () => {
           {onClose => (
             <>
               <ModalHeader className="flex flex-col gap-1">Та системээс гарах уу?</ModalHeader>
-              <ModalFooter>
+              <ModalFooter className='w-full flex justify-start items-center pl-0'>
                 <Button color="default" variant="light" onPress={onClose}>
                   Хаах
                 </Button>
