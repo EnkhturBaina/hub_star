@@ -8,17 +8,19 @@ import { OtherProfileMenu } from '@/types/reference';
 import Users from '@/types/user';
 import { NextPage } from 'next';
 import Image from 'next/image';
+import { useSearchParams } from 'next/navigation';
 import { useRouter } from 'next/router';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { LuChevronLeft, LuLayoutGrid, LuMenu } from 'react-icons/lu';
 import { Segment, Sidebar, SidebarPushable, SidebarPusher } from 'semantic-ui-react';
 
 const OtherProfile: NextPage = () => {
-  const router = useRouter();
   const [visible, setVisible] = useState(false);
   const sideBarRef = useRef(null);
   const [user, setUser] = useState<Users>();
   const [currentMenuId, setCurrentMenuId] = useState<string>('1');
+
+  const paramId = useSearchParams().get('item');
 
   const menus: OtherProfileMenu[] = [
     {
@@ -38,15 +40,14 @@ const OtherProfile: NextPage = () => {
     },
   ];
   const getUser = useCallback(async () => {
-    if (router.query.slug && !isNaN(Number(router.query.slug))) {
-      const id = Number(router.query.slug);
-      await AuthService.otherProfile(id).then(res => {
+    if (!!paramId) {
+      await AuthService.otherProfile(Number(paramId)).then(res => {
         if (res.success) {
           setUser(res.response);
         }
       });
     }
-  }, [router.query.slug]);
+  }, [paramId]);
   useEffect(() => {
     getUser();
   }, [getUser]);

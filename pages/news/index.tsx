@@ -8,14 +8,20 @@ import { useCallback, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { motion } from 'framer-motion';
 import { withTranslationProps } from '@/app/lib/with-translation';
+import { useSearchParams } from 'next/navigation';
 
 const MenuPage: NextPage = () => {
   const router = useRouter();
   const [loading, setLoading] = useState<boolean>(true);
   const [page, setPage] = useState<RefNews>();
+
+  const paramId = useSearchParams().get('id');
+
+  console.log({ paramId });
+
   useEffect(() => {
-    if (router.query.slug) {
-      ReferenceService.getNewsById(router.query['slug'].toString())
+    if (paramId) {
+      ReferenceService.getNewsById(paramId)
         .then(res => {
           if (res.success) {
             setPage(res.response);
@@ -24,7 +30,7 @@ const MenuPage: NextPage = () => {
         })
         .catch(err => toast.error(err));
     }
-  }, [router.query['slug']]);
+  }, [paramId]);
   return (
     <section className="pt-35 lg:pt-40 xl:pt-42.5">
       {loading ? (
@@ -48,12 +54,12 @@ const MenuPage: NextPage = () => {
           viewport={{ once: true }}
           className="animate_top"
         >
-          <section className="mx-auto max-w-screen-xl px-4 md:px-8 2xl:px-0 mb-4">
+          <section className="mx-auto max-w-screen-xl px-4 md:px-8 2xl:px-0 mb-4 pt-10">
             {page.imageId && (
               <Image
                 src={process.env.NEXT_PUBLIC_MEDIA_URL + page.imageId}
                 alt="add"
-                className="rounded-md object-contain object-center"
+                className="rounded-md object-cover"
                 width="0"
                 height="0"
                 sizes="100vw"
@@ -71,8 +77,4 @@ const MenuPage: NextPage = () => {
     </section>
   );
 };
-export const getStaticPaths: GetStaticPaths<{ slug: string }> = async () => {
-  return { paths: [], fallback: false };
-};
-export const getStaticProps: GetStaticProps = withTranslationProps();
 export default MenuPage;

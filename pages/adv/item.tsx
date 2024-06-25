@@ -290,7 +290,7 @@ const SingleBlogPage: NextPage = () => {
                   </Button>
                 )}{' '}
                 <Button
-                  onClick={() => router.push('/other-profile/' + data.createdBy)}
+                  onClick={() => router.replace(`/other-profile?item=${data.createdBy}`)}
                   className="mb-2 w-full rounded-md bg-mainColor font-bold leading-none text-white"
                 >
                   <UserCircleIcon width={18} height={18} />
@@ -303,7 +303,7 @@ const SingleBlogPage: NextPage = () => {
                       onOpen();
                     }}
                     radius="full"
-                    className="mb-2 w-full rounded-md bg-mainColor font-bold leading-none text-white md:w-72"
+                    className="mb-2 w-full rounded-md bg-mainColor font-bold leading-none text-white"
                   >
                     Үйлчилгээний төлөв солих
                   </Button>

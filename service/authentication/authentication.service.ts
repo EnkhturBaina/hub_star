@@ -29,7 +29,7 @@ const profile = (): Promise<IResponseMyProfile> => {
   return api.get('/authentication');
 };
 const otherProfile = (id: number): Promise<IResponseProfile> => {
-  return api.get('/authentication/' + id);
+  return api.get('/authentication/profile/' + id);
 };
 const changePassword = (changePassword: IChangePassword): Promise<IResponse> => {
   return api.post('/authentication/change-password', changePassword);

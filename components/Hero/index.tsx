@@ -248,9 +248,7 @@ const Hero = () => {
                                 className="each-slide-effect rounded-xl cursor-pointer"
                                 key={index}
                                 onClick={() => {
-                                  router.push({
-                                    pathname: '/news/' + el.id,
-                                  });
+                                  router.replace(`news?id=${el.id}`);
                                 }}
                               >
                                 <div
@@ -258,7 +256,7 @@ const Hero = () => {
                                     backgroundImage: `url(${process.env.NEXT_PUBLIC_MEDIA_URL + el.imageId})`,
                                     backgroundSize: '100% 100%',
                                   }}
-                                ></div>
+                                />
                               </div>
                             );
                           })}

@@ -7,8 +7,7 @@ const LoadingProvider = ({ children }) => {
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       setLoading(false);
-    }, 2000);
-
+    }, 500);
     return () => clearTimeout(timeoutId);
   }, []);
 
