@@ -32,22 +32,24 @@ function MyApp({ Component, pageProps }: AppProps) {
         <NextUIProvider>
           <Provider store={store}>
             <ThemeProvider enableSystem={false} attribute="class" defaultTheme="light">
-              <AppProvider>
-                <Toaster
-                  position="top-right"
-                  reverseOrder={false}
-                  gutter={8}
-                  containerClassName="custom-toast-container"
-                  toastOptions={{
-                    duration: 5000,
-                  }}
-                />
-                {pathUrl === '/auth/signin' || pathUrl === '/auth/signup' ? null : <Header />}
-                <Component {...pageProps} />
-                <FabButton />
-              </AppProvider>
-              <Footer />
-              <ScrollToTop />
+              <div className="w-full min-h-screen flex flex-col justify-between">
+                <AppProvider>
+                  <Toaster
+                    position="top-right"
+                    reverseOrder={false}
+                    gutter={8}
+                    containerClassName="custom-toast-container"
+                    toastOptions={{
+                      duration: 5000,
+                    }}
+                  />
+                  {pathUrl === '/auth/signin' || pathUrl === '/auth/signup' ? null : <Header />}
+                  <Component {...pageProps} />
+                  <FabButton />
+                </AppProvider>
+                <Footer />
+                <ScrollToTop />
+              </div>
             </ThemeProvider>
           </Provider>
         </NextUIProvider>

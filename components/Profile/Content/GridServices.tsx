@@ -17,8 +17,6 @@ type Props = {
   onIgeree?: () => void;
 };
 const GridServices: React.FC<Props> = ({ servicesData, isStars, editAdv, removeAdv, onIgeree }) => {
-  console.log('servicesData', servicesData);
-
   function takeTypeName({
     userType,
     specialService,
@@ -28,7 +26,6 @@ const GridServices: React.FC<Props> = ({ servicesData, isStars, editAdv, removeA
   }) {
     if (userType !== null) {
       UserTabData?.map(el => {
-        console.log(el.type, userType, 'aaaaaa');
         if (el.type === userType) {
           return (
             <span className="line-clamp-3" key={el.type}>
@@ -68,7 +65,7 @@ const GridServices: React.FC<Props> = ({ servicesData, isStars, editAdv, removeA
       whileInView="visible"
       transition={{ duration: 1, delay: 0.5 }}
       viewport={{ once: true }}
-      className="animate_top grid gap-6 bg-white grid-cols-2 lg:grid-cols-3"
+      className="animate_top grid gap-6 bg-white sm:grid-cols-2 grid-cols- lg:grid-cols-3 p-3"
     >
       {servicesData.map((adv: Advertisement, index: number) => (
         <div className="rounded-lg bg-white shadow-solid-8" key={'grid' + index}>
@@ -80,7 +77,7 @@ const GridServices: React.FC<Props> = ({ servicesData, isStars, editAdv, removeA
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             />
             {isStars && (
-              <div className="absolute right-4 bottom-4 flex flex-row items-center justify-center">
+              <div className="absolute md:right-4 right-2 md:bottom-4 bottom-2 flex flex-row items-center justify-center">
                 <Rating point={adv.rating} />
               </div>
             )}

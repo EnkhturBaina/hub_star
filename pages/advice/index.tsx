@@ -110,13 +110,13 @@ const AdvicePage: NextPage = () => {
               <SelectItem key="DESC">Огноогоор (Z-A)</SelectItem>
               <SelectItem key="ASC">Огноогоор (A-Z)</SelectItem>
             </Select>
-            <Button
+            {/* <Button
               radius="full"
               className="w-65 rounded-md bg-mainColor font-bold leading-none text-white"
               startContent={<IoIosAddCircleOutline className="text-xl" />}
             >
               Онцгой үйлчилгээ оруулах
-            </Button>
+            </Button> */}
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {advices.map((item, index) => (

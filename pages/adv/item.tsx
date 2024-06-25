@@ -34,6 +34,7 @@ import { useSearchParams } from 'next/navigation';
 import BlogItem from '@/components/Blog/BlogItem';
 import { dateFormat, moneyFormat } from '@/utils/util';
 import { BiHeart } from 'react-icons/bi';
+import { ShoppingCartIcon, UserCircleIcon, UserIcon } from '@heroicons/react/20/solid';
 
 const SingleBlogPage: NextPage = () => {
   const { t } = useTranslation();
@@ -205,7 +206,7 @@ const SingleBlogPage: NextPage = () => {
                   </div>
                 </div>
 
-                <div className="blog-details">
+                <div className="blog-details text-justify">
                   <p>{data?.desciption}</p>
                 </div>
               </div>
@@ -284,13 +285,15 @@ const SingleBlogPage: NextPage = () => {
                     className="mb-2 w-full min-h-[40px] rounded-md bg-mainColor font-bold leading-none text-white"
                     onClick={onConfirmOpen}
                   >
+                    <ShoppingCartIcon width={16} height={16} className="mb-1" />
                     Үйлчилгээг захиалах
                   </Button>
                 )}{' '}
                 <Button
                   onClick={() => router.push('/other-profile/' + data.createdBy)}
-                  className="mb-2 w-full rounded-md bg-mainColor font-bold leading-none text-white md:w-72"
+                  className="mb-2 w-full rounded-md bg-mainColor font-bold leading-none text-white"
                 >
+                  <UserCircleIcon width={18} height={18} />
                   Профайл үзэх
                 </Button>
                 {data?.process == 'DOING' && user?.id == data.createdBy && (

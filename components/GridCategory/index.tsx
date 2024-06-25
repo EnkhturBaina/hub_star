@@ -48,7 +48,11 @@ const GridCategory = () => {
         <Title label={t('advices')} />
       </div>
       <div className="mx-auto mt-5 max-w-c-1280 overflow-x-auto flex min-w-0">
-        <div className="overflow-x-scroll flex gap-8 no-scrollbar" {...events} ref={ref}>
+        <div
+          className="overflow-x-scroll grid md:grid-cols-4 grid-cols-2 gap-8 no-scrollbar w-full"
+          {...events}
+          ref={ref}
+        >
           {mainDirections.map((item, index) => (
             <CatItem mainDirection={item} key={index} />
           ))}

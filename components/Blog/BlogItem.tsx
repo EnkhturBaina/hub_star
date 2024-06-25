@@ -41,8 +41,6 @@ const BlogItem = ({ blog }: { blog: Blog }) => {
     }
   }, []);
 
-  console.log({ blog });
-
   return (
     <>
       <motion.div
@@ -79,10 +77,10 @@ const BlogItem = ({ blog }: { blog: Blog }) => {
           </h3>
           {/* <span className="line-clamp-3">{`${desciption?.slice(0, 30)}...`}</span> */}
           <div className="flex justify-between">
-            <span className="  line-clamp-3 !m-0 !p-0 min-h-8 max-h-8 flex items-center">
+            <span className="md:text-base text-sm line-clamp-3 !m-0 !p-0 min-h-8 max-h-8 flex items-center">
               {t(blogType)}
             </span>
-            <strong className="text-xl text-orange-500 underline underline-offset-2">
+            <strong className="md:text-xl text-base text-orange-500 underline underline-offset-2">
               {moneyFormat(blog?.price)} ₮
             </strong>
           </div>

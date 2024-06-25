@@ -49,8 +49,6 @@ const Confirmation = () => {
   const handleSubmit = async () => {
     AuthService.updateById(user.id, { ...values, isConfirm: true })
       .then(res => {
-        console.log('res', res);
-
         if (res.success) {
           setUser(res.response);
           toast.success('Хэрэглэгчийн мэдээлэл амжилттай баталгаажууллаа.');

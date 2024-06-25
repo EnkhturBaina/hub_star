@@ -25,7 +25,6 @@ const Signin = () => {
       try {
         AuthService.login({ email, password })
           .then(response => {
-            console.log(response);
             setAccessToken(response.response.accessToken);
             router.push('/');
           })

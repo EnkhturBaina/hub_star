@@ -60,13 +60,43 @@ const ProfileLayout: React.FC<Props> = ({ children }) => {
                 </div>
               </div>
             </ImageUpload>
-            <div className="relative h-30 mx-5 md:mx-25">
-                <div className="w-fit h-fit relative md:mr-6 rounded-full border-5 border-white">
-              <div className="absolute w-full left-2 flex flex-row md:-bottom-10 md:left-20 gap-3 -top-[60%] md:-top-2/4 sm:">
+
+            <div className="w-[90%] mx-auto h-[110px] py-2 relative">
+              asdas
+              <div className="w-[120px] h-[120px] absolute left-0 -top-[50%] shadow-sm shadow-black/50 rounded-full">
+                <Image
+                  alt=""
+                  removeWrapper
+                  className="w-full h-full z-10 rounded-full object-cover bg-cover"
+                  src={
+                    user.avatarId
+                      ? `${process.env.NEXT_PUBLIC_BASE_API_URL}local-files/${user.avatarId}`
+                      : '/images/user/user-01.png'
+                  }
+                />
+                <ImageUpload
+                  className="z-20 absolute right-2 bottom-2 cursor-pointer rounded-full bg-gray-100 p-2 text-black shadow-md shadow-black/20 "
+                  setFileId={avatarId => {
+                    saveUserImage({ ...user, avatarId });
+                  }}
+                >
+                  <FaCamera className="text-2xl" />
+                </ImageUpload>
+              </div>
+              <div className="flex flex-col justify-center text-start ml-[124px]">
+                <span className="mb-0 md:text-2xl text-xl font-bold text-black md:mb-2 uppercase">
+                  <AuthName user={user} />
+                </span>
+                <span className="text-lg ml-3 mr-5">{user.jobPosition}</span>
+              </div>
+            </div>
+            {/* <div className="relative h-[120px] mx-5 md:mx-25">
+              <div className="w-fit h-full relative md:mr-6 rounded-full border-5 border-white">
+                <div className="absolute w-full h-full left-2 flex flex-row md:-bottom-10 md:left-20 gap-3 -top-[60%] md:-top-2/4">
                   <Image
                     alt=""
                     removeWrapper
-                    className="z-10 rounded-full w-full h-full object-contain"
+                    className="z-10 rounded-full w-fit h-full object-cover bg-cover"
                     src={
                       user.avatarId
                         ? `${process.env.NEXT_PUBLIC_BASE_API_URL}local-files/${user.avatarId}`
@@ -90,7 +120,7 @@ const ProfileLayout: React.FC<Props> = ({ children }) => {
                   <span className="text-xl ml-3 mr-5">{user.jobPosition}</span>
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
         <SidebarPushable

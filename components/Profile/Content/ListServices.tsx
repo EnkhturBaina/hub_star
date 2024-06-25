@@ -5,11 +5,9 @@ import Link from 'next/link';
 import { FaEdit, FaTrash } from 'react-icons/fa';
 import { Advertisement } from '@/types/advertisement';
 import Rating from '@/components/Common/Rating';
-import { Button, Popover, PopoverContent, PopoverTrigger, Tooltip } from '@nextui-org/react';
-import { useState } from 'react';
+import { Button, Popover, PopoverContent, PopoverTrigger } from '@nextui-org/react';
 import { Menu, MenuButton, MenuItem, Transition } from '@headlessui/react';
 import { EllipsisVerticalIcon } from '@heroicons/react/20/solid';
-import { classNames } from '@/utils/util';
 
 type Props = {
   servicesData: Advertisement[];
@@ -17,6 +15,7 @@ type Props = {
   editAdv?: (advertisement: Advertisement) => void;
   removeAdv?: (id: number) => void;
 };
+
 const ListServices: React.FC<Props> = ({ servicesData, isStars, editAdv, removeAdv }) => {
   return (
     <motion.div

@@ -9,7 +9,7 @@ const CatItem: React.FC<Props> = ({ mainDirection }) => {
   const { coverId, name } = mainDirection;
   return (
     <>
-      <div className="cursor-pointer bg-gradient-to-b shadow-solid-8 hover:bg-gradient-to-t hover:from-mainColor hover:to-transparent !w-64 h-36 !flex-none">
+      <div className="cursor-pointer bg-gradient-to-b shadow-solid-8 hover:bg-gradient-to-t hover:from-mainColor hover:to-transparent w-full h-36 !flex-none">
         <Link
           className="relative block h-full rounded-lg hover:opacity-50"
           href={{ pathname: '/advice', query: { mainDirectionId: mainDirection.id } }}
@@ -21,7 +21,7 @@ const CatItem: React.FC<Props> = ({ mainDirection }) => {
             fill
             sizes="(max-width: 768px) 100vw"
           />
-          <span className="absolute left-1/2 top-1/2 z-99 w-full -translate-x-1/2 -translate-y-1/2 text-center text-2xl uppercase text-white">
+          <span className="absolute left-1/2 top-1/2 z-99 w-full -translate-x-1/2 -translate-y-1/2 text-center xl:text-2xl md:text-lg text-base uppercase text-white">
             {name}
           </span>
         </Link>
