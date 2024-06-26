@@ -7,7 +7,7 @@ import { useDispatch } from 'react-redux';
 import { setAdvParam } from '@/app/lib/features/adv-param';
 import Drawer from '../Drawer';
 import { useRouter } from 'next/router';
-import { MainDirection, RefDirection } from '@/types/reference';
+import { MainDirection, RefDirection, SubDirection } from '@/types/reference';
 import Image from 'next/image';
 import { BiRightArrowAlt } from 'react-icons/bi';
 import { LuArrowRightFromLine } from 'react-icons/lu';
@@ -25,13 +25,14 @@ const SearchBox: React.FC = () => {
   const { mainDirections } = useAppContext();
 
   const [isOpen, setIsOpen] = useState(false);
+  const [subID, setSubID] = useState<number>(null);
 
   const [selectedID, setSelectedID] = useState<selectedProps>({
     id: mainDirections[0]?.id,
     name: mainDirections[0]?.name,
   });
 
-  const [selectedItems, setSelectedItems] = useState<MainDirection['directions']>(
+  const [selectedItems, setSelectedItems] = useState<MainDirection['directions'] | any>(
     mainDirections[0]?.directions || []
   );
 
@@ -51,7 +52,11 @@ const SearchBox: React.FC = () => {
     );
   };
 
-  const onClickDirection = (direction: RefDirection) => {
+  const onClickDirection = (
+    mainDirection: MainDirection,
+    direction: RefDirection,
+    subDirection?: SubDirection | any
+  ) => {
     setIsOpen(false);
     router.push('/adv');
     dispatch(
@@ -59,8 +64,9 @@ const SearchBox: React.FC = () => {
         order: 'DESC',
         page: 1,
         limit: 10,
-        mainDirectionIds: [direction.mainDirectionId],
+        mainDirectionIds: [mainDirection.id],
         directionIds: [direction.id],
+        subDirectionIds: subDirection?.id && [subDirection?.id],
       })
     );
   };
@@ -96,42 +102,40 @@ const SearchBox: React.FC = () => {
                 </Button>
                 <div className="pl-6 py-2">
                   {md.id === selectedID.id
-                    ? selectedItems.map((d: RefDirection, idx: number) => {
-                        return (
-                          <div
-                            key={idx}
-                            onClick={() => onClickDirection(d)}
-                            className="mb-2 !scale-100 cursor-pointer !opacity-100 transition-all duration-300 last:mb-0 hover:text-mainColor"
+                    ? selectedItems.map((d: RefDirection, idx: number) => (
+                        <div
+                          key={idx}
+                          onClick={() => {
+                            if (!d.subDirections.length) {
+                              onClickDirection(md, d);
+                            } else {
+                              setSubID(prev => (prev ? null : d.id));
+                            }
+                          }}
+                          className="mb-2 !scale-100 cursor-pointer !opacity-100 transition-all duration-300 last:mb-0"
+                        >
+                          <span
+                            className={`text-md flex gap-1 items-center hover:text-mainColor ${d.id === subID && 'text-mainColor'}`}
                           >
-                            <span className="text-md flex gap-1 items-center">
-                              <span className="text-red-500">*</span>
-                              {d.name}
-                            </span>
-                          </div>
-                        );
-                      })
+                            <span className="text-red-500">*</span>
+                            {d.name}
+                          </span>
+                          {d.id === subID &&
+                            d.subDirections.map((sub: any, idx2: number) => (
+                              <div
+                                key={idx2}
+                                onClick={() => onClickDirection(md, d, sub)}
+                                className="mb-2 mt-2 !scale-100 cursor-pointer !opacity-100 transition-all duration-300 last:mb-0 hover:text-[#fdb15a] ml-4"
+                              >
+                                - <span className="text-md">{sub.name}</span>
+                              </div>
+                            ))}
+                        </div>
+                      ))
                     : null}
                 </div>
               </>
             ))}
-          </div>
-          <div className="md:block hidden space-y-2 w-full">
-            <div className="text-2xl font-bold borer-b borer-b-black w-full">
-              {selectedID.name || ''}
-            </div>
-            <div className="space-y-2">
-              {selectedItems.map((d: RefDirection, idx: number) => {
-                return (
-                  <div
-                    key={idx}
-                    onClick={() => onClickDirection(d)}
-                    className="mb-2 !scale-100 cursor-pointer !opacity-100 transition-all duration-300 last:mb-0 hover:text-mainColor"
-                  >
-                    <span className="text-md">{d.name}</span>
-                  </div>
-                );
-              })}
-            </div>
           </div>
         </div>
       </Drawer>
