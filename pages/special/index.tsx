@@ -35,7 +35,7 @@ const SpecialService: NextPage = () => {
     <>
       <section className="pt-30 lg:pt-30 xl:pt-30.5">
         <div className="bg-gray-100 px-4 md:px-8 2xl:px-0 ">
-          <div className="mx-auto flex max-w-screen-xl flex-row justify-between gap-7.5 py-18 lg:flex-row xl:gap-12.5">
+          <div className="mx-auto flex max-w-screen-xl flex-row justify-between gap-7.5 pt-20 pb-6 lg:flex-row xl:gap-12.5">
             <div className="flex flex-col">
               <span className="text-xl">
                 {t('totalValue')}: <span className="font-bold">{adMeta.itemCount}</span>
@@ -53,7 +53,7 @@ const SpecialService: NextPage = () => {
         </div>
         <SidebarPushable
           as={Segment}
-          className="custom-sidebar-base mx-auto mt-2 flex max-w-screen-xl flex-col gap-5 rounded-xl bg-mainProfileCardBg p-4 md:mt-6 lg:w-3/4 lg:flex-row"
+          className="custom-sidebar-base mx-auto mt-2 flex max-w-screen-2xl flex-col gap-5 rounded-xl bg-mainProfileCardBg p-4 md:mt-6 lg:w-full lg:flex-row"
         >
           <Sidebar
             animation="push"
@@ -105,7 +105,7 @@ const SpecialService: NextPage = () => {
                       <SelectItem key="ASC">Огноогоор (A-Z)</SelectItem>
                     </Select>
                   </div>
-                  <div className="grid grid-cols-2 gap-6">
+                  <div className="grid grid-cols-2 2xl:grid-cols-3 gap-6">
                     {advertisements.map((blog, key) => (
                       <BlogItem blog={blog} key={key} />
                     ))}

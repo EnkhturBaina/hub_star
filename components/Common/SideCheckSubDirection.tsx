@@ -1,15 +1,12 @@
-import { LuChevronRight, LuSettings2 } from 'react-icons/lu';
+import { LuSettings2 } from 'react-icons/lu';
 import { Accordion, AccordionItem, Checkbox, CheckboxGroup, Image } from '@nextui-org/react';
 import { RefDirection, SubDirection, SpecialServiceType } from '@/types/reference';
 import { useTypedSelector } from '@/app/lib/reducer';
 import { useDispatch } from 'react-redux';
 import { setAdvParam } from '@/app/lib/features/adv-param';
 import { useAppContext } from '@/app/app-context';
-import { BsArrowRight, BsArrowRightShort, BsBagPlus, BsPlus, BsPlusSquare } from 'react-icons/bs';
+import { BsPlus } from 'react-icons/bs';
 import { useState } from 'react';
-import { BiExpand, BiMinus, BiMinusBack, BiMinusFront, BiPlus } from 'react-icons/bi';
-import { PiPlusCircleDuotone } from 'react-icons/pi';
-import { FaMinus } from 'react-icons/fa';
 
 type Props = {
   closeFnc?: () => void;
@@ -50,7 +47,7 @@ const SideCheckSubDirection: React.FC<Props> = ({ closeFnc }) => {
     <div className={`shadow-[rgba(0,0,15,0.5)_5px_0px_5px_-5px]`}>
       <div className="flex flex-row items-center justify-between border-b py-4 pr-2 mb-2">
         <span className="ml-1 font-bold text-lg">Шүүлтүүр</span>
-        <LuSettings2 className="text-xl" />
+        <LuSettings2 className="text-xl" onClick={closeFnc} />
       </div>
       {mainDirections.map((mainDirection, index) => (
         <div className="mb-5" key={index}>

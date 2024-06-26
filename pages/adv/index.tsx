@@ -197,6 +197,18 @@ const BlogPage: NextPage = () => {
                       ) : null}
                     </div>
                     <div className="w-full my-4 grid md:grid-cols-3 grid-cols-2 gap-3 justify-between">
+                      {advParam.userType == 'TRANSPORTATION' && (
+                        <CustomSelect
+                          label="Даац"
+                          options={[
+                            { label: 'Хүнд даац', value: 'small' },
+                            { label: 'Дунд даац', value: 'medium' },
+                            { label: 'Бага даац', value: 'large' },
+                          ]}
+                          className="w-full !outline-none"
+                          size="sm"
+                        />
+                      )}
                       <CustomSelect
                         label="Эрэмбэлэх"
                         value={advParam?.order}
@@ -214,7 +226,7 @@ const BlogPage: NextPage = () => {
                         ]}
                         className="md:hidden block w-full !outline-none"
                         size="sm"
-                      />
+                      />{' '}
                       {advParam.userType == 'SUPPLIER' && (
                         <CustomSelect
                           label={'Бараа материалын төрөл'}

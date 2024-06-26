@@ -65,7 +65,7 @@ const AdvicePage: NextPage = () => {
   return (
     <section className="pt-35 lg:pt-40 xl:pt-42.5">
       <div className="bg-gray-100 px-4 md:px-8 2xl:px-0 ">
-        <div className="mx-auto flex max-w-screen-xl flex-row justify-between gap-7.5 py-18 lg:flex-row xl:gap-12.5">
+        <div className="mx-auto flex max-w-screen-xl flex-row justify-between gap-7.5 pt-8 pb-5 lg:flex-row xl:gap-12.5">
           <div className="flex flex-col">
             <span className="text-xl">
               {t('totalValue')}: <span className="font-bold">{pageMeta.itemCount}</span>
