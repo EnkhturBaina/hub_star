@@ -49,7 +49,7 @@ export const ConfirmationOrganization: React.FC<Props> = ({
       />
       <div className="font-bold mt-3">Байгууллагын гэрчилгээ</div>
       <div className="grid md:grid-cols-3 grid-cols-1 gap-3 mt-3">
-        <div className="flex h-40 cursor-pointer flex-col items-center justify-center rounded-lg bg-mainGray">
+        <div className="flex w-60 h-80 cursor-pointer flex-col items-center justify-center rounded-lg bg-mainGray">
           <ImageUpload
             className="flex justify-center items-center"
             setFileId={frontPassportImageId => setValues({ ...values, frontPassportImageId })}
@@ -57,34 +57,14 @@ export const ConfirmationOrganization: React.FC<Props> = ({
             {values?.frontPassportImageId ? (
               <Image
                 src={process.env.NEXT_PUBLIC_MEDIA_URL + values?.frontPassportImageId}
-                alt="Үнэмлэхний урд талын зураг"
+                alt="Гэрчилгээний урд талын зураг"
                 removeWrapper
-                className="z-0 w-full h-40 object-cover"
+                className="z-0 w-full h-80 object-cover"
               />
             ) : (
               <div className="w-fit h-fit margin-auto flex gap-2 items-center">
                 <BsImage className="text-2xl text-mainBgGray" />
                 <span className="text-sm">Гэрчилгээний урд талын зураг</span>
-              </div>
-            )}
-          </ImageUpload>
-        </div>
-        <div className="flex h-40 cursor-pointer flex-col items-center justify-center rounded-lg bg-mainGray">
-          <ImageUpload
-            className="!w-full flex justify-center items-center"
-            setFileId={behindPassportImageId => setValues({ ...values, behindPassportImageId })}
-          >
-            {values?.behindPassportImageId ? (
-              <Image
-                alt="Гэрчилгээний ард талын зураг"
-                src={process.env.NEXT_PUBLIC_MEDIA_URL + values.behindPassportImageId}
-                className="z-0 !w-full h-40 object-cover"
-                removeWrapper
-              />
-            ) : (
-              <div className="w-fit h-fit margin-auto flex gap-2 items-center">
-                <BsImage className="text-2xl text-mainBgGray" />
-                <span className="text-sm">Гэрчилгээний ард талын зураг</span>
               </div>
             )}
           </ImageUpload>

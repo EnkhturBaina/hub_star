@@ -55,7 +55,7 @@ export const ConfirmationCitizen: React.FC<Props> = ({ values, setValues, mainDi
                 src={process.env.NEXT_PUBLIC_MEDIA_URL + values?.frontPassportImageId}
                 alt="Үнэмлэхний урд талын зураг"
                 removeWrapper
-                className="z-0 w-full h-40 object-cover"
+                className="z-0 !w-full h-40 object-cover"
               />
             ) : (
               <div className="w-fit h-fit margin-auto flex gap-2 items-center">

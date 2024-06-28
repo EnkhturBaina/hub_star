@@ -34,7 +34,7 @@ import { useSearchParams } from 'next/navigation';
 import BlogItem from '@/components/Blog/BlogItem';
 import { dateFormat, moneyFormat } from '@/utils/util';
 import { BiHeart } from 'react-icons/bi';
-import { ShoppingCartIcon, UserCircleIcon, UserIcon } from '@heroicons/react/20/solid';
+import { ShoppingCartIcon, UserCircleIcon } from '@heroicons/react/20/solid';
 
 const SingleBlogPage: NextPage = () => {
   const { t } = useTranslation();
@@ -231,7 +231,7 @@ const SingleBlogPage: NextPage = () => {
                       <div
                         className="cursor-pointer"
                         onClick={() => {
-                          if (user.id == data.createdBy) {
+                          if (user.userType == 'SUBSCRIBER') {
                             setData({ ...data, process: 'DONE' });
                             onOpen();
                           }

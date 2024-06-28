@@ -14,8 +14,10 @@ import { GetStaticProps } from 'next';
 import { withTranslationProps } from '@/app/lib/with-translation';
 import { ConfirmationOrganization } from '@/components/Profile/Content/confirmation-organization';
 import { ConfirmationCitizen } from '@/components/Profile/Content/confirmation-citizen';
+import { useRouter } from 'next/router';
 
 const Confirmation = () => {
+  const router = useRouter();
   const { user, setUser } = useAppContext();
   const [step, setStep] = useState<number>(1);
   const [mainDirections, setMainDirections] = useState<MainDirection[]>([]);
@@ -26,7 +28,7 @@ const Confirmation = () => {
   }, []);
 
   const getMainDirection = useCallback(() => {
-    ReferenceService.getMainDirection({ userType: values?.userType })
+    ReferenceService.getMainDirection({ userType: values?.userType, lang: router.locale })
       .then(res => {
         if (res.success) {
           setMainDirections(res.response);

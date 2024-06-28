@@ -18,6 +18,7 @@ import UserTypeMenu from './UserTypeMenu';
 import { Menu, MenuButton, MenuItem, MenuItems, Transition } from '@headlessui/react';
 import { HeartIcon, PencilSquareIcon, TrashIcon } from '@heroicons/react/20/solid';
 import { classNames } from '@/utils/util';
+import { ReferenceService } from '@/service/reference/reference.service';
 
 const Header = () => {
   const { user } = useAppContext();
@@ -46,6 +47,13 @@ const Header = () => {
     router.push('/');
   };
 
+  useEffect(() => {
+    ReferenceService.getNotification({ authorId: user?.id }).then(res => {
+      if (res.success) {
+        setCountNoti(res.response.reduce((total, item) => total + (item.isSeen ? 0 : 1), 0));
+      }
+    });
+  }, [user]);
   useEffect(() => {
     if (socket) {
       console.log('Attempting to connect...');
