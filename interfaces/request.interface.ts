@@ -18,6 +18,7 @@ export interface IAdParam extends IPageOptions {
   districtId?: number;
   khorooId?: number;
   materialId?: number;
+  machineryTypeId?: number;
   specialService?: SpecialServiceType;
   isSpecial?: boolean;
 }
@@ -112,6 +113,6 @@ export interface IRefNotificationParam {
 export interface IMachineryParam {
   id?: number;
   name?: string;
-  type?: string;
+  type?: 'DEDICATION' | 'MACHINERY_TYPE' | 'MARK' | 'POWER' | 'MODEL' | 'MATERIAL';
   parentId?: number;
 }

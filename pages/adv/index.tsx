@@ -24,6 +24,7 @@ const BlogPage: NextPage = () => {
   const advParam = useTypedSelector(state => state.advParam);
   const dispatch = useDispatch();
   const [materials, setMaterials] = useState<MachineryType[]>([]);
+  const [machineryTypes, setMachineryTypes] = useState<MachineryType[]>([]);
   const [provinces, setProvinces] = useState<Address[]>([]);
   const [districts, setDistricts] = useState<Address[]>([]);
   const [khoroos, setKhoroos] = useState<Address[]>([]);
@@ -70,6 +71,12 @@ const BlogPage: NextPage = () => {
       ReferenceService.getMachinery({ type: 'MATERIAL' }).then(response => {
         if (response.success) {
           setMaterials(response.response);
+        }
+      });
+    } else if (advParam.userType == 'TRANSPORTATION' || advParam.userType == 'MACHINERY') {
+      ReferenceService.getMachinery({ type: 'MACHINERY_TYPE' }).then(response => {
+        if (response.success) {
+          setMachineryTypes(response.response);
         }
       });
     }
@@ -197,16 +204,19 @@ const BlogPage: NextPage = () => {
                       ) : null}
                     </div>
                     <div className="w-full my-4 grid md:grid-cols-3 grid-cols-2 gap-3 justify-between">
-                      {advParam.userType == 'TRANSPORTATION' && (
+                      {(advParam.userType == 'MACHINERY' || advParam.userType == 'TRANSPORTATION') && (
                         <CustomSelect
                           label="Даац"
-                          options={[
-                            { label: 'Хүнд даац', value: 'small' },
-                            { label: 'Дунд даац', value: 'medium' },
-                            { label: 'Бага даац', value: 'large' },
-                          ]}
+                          value={advParam.machineryTypeId}
+                          options={machineryTypes.map(item => ({
+                            value: item.id,
+                            label: item.name,
+                          }))}
                           className="w-full !outline-none"
                           size="sm"
+                          onSelectionChange={value => {
+                            onAdvParam({ ...advParam, machineryTypeId: Number(value) });
+                          }}
                         />
                       )}
                       <CustomSelect
