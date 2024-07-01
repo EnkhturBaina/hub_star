@@ -1,7 +1,7 @@
 'use client';
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { MenuItem, Menu, Label } from 'semantic-ui-react';
-import { Divider } from '@nextui-org/react';
+import { Divider, Input, ModalBody } from '@nextui-org/react';
 import { CiLogout } from 'react-icons/ci';
 import { usePathname, useRouter } from 'next/navigation';
 import {
@@ -15,6 +15,7 @@ import {
 import { AuthService } from '@/service/authentication/authentication.service';
 import { removeAccessToken } from '@/service/api.service';
 import { ProfileRoute } from '@/types/reference';
+import { useAppContext } from '@/app/app-context';
 
 const profileRoutes: ProfileRoute[] = [
   {
@@ -81,11 +82,18 @@ const profileRoutes: ProfileRoute[] = [
 const LeftMenu = () => {
   const router = useRouter();
   const pathUrl = usePathname();
+  const [delValue, setDelValue] = useState<string>();
+  const { user } = useAppContext();
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const {
+    isOpen: isOpenDelModal,
+    onOpen: onOpenDelModal,
+    onOpenChange: onOpenDelChange,
+  } = useDisclosure();
+
   const handleItemClick = (item: ProfileRoute) => {
     router.push(item.url);
   };
-
-  const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   return (
     <div className="w-full rounded-xl bg-white px-1 py-2 dark:border-default-100">
@@ -118,6 +126,18 @@ const LeftMenu = () => {
             <CiLogout className="text-2xl !text-red-600" />
           </Label>
         </MenuItem>
+        <MenuItem
+          name="logout"
+          onClick={onOpenDelModal}
+          className={`!m-2 !flex !items-center !justify-between !rounded-xl !py-2 !leading-loose ${
+            pathUrl == 'logout' ? '!bg-mainColor !text-white' : '!text-red-600'
+          }`}
+        >
+          Профайл устгах
+          <Label className="!bg-transparent">
+            <CiLogout className="text-2xl !text-red-600" />
+          </Label>
+        </MenuItem>
       </Menu>
       <Modal
         backdrop="opaque"
@@ -131,7 +151,7 @@ const LeftMenu = () => {
           {onClose => (
             <>
               <ModalHeader className="flex flex-col gap-1">Та системээс гарах уу?</ModalHeader>
-              <ModalFooter className='w-full flex justify-start items-center pl-0'>
+              <ModalFooter className="w-full flex justify-start items-center pl-0">
                 <Button color="default" variant="light" onPress={onClose}>
                   Хаах
                 </Button>
@@ -148,6 +168,47 @@ const LeftMenu = () => {
                   }}
                 >
                   Гарах
+                </Button>
+              </ModalFooter>
+            </>
+          )}
+        </ModalContent>
+      </Modal>
+      <Modal
+        backdrop="opaque"
+        isOpen={isOpenDelModal}
+        onOpenChange={onOpenDelChange}
+        classNames={{
+          backdrop: 'bg-gradient-to-t from-zinc-900 to-zinc-900/10 backdrop-opacity-20',
+        }}
+      >
+        <ModalContent>
+          {onClose => (
+            <>
+              <ModalHeader className="flex flex-col gap-1">
+                Та дараах 448302 тоог оруулаад `Устгах` товчийг дарна уу?
+              </ModalHeader>
+              <ModalBody>
+                <Input value={delValue} onChange={e => setDelValue(e.target.value)} />
+              </ModalBody>
+              <ModalFooter className="w-full flex justify-start items-center pl-0">
+                <Button color="default" variant="light" onPress={onClose}>
+                  Хаах
+                </Button>
+                <Button
+                  className="rounded-xl bg-mainColor font-bold leading-none text-white"
+                  isDisabled={delValue !== '448302'}
+                  onPress={() => {
+                    onClose();
+                    AuthService.removeUser(user.id).then(response => {
+                      if (response.success) {
+                        removeAccessToken();
+                        router.push('/');
+                      }
+                    });
+                  }}
+                >
+                  Устгах
                 </Button>
               </ModalFooter>
             </>

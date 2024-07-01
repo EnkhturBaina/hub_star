@@ -37,6 +37,9 @@ const changePassword = (changePassword: IChangePassword): Promise<IResponse> => 
 const updateById = (id: number, user: Users): Promise<IResponseProfile> => {
   return api.patch(`/users/${id}`, user);
 };
+const removeUser = (id: number): Promise<IResponseProfile> => {
+  return api.patch(`/users/${id}`, { isActive: false });
+};
 export const AuthService = {
   register,
   login,
@@ -47,4 +50,5 @@ export const AuthService = {
   otherProfile,
   changePassword,
   updateById,
+  removeUser,
 };
