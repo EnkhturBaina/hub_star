@@ -296,12 +296,9 @@ const SingleBlogPage: NextPage = () => {
                   <UserCircleIcon width={18} height={18} />
                   Профайл үзэх
                 </Button>
-                {data?.process == 'DOING' && user?.id == data.createdBy && (
+                {data?.process == 'DOING' && user.userType == 'SUBSCRIBER' && (
                   <Button
-                    onClick={() => {
-                      setData({ ...data, process: 'CREATED' });
-                      onOpen();
-                    }}
+                    onClick={() => onOpen()}
                     radius="full"
                     className="mb-2 w-full rounded-md bg-mainColor font-bold leading-none text-white"
                   >

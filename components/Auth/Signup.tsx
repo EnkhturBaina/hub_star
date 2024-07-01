@@ -14,6 +14,7 @@ type Props = {
 };
 const Signup: React.FC<Props> = ({ step, setStep, setDetails }) => {
   const [email, setEmail] = useState<string>('');
+  const [phone, setPhone] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [password2, setPassword2] = useState<string>('');
 
@@ -38,7 +39,7 @@ const Signup: React.FC<Props> = ({ step, setStep, setDetails }) => {
       toast.error('Нууц тохирохгүй байна.');
     } else {
       try {
-        AuthService.register({ email, password })
+        AuthService.register({ email, phone, password })
           .then(response => {
             if (response.success) {
               setDetails(response.response.details);
@@ -74,7 +75,25 @@ const Signup: React.FC<Props> = ({ step, setStep, setDetails }) => {
         isInvalid={isInvalid}
         color={isInvalid ? 'danger' : 'default'}
         errorMessage={isInvalid && 'И-Мэйл хаягаа зөв оруулна уу.'}
+        value={email}
         onValueChange={setEmail}
+      />
+      <Input
+        key="phone"
+        type="text"
+        label="Утас"
+        labelPlacement="outside"
+        placeholder="Утас"
+        radius="sm"
+        size="lg"
+        variant="bordered"
+        classNames={{
+          base: 'mb-8',
+          label: 'font-bold',
+          inputWrapper: ['custom-input-wrapper', 'bg-white'],
+        }}
+        value={phone}
+        onValueChange={setPhone}
       />
       <Input
         key="password"
@@ -123,23 +142,6 @@ const Signup: React.FC<Props> = ({ step, setStep, setDetails }) => {
           Нэвтрэх
         </Link>
       </div>
-      <Divider horizontal className="!my-6 !text-xs !font-normal !normal-case !text-gray-400">
-        Эсвэл
-      </Divider>
-      <Button
-        startContent={<Image src="/facebook.png" alt="google" height="20" width="20" />}
-        radius="full"
-        className="mb-2 flex w-full items-center justify-start rounded-md bg-primary font-bold leading-none text-white"
-      >
-        Continue with Facebook
-      </Button>
-      <Button
-        startContent={<Image src="/google.png" alt="facebook" height="20" width="20" />}
-        radius="full"
-        className="mb-2 flex w-full justify-start rounded-md bg-white font-bold leading-none text-gray-400 shadow-md"
-      >
-        Continue with Google
-      </Button>
     </div>
   );
 };
