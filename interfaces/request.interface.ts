@@ -60,7 +60,7 @@ export interface ICreateAd {
 }
 export interface IUser {
   email: string;
-  phone: string;
+  phone?: string;
   password: string;
 }
 export interface IEmailOtp {
