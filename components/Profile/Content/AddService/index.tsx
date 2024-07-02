@@ -233,7 +233,9 @@ const AddService: React.FC<Props> = ({ isSpecial, setIsAddService, updateAdv }) 
             toast.error('Тайлбар оруулна уу.');
           }
         }
-        createAdRequest();
+        if (!!createAd.isTermOfService) {
+          createAdRequest();
+        }
       }
     }
   };
@@ -383,7 +385,7 @@ const AddService: React.FC<Props> = ({ isSpecial, setIsAddService, updateAdv }) 
           </div>
         </motion.div>
       )}
-      <div className="flex flex-row justify-between">
+      <div className="flex flex-row justify-between p-2">
         <Button
           variant="bordered"
           radius="sm"

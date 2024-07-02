@@ -51,7 +51,7 @@ const FabButton = () => {
 
   return (
     // FAB button container
-    <div className="fixed bottom-25 right-5 flex flex-col items-center z-99999">
+    <div className="fixed md:bottom-25 bottom-6 md:right-5 right-0 flex flex-col items-center z-99999">
       <div
         className={`w-fit rounded-full p-3 bg-white shadow-lg cursor-pointer mb-2 ${isFabEnabled ? 'invisible' : 'visible'}`}
         onClick={handleHome}

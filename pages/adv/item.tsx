@@ -2,6 +2,7 @@
 import { useTranslation } from 'react-i18next';
 import {
   Button,
+  Image,
   Modal,
   ModalBody,
   ModalContent,
@@ -10,7 +11,6 @@ import {
   Textarea,
   useDisclosure,
 } from '@nextui-org/react';
-import Image from 'next/image';
 import BreadCrumbs from '@/components/BreadCrumbs';
 import { FaStar } from 'react-icons/fa';
 import { Fragment, useCallback, useEffect, useState } from 'react';
@@ -206,8 +206,19 @@ const SingleBlogPage: NextPage = () => {
                   </div>
                 </div>
 
-                <div className="blog-details text-justify">
-                  <p>{data?.desciption}</p>
+                <div className="blog-details w-full flex items-center justify-between text-justify">
+                  <p className="m-0 p-0 font-semibold text-lg bold">
+                    {data?.createdUser?.organizationName}
+                  </p>
+                  <Image
+                    src={
+                      process.env.NEXT_PUBLIC_MEDIA_URL +
+                      data?.createdUser?.organizationLogoId +
+                      '#toolbar=0'
+                    }
+                    className="w-[66px] h-[60px] object-cover"
+                    alt="organizition-logo"
+                  />
                 </div>
               </div>
             </div>
@@ -215,8 +226,11 @@ const SingleBlogPage: NextPage = () => {
               <div className="flex flex-col gap-y-2">
                 <div>
                   <div className="w-full flex justify-between items-center gap-2">
-                    <div className="flex gap-1 items-center text-xl font-bold">
-                      #{data?.id} {data?.title}
+                    <div className="w-full flex flex-wrap gap-1 items-center text-xl font-bold !text-wrap">
+                      #{data?.id}
+                      <div className="!w-full text-wrap break-words overflow-hidden">
+                        {data?.title}
+                      </div>
                     </div>
                     <Button
                       radius="sm"

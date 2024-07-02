@@ -96,23 +96,32 @@ const Notification: NextPage = () => {
                 <div className={`notification ${item.isSeen ? 'seen' : 'unseen'}`}>
                   <div className="content">
                     <div
-                      className="docImg"
+                      className="docImg md:p-auto !p-2"
                       onClick={() => {
                         handleSeen(item);
                       }}
                     >
-                      <Image src={docSvg} color="red" width={24} height={24} alt="sada" />
+                      <Image
+                        src={docSvg}
+                        color="red"
+                        width={24}
+                        height={24}
+                        alt="sada"
+                        className="md:w-auto md:h-auto !max-w-[24px] !max-h-[24px] "
+                      />
                     </div>
                     <div className="flex flex-col gap-2">
-                      <p className="desc">{item.description}</p>
-                      <Link href={'/profile/information'} className="desc">
+                      <p className="desc md:!text-base !text-sm">{item.description}</p>
+                      <Link href={'/profile/information'} className="desc md:!text-base !text-sm">
                         {item.createdUser.lastName.substring(0, 1) +
                           '.' +
                           item.createdUser.firstName}
                       </Link>
                     </div>
                   </div>
-                  <p className="nofi-time">{format(item.createdAt, 'HH:mm')}</p>
+                  <p className="nofi-time !mr-1 sm:!p-auto !px-1.5 !py-0.5 md:!text-base text-sm">
+                    {format(item.createdAt, 'HH:mm')}
+                  </p>
                 </div>
                 <div className="w-full h-[1px] bg-[#DADADA]" />
               </Fragment>

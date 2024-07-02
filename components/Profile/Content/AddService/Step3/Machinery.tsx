@@ -60,7 +60,7 @@ const Machinery: React.FC<IProps> = ({
           options={machineryType.map(item => ({ value: item.id, label: item.name }))}
         />
       </div>
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1  gap-4">
         <CustomSelect
           label="Марк"
           value={adData?.markId?.toString()}

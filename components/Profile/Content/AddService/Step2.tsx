@@ -72,7 +72,7 @@ const Step2: React.FC<IProps> = ({ adData, setAdData }) => {
       className="mb-4 grid w-full grid-cols-1 gap-y-4 overflow-hidden p-2"
     >
       <div
-        className={`grid ${adData?.userType == 'SUBSCRIBER' ? 'grid-cols-1' : 'grid-cols-2'} gap-4`}
+        className={`grid ${adData?.userType == 'SUBSCRIBER' ? 'grid-cols-1' : 'md:grid-cols-2 grid-cols-1'} gap-4`}
       >
         <Input
           key="postTitle"
@@ -83,6 +83,7 @@ const Step2: React.FC<IProps> = ({ adData, setAdData }) => {
           radius="sm"
           size="lg"
           variant="bordered"
+          className="w-full"
           classNames={{
             label: 'font-bold',
             inputWrapper: ['custom-input-wrapper', 'bg-white'],
@@ -119,7 +120,7 @@ const Step2: React.FC<IProps> = ({ adData, setAdData }) => {
           />
         ) : null}
       </div>
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid md:grid-cols-3 sm:grid-cols-2 gap-4">
         <CustomSelect
           label="Аймаг, Хот"
           value={adData?.provinceId?.toString()}

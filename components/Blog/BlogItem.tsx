@@ -72,15 +72,14 @@ const BlogItem = ({ blog }: { blog: Blog }) => {
         </Link>
 
         <div className="flex flex-col px-3 pb-2 justify-between h-20">
-          <h3 className="!mb-1 !mt-2 line-clamp-2 inline-block text-sm font-semibold text-black duration-300 hover:text-primary">
+          <h3 className="!mb-1 !mt-2 line-clamp-2 inline-block text-sm font-semibold text-black duration-300 hover:text-primary !text-ellipsis">
             <Link href={{ pathname: '/adv/item', query: { id } }}>{title}</Link>
           </h3>
           {/* <span className="line-clamp-3">{`${desciption?.slice(0, 30)}...`}</span> */}
           <div className="flex justify-between">
-            <span className="md:text-base text-sm line-clamp-3 !m-0 !p-0 min-h-8 max-h-8 flex items-center">
               {t(blogType)}
-            </span>
-            <strong className="md:text-lg text-base text-orange-500 underline underline-offset-2">
+            </strong>
+            <strong className="min-w-fit w-fit flex justify-end items-end md:text-lg sm:text-sm text-xs text-orange-500 underline underline-offset-2">
               {moneyFormat(blog?.price)} ₮
             </strong>
           </div>
