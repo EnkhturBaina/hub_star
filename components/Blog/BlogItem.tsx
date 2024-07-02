@@ -77,6 +77,7 @@ const BlogItem = ({ blog }: { blog: Blog }) => {
           </h3>
           {/* <span className="line-clamp-3">{`${desciption?.slice(0, 30)}...`}</span> */}
           <div className="flex justify-between">
+            <strong className="w-fit md:text-base sm:text-sm text-xs line-clamp-3 !m-0 !p-0 h-fit flex items-center">
               {t(blogType)}
             </strong>
             <strong className="min-w-fit w-fit flex justify-end items-end md:text-lg sm:text-sm text-xs text-orange-500 underline underline-offset-2">
