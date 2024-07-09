@@ -1,35 +1,23 @@
 'use client';
 import { Button, Input } from '@nextui-org/react';
-import Image from 'next/image';
 import Link from 'next/link';
-import { useMemo, useState } from 'react';
 import toast from 'react-hot-toast';
 import { AuthService } from '@/service/authentication/authentication.service';
 
 type Props = {
-  email: string;
-  setEmail: React.Dispatch<React.SetStateAction<string>>;
+  username: string;
+  setUsername: React.Dispatch<React.SetStateAction<string>>;
   step: number;
   setStep: React.Dispatch<React.SetStateAction<number>>;
   setDetails: React.Dispatch<React.SetStateAction<string>>;
 };
-const EmailOtp: React.FC<Props> = ({ email, setEmail, step, setStep, setDetails }) => {
-  const validateEmail = value => value.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}$/i);
-
-  const isInvalid = useMemo(() => {
-    if (email === '') return false;
-
-    return validateEmail(email) ? false : true;
-  }, [email]);
-
+const SendOtp: React.FC<Props> = ({ username, setUsername, step, setStep, setDetails }) => {
   const register = () => {
-    if (email == '') {
+    if (username == '') {
       toast.error('И-Мэйл хаягаа оруулна уу.');
-    } else if (isInvalid) {
-      toast.error('И-Мэйл хаяг буруу байна.');
     } else {
       try {
-        AuthService.emailOtp({ email, type: 'Forget' })
+        AuthService.emailOtp({ username, type: 'Forget' })
           .then(response => {
             if (response.success) {
               setDetails(response.response.details);
@@ -62,10 +50,8 @@ const EmailOtp: React.FC<Props> = ({ email, setEmail, step, setStep, setDetails 
           label: 'font-bold',
           inputWrapper: ['custom-input-wrapper', 'bg-white'],
         }}
-        isInvalid={isInvalid}
-        color={isInvalid ? 'danger' : 'default'}
-        errorMessage={isInvalid && 'И-Мэйл хаягаа зөв оруулна уу.'}
-        onValueChange={setEmail}
+        color={'default'}
+        onValueChange={setUsername}
       />
       <Button
         radius="full"
@@ -84,4 +70,4 @@ const EmailOtp: React.FC<Props> = ({ email, setEmail, step, setStep, setDetails 
   );
 };
 
-export default EmailOtp;
+export default SendOtp;

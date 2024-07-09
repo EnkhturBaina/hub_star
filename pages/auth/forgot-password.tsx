@@ -2,14 +2,14 @@ import { NextPage } from 'next';
 import { SetStateAction, useState } from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import EmailOtp from '@/components/Auth/EmailOtp';
+import SendOtp from '@/components/Auth/SendOtp';
 import Verification from '@/components/Auth/Verification';
 import ChangePassword from '@/components/Auth/ChangePassword';
 
 const ForgotPasswordPage: NextPage = () => {
   const [step, setStep] = useState<number>(1);
   const [details, setDetails] = useState<string>('');
-  const [email, setEmail] = useState<string>('');
+  const [username, setUsername] = useState<string>('');
   const [accessToken, setAccessToken] = useState<string>('');
 
   return (
@@ -44,9 +44,9 @@ const ForgotPasswordPage: NextPage = () => {
           className="animate_top flex h-2/3 items-center justify-center self-center sm:w-full md:h-full md:w-1/2 lg:h-full lg:w-1/2"
         >
           {step == 1 && (
-            <EmailOtp
-              email={email}
-              setEmail={setEmail}
+            <SendOtp
+              username={username}
+              setUsername={setUsername}
               step={step}
               setStep={setStep}
               setDetails={setDetails}
@@ -64,7 +64,7 @@ const ForgotPasswordPage: NextPage = () => {
           {step == 3 && (
             <div>
               {accessToken}
-              <ChangePassword email={email} token={accessToken} step={step} setStep={setStep} />
+              <ChangePassword token={accessToken} step={step} setStep={setStep} />
             </div>
           )}
         </motion.div>

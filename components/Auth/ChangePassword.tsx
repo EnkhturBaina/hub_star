@@ -1,19 +1,16 @@
 'use client';
 import { Button, Input } from '@nextui-org/react';
-import Image from 'next/image';
-import Link from 'next/link';
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { AuthService } from '@/service/authentication/authentication.service';
 import { useRouter } from 'next/router';
 
 type Props = {
-  email: string;
   token: string;
   step: number;
   setStep: React.Dispatch<React.SetStateAction<number>>
 };
-const ChangePassword: React.FC<Props> = ({ email, token, step, setStep }) => {
+const ChangePassword: React.FC<Props> = ({ token, step, setStep }) => {
   const router = useRouter();
   const [password, setPassword] = useState<string>('');
 
@@ -22,7 +19,7 @@ const ChangePassword: React.FC<Props> = ({ email, token, step, setStep }) => {
       toast.error('Нууц үгээ оруулна уу.');
     } else {
       try {
-        AuthService.changePassword({ email, token, password })
+        AuthService.changePassword({ token, password })
           .then(response => {
             if (response.success) {
               router.push('/auth/signin');

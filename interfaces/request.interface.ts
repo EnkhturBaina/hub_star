@@ -72,7 +72,6 @@ export interface IVerifyOtp {
   type: OtpType;
 }
 export interface IChangePassword {
-  email: string;
   password: string;
   token: string;
 }
