@@ -38,7 +38,7 @@ const updateById = (id: number, user: Users): Promise<IResponseProfile> => {
   return api.patch(`/users/${id}`, user);
 };
 const removeUser = (id: number): Promise<IResponseProfile> => {
-  return api.patch(`/users/${id}`, { isActive: false });
+  return api.delete(`/users/${id}`);
 };
 export const AuthService = {
   register,

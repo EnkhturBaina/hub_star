@@ -2,6 +2,7 @@
   "email": "И-мэйл",
   "emailOrPhone": "И-мэйл эсвэл утас",
   "password": "Нууц үг",
+  "confirmPassword": "Нууц үг давтах",
   "forgotPassword": "Нууц үг мартсан",
   "login": "Нэвтрэх",
   "doYouHaveAnAccount": "Та бүртгэлтэй юу?",

@@ -2,6 +2,7 @@
   "email": "И-мэйл",
   "emailOrPhone": "郵件或電話",
   "password": "密碼",
+  "confirmPassword": "確認密碼",
   "forgotPassword": "忘記密碼",
   "login": "登入",
   "doYouHaveAnAccount": "你有沒有帳號？",

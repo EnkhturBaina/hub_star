@@ -2,6 +2,7 @@
   "email": "E-mail",
   "emailOrPhone": "E-mail or Phone",
   "password": "Password",
+  "confirmPassword": "Confirm password",
   "forgotPassword": "Forgot password",
   "login": "Login",
   "doYouHaveAnAccount": "Do you have an account?",

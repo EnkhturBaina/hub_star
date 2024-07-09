@@ -1,11 +1,10 @@
 'use client';
 import { Button, Input } from '@nextui-org/react';
-import Image from 'next/image';
 import Link from 'next/link';
-import { useMemo, useState } from 'react';
-import { Divider } from 'semantic-ui-react';
+import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { AuthService } from '@/service/authentication/authentication.service';
+import { useTranslation } from 'react-i18next';
 
 type Props = {
   step: number;
@@ -13,24 +12,14 @@ type Props = {
   setDetails: React.Dispatch<React.SetStateAction<string>>;
 };
 const Signup: React.FC<Props> = ({ step, setStep, setDetails }) => {
-  const [email, setEmail] = useState<string>('');
-  const [phone, setPhone] = useState<string>('');
+  const { t } = useTranslation();
+  const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [password2, setPassword2] = useState<string>('');
 
-  const validateEmail = value => value.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}$/i);
-
-  const isInvalid = useMemo(() => {
-    if (email === '') return false;
-
-    return validateEmail(email) ? false : true;
-  }, [email]);
-
   const register = () => {
-    if (email == '') {
-      toast.error('И-Мэйл хаягаа оруулна уу.');
-    } else if (isInvalid) {
-      toast.error('И-Мэйл хаяг буруу байна.');
+    if (username == '') {
+      toast.error('И-Мэйл эсвэл утсаа оруулна уу.');
     } else if (password == '') {
       toast.error('Нууц үгээ оруулна уу.');
     } else if (password2 == '') {
@@ -39,7 +28,7 @@ const Signup: React.FC<Props> = ({ step, setStep, setDetails }) => {
       toast.error('Нууц тохирохгүй байна.');
     } else {
       try {
-        AuthService.register({ email, phone, password })
+        AuthService.register({ username, password })
           .then(response => {
             if (response.success) {
               setDetails(response.response.details);
@@ -61,9 +50,9 @@ const Signup: React.FC<Props> = ({ step, setStep, setDetails }) => {
       <Input
         key="username"
         type="text"
-        label="И-Мэйл"
+        label={t('emailOrPhone')}
         labelPlacement="outside"
-        placeholder="И-Мэйл"
+        placeholder={t('emailOrPhone')}
         radius="sm"
         size="lg"
         variant="bordered"
@@ -72,35 +61,15 @@ const Signup: React.FC<Props> = ({ step, setStep, setDetails }) => {
           label: 'font-bold',
           inputWrapper: ['custom-input-wrapper', 'bg-white'],
         }}
-        isInvalid={isInvalid}
-        color={isInvalid ? 'danger' : 'default'}
-        errorMessage={isInvalid && 'И-Мэйл хаягаа зөв оруулна уу.'}
-        value={email}
-        onValueChange={setEmail}
-      />
-      <Input
-        key="phone"
-        type="text"
-        label="Утас"
-        labelPlacement="outside"
-        placeholder="Утас"
-        radius="sm"
-        size="lg"
-        variant="bordered"
-        classNames={{
-          base: 'mb-8',
-          label: 'font-bold',
-          inputWrapper: ['custom-input-wrapper', 'bg-white'],
-        }}
-        value={phone}
-        onValueChange={setPhone}
+        value={username}
+        onValueChange={setUsername}
       />
       <Input
         key="password"
         type="password"
-        label="Нууц үг"
+        label={t('password')}
         labelPlacement="outside"
-        placeholder="Нууц үг"
+        placeholder={t('password')}
         radius="sm"
         size="lg"
         variant="bordered"
@@ -115,9 +84,9 @@ const Signup: React.FC<Props> = ({ step, setStep, setDetails }) => {
       <Input
         key="repeatPassword"
         type="password"
-        label="Нууц үг давтах"
+        label={t('confirmPassword')}
         labelPlacement="outside"
-        placeholder="Нууц үг давтах"
+        placeholder={t('confirmPassword')}
         radius="sm"
         size="lg"
         variant="bordered"

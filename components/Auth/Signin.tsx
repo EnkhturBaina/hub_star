@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import { Divider } from 'semantic-ui-react';
 import toast from 'react-hot-toast';
 import { useTranslation } from 'next-i18next';
@@ -13,17 +13,17 @@ import { useTranslation } from 'next-i18next';
 const Signin = () => {
   const router = useRouter();
   const { t } = useTranslation();
-  const [email, setEmail] = useState<string>('');
+  const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
 
   const login = () => {
-    if (email == '') {
+    if (username == '') {
       toast.error('И-Мэйл эсвэл утас оруулна уу.');
     } else if (password == '') {
       toast.error('Нууц үгээ оруулна уу.');
     } else {
       try {
-        AuthService.login({ email, password })
+        AuthService.login({ username, password })
           .then(response => {
             setAccessToken(response.response.accessToken);
             router.push('/');
@@ -87,7 +87,7 @@ const Signin = () => {
                   label: 'font-bold',
                   inputWrapper: ['custom-input-wrapper', 'bg-white'],
                 }}
-                onValueChange={setEmail}
+                onValueChange={setUsername}
               />
               <Input
                 key="password"
@@ -124,26 +124,6 @@ const Signin = () => {
                   {t('register')}
                 </Link>
               </div>
-              {/* <Divider
-                horizontal
-                className="!my-6 !text-xs !font-normal !normal-case !text-gray-400"
-              >
-                {t('or')}
-              </Divider>
-              <Button
-                startContent={<Image src="/facebook.png" alt="google" height="20" width="20" />}
-                radius="full"
-                className="mb-2 flex w-full items-center justify-start rounded-md bg-primary font-bold leading-none text-white"
-              >
-                {t('continueWithFacebook')}
-              </Button>
-              <Button
-                startContent={<Image src="/google.png" alt="facebook" height="20" width="20" />}
-                radius="full"
-                className="mb-2 flex w-full justify-start rounded-md bg-white font-bold leading-none text-gray-400 shadow-md"
-              >
-                {t('continueWithGoogle')}
-              </Button> */}
             </div>
           </motion.div>
         </div>

@@ -59,12 +59,11 @@ export interface ICreateAd {
   doingBy?: number;
 }
 export interface IUser {
-  email: string;
-  phone?: string;
+  username: string;
   password: string;
 }
 export interface IEmailOtp {
-  email: string;
+  username: string;
   type: OtpType;
 }
 export interface IVerifyOtp {

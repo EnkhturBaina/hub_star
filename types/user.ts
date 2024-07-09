@@ -4,6 +4,7 @@ import { LocalFile, MainDirection, UserType } from './reference';
 export type Users = {
   id?: number;
   email?: string;
+  username?: string;
   firstName?: string;
   lastName?: string;
   phone?: string;

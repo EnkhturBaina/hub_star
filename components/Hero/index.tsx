@@ -1,20 +1,16 @@
-// 'use client';
+import { Divider } from '@nextui-org/react';
 import Image from 'next/image';
-import { Button, Divider, Skeleton } from '@nextui-org/react';
-import { Popover, PopoverTrigger, PopoverContent } from '@nextui-org/react';
-import { BsChevronRight, BsPlus } from 'react-icons/bs';
+import { BsPlus } from 'react-icons/bs';
 import { Fade } from 'react-slideshow-image';
 import 'react-slideshow-image/dist/styles.css';
 import { CiCircleChevRight, CiCircleChevLeft } from 'react-icons/ci';
 import Feature from '../Features';
 import Blog from '../Blog';
 import GridCategory from '../GridCategory';
-import PaginationComp from '../Pagination';
 import LeftDirections from '../Skeleton/LeftDirections';
 import BlogItemSkeleton from '../Skeleton/BlogItemSkeleton';
 import { useAppContext } from '@/app/app-context';
 import { RefDirection, MainDirection, RefNews, SubDirection } from '@/types/reference';
-import { Popup } from 'semantic-ui-react';
 import { Fragment, useEffect, useState } from 'react';
 import { ReferenceService } from '@/service/reference/reference.service';
 import { useRouter } from 'next/router';
@@ -86,6 +82,7 @@ const Hero = () => {
                             setParentId(md.id);
                           }}
                         >
+                          {process.env.NEXT_PUBLIC_MEDIA_URL + md.logoId}
                           <Image
                             src={process.env.NEXT_PUBLIC_MEDIA_URL + md.logoId}
                             alt="add"
@@ -101,78 +98,6 @@ const Hero = () => {
                             {md?.name}
                           </h4>
                         </div>
-                        {/* <ul>
-                          {md.directions.map((d: RefDirection, index: number) => {
-                            return (
-                              <Popup
-                                key={index}
-                                on={'click'}
-                                disabled={d.subDirections.length <= 0}
-                                content={
-                                  d.subDirections.length !== 0 && (
-                                    <div className="w-40 min-w-max items-start p-4">
-                                      <ul>
-                                        {d.subDirections?.map(
-                                          (sub: SubDirection, index: number) => {
-                                            return (
-                                              <li
-                                                key={index}
-                                                className="mb-3 cursor-pointer !text-black transition-all duration-300 last:mb-0 hover:text-mainColor max-w-96"
-                                              >
-                                                <div
-                                                  onClick={() => {
-                                                    dispatch(
-                                                      setAdvParam({
-                                                        mainDirectionIds: [md.id],
-                                                        directionIds: [d.id],
-                                                        subDirectionIds: [sub.id],
-                                                        order: 'DESC',
-                                                        page: 1,
-                                                        limit: 10,
-                                                      })
-                                                    );
-                                                    router.push('/adv');
-                                                  }}
-                                                  className="!text-black"
-                                                >
-                                                  {sub.name}
-                                                </div>
-                                              </li>
-                                            );
-                                          }
-                                        )}
-                                      </ul>
-                                    </div>
-                                  )
-                                }
-                                onOpen={() => {
-                                  setOpenPopover({
-                                    ...openPopover,
-                                    [d.id]: true,
-                                  });
-                                }}
-                                onClose={() => {
-                                  setOpenPopover({
-                                    ...openPopover,
-                                    [d.id]: false,
-                                  });
-                                }}
-                                open={openPopover[d.id]}
-                                position="right center"
-                                trigger={
-                                  <li className="mb-3 !scale-100 cursor-pointer !opacity-100 transition-all duration-300 last:mb-0 hover:text-mainColor">
-                                    <div className="flex flex-row items-center justify-between">
-                                      <span className="text-sm font-medium text-[#646669]">
-                                        {d.name}
-                                      </span>
-                                      {d.subDirections.length > 0 && <BsChevronRight />}
-                                    </div>
-                                  </li>
-                                }
-                              />
-                            );
-                          })}
-                        </ul> */}
                         {!openParentAccordion.includes(md.id) && (
                           <ul>
                             {md.directions.map((d: RefDirection, index: number) => (
