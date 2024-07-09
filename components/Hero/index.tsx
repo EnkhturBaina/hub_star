@@ -82,7 +82,6 @@ const Hero = () => {
                             setParentId(md.id);
                           }}
                         >
-                          {process.env.NEXT_PUBLIC_MEDIA_URL + md.logoId}
                           <Image
                             src={process.env.NEXT_PUBLIC_MEDIA_URL + md.logoId}
                             alt="add"
