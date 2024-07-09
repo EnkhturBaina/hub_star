@@ -1,9 +1,10 @@
 'use client';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { MenuItem, Menu, Label } from 'semantic-ui-react';
 import { Divider, Input, ModalBody } from '@nextui-org/react';
 import { CiLogout } from 'react-icons/ci';
 import { usePathname, useRouter } from 'next/navigation';
+import toast from 'react-hot-toast';
 import {
   Modal,
   ModalContent,
@@ -16,6 +17,7 @@ import { AuthService } from '@/service/authentication/authentication.service';
 import { removeAccessToken } from '@/service/api.service';
 import { ProfileRoute } from '@/types/reference';
 import { useAppContext } from '@/app/app-context';
+import { AdvertisementService } from '@/service/advertisement/advertisement.service';
 
 const profileRoutes: ProfileRoute[] = [
   {
@@ -200,10 +202,22 @@ const LeftMenu = () => {
                   isDisabled={delValue !== '448302'}
                   onPress={() => {
                     onClose();
-                    AuthService.removeUser(user.id).then(response => {
-                      if (response.success) {
-                        removeAccessToken();
-                        router.push('/');
+                    AdvertisementService.get({
+                      userBy: user.id,
+                      process: 'DOING',
+                      order: 'ASC',
+                      page: 1,
+                      limit: 10,
+                    }).then(res => {
+                      if (res.success && res.response.meta.itemCount == 0) {
+                        AuthService.removeUser(user.id).then(response => {
+                          if (response.success) {
+                            removeAccessToken();
+                            router.push('/auth/signin');
+                          }
+                        });
+                      } else {
+                        toast.error("Хийгдэж буй ажил байгаа тул устгах боломжгүй байна!")
                       }
                     });
                   }}

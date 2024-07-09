@@ -2,7 +2,7 @@
 import { motion } from 'framer-motion';
 import { Button, Checkbox } from '@nextui-org/react';
 import { Progress } from 'semantic-ui-react';
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Step1 from './Step1';
 import Step2 from './Step2';
 import toast, { Toaster } from 'react-hot-toast';
