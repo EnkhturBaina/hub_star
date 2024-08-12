@@ -3,6 +3,7 @@ import { Button, Input } from '@nextui-org/react';
 import Link from 'next/link';
 import toast from 'react-hot-toast';
 import { AuthService } from '@/service/authentication/authentication.service';
+import { useTranslation } from 'react-i18next';
 
 type Props = {
   username: string;
@@ -12,12 +13,14 @@ type Props = {
   setDetails: React.Dispatch<React.SetStateAction<string>>;
 };
 const SendOtp: React.FC<Props> = ({ username, setUsername, step, setStep, setDetails }) => {
+  const { t } = useTranslation();
+
   const register = () => {
     if (username == '') {
       toast.error('И-Мэйл хаягаа оруулна уу.');
     } else {
       try {
-        AuthService.emailOtp({ username, type: 'Forget' })
+        AuthService.sendOtp({ username, type: 'Forget' })
           .then(response => {
             if (response.success) {
               setDetails(response.response.details);
@@ -39,9 +42,9 @@ const SendOtp: React.FC<Props> = ({ username, setUsername, step, setStep, setDet
       <Input
         key="username"
         type="text"
-        label="И-Мэйл"
+        label={t('emailOrPhone')}
         labelPlacement="outside"
-        placeholder="И-Мэйл"
+        placeholder={t('emailOrPhone')}
         radius="sm"
         size="lg"
         variant="bordered"

@@ -62,7 +62,7 @@ export interface IUser {
   username: string;
   password: string;
 }
-export interface IEmailOtp {
+export interface ISendOtp {
   username: string;
   type: OtpType;
 }

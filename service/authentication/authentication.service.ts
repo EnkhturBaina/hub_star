@@ -1,4 +1,4 @@
-import { IVerifyOtp, IUser, IEmailOtp, IChangePassword } from '@/interfaces/request.interface';
+import { IVerifyOtp, IUser, ISendOtp, IChangePassword } from '@/interfaces/request.interface';
 import { api } from '../api.service';
 import {
   IResponse,
@@ -16,8 +16,8 @@ const register = (user: IUser): Promise<IResponseOtp> => {
 const login = (user: IUser): Promise<IResponseLogin> => {
   return api.post('/authentication/login', user);
 };
-const emailOtp = (emailOtp: IEmailOtp): Promise<IResponseOtp> => {
-  return api.post('/authentication/email/otp', emailOtp);
+const sendOtp = (sendOtp: ISendOtp): Promise<IResponseOtp> => {
+  return api.post('/authentication/send/otp', sendOtp);
 };
 const otpVerify = (otp: IVerifyOtp): Promise<IResponseOtpVerify> => {
   return api.post('/authentication/verify/otp', otp);
@@ -43,7 +43,7 @@ const removeUser = (id: number): Promise<IResponseProfile> => {
 export const AuthService = {
   register,
   login,
-  emailOtp,
+  sendOtp,
   otpVerify,
   logout,
   profile,

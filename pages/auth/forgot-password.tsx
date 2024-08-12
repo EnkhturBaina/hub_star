@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import SendOtp from '@/components/Auth/SendOtp';
 import Verification from '@/components/Auth/Verification';
 import ChangePassword from '@/components/Auth/ChangePassword';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 const ForgotPasswordPage: NextPage = () => {
   const [step, setStep] = useState<number>(1);
@@ -72,4 +73,11 @@ const ForgotPasswordPage: NextPage = () => {
     </section>
   );
 };
+export async function getStaticProps({ locale }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ['common'])),
+    },
+  };
+}
 export default ForgotPasswordPage;
