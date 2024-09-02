@@ -5,7 +5,7 @@ import { Progress } from 'semantic-ui-react';
 import { useEffect, useState } from 'react';
 import Step1 from './Step1';
 import Step2 from './Step2';
-import toast, { Toaster } from 'react-hot-toast';
+import toast from 'react-hot-toast';
 import { AdvertisementService } from '@/service/advertisement/advertisement.service';
 import { ICreateAd, IMachineryParam } from '@/interfaces/request.interface';
 
@@ -127,110 +127,152 @@ const AddService: React.FC<Props> = ({ isSpecial, setIsAddService, updateAdv }) 
         if (isSpecial) {
           if (!createAd.specialService) {
             toast.error('Онцгой үйлчилгээ сонгоно уу.');
+            return;
           }
         } else {
           if (createAd?.userType == null) {
             toast.error('Хэрэглэгчийн төрөл сонгоно уу.');
+            return;
           } else if (createAd?.mainDirectionId == null) {
             toast.error('Үйл ажиллагааны үндсэн чиглэл сонгоно уу.');
+            return;
           }
         }
         if (createAd?.directionId == null) {
           toast.error('Үйл ажиллагааны чиглэл сонгоно уу.');
+          return;
         } else if (createAd?.subDirectionId == null) {
           toast.error('Үйл ажиллагааны нэр сонгоно уу.');
+          return;
         } else {
           setStep(step + 1);
         }
       } else if (step == 2) {
         if (createAd?.title == null) {
           toast.error('Зарын гарчиг оруулна уу.');
+          return;
         } else if (createAd?.userType == 'SUBSCRIBER' && createAd?.price == null) {
           toast.error('Үнэ оруулна уу.');
+          return;
         } else if (createAd?.provinceId == null) {
           toast.error('Аймаг, Хот сонгоно уу.');
+          return;
         } else if (createAd?.districtId == null) {
           toast.error('Сум, Дүүрэг сонгоно уу.');
+          return;
         } else if (createAd?.khorooId == null) {
           toast.error('Баг, Хороо сонгоно уу.');
+          return;
         } else if (createAd?.address == null) {
           toast.error('Байршил оруулна уу.');
+          return;
         } else {
           setStep(step + 1);
         }
       } else if (step == maxStep) {
         if (!createAd.isTermOfService) {
           toast.error('Үйлчилгээний нөхцөл зөвшөөрнө үү.');
+          return;
         }
         if (createAd?.imageIds?.length == 0) {
           toast.error('Зураг оруулна уу.');
+          return;
         } else if (createAd?.email == null) {
           toast.error('Имэйл оруулна уу.');
+          return;
         } else if (createAd?.phone == null) {
           toast.error('Утас оруулна уу.');
+          return;
         } else if (createAd?.userType == 'SUBSCRIBER') {
           if (createAd?.measurement == null) {
             toast.error('Хэмжих нэгж оруулна уу.');
+            return;
           } else if (createAd?.counter == null) {
             toast.error('Ажлын тоо хэмжээ оруулна уу.');
+            return;
           } else if (createAd?.desciption == null) {
             toast.error('Тайлбар оруулна уу.');
+            return;
           }
         } else if (createAd?.userType == 'EXECUTOR') {
           if (createAd?.workerCount == null) {
             toast.error('Ажилчдын тоо оруулна уу.');
+            return;
           } else if (createAd?.counter == null) {
             toast.error('Ажлын тоо хэмжээ оруулна уу.');
+            return;
           } else if (createAd?.price == null) {
             toast.error('Үнэ оруулна уу.');
+            return;
           } else if (createAd?.desciption == null) {
             toast.error('Тайлбар ба ажлын туршлага оруулна уу.');
+            return;
           }
         } else if (createAd?.userType == 'SUPPLIER') {
           if (createAd?.productName == null) {
             toast.error('Бүтээгдэхүүний нэр сонгоно уу.');
+            return;
           } else if (createAd?.unitAmount == null) {
             toast.error('Нэгжийн үнэ оруулна уу.');
+            return;
           } else if (createAd?.packageAmount == null) {
             toast.error('Багцын үнэ оруулна уу.');
+            return;
           } else if (createAd?.desciption == null) {
             toast.error('Бүтээгдэхүүний дэлгэрэнгүй мэдээлэл оруулна уу.');
+            return;
           }
         } else if (createAd?.userType == 'TRANSPORTATION') {
           if (createAd?.productName == null) {
             toast.error('Бүтээгдэхүүний нэр сонгоно уу.');
+            return;
           } else if (createAd?.machineryTypeId == null) {
             toast.error('Машин механизмийн төрөл сонгоно уу.');
+            return;
           } else if (createAd?.markId == null) {
             toast.error('Марк сонгоно уу.');
+            return;
           } else if (createAd?.powerId == null) {
             toast.error('Хүчин чадал сонгоно уу.');
+            return;
           } else if (createAd?.unitAmount == null) {
             toast.error('Нэгж үнэлгээ.цаг оруулна уу.');
+            return;
           } else if (createAd?.packageAmount == null) {
             toast.error('Багц үнэлгээ.өдөр оруулна уу.');
+            return;
           } else if (createAd?.desciption == null) {
             toast.error('Тайлбар оруулна уу.');
+            return;
           }
         } else if (createAd?.userType == 'MACHINERY') {
           if (createAd?.machineryTypeId == null) {
             toast.error('Машин механизмийн төрөл сонгоно уу.');
+            return;
           } else if (createAd?.markId == null) {
             toast.error('Марк сонгоно уу.');
+            return;
           } else if (createAd?.modelId == null) {
             toast.error('Загвар сонгоно уу.');
+            return;
           } else if (createAd?.powerId == null) {
             toast.error('Хүчин чадал сонгоно уу.');
+            return;
           } else if (createAd?.unitAmount == null) {
             toast.error('Нэгж үнэлгээ.цаг оруулна уу.');
+            return;
           } else if (createAd?.packageAmount == null) {
             toast.error('Багц үнэлгээ.өдөр оруулна уу.');
+            return;
           } else if (createAd?.fromAddress == null) {
             toast.error('Хаанаас гэдгээ оруулна уу.');
+            return;
           } else if (createAd?.toAddress == null) {
             toast.error('Хаашаа гэдгээ оруулна уу.');
+            return;
           } else if (createAd?.desciption == null) {
             toast.error('Тайлбар оруулна уу.');
+            return;
           }
         }
         if (!!createAd.isTermOfService) {
@@ -268,16 +310,6 @@ const AddService: React.FC<Props> = ({ isSpecial, setIsAddService, updateAdv }) 
         active
         size="small"
         className="custom-progress !mb-2"
-      />
-      <Toaster
-        position="top-center"
-        reverseOrder={false}
-        gutter={8}
-        containerClassName=""
-        containerStyle={{}}
-        toastOptions={{
-          duration: 5000,
-        }}
       />
       {step === 1 && <Step1 isSpecial={isSpecial} adData={createAd} setAdData={setCreateAd} />}
       {step === 2 && <Step2 adData={createAd} setAdData={setCreateAd} />}

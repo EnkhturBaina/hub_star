@@ -95,16 +95,6 @@ const Profile: NextPage = () => {
           viewport={{ once: true }}
           className="mb-4 grid w-full grid-cols-1 gap-y-4 overflow-hidden p-2"
         >
-          <Toaster
-            position="top-center"
-            reverseOrder={false}
-            gutter={8}
-            containerClassName=""
-            containerStyle={{}}
-            toastOptions={{
-              duration: 5000,
-            }}
-          />
           <Input
             key="lName"
             type="text"
@@ -114,6 +104,7 @@ const Profile: NextPage = () => {
             radius="sm"
             size="lg"
             variant="bordered"
+            isRequired
             classNames={{
               label: 'font-bold',
               inputWrapper: ['custom-input-wrapper', 'bg-white'],
@@ -135,6 +126,7 @@ const Profile: NextPage = () => {
             radius="sm"
             size="lg"
             variant="bordered"
+            isRequired
             classNames={{
               label: 'font-bold',
               inputWrapper: ['custom-input-wrapper', 'bg-white'],
@@ -156,6 +148,7 @@ const Profile: NextPage = () => {
             radius="sm"
             size="lg"
             variant="bordered"
+            isRequired
             classNames={{
               label: 'font-bold',
               inputWrapper: ['custom-input-wrapper', 'bg-white'],
@@ -177,6 +170,7 @@ const Profile: NextPage = () => {
             radius="sm"
             size="lg"
             variant="bordered"
+            isRequired
             classNames={{
               label: 'font-bold',
               inputWrapper: ['custom-input-wrapper', 'bg-white'],
@@ -198,6 +192,7 @@ const Profile: NextPage = () => {
             radius="sm"
             size="lg"
             variant="bordered"
+            isRequired
             classNames={{
               label: 'font-bold',
               inputWrapper: ['custom-input-wrapper', 'bg-white'],
@@ -219,6 +214,7 @@ const Profile: NextPage = () => {
             labelPlacement="outside"
             radius="sm"
             placeholder="Хаяг"
+            isRequired
             classNames={{
               base: 'w-full',
               label: 'font-bold',
