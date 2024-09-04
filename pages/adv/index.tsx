@@ -204,6 +204,7 @@ const BlogPage: NextPage = () => {
                       ) : null}
                     </div>
                     <div className="w-full my-4 grid md:grid-cols-3 grid-cols-2 gap-3 justify-between">
+                      {/* TODO  */}
                       {(advParam.userType == 'MACHINERY' || advParam.userType == 'TRANSPORTATION') && (
                         <CustomSelect
                           label="Даац"

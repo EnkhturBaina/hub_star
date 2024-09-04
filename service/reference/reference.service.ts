@@ -2,6 +2,7 @@ import {
   IResponse,
   IResponseAddresses,
   IResponseAllAdvice,
+  IResponseAllParticipant,
   IResponseDirections,
   IResponseLocalFile,
   IResponseMachinery,
@@ -13,6 +14,7 @@ import {
   IResponseNotifications,
   IResponseOneNews,
   IResponsePage,
+  IResponseParticipant,
   IResponseSubDirections,
 } from '@/interfaces/response.interface';
 import { api } from '../api.service';
@@ -22,10 +24,11 @@ import {
   IDirectionParam,
   IMachineryParam,
   IMainDirectionParam,
+  IParticipantParam,
   IRefNotificationParam,
   ISubDirectionParam,
 } from '@/interfaces/request.interface';
-import { RefNotification } from '@/types/reference';
+import { Participant, RefNotification } from '@/types/reference';
 const getMainDirection = (params: IMainDirectionParam): Promise<IResponseMainDirections> => {
   return api.get('/reference/main-direction', { params });
 };
@@ -86,7 +89,15 @@ const getNewsById = (id: number | string): Promise<IResponseOneNews> => {
 const getMachinery = (params: IMachineryParam): Promise<IResponseMachinery> => {
   return api.get('/reference/machinery', { params });
 };
-
+const getParticipant = (params: IParticipantParam): Promise<IResponseAllParticipant> => {
+  return api.get('/ad/participant', { params });
+}
+const createParticipant = (data: Participant): Promise<IResponseParticipant> => {
+  return api.post('/ad/participant', data);
+}
+const removeParticipant = (id: number): Promise<IResponse> => {
+  return api.delete('/ad/participant' + id);
+}
 export const ReferenceService = {
   getMainDirection,
   getMainDirectionById,
@@ -106,4 +117,7 @@ export const ReferenceService = {
   getNews,
   getNewsById,
   getMachinery,
+  getParticipant,
+  createParticipant,
+  removeParticipant
 };

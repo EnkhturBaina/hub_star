@@ -24,7 +24,9 @@ export type PageMeta = {
 };
 /** Үйл ажиллагааны үндсэн чиглэл */
 export type MainDirection = {
-  map(arg0: (d: RefDirection, idx: number) => import("react").JSX.Element): ReactNode | Iterable<ReactNode>;
+  map(
+    arg0: (d: RefDirection, idx: number) => import('react').JSX.Element
+  ): ReactNode | Iterable<ReactNode>;
   id: number;
   logoId: number;
   coverId: number;
@@ -95,6 +97,7 @@ export type LocalFile = {
   mimetype: string;
 };
 export type FooterMenuType = 'MAIN' | 'SUPPORT' | 'TOOL';
+export type NotificationType = 'NORMAL' | 'ORDER' | 'IGNORE' | 'APPROVE';
 /** Лавлах цэсүүд */
 export type FooterMenu = {
   id: number;
@@ -131,15 +134,15 @@ export type Advice = {
 /** Мэдэгдэл */
 export type RefNotification = {
   id: number;
-  authorId: number;
-  author?: Users;
   advertisementId: number;
   advertisement?: Advertisement;
-  process: AdProcess;
   description: string;
   isSeen?: boolean;
+  type: NotificationType;
   createdBy?: number;
   createdUser?: Users;
+  receiveBy: number;
+  receiveUser?: Users;
   createdAt?: Date;
 };
 export type RefNews = {
@@ -158,3 +161,14 @@ export type MachineryType = {
   type: string;
   parentId: number;
 };
+export type Participant = {
+  id?: number;
+  userType: UserType;
+  advertisementId: number;
+  advertisement?: Advertisement;
+  createdBy?: number;
+  createdUser?: number;
+  userBy: number;
+  user?: Users;
+  createdAt?: Date;
+}

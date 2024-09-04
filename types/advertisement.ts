@@ -40,7 +40,6 @@ export type Advertisement = {
   createdBy: number;
   createdUser?: Users;
   createdAt: string;
-  doingBy: number;
   process: AdProcess;
   workerCount?: number;
   isAfternoon?: boolean;

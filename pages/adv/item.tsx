@@ -137,9 +137,9 @@ const SingleBlogPage: NextPage = () => {
     });
     handleNotification({
       id: 0,
-      authorId: data.doingBy,
+      receiveBy: data.doingBy,
       advertisementId: data.id,
-      process: data.process,
+      type: 'NORMAL',
       description,
     });
   };
@@ -442,9 +442,9 @@ const SingleBlogPage: NextPage = () => {
                     onClick={() =>
                       handleNotification({
                         id: 0,
-                        authorId: data.createdBy,
+                        receiveBy: data.createdBy,
                         advertisementId: data.id,
-                        process: 'DOING',
+                        type: 'ORDER',
                         description: 'Таньд ирсэн захиалга.',
                       })
                     }

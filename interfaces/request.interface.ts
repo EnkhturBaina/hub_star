@@ -56,7 +56,6 @@ export interface ICreateAd {
   fromAddress?: string;
   toAddress?: string;
   measurement?: string;
-  doingBy?: number;
 }
 export interface IUser {
   username: string;
@@ -107,11 +106,15 @@ export interface IAdviceParam extends IPageOptions {
   directionIds?: number[];
 }
 export interface IRefNotificationParam {
-  authorId: number;
+  receiveBy: number;
 }
 export interface IMachineryParam {
   id?: number;
   name?: string;
   type?: 'DEDICATION' | 'MACHINERY_TYPE' | 'MARK' | 'POWER' | 'MODEL' | 'MATERIAL';
   parentId?: number;
+}
+export interface IParticipantParam {
+  userType: 'SUBSCRIBER' | 'EXECUTOR';
+  advertisementId: number;
 }
