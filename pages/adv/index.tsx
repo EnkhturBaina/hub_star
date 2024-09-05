@@ -133,7 +133,7 @@ const BlogPage: NextPage = () => {
   return (
     <>
       <section className="xl:pt-48 pt-46">
-        <div className="mb-1 bg-gray-100 py-2 flex justify-center">
+        <div className="mb-1 bg-gray-100 py-2 mt-4 flex justify-center">
           <div className="2xl:max-w-screen-2xl w-[90%] sm:px-6 sm:pt-0 pt-1">
             <BreadCrumbs
               items={[

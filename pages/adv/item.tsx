@@ -293,7 +293,7 @@ const SingleBlogPage: NextPage = () => {
                     {data?.address}
                   </span>
                 </div>
-                {user && (
+                {user && data?.createdBy !== user?.id && (
                   <Button
                     radius="full"
                     className="mb-2 w-full min-h-[40px] rounded-md bg-mainColor font-bold leading-none text-white"

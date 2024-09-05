@@ -52,7 +52,7 @@ const SideCheckSubDirection: React.FC<Props> = ({ closeFnc }) => {
       {mainDirections.map((mainDirection, index) => (
         <div className="mb-5" key={index}>
           <h4
-            className="!my-0 ml-1 pr-2 self-center text-lg font-semibold text-black cursor-pointer"
+            className="!my-0 ml-1 pr-2 self-center text-lg font-semibold text-gray-700 cursor-pointer"
             onClick={() => {
               setOpenParentAccordion(prev =>
                 prev.some(pp => pp === mainDirection.id)

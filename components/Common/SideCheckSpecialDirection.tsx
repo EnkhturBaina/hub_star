@@ -45,20 +45,23 @@ const SideCheckSpecialDirection: React.FC<Props> = ({ closeFnc }) => {
       }
     });
   }, [advParam.specialService]);
+
   useEffect(() => {
     getDirection();
   }, [getDirection]);
+
   return (
     <div className={`shadow-[rgba(0,0,15,0.5)_5px_0px_5px_-5px]`}>
-      <div className="flex flex-row items-center justify-between border-b p-4">
-        <div className="flex flex-row items-center justify-center">
-          <LuSettings2 className="text-xl" />
-          <span className="ml-3 font-bold">Шүүлтүүр</span>
-        </div>
-        <LuChevronLeft
-          className="text-2xl"
+      <div className="flex flex-row items-center justify-between border-b py-4 pl-1.5 pr-3">
+        <strong className="text-lg">Шүүлтүүр</strong>
+        <LuSettings2
+          className="text-xl"
           onClick={closeFnc == undefined ? null : () => closeFnc()}
         />
+        {/* <LuChevronLeft
+          className="text-2xl"
+          onClick={closeFnc == undefined ? null : () => closeFnc()}
+        /> */}
       </div>
       <Accordion>
         {directions.map((direction: RefDirection, index: number) => {

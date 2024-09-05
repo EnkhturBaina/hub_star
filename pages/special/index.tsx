@@ -33,9 +33,9 @@ const SpecialService: NextPage = () => {
 
   return (
     <>
-      <section className="pt-30 lg:pt-30 xl:pt-30.5">
-        <div className="bg-gray-100 px-4 md:px-8 2xl:px-0 ">
-          <div className="mx-auto flex max-w-screen-xl flex-row justify-between gap-7.5 pt-20 pb-6 lg:flex-row xl:gap-12.5">
+      <section className="w-full pt-30 lg:pt-30 xl:pt-30.5 mx-auto">
+        <div className="bg-gray-100 px-4 md:px-8 2xl:px-0">
+          <div className="mx-auto flex max-w-screen-2xl flex-row justify-between gap-7.5 px-6 pt-20 pb-6 lg:flex-row xl:gap-12.5">
             <div className="flex flex-col">
               <span className="text-xl">
                 {t('totalValue')}: <span className="font-bold">{adMeta.itemCount}</span>
@@ -57,7 +57,7 @@ const SpecialService: NextPage = () => {
         >
           <Sidebar
             animation="push"
-            icon="labeled"
+            icon={'labeled'}
             onHide={() => setVisible(false)}
             visible={visible}
             width="wide"
@@ -67,12 +67,12 @@ const SpecialService: NextPage = () => {
             <SideCheckSpecialDirection closeFnc={() => (visible ? setVisible(false) : undefined)} />
           </Sidebar>
           <SidebarPusher className="!w-full">
-            <Segment className="!rounded-xl !border-0">
-              <div className="mx-auto flex max-w-screen-xl gap-4 px-4 md:px-8 2xl:px-0">
+            <Segment className="w-full !rounded-xl !border-0">
+              <div className="w-full mx-auto flex gap-4 px-4 md:px-8 2xl:px-0">
                 <div className={`hidden md:block md:w-1/4 lg:w-[20%]`}>
                   <SideCheckSpecialDirection />
                 </div>
-                <div className="pb-6 lg:w-3/4 w-full">
+                <div className="pb-6 lg:w-3/4 w-full ml-6">
                   <div className="mb-4 flex flex-row justify-between">
                     {!visible ? (
                       <div
@@ -105,11 +105,17 @@ const SpecialService: NextPage = () => {
                       <SelectItem key="ASC">Огноогоор (A-Z)</SelectItem>
                     </Select>
                   </div>
-                  <div className="grid grid-cols-2 2xl:grid-cols-3 gap-6">
-                    {advertisements.map((blog, key) => (
-                      <BlogItem blog={blog} key={key} />
-                    ))}
-                  </div>
+                  {advertisements.length > 0 ? (
+                    <div className="grid grid-cols-2 2xl:grid-cols-3 gap-6">
+                      {advertisements.map((blog, key) => (
+                        <BlogItem blog={blog} key={key} />
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="w-full flex justify-center items-center text-xl font-bold text-gray-600">
+                      Хайлт олдсонгүй
+                    </div>
+                  )}
                   <PaginationComp page={adMeta.page} pageCount={adMeta.pageCount} />
                 </div>
               </div>

@@ -7,7 +7,7 @@ const useSocket = (): Socket | null => {
   const token = getAccessToken();
 
   useEffect(() => {
-    const newSocket = io(process.env.NEXT_PUBLIC_BASE_API_URL || 'http://192.82.92.170:8080', {
+    const newSocket = io(process.env.NEXT_PUBLIC_BASE_API_URL || 'http://192.82.92.171:8080', {
       auth: { token },
     });
     setSocket(newSocket);

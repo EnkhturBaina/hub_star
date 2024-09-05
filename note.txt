@@ -1,4 +1,4 @@
-http://192.82.92.170:8080/admin/login
+http://192.82.92.171:8080/admin/login
 username: ulziikhutag.gurensoft@gmail.com
 pass: WETITr
 
@@ -7,7 +7,7 @@ pass: WETITr
 https://react-slick.neostack.com/docs/example/adaptive-height
 
 
-http://192.82.92.170:8080/images/2/icons8-investment-100.png
+http://192.82.92.171:8080/images/2/icons8-investment-100.png
 
 https://javascript.plainenglish.io/axios-a-simple-and-effective-way-to-make-api-calls-in-react-with-typescript-f0b1e7eebdc5
 

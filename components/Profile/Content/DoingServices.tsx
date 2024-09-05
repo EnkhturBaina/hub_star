@@ -32,7 +32,7 @@ const DoingServices: React.FC<Props> = ({ userId }) => {
   }, [getData]);
 
   const onIgeree = () => {
-    window.open('http://192.82.92.170:3000/build/1881', '_blank');
+    window.open('http://192.82.92.171:3000/build/1881', '_blank');
   };
   return (
     <div className="mb-4 w-full overflow-hidden ">

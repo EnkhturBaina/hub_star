@@ -35,12 +35,9 @@ const SideCheckDirection: React.FC<Props> = ({
 
   return (
     <div className={`shadow-[rgba(0,0,15,0.5)_5px_0px_5px_-5px] md:w-1/4 lg:w-[20%] ${className}`}>
-      <div className="flex flex-row items-center justify-between border-b p-4">
-        <div className="flex flex-row items-center justify-center">
-          <LuSettings2 className="text-xl" />
-          <span className="ml-3 font-bold">Шүүлтүүр</span>
-        </div>
-        <LuChevronLeft className="text-2xl" />
+      <div className="flex flex-row items-center justify-between border-b py-4 pr-2">
+        <strong className="text-lg">Шүүлтүүр</strong>
+        <LuSettings2 className="text-xl" />
       </div>
       <CheckboxGroup
         label={''}
