@@ -41,7 +41,7 @@ const AdvicesTypeMenu: React.FC = () => {
       viewport={{ once: true }}
       className="animate_top relative w-full no-scrollbar overflow-x-auto whitespace-nowrap mb-4"
     >
-      <div className="overflow-x-scroll flex justify-center gap-8 no-scrollbar w-full">
+      <div className="overflow-x-scroll flex justify-center gap-8 no-scrollbar w-full px-4">
         {(mainDirections || []).map((item, idx) => (
           <div key={idx} className="w-full max-w-[280px]">
             <CatItem mainDirection={item} queryId={router.query?.mainDirectionId || ''} />

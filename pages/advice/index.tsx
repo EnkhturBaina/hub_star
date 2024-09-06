@@ -92,7 +92,7 @@ const AdvicePage: NextPage = () => {
           onHide={() => setVisible(false)}
           visible={visible}
           width="wide"
-          className="!bg-white pt-52 pl-4"
+          className="!bg-white pt-72 pl-4"
           ref={sideBarRef}
         >
           <SideCheckDirection

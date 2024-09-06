@@ -31,7 +31,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       <NextUIProvider>
         <Provider store={store}>
           <ThemeProvider enableSystem={false} attribute="class" defaultTheme="light">
-            <div className="w-full min-h-screen flex flex-col justify-between">
+            <div className="w-full min-h-screen h-fit flex flex-col justify-between">
               <AppProvider>
                 <Toaster
                   position="top-right"

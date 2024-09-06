@@ -53,7 +53,7 @@ const SpecialService: NextPage = () => {
         </div>
         <SidebarPushable
           as={Segment}
-          className="custom-sidebar-base mx-auto mt-2 flex max-w-screen-2xl flex-col gap-5 rounded-xl bg-mainProfileCardBg p-4 md:mt-6 lg:w-full lg:flex-row"
+          className=" custom-sidebar-base mx-auto mt-2 flex max-w-screen-2xl flex-col gap-5 rounded-xl bg-mainProfileCardBg p-4 md:mt-6 lg:w-full lg:flex-row"
         >
           <Sidebar
             animation="push"
