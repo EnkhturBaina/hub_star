@@ -21,6 +21,7 @@ import { classNames } from '@/utils/util';
 import { ReferenceService } from '@/service/reference/reference.service';
 import { MainDirection } from '@/types/reference';
 import AdvicesTypeMenu from './AdvicesTypeMenu';
+import { getCookie } from 'cookies-next';
 
 const Header = () => {
   const { user } = useAppContext();
@@ -50,11 +51,13 @@ const Header = () => {
   };
 
   useEffect(() => {
-    ReferenceService.getNotification({ authorId: user?.id }).then(res => {
-      if (res.success) {
-        setCountNoti(res.response.reduce((total, item) => total + (item.isSeen ? 0 : 1), 0));
-      }
-    });
+    if (getCookie('access-token')) {
+      ReferenceService.getNotification({ receiveBy: user?.id }).then(res => {
+        if (res.success) {
+          setCountNoti(res.response.reduce((total, item) => total + (item.isSeen ? 0 : 1), 0));
+        }
+      });
+    }
   }, [user]);
 
   useEffect(() => {

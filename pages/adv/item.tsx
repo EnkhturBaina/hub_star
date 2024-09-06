@@ -137,7 +137,8 @@ const SingleBlogPage: NextPage = () => {
     });
     handleNotification({
       id: 0,
-      receiveBy: data.doingBy,
+      receiveBy:
+        data.participants.find(item => item.userBy !== data.createdBy)?.userBy ?? data.createdBy,
       advertisementId: data.id,
       type: 'NORMAL',
       description,

@@ -4,7 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 type Props = {
   mainDirection: MainDirection;
-  queryId: string | number | string[];
+  queryId?: string | number | string[];
 };
 const CatItem: React.FC<Props> = ({ mainDirection, queryId }) => {
   const { coverId, name, id } = mainDirection;

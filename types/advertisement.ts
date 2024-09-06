@@ -2,6 +2,7 @@ import {
   Address,
   LocalFile,
   MainDirection,
+  Participant,
   RefDirection,
   SpecialServiceType,
   SubDirection,
@@ -54,4 +55,5 @@ export type Advertisement = {
   fromAddress?: string;
   toAddress?: string;
   measurement?: string;
+  participants?: Participant[];
 };
