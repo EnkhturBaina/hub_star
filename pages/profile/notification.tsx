@@ -64,6 +64,7 @@ const Notification: NextPage = () => {
         toast.error(err);
       });
   };
+
   return (
     <ProfileLayout>
       <div className="mb-4 w-full overflow-hidden p-2">
@@ -90,38 +91,9 @@ const Notification: NextPage = () => {
                         className="md:w-auto md:h-auto !max-w-[24px] !max-h-[24px] "
                       />
                     </div>
-                    <div className="flex flex-col gap-2">
+                    <div className="flex flex-col gap-2 justify-center items-start">
                       <p className="desc md:!text-base !text-sm">{item.description}</p>
-                      <Button
-                        radius="full"
-                        className="mb-2 w-full rounded-md bg-mainColor font-bold leading-none text-white"
-                        onClick={() =>
-                          handleReceive({
-                            ...item,
-                            description: 'Таны захиалгыг зөвшөөрлөө.',
-                            receiveBy: item.createdBy,
-                            type: 'APPROVE',
-                            id: 0,
-                          })
-                        }
-                      >
-                        Зөвшөөрөх
-                      </Button>
-                      <Button
-                        radius="full"
-                        className="mb-2 w-full rounded-md bg-mainColor font-bold leading-none text-white"
-                        onClick={() =>
-                          handleReceive({
-                            advertisementId: item.advertisementId,
-                            description: 'Таны захиалгаас татгалзлаа',
-                            receiveBy: item.createdBy,
-                            type: 'IGNORE',
-                            id: 0,
-                          })
-                        }
-                      >
-                        Татгалзах
-                      </Button>
+
                       <Link href={'/profile/information'} className="desc md:!text-base !text-sm">
                         {item.createdUser.lastName.substring(0, 1) +
                           '.' +
@@ -129,9 +101,47 @@ const Notification: NextPage = () => {
                       </Link>
                     </div>
                   </div>
-                  <p className="nofi-time !mr-1 sm:!p-auto !px-1.5 !py-0.5 md:!text-base text-sm">
-                    {format(item.createdAt, 'HH:mm')}
-                  </p>
+                  <div className="flex flex-col items-end justify-end">
+                    <p className="w-fit nofi-time-end !mr-1 sm:!p-auto !px-1.5 !py-0.5 md:!text-base text-sm">
+                      {format(item.createdAt, 'HH:mm')}
+                    </p>
+                    {item.type === 'ORDER' && (
+                      <div className="flex gap-2 mr-2">
+                        <Button
+                          size="sm"
+                          radius="full"
+                          className="w-fit rounded-md bg-red-400 font-bold leading-none text-white"
+                          onClick={() =>
+                            handleReceive({
+                              advertisementId: item.advertisementId,
+                              description: 'Таны захиалгаас татгалзлаа',
+                              receiveBy: item.createdBy,
+                              type: 'IGNORE',
+                              id: 0,
+                            })
+                          }
+                        >
+                          Татгалзах
+                        </Button>
+                        <Button
+                          size="sm"
+                          radius="full"
+                          className="w-fit rounded-md bg-blue-500 font-bold leading-none text-white"
+                          onClick={() =>
+                            handleReceive({
+                              ...item,
+                              description: 'Таны захиалгыг зөвшөөрлөө.',
+                              receiveBy: item.createdBy,
+                              type: 'APPROVE',
+                              id: 0,
+                            })
+                          }
+                        >
+                          Зөвшөөрөх
+                        </Button>
+                      </div>
+                    )}
+                  </div>
                 </div>
                 <div className="w-full h-[1px] bg-[#DADADA]" />
               </Fragment>
