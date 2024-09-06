@@ -242,11 +242,11 @@ const SingleBlogPage: NextPage = () => {
                     </Button>
                   </div>
                   <div className="w-full flex justify-between items-end gap-2">
-                    {user && (
+                    {user?.id && (
                       <div
                         className="cursor-pointer"
                         onClick={() => {
-                          if (user.userType == 'SUBSCRIBER') {
+                          if (user?.userType == 'SUBSCRIBER') {
                             setData({ ...data, process: 'DONE' });
                             onOpen();
                           }
@@ -311,7 +311,7 @@ const SingleBlogPage: NextPage = () => {
                   <UserCircleIcon width={18} height={18} />
                   Профайл үзэх
                 </Button>
-                {data?.process == 'DOING' && user.userType == 'SUBSCRIBER' && (
+                {data?.process == 'DOING' && user?.userType == 'SUBSCRIBER' && (
                   <Button
                     onClick={() => onOpen()}
                     radius="full"

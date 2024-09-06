@@ -83,7 +83,7 @@ const OtherProfile: NextPage = () => {
                   src={
                     user?.avatarId
                       ? `${process.env.NEXT_PUBLIC_BASE_API_URL}local-files/${user?.avatarId}`
-                      : '/images/user/user-01.png'
+                      : '/images/user/user.png'
                   }
                   alt=""
                   width={120}
