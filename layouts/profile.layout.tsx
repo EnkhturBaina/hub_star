@@ -70,7 +70,7 @@ const ProfileLayout: React.FC<Props> = ({ children }) => {
                   src={
                     user.avatarId
                       ? `${process.env.NEXT_PUBLIC_BASE_API_URL}local-files/${user.avatarId}`
-                      : '/images/user/user-01.png'
+                      : '/images/user/user.png'
                   }
                 />
                 <ImageUpload

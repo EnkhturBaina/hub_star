@@ -139,7 +139,7 @@ const Header = () => {
                 <Link href="/profile/information" className="flex flex-row items-center">
                   <Avatar
                     name={user?.firstName}
-                    src={process.env.NEXT_PUBLIC_MEDIA_URL + user.avatarId}
+                    src={user.avatarId ? process.env.NEXT_PUBLIC_MEDIA_URL + user.avatarId : '/images/user/user.png'}
                     className="h-12 w-12 text-lg"
                     onClick={() => router.pathname === '/profile/information'}
                   />
