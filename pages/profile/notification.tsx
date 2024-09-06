@@ -32,17 +32,15 @@ const Notification: NextPage = () => {
     getData();
   }, [getData]);
 
-  const handleSeen = async (notification: RefNotification) => {
-    if (!notification.isSeen) {
-      await ReferenceService.updateNotification(notification.id, {
-        ...notification,
-        isSeen: true,
-      }).then(res => {
-        if (res.success) {
-          getData();
-        }
-      });
-    }
+  const handleUpdate = async (notification: RefNotification) => {
+    await ReferenceService.updateNotification(notification.id, {
+      ...notification,
+      isSeen: true,
+    }).then(res => {
+      if (res.success) {
+        getData();
+      }
+    });
   };
 
   const handleReceive = async (notification: RefNotification) => {
@@ -79,7 +77,7 @@ const Notification: NextPage = () => {
                     <div
                       className="docImg md:p-auto !p-2"
                       onClick={() => {
-                        handleSeen(item);
+                        handleUpdate(item);
                       }}
                     >
                       <Image
@@ -111,15 +109,16 @@ const Notification: NextPage = () => {
                           size="sm"
                           radius="full"
                           className="w-fit rounded-md bg-red-400 font-bold leading-none text-white"
-                          onClick={() =>
+                          onClick={() => {
+                            handleUpdate({ ...item, type: 'IGNORE' });
                             handleReceive({
                               advertisementId: item.advertisementId,
                               description: 'Таны захиалгаас татгалзлаа',
                               receiveBy: item.createdBy,
-                              type: 'IGNORE',
+                              type: 'NORMAL',
                               id: 0,
-                            })
-                          }
+                            });
+                          }}
                         >
                           Татгалзах
                         </Button>
@@ -127,15 +126,16 @@ const Notification: NextPage = () => {
                           size="sm"
                           radius="full"
                           className="w-fit rounded-md bg-blue-500 font-bold leading-none text-white"
-                          onClick={() =>
+                          onClick={() => {
+                            handleUpdate({ ...item, type: 'APPROVE' });
                             handleReceive({
                               ...item,
                               description: 'Таны захиалгыг зөвшөөрлөө.',
                               receiveBy: item.createdBy,
-                              type: 'APPROVE',
+                              type: 'NORMAL',
                               id: 0,
-                            })
-                          }
+                            });
+                          }}
                         >
                           Зөвшөөрөх
                         </Button>
