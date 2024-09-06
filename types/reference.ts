@@ -24,6 +24,7 @@ export type PageMeta = {
 };
 /** Үйл ажиллагааны үндсэн чиглэл */
 export type MainDirection = {
+  type: SpecialServiceType;
   map(
     arg0: (d: RefDirection, idx: number) => import('react').JSX.Element
   ): ReactNode | Iterable<ReactNode>;

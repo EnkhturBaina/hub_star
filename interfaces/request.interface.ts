@@ -7,6 +7,7 @@ export interface IPageOptions {
 }
 export interface IAdParam extends IPageOptions {
   userType?: UserType;
+  adviceType?: any;
   process?: AdProcess;
   mainDirectionIds?: number[];
   directionIds?: number[];

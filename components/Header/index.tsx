@@ -2,7 +2,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Avatar, Badge, Button, Divider } from '@nextui-org/react';
 import SearchBox from '../SearchBox';
 import HeaderMenu from './HeaderMenu';
@@ -19,6 +19,8 @@ import { Menu, MenuButton, MenuItem, MenuItems, Transition } from '@headlessui/r
 import { HeartIcon, PencilSquareIcon, TrashIcon } from '@heroicons/react/20/solid';
 import { classNames } from '@/utils/util';
 import { ReferenceService } from '@/service/reference/reference.service';
+import { MainDirection } from '@/types/reference';
+import AdvicesTypeMenu from './AdvicesTypeMenu';
 
 const Header = () => {
   const { user } = useAppContext();
@@ -252,9 +254,14 @@ const Header = () => {
       </div>
       {/^\/profile\/.*/.test(pathUrl) || /^\/other-profile\.*/.test(pathUrl) || (
         <div className="no-scrollbar mt-2 flex overflow-y-scroll md:justify-center">
-          <nav>
-            {advParam?.specialService ? <SpecialTypeMenu /> : <UserTypeMenu />}
-            {/* <HeaderMenu /> */}
+          <nav className="w-full">
+            {advParam?.specialService ? (
+              <SpecialTypeMenu />
+            ) : router.pathname.includes('advice') ? (
+              <AdvicesTypeMenu />
+            ) : (
+              <UserTypeMenu />
+            )}
           </nav>
         </div>
       )}
