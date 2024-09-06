@@ -61,7 +61,7 @@ const BlogItem = ({ blog }: { blog: Blog }) => {
         viewport={{ once: true }}
         className="animate_top rounded-lg bg-white shadow-md"
       >
-        <Link href={{ pathname: 'adv/item', query: { id } }} className="relative block h-32 w-full">
+        <Link href={{ pathname: '/adv/item', query: { id } }} className="relative block h-32 w-full">
           <Image
             src={imagePath}
             alt={title}

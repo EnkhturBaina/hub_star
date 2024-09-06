@@ -323,28 +323,6 @@ const SingleBlogPage: NextPage = () => {
               </div>
             </div>
           </div>
-          {/* <div className="bg-gray-100 px-4 md:px-8 2xl:px-0 ">
-            <div className="mx-auto flex max-w-screen-xl flex-row justify-between gap-7.5 py-10 lg:flex-row xl:gap-12.5">
-              <div className="flex flex-col">
-                <span className="mb-4 font-bold">ТӨРӨЛ</span>
-                <div>
-                  {subDirections.map((item, index) => {
-                    return (
-                      <Chip
-                        key={index}
-                        classNames={{
-                          base: 'mr-2 mb-2 border-1 bg-white p-4',
-                          content: 'font-bold',
-                        }}
-                      >
-                        {item.name}
-                      </Chip>
-                    );
-                  })}
-                </div>
-              </div>
-            </div>
-          </div> */}
           <div className="mx-4 my-14 max-w-screen-xl md:mx-auto">
             <span className="text-xl font-bold">Таны авсан үйлчилгээтэй холбоотой зөвлөмжүүд</span>
             <div className="grid grid-cols-2 gap-3 md:grid-cols-7">
@@ -359,16 +337,6 @@ const SingleBlogPage: NextPage = () => {
               ))}
             </div>
           </div>
-          {/* <div className="bg-gray-100 px-4 md:px-8 2xl:px-0">
-            <div className="mx-auto max-w-screen-xl py-10">
-              <span className="text-xl font-bold">Онцгой үйлчилгээ</span>
-              <div className="my-4 grid grid-cols-1 gap-7.5 md:grid-cols-2 lg:grid-cols-4 xl:gap-10">
-                {specialAdvertisements.map((blog, key) => (
-                  <BlogItem blog={blog} key={key} />
-                ))}
-              </div>
-            </div>
-          </div> */}
           <div className="bg-gray-100 px-4 md:px-8 2xl:px-0">
             <div className="mx-auto max-w-screen-xl py-10">
               <span className="text-xl font-bold">Ижил төсөөтэй үйлчилгээ</span>
