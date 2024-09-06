@@ -141,6 +141,12 @@ const Notification: NextPage = () => {
                         </Button>
                       </div>
                     )}
+                    {item.type == 'APPROVE' && (
+                      <strong className="text-base text-gray-400 mr-4">Зөвшөөрсөн</strong>
+                    )}
+                    {item.type == 'IGNORE' && (
+                      <strong className="text-base text-gray-400 mr-4">Татгалзсан</strong>
+                    )}
                   </div>
                 </div>
                 <div className="w-full h-[1px] bg-[#DADADA]" />
