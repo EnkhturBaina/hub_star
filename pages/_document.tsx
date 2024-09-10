@@ -16,7 +16,7 @@ class MyDocument extends Document<Props> {
 
     return (
       <Html lang={currentLocale}>
-        <Head>
+        <Head title="Hubstar">
           <meta name="description" content="HUBSTAR ALL AT ONCE" />
           <link rel="icon" href="/images/favicon.ico" />
         </Head>

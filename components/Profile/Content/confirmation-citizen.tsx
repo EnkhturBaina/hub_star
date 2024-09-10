@@ -14,10 +14,6 @@ type Props = {
 export const ConfirmationCitizen: React.FC<Props> = ({ values, setValues, mainDirections }) => {
   const { t } = useTranslation();
 
-  const handleChange =
-    (prop: keyof Users) => (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-      setValues({ ...values, [prop]: event.target.value });
-    };
   return (
     <div className="px-4">
       <CustomSelect

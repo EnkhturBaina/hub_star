@@ -4,6 +4,7 @@ import CustomSelect from '@/components/Inputs/Select';
 import { MainDirection, UserType } from '@/types/reference';
 import Users from '@/types/user';
 import { Image, Input, Textarea } from '@nextui-org/react';
+import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { BsImage } from 'react-icons/bs';
 type Props = {
@@ -22,6 +23,9 @@ export const ConfirmationOrganization: React.FC<Props> = ({
     (prop: keyof Users) => (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
       setValues({ ...values, [prop]: event.target.value });
     };
+  useEffect(() => {
+    console.log('values =======>', values?.organizationName);
+  }, [values]);
   return (
     <div className="px-4">
       <CustomSelect

@@ -211,15 +211,6 @@ const SingleBlogPage: NextPage = () => {
                   <p className="m-0 p-0 font-semibold text-lg bold">
                     {data?.createdUser?.organizationName}
                   </p>
-                  <Image
-                    src={
-                      process.env.NEXT_PUBLIC_MEDIA_URL +
-                      data?.createdUser?.organizationLogoId +
-                      '#toolbar=0'
-                    }
-                    className="w-[66px] h-[60px] object-cover"
-                    alt="organizition-logo"
-                  />
                 </div>
               </div>
             </div>
@@ -303,7 +294,13 @@ const SingleBlogPage: NextPage = () => {
                     <ShoppingCartIcon width={16} height={16} className="mb-1" />
                     Үйлчилгээг захиалах
                   </Button>
-                )}{' '}
+                )}
+                <Image
+                  src={process.env.NEXT_PUBLIC_MEDIA_URL + data?.createdUser?.organizationLogoId}
+                  alt="Organization logo"
+                  width={40}
+                  height={40}
+                />
                 <Button
                   onClick={() => router.replace(`/other-profile?item=${data.createdBy}`)}
                   className="mb-2 w-full rounded-md bg-mainColor font-bold leading-none text-white"

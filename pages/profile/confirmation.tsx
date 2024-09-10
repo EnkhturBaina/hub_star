@@ -107,8 +107,8 @@ const Confirmation = () => {
             />
           ) : (
             <ConfirmationOrganization
-              values={user}
-              setValues={setUser}
+              values={values}
+              setValues={setValues}
               mainDirections={mainDirections}
             />
           )}
