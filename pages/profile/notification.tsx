@@ -36,22 +36,23 @@ const Notification: NextPage = () => {
     await ReferenceService.updateNotification(notification.id, {
       ...notification,
       isSeen: true,
-    }).then(res => {
+    }).then(async res => {
       if (res.success) {
+        if (notification.type == 'APPROVE') {
+          await ReferenceService.createParticipant({
+            userType:
+              notification.advertisement.userType == 'SUBSCRIBER' ? 'EXECUTOR' : 'SUBSCRIBER',
+            advertisementId: notification.advertisementId,
+            userBy: notification.receiveBy,
+          });
+          await AdvertisementService.update({ id: notification.advertisementId, process: 'DOING' });
+        }
         getData();
       }
     });
   };
 
   const handleReceive = async (notification: RefNotification) => {
-    if (notification.type == 'APPROVE') {
-      await ReferenceService.createParticipant({
-        userType: notification.advertisement.userType == 'SUBSCRIBER' ? 'EXECUTOR' : 'SUBSCRIBER',
-        advertisementId: notification.advertisementId,
-        userBy: notification.receiveBy,
-      });
-      await AdvertisementService.update({ id: notification.advertisementId, process: 'DOING' });
-    }
     await ReferenceService.createNotification(notification)
       .then(res => {
         if (res.success) {
