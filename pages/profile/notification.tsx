@@ -13,8 +13,11 @@ import { NextPage } from 'next';
 import Empty from '@/components/Empty';
 import withAuth from '@/components/Common/withAuth';
 import { AdvertisementService } from '@/service/advertisement/advertisement.service';
+import { useDispatch } from 'react-redux';
+import { setNotfParam } from '@/app/lib/features/adv-param';
 
 const Notification: NextPage = () => {
+  const dispatch = useDispatch();
   const { user } = useAppContext();
   const [notifications, setNotifications] = useState<RefNotification[]>([]);
 
@@ -22,9 +25,8 @@ const Notification: NextPage = () => {
     await ReferenceService.getNotification({
       receiveBy: user?.id,
     }).then(res => {
-      if (res.success) {
-        setNotifications(res.response);
-      }
+      console.log({ aa: res });
+      if (res.success) setNotifications(res.response);
     });
   }, [user]);
 
@@ -38,7 +40,17 @@ const Notification: NextPage = () => {
       isSeen: true,
     }).then(res => {
       if (res.success) {
-        getData();
+        setTimeout(() => {
+          getData();
+          dispatch(
+            setNotfParam({
+              page: 1,
+              limit: 10,
+              directionIds: currentDirections?.map(item => item.id),
+              subDirectionIds: value.map(item => Number(item)),
+            })
+          );
+        }, 500);
       }
     });
   };
@@ -74,12 +86,7 @@ const Notification: NextPage = () => {
               <Fragment key={index}>
                 <div className={`notification ${item.isSeen ? 'seen' : 'unseen'}`}>
                   <div className="content">
-                    <div
-                      className="docImg md:p-auto !p-2"
-                      onClick={() => {
-                        handleUpdate(item);
-                      }}
-                    >
+                    <div className="docImg md:p-auto !p-2" onClick={() => handleUpdate(item)}>
                       <Image
                         src={docSvg}
                         color="red"

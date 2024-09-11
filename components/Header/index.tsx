@@ -2,10 +2,9 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Avatar, Badge, Button, Divider } from '@nextui-org/react';
 import SearchBox from '../SearchBox';
-import HeaderMenu from './HeaderMenu';
 import { useAppContext } from '@/app/app-context';
 import AuthName from '../Auth/auth-name';
 import useSocket from '@/service/socket-client';
@@ -15,11 +14,7 @@ import { emptyAdvParam } from '@/app/lib/features/adv-param';
 import { useTypedSelector } from '@/app/lib/reducer';
 import SpecialTypeMenu from './SpecialTypeMenu';
 import UserTypeMenu from './UserTypeMenu';
-import { Menu, MenuButton, MenuItem, MenuItems, Transition } from '@headlessui/react';
-import { HeartIcon, PencilSquareIcon, TrashIcon } from '@heroicons/react/20/solid';
-import { classNames } from '@/utils/util';
 import { ReferenceService } from '@/service/reference/reference.service';
-import { MainDirection } from '@/types/reference';
 import AdvicesTypeMenu from './AdvicesTypeMenu';
 import { getCookie } from 'cookies-next';
 
@@ -36,6 +31,8 @@ const Header = () => {
   const [messages, setMessages] = useState<any[]>([]);
 
   const pathUrl = usePathname();
+
+  console.log({ countNoti });
 
   // Sticky menu
   const handleStickyMenu = () => {
@@ -58,7 +55,7 @@ const Header = () => {
         }
       });
     }
-  }, [user]);
+  }, []);
 
   useEffect(() => {
     if (socket) {
@@ -139,7 +136,11 @@ const Header = () => {
                 <Link href="/profile/information" className="flex flex-row items-center">
                   <Avatar
                     name={user?.firstName}
-                    src={user.avatarId ? process.env.NEXT_PUBLIC_MEDIA_URL + user.avatarId : '/images/user/user.png'}
+                    src={
+                      user.avatarId
+                        ? process.env.NEXT_PUBLIC_MEDIA_URL + user.avatarId
+                        : '/images/user/user.png'
+                    }
                     className="h-12 w-12 text-lg"
                     onClick={() => router.pathname === '/profile/information'}
                   />

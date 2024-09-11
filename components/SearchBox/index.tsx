@@ -9,7 +9,7 @@ import Drawer from '../Drawer';
 import { useRouter } from 'next/router';
 import { MainDirection, RefDirection, SubDirection } from '@/types/reference';
 import Image from 'next/image';
-import { BiRightArrowAlt } from 'react-icons/bi';
+import { BiMinus, BiPlus, BiRightArrowAlt } from 'react-icons/bi';
 import { LuArrowRightFromLine } from 'react-icons/lu';
 import { PiArrowRightBold } from 'react-icons/pi';
 
@@ -27,24 +27,31 @@ const SearchBox: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [subID, setSubID] = useState<number>(null);
 
-  const [selectedID, setSelectedID] = useState<selectedProps>({
-    id: mainDirections[0]?.id,
-    name: mainDirections[0]?.name,
-  });
+  // const [selectedID, setSelectedID] = useState<selectedProps>({
+  //   id: mainDirections[0]?.id,
+  //   name: mainDirections[0]?.name,
+  // });
+  const [selectedID, setSelectedID] = useState<selectedProps>(null);
 
-  const [selectedItems, setSelectedItems] = useState<MainDirection['directions'] | any>(
-    mainDirections[0]?.directions || []
-  );
+  // const [selectedItems, setSelectedItems] = useState<MainDirection['directions'] | any>(
+  //   mainDirections[0]?.directions || []
+  // );
+  const [selectedItems, setSelectedItems] = useState<MainDirection['directions'] | any>([]);
+
+  // useEffect(() => {
+  //   if (mainDirections.length > 0) {
+  //     setSelectedItems(mainDirections[0].directions);
+  //     setSelectedID({
+  //       id: mainDirections[0].id,
+  //       name: mainDirections[0].name,
+  //     });
+  //   }
+  // }, [mainDirections]);
 
   useEffect(() => {
-    if (mainDirections.length > 0) {
-      setSelectedItems(mainDirections[0].directions);
-      setSelectedID({
-        id: mainDirections[0].id,
-        name: mainDirections[0].name,
-      });
-    }
-  }, [mainDirections]);
+    setSelectedItems([]);
+    setSelectedID(null);
+  }, [isOpen]);
 
   const handleSelection = (mainDirectionId: number) => {
     dispatch(
@@ -80,9 +87,9 @@ const SearchBox: React.FC = () => {
             {mainDirections.map((md: MainDirection, idx: number) => (
               <>
                 <Button
-                  className={`min-w-[300px] min-h-[38px] h-fit w-fit rounded-md flex justify-between items-center text-[14px] hover:bg-[#f39d34] hover:text-white text-black 
-                  ${md.id == selectedID.id ? 'bg-[#F7941D] !text-white' : 'bg-transparent'}`}
                   key={idx}
+                  className={`min-w-[300px] min-h-[38px] h-fit w-fit rounded-md flex justify-between items-center text-[14px] hover:bg-[#f39d34] hover:text-white text-black 
+                  ${md.id == selectedID?.id ? 'bg-[#F7941D] !text-white' : 'bg-transparent'}`}
                   onClick={() => {
                     setSelectedID({ id: md.id, name: md.name });
                     setSelectedItems(md.directions);
@@ -98,10 +105,11 @@ const SearchBox: React.FC = () => {
                     />
                     {md?.name}
                   </div>
-                  <PiArrowRightBold />
+                  {md.id === selectedID?.id ? <BiMinus /> : <BiPlus />}
+                  {/* <PiArrowRightBold /> */}
                 </Button>
                 <div className="pl-6 py-2">
-                  {md.id === selectedID.id
+                  {md.id === selectedID?.id
                     ? selectedItems.map((d: RefDirection, idx: number) => (
                         <div
                           key={idx}
