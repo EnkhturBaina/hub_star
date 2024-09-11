@@ -55,7 +55,7 @@ const SpecialTypeMenu: React.FC = () => {
               specialService: item.type,
             });
           }}
-          className={`flex h-full flex-row md:flex-col items-center justify-around p-2 md:min-w-40 special-service hover:bg-primary rounded-lg border border-white group shadow-md ${advParam.specialService == item.type ? 'bg-primary' : 'bg-white'}`}
+          className={`flex h-full flex-row md:flex-col gap-2 items-center justify-around p-2 md:min-w-40 special-service hover:bg-primary rounded-lg border border-white group shadow-md ${advParam.specialService == item.type ? 'bg-primary' : 'bg-white'}`}
         >
           <div
             className={`h-5 w-5 md:h-16 md:w-16 rounded-[4px] content-center flex ${advParam.specialService === item.type ? 'active-icon' : ''}`}

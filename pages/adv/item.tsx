@@ -107,12 +107,19 @@ const SingleBlogPage: NextPage = () => {
       }
     });
   };
-  const handleNotification = (notification: RefNotification) => {
+  const handleNotification = (notification: RefNotification, msg?: string) => {
     ReferenceService.createNotification(notification)
       .then(res => {
         if (res.success) {
           toast.success(
-            'Таны үйлчилгээ захиалагдлаа. Таны үйлчилгээ профайл/хийгдэж буй үйлчилгээ лүү орно.'
+            <span className="font-semibold !font-roboto">
+              {!!msg
+                ? msg
+                : 'Таны үйлчилгээ захиалагдлаа. Таны үйлчилгээ профайл хийгдэж буй үйлчилгээ лүү орно.'}
+            </span>,
+            {
+              duration: 6000,
+            }
           );
         }
       })
@@ -135,15 +142,18 @@ const SingleBlogPage: NextPage = () => {
         getData();
       }
     });
-    handleNotification({
-      id: 0,
-      receiveBy:
-        (data.participants || [])?.find(item => item.userBy !== data.createdBy)?.userBy ??
-        data.createdBy,
-      advertisementId: data.id,
-      type: 'NORMAL',
-      description,
-    });
+    handleNotification(
+      {
+        id: 0,
+        receiveBy:
+          (data.participants || [])?.find(item => item.userBy !== data.createdBy)?.userBy ??
+          data.createdBy,
+        advertisementId: data.id,
+        type: 'NORMAL',
+        description,
+      },
+      'Үйлчилгээний төлөв амжилттай солигдлоо.'
+    );
   };
   const handleStarClick = (index: number) => {
     setData({ ...data, rating: index + 1 });
@@ -384,7 +394,7 @@ const SingleBlogPage: NextPage = () => {
                   <Button color="danger" variant="light" onPress={onClose}>
                     Хаах
                   </Button>
-                  <Button color="primary" onPress={onClose} onClick={() => handleUpdate()}>
+                  <Button color="primary" onPress={onClose} onClick={handleUpdate}>
                     Хадгалах
                   </Button>
                 </ModalFooter>
