@@ -13,6 +13,7 @@ import { useRouter } from 'next/router';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { LuChevronLeft, LuLayoutGrid, LuMenu } from 'react-icons/lu';
 import { Segment, Sidebar, SidebarPushable, SidebarPusher } from 'semantic-ui-react';
+import ServiceHistory from '../profile/service-history';
 
 const OtherProfile: NextPage = () => {
   const [visible, setVisible] = useState(false);
@@ -31,7 +32,7 @@ const OtherProfile: NextPage = () => {
     {
       id: '2',
       name: 'Хийсэн ажилууд',
-      component: <DoingServices userId={user?.id} />,
+      component: <ServiceHistory userId={user?.id} />,
     },
     {
       id: '3',

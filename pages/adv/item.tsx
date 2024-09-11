@@ -146,7 +146,7 @@ const SingleBlogPage: NextPage = () => {
       {
         id: 0,
         receiveBy:
-          (data.participants || [])?.find(item => item.userBy !== data.createdBy)?.userBy ??
+          (data.participants || []).find(item => item.userType == 'EXECUTOR')?.userBy ??
           data.createdBy,
         advertisementId: data.id,
         type: 'NORMAL',

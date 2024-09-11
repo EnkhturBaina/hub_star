@@ -65,9 +65,11 @@ const ListServices: React.FC<Props> = ({ servicesData, isStars, editAdv, removeA
               {isStars && <Rating point={adv?.rating} />}
 
               <Menu as="div" className="relative inline-block text-left h-full">
-                <MenuButton className="absolute right-2 top-2 flex items-center rounded-full bg-gray-100 text-gray-400 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-100">
-                  <EllipsisVerticalIcon className="h-5 w-5" aria-hidden="true" />
-                </MenuButton>
+                {(editAdv || removeAdv) && (
+                  <MenuButton className="absolute right-2 top-2 flex items-center rounded-full bg-gray-100 text-gray-400 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-100">
+                    <EllipsisVerticalIcon className="h-5 w-5" aria-hidden="true" />
+                  </MenuButton>
+                )}
                 <Transition
                   enter="transition ease-out duration-100"
                   enterFrom="transform opacity-0 scale-95"
