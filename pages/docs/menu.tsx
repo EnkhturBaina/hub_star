@@ -26,7 +26,7 @@ const MenuPage: NextPage = () => {
     }
   }, [searchParams.get('menuId')]);
   return (
-    <section className="pt-35 lg:pt-40 xl:pt-42.5">
+    <section className="!overflow-y-auto !my-0">
       {loading ? (
         <AdSkeleton />
       ) : (

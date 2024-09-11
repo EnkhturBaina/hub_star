@@ -25,45 +25,45 @@ const profileRoutes: ProfileRoute[] = [
     name: 'Профайл',
     url: '/profile/information',
   },
+  {
+    id: 2,
+    name: 'Баталгаажуулалт',
+    url: '/profile/confirmation',
+  },
   // {
   //   id: 2,
   //   name: 'Мессенжер',
   //   url: '/profile/messenger',
   // },
   {
-    id: 2,
+    id: 3,
     name: 'Үйлчилгээ байршуулах',
     url: '/profile/post-service',
   },
   {
-    id: 3,
+    id: 4,
     name: 'Байршуулсан үйлчилгээ',
     url: '/profile/posted-services',
   },
   {
-    id: 4,
+    id: 5,
     name: 'Хийгдэж буй ажил',
     url: '/profile/doing-services',
   },
   {
-    id: 5,
+    id: 6,
     name: 'Хадгалагдсан үйлчилгээнүүд',
     url: '/profile/saved-services',
   },
   {
-    id: 6,
+    id: 7,
     name: 'Үйлчилгээний түүх',
     url: '/profile/service-history',
   },
   {
-    id: 7,
+    id: 8,
     name: 'Дансны мэдээлэл',
     url: '/profile/account',
-  },
-  {
-    id: 8,
-    name: 'Баталгаажуулалт',
-    url: '/profile/confirmation',
   },
   {
     id: 9,
@@ -217,7 +217,7 @@ const LeftMenu = () => {
                           }
                         });
                       } else {
-                        toast.error("Хийгдэж буй ажил байгаа тул устгах боломжгүй байна!")
+                        toast.error('Хийгдэж буй ажил байгаа тул устгах боломжгүй байна!');
                       }
                     });
                   }}

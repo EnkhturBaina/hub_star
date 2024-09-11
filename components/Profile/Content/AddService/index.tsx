@@ -1,6 +1,5 @@
 'use client';
 import { motion } from 'framer-motion';
-import { Button, Checkbox } from '@nextui-org/react';
 import { Progress } from 'semantic-ui-react';
 import { useEffect, useState } from 'react';
 import Step1 from './Step1';
@@ -22,6 +21,19 @@ import ConsultingService from './Step3/ConsultingService';
 import VocationalTraining from './Step3/VocationalTraining';
 import LaboratoryMaterial from './Step3/LaboratoryMaterial';
 import MakeBudget from './Step3/MakeBudget';
+import {
+  Button,
+  Checkbox,
+  Input,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  Textarea,
+} from '@nextui-org/react';
+import MenuPage from '@/pages/docs/menu';
+import { useRouter } from 'next/router';
 
 const defaultCreateAd: ICreateAd = {
   mainDirectionId: null,
@@ -59,6 +71,7 @@ type Props = {
   updateAdv?: ICreateAd;
 };
 const AddService: React.FC<Props> = ({ isSpecial, setIsAddService, updateAdv }) => {
+  const router = useRouter();
   const [step, setStep] = useState(1);
   const maxStep = 3;
   const [createAd, setCreateAd] = useState<ICreateAd>(defaultCreateAd);
@@ -68,6 +81,17 @@ const AddService: React.FC<Props> = ({ isSpecial, setIsAddService, updateAdv }) 
   const [powerData, setPowerData] = useState<MachineryType[]>([]);
   const [modelData, setModelData] = useState<MachineryType[]>([]);
   const [materials, setMaterials] = useState<MachineryType[]>([]);
+
+  const [isOpen, setIsOpen] = useState(false);
+
+  const onOpenChange = async () => {
+    await ReferenceService.getPageByType('TERM_OF_SERVICE').then(res => {
+      if (res.success) {
+        router.push('?menuId=' + res.response.menuId);
+        setIsOpen(!isOpen);
+      }
+    });
+  };
 
   const totalCounter = Object.entries(createAd).reduce((total, _) => total + 1, 0);
   const valueCounter = Object.entries(createAd).reduce(
@@ -387,7 +411,7 @@ const AddService: React.FC<Props> = ({ isSpecial, setIsAddService, updateAdv }) 
             <MakeBudget adData={createAd} setAdData={setCreateAd} />
           )}
           <div className="flex flex-col gap-y-2">
-            <Checkbox
+            {/* <Checkbox
               isSelected={createAd?.isMessenger}
               classNames={{
                 base: 'w-full',
@@ -397,26 +421,84 @@ const AddService: React.FC<Props> = ({ isSpecial, setIsAddService, updateAdv }) 
               onValueChange={isMessenger => setCreateAd({ ...createAd, isMessenger })}
             >
               Мессэнжер нээх
-            </Checkbox>
-            <Checkbox
-              isSelected={createAd?.isTermOfService}
-              classNames={{
-                base: 'w-full',
-                label: 'w-full',
-                wrapper: 'custom-checkbox w-6 h-6',
-              }}
-              onValueChange={isTermOfService => setCreateAd({ ...createAd, isTermOfService })}
-            >
-              <span>
-                Үйлчилгээний нөхцөл зөвшөөрөх{' '}
-                <Button variant="light" onClick={onTermOfService}>
-                  Үйлчилгээний нөхцөл
-                </Button>
-              </span>
-            </Checkbox>
+            </Checkbox> */}
+            {/* <Checkbox
+          isSelected={createAd?.isTermOfService}
+          classNames={{
+            base: 'w-full',
+            label: 'w-full',
+            wrapper: 'custom-checkbox w-6 h-6',
+          }}
+          onValueChange={isTermOfService => setCreateAd({ ...createAd, isTermOfService })}
+        > */}
+            <span>
+              {/* Үйлчилгээний нөхцөл зөвшөөрөх{' '} */}
+              <Button variant="light" onClick={onOpenChange}>
+                {/* <Button variant="light" onClick={onTermOfService}> */}* Үйлчилгээний нөхцөл
+              </Button>
+            </span>
+            {/* </Checkbox> */}
           </div>
         </motion.div>
       )}
+      <Modal
+        backdrop="opaque"
+        isOpen={isOpen}
+        size="5xl"
+        onOpenChange={onOpenChange}
+        className="absolute top-4"
+        classNames={{
+          backdrop: 'bg-gradient-to-t from-zinc-900 to-zinc-900/10 backdrop-opacity-20',
+          base: 'my-auto',
+        }}
+      >
+        <ModalContent>
+          {onClose => (
+            <>
+              {/* <ModalHeader className="flex flex-col gap-1">Үйлчилгээний нөхцөл</ModalHeader> */}
+              <ModalBody
+                style={{
+                  width: '100%',
+                  minHeight: '100%',
+                  position: 'relative',
+                  overflowY: 'auto',
+                }}
+              >
+                <MenuPage />
+              </ModalBody>
+              <ModalFooter>
+                <Checkbox
+                  isSelected={createAd?.isTermOfService}
+                  classNames={{
+                    base: 'w-full',
+                    label: 'w-full',
+                    wrapper: 'custom-checkbox w-6 h-6',
+                  }}
+                  onValueChange={isTermOfService => setCreateAd({ ...createAd, isTermOfService })}
+                >
+                  <span>Үйлчилгээний нөхцөл зөвшөөрөх </span>
+                </Checkbox>
+                <Button
+                  color="default"
+                  variant="light"
+                  onClick={() => {
+                    if (!!createAd?.isTermOfService) {
+                      onClose();
+                      return;
+                    } else {
+                      setCreateAd(defaultCreateAd);
+                      toast.error('!Үйлчилгээний нөхцөл зөвшөөрөх');
+                      return;
+                    }
+                  }}
+                >
+                  Хаах
+                </Button>
+              </ModalFooter>
+            </>
+          )}
+        </ModalContent>
+      </Modal>
       <div className="flex flex-row justify-between p-2">
         <Button
           variant="bordered"

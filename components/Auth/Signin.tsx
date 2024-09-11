@@ -9,12 +9,15 @@ import { useState } from 'react';
 import { Divider } from 'semantic-ui-react';
 import toast from 'react-hot-toast';
 import { useTranslation } from 'next-i18next';
+import { EyeDropperIcon, EyeIcon } from '@heroicons/react/20/solid';
 
 const Signin = () => {
   const router = useRouter();
   const { t } = useTranslation();
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+
+  const [show, setShow] = useState('password');
 
   const login = () => {
     if (username == '') {
@@ -89,21 +92,29 @@ const Signin = () => {
                 }}
                 onValueChange={setUsername}
               />
-              <Input
-                key="password"
-                type="password"
-                label={t('password')}
-                labelPlacement="outside"
-                placeholder={t('password')}
-                radius="sm"
-                size="lg"
-                variant="bordered"
-                classNames={{
-                  label: 'font-bold',
-                  inputWrapper: ['custom-input-wrapper', 'bg-white'],
-                }}
-                onValueChange={setPassword}
-              />
+              <div className="w-full h-fit relative flex items-center justify-center">
+                <Input
+                  key="password"
+                  type={show || 'password'}
+                  label={t('password')}
+                  labelPlacement="outside"
+                  placeholder={t('password')}
+                  radius="sm"
+                  size="lg"
+                  variant="bordered"
+                  className="w-full"
+                  classNames={{
+                    label: 'font-bold',
+                    inputWrapper: ['custom-input-wrapper', 'bg-white'],
+                  }}
+                  onValueChange={setPassword}
+                />
+                <EyeIcon
+                  width={16}
+                  className="absolute right-5 top-[54%] cursor-pointer"
+                  onClick={() => setShow(show === 'password' ? 'show' : 'password')}
+                />
+              </div>
               <div className="text-right text-sm">
                 <Link className="text-primary" href="/auth/forgot-password">
                   {t('forgotPassword')}

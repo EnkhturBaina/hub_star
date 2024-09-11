@@ -7,6 +7,8 @@ import { useTypedSelector } from '@/app/lib/reducer';
 import { useDispatch } from 'react-redux';
 import { setAdvParam } from '@/app/lib/features/adv-param';
 import SpecialServiceData from '@/app/data/SpecialServiceData';
+import { BiMinus } from 'react-icons/bi';
+import { BsPlus } from 'react-icons/bs';
 
 type Props = {
   closeFnc?: () => void;
@@ -69,6 +71,7 @@ const SideCheckSpecialDirection: React.FC<Props> = ({ closeFnc }) => {
             <AccordionItem
               key={index}
               title={<span className="text-sm text-black leading-normal">{direction.name}</span>}
+              indicator={({ isOpen }) => (isOpen ? <BiMinus className="rotate-90" /> : <BsPlus />)}
             >
               <CheckboxGroup
                 color="warning"

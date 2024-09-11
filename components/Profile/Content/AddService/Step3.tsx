@@ -157,7 +157,7 @@ const Step3: React.FC<IProps> = ({ adData, setAdData }) => {
         />
       </div>
       <div className="flex flex-col gap-y-2">
-        <Checkbox
+        {/* <Checkbox
           isSelected={adData?.isMessenger}
           classNames={{
             base: 'w-full',
@@ -167,7 +167,7 @@ const Step3: React.FC<IProps> = ({ adData, setAdData }) => {
           onValueChange={isMessenger => setAdData({ ...adData, isMessenger })}
         >
           Мессэнжер нээх
-        </Checkbox>
+        </Checkbox> */}
         <Checkbox
           isSelected={adData?.isTermOfService}
           classNames={{

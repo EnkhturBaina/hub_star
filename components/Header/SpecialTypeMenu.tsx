@@ -42,7 +42,7 @@ const SpecialTypeMenu: React.FC = () => {
       whileInView="visible"
       transition={{ duration: 0.5, delay: 0.1 }}
       viewport={{ once: true }}
-      className="animate_top flex no-scrollbar flex-row justify-center overflow-x-auto whitespace-nowrap md:flex-nowrap md:items-center lg:gap-7.5 xl:gap-12.5 gap-2"
+      className="animate_top flex no-scrollbar flex-row md:justify-center justify-start overflow-x-scroll whitespace-nowrap md:flex-nowrap md:items-center lg:gap-7.5 xl:gap-12.5 gap-2"
     >
       {SpecialServiceData.map((item, index: number) => (
         <div

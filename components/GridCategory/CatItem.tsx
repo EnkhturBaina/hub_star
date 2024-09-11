@@ -11,7 +11,7 @@ const CatItem: React.FC<Props> = ({ mainDirection, queryId }) => {
   return (
     <>
       <div
-        className={`cursor-pointer bg-gradient-to-b shadow-solid-8 w-full h-36 !flex-none hover:bg-gradient-to-t hover:from-mainColor hover:to-transparent ${Number(queryId) === id ? 'bg-gradient-to-t from-mainColor to-transparent' : ''}`}
+        className={`cursor-pointer bg-gradient-to-b shadow-solid-8 w-full md:h-36 h-25 !flex-none hover:bg-gradient-to-t hover:from-mainColor hover:to-transparent ${Number(queryId) === id ? 'bg-gradient-to-t from-mainColor to-transparent' : ''}`}
       >
         <Link
           className={`relative block h-full rounded-lg hover:opacity-50 ${Number(queryId) === id && 'opacity-60'}`}

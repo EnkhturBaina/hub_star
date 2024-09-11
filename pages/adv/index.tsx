@@ -21,6 +21,7 @@ import { useTranslation } from 'react-i18next';
 const BlogPage: NextPage = () => {
   const { t } = useTranslation();
   const { advertisements, adMeta } = useAppContext();
+
   const advParam = useTypedSelector(state => state.advParam);
   const dispatch = useDispatch();
   const [materials, setMaterials] = useState<MachineryType[]>([]);
@@ -208,7 +209,7 @@ const BlogPage: NextPage = () => {
                       {(advParam.userType == 'MACHINERY' ||
                         advParam.userType == 'TRANSPORTATION') && (
                         <CustomSelect
-                          label="Даац"
+                          label="Төрөл"
                           value={advParam.machineryTypeId}
                           options={machineryTypes.map(item => ({
                             value: item.id,
@@ -287,8 +288,8 @@ const BlogPage: NextPage = () => {
                     </div>
                   </div>
                   <div className="grid xl:grid-cols-3 grid-cols-2 gap-6 mt-4">
-                    {advertisements.map((blog, key) => (
-                      <BlogItem blog={blog} key={key} />
+                    {advertisements.map(blog => (
+                      <BlogItem blog={blog} key={blog.id} />
                     ))}
                   </div>
                   <PaginationComp page={adMeta.page} pageCount={adMeta.pageCount} />

@@ -138,7 +138,8 @@ const SingleBlogPage: NextPage = () => {
     handleNotification({
       id: 0,
       receiveBy:
-        data.participants.find(item => item.userBy !== data.createdBy)?.userBy ?? data.createdBy,
+        (data.participants || [])?.find(item => item.userBy !== data.createdBy)?.userBy ??
+        data.createdBy,
       advertisementId: data.id,
       type: 'NORMAL',
       description,
@@ -285,6 +286,13 @@ const SingleBlogPage: NextPage = () => {
                     {data?.address}
                   </span>
                 </div>
+                <Image
+                  src={process.env.NEXT_PUBLIC_MEDIA_URL + data?.createdUser?.organizationLogoId}
+                  alt="Organization logo"
+                  width={40}
+                  height={40}
+                  className="min-w-[40px] min-h-[40px] w-fit h-fit"
+                />
                 {user && data?.createdBy !== user?.id && (
                   <Button
                     radius="full"
@@ -295,19 +303,6 @@ const SingleBlogPage: NextPage = () => {
                     Үйлчилгээг захиалах
                   </Button>
                 )}
-                <Image
-                  src={process.env.NEXT_PUBLIC_MEDIA_URL + data?.createdUser?.organizationLogoId}
-                  alt="Organization logo"
-                  width={40}
-                  height={40}
-                />
-                <Button
-                  onClick={() => router.replace(`/other-profile?item=${data.createdBy}`)}
-                  className="mb-2 w-full rounded-md bg-mainColor font-bold leading-none text-white"
-                >
-                  <UserCircleIcon width={18} height={18} />
-                  Профайл үзэх
-                </Button>
                 {data?.process == 'DOING' && user?.userType == 'SUBSCRIBER' && (
                   <Button
                     onClick={() => onOpen()}
@@ -317,6 +312,13 @@ const SingleBlogPage: NextPage = () => {
                     Үйлчилгээний төлөв солих
                   </Button>
                 )}
+                <Button
+                  onClick={() => router.replace(`/other-profile?item=${data.createdBy}`)}
+                  className="mb-2 w-full rounded-md bg-mainColor font-bold leading-none text-white"
+                >
+                  <UserCircleIcon width={18} height={18} />
+                  Профайл үзэх
+                </Button>
               </div>
             </div>
           </div>

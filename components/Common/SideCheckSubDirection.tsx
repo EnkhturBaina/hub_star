@@ -7,6 +7,7 @@ import { setAdvParam } from '@/app/lib/features/adv-param';
 import { useAppContext } from '@/app/app-context';
 import { BsPlus } from 'react-icons/bs';
 import { useState } from 'react';
+import { BiMinus } from 'react-icons/bi';
 
 type Props = {
   closeFnc?: () => void;
@@ -46,7 +47,7 @@ const SideCheckSubDirection: React.FC<Props> = ({ closeFnc }) => {
   return (
     <div className={`shadow-[rgba(0,0,15,0.5)_5px_0px_5px_-5px]`}>
       <div className="flex flex-row items-center justify-between border-b py-4 pr-2 mb-2">
-        <span className="ml-1 font-bold text-lg">Шүүлтүүр</span>
+        <h4 className="ml-1 !font-semibold text-lg text-gray-700">Шүүлтүүр</h4>
         <LuSettings2 className="text-xl" onClick={closeFnc} />
       </div>
       {mainDirections.map((mainDirection, index) => (
@@ -69,7 +70,7 @@ const SideCheckSubDirection: React.FC<Props> = ({ closeFnc }) => {
               {mainDirection.directions.map((direction: RefDirection, refIndex: number) => (
                 <AccordionItem
                   key={refIndex}
-                  indicator={<BsPlus />}
+                  indicator={({ isOpen }) => (isOpen ? <BiMinus className='rotate-90'/> : <BsPlus />)}
                   title={
                     <span className="text-sm text-black leading-normal ml-1">{direction.name}</span>
                   }

@@ -53,13 +53,13 @@ const FabButton = () => {
     // FAB button container
     <div className="fixed md:bottom-25 bottom-6 md:right-5 right-0 flex flex-col items-center z-99999">
       <div
-        className={`w-fit rounded-full p-3 bg-white shadow-lg cursor-pointer mb-2 ${isFabEnabled ? 'invisible' : 'visible'}`}
+        className={`w-fit rounded-full p-1.5 bg-white shadow-lg cursor-pointer mb-2 ${isFabEnabled ? 'invisible' : 'visible'}`}
         onClick={handleHome}
       >
         <RiHome5Fill className="text-4xl" />
       </div>
 
-      <div className="bg-white shadow-lg h-16 w-16 rounded-full flex items-center justify-center cursor-pointer active:scale-95 transition-all ease-in">
+      <div className="bg-white shadow-lg h-14 w-14 rounded-full flex items-center justify-center cursor-pointer active:scale-95 transition-all ease-in">
         <div onClick={toggleFAB} className={`rounded-full transition-transform ease-in`}>
           {langs
             ?.filter(el => el.id === router.locale)

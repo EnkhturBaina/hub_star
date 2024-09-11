@@ -49,7 +49,7 @@ const Footer: React.FC = () => {
         <div className="mx-auto max-w-screen-xl px-4 md:px-8 2xl:px-0">
           {/* <!-- Footer Top --> */}
           {pathUrl === '/auth/signin' || pathUrl === '/auth/signup' ? null : (
-            <div className="border-b py-10 lg:py-15">
+            <div className="border-b pt-10 lg:pt-15 pb-6">
               <div className="flex flex-wrap gap-8 lg:justify-between lg:gap-0">
                 <div className="flex w-full flex-col gap-8 md:flex-row md:justify-between md:gap-0">
                   <motion.div
