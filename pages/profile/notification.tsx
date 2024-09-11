@@ -15,9 +15,12 @@ import withAuth from '@/components/Common/withAuth';
 import { AdvertisementService } from '@/service/advertisement/advertisement.service';
 import { useDispatch } from 'react-redux';
 import { setNotfParam } from '@/app/lib/features/adv-param';
+import { useTypedSelector } from '@/app/lib/reducer';
 
 const Notification: NextPage = () => {
   const dispatch = useDispatch();
+  const advParam = useTypedSelector(state => state.advParam);
+
   const { user } = useAppContext();
   const [notifications, setNotifications] = useState<RefNotification[]>([]);
 
@@ -25,8 +28,9 @@ const Notification: NextPage = () => {
     await ReferenceService.getNotification({
       receiveBy: user?.id,
     }).then(res => {
-      console.log({ aa: res });
-      if (res.success) setNotifications(res.response);
+      if (res.success) {
+        setNotifications(res.response);
+      }
     });
   }, [user]);
 
@@ -34,23 +38,30 @@ const Notification: NextPage = () => {
     getData();
   }, [getData]);
 
+  useEffect(() => {
+    dispatch(
+      setNotfParam({
+        notification: notifications.reduce((total, item) => total + (item.isSeen ? 0 : 1), 0),
+      })
+    );
+  }, [notifications]);
+
   const handleUpdate = async (notification: RefNotification) => {
     await ReferenceService.updateNotification(notification.id, {
       ...notification,
       isSeen: true,
     }).then(res => {
       if (res.success) {
-        setTimeout(() => {
-          getData();
-          dispatch(
-            setNotfParam({
-              page: 1,
-              limit: 10,
-              directionIds: currentDirections?.map(item => item.id),
-              subDirectionIds: value.map(item => Number(item)),
-            })
-          );
-        }, 500);
+        getData().then(() => {
+          setTimeout(() => {
+            dispatch(
+              setNotfParam({
+                notification:
+                  advParam.notification > 0 ? advParam.notification - 1 : advParam.notification,
+              })
+            );
+          }, 600);
+        });
       }
     });
   };

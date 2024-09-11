@@ -22,7 +22,7 @@ export interface IAdParam extends IPageOptions {
   machineryTypeId?: number;
   specialService?: SpecialServiceType;
   isSpecial?: boolean;
-  notification?: number
+  notification?: any
 }
 export interface ICreateAd {
   id?: number;

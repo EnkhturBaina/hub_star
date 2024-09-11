@@ -10,7 +10,7 @@ import AuthName from '../Auth/auth-name';
 import useSocket from '@/service/socket-client';
 import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
-import { emptyAdvParam } from '@/app/lib/features/adv-param';
+import { emptyAdvParam, setNotfParam } from '@/app/lib/features/adv-param';
 import { useTypedSelector } from '@/app/lib/reducer';
 import SpecialTypeMenu from './SpecialTypeMenu';
 import UserTypeMenu from './UserTypeMenu';
@@ -27,12 +27,10 @@ const Header = () => {
 
   const [navigationOpen, setNavigationOpen] = useState(false);
   const [stickyMenu, setStickyMenu] = useState(false);
-  const [countNoti, setCountNoti] = useState(0);
+  const [countNoti, setCountNoti] = useState(advParam.notification || 0);
   const [messages, setMessages] = useState<any[]>([]);
 
   const pathUrl = usePathname();
-
-  console.log({ countNoti });
 
   // Sticky menu
   const handleStickyMenu = () => {
@@ -51,11 +49,15 @@ const Header = () => {
     if (getCookie('access-token')) {
       ReferenceService.getNotification({ receiveBy: user?.id }).then(res => {
         if (res.success) {
-          setCountNoti(res.response.reduce((total, item) => total + (item.isSeen ? 0 : 1), 0));
+          dispatch(
+            setNotfParam({
+              notification: res.response.reduce((total, item) => total + (item.isSeen ? 0 : 1), 0),
+            })
+          );
         }
       });
     }
-  }, []);
+  }, [user]);
 
   useEffect(() => {
     if (socket) {
@@ -64,7 +66,11 @@ const Header = () => {
         console.log('Connected!');
       });
       const handleNotification = (count: number) => {
-        setCountNoti(count);
+        dispatch(
+          setNotfParam({
+            notification: count,
+          })
+        );
       };
       socket.on('notification', handleNotification);
       return () => {
@@ -151,7 +157,7 @@ const Header = () => {
 
                 <div className="flex w-30 flex-row justify-around gap-2">
                   <Link href="/profile/notification">
-                    <Badge content={countNoti}>
+                    <Badge content={advParam.notification || 0}>
                       <svg
                         width="26"
                         height="26"

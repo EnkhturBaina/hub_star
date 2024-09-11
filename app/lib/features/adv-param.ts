@@ -4,7 +4,7 @@ const initialState: IAdParam = {
   order: 'DESC',
   page: 1,
   limit: 10,
-  notification: 0
+  notification: 0,
 };
 export const advParamSlice = createSlice({
   name: 'AdvParam',
@@ -18,13 +18,12 @@ export const advParamSlice = createSlice({
       console.log('is working redux', state);
       return state;
     },
-    setNotfParam: (state, action: PayloadAction<IAdParam>) => {
-      state = action.payload;
-      console.log('is working redux', state);
+    setNotfParam: (state, action: PayloadAction<any>) => {
+      state.notification = action.payload.notification
       return state;
     },
   },
 });
-export const { emptyAdvParam, setAdvParam } = advParamSlice.actions;
+export const { emptyAdvParam, setAdvParam, setNotfParam } = advParamSlice.actions;
 
 export default advParamSlice.reducer;
