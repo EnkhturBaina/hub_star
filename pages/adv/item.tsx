@@ -248,7 +248,10 @@ const SingleBlogPage: NextPage = () => {
                       <div
                         className="cursor-pointer"
                         onClick={() => {
-                          if (user?.userType == 'SUBSCRIBER') {
+                          if (
+                            (data?.participants || []).find(item => item.userType == 'SUBSCRIBER')
+                              ?.userBy == user?.id
+                          ) {
                             setData({ ...data, process: 'DONE' });
                             onOpen();
                           }
@@ -313,15 +316,17 @@ const SingleBlogPage: NextPage = () => {
                     Үйлчилгээг захиалах
                   </Button>
                 )}
-                {data?.process == 'DOING' && user?.userType == 'SUBSCRIBER' && (
-                  <Button
-                    onClick={() => onOpen()}
-                    radius="full"
-                    className="mb-2 w-full rounded-md bg-mainColor font-bold leading-none text-white"
-                  >
-                    Үйлчилгээний төлөв солих
-                  </Button>
-                )}
+                {data?.process == 'DOING' &&
+                  (data?.participants || []).find(item => item.userType == 'SUBSCRIBER')?.userBy ==
+                    user?.id && (
+                    <Button
+                      onClick={() => onOpen()}
+                      radius="full"
+                      className="mb-2 w-full rounded-md bg-mainColor font-bold leading-none text-white"
+                    >
+                      Үйлчилгээний төлөв солих
+                    </Button>
+                  )}
                 <Button
                   onClick={() => router.replace(`/other-profile?item=${data.createdBy}`)}
                   className="mb-2 w-full rounded-md bg-mainColor font-bold leading-none text-white"
