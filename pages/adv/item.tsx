@@ -244,22 +244,9 @@ const SingleBlogPage: NextPage = () => {
                     </Button>
                   </div>
                   <div className="w-full flex justify-between items-end gap-2">
-                    {user?.id && (
-                      <div
-                        className="cursor-pointer"
-                        onClick={() => {
-                          if (
-                            (data?.participants || []).find(item => item.userType == 'SUBSCRIBER')
-                              ?.userBy == user?.id
-                          ) {
-                            setData({ ...data, process: 'DONE' });
-                            onOpen();
-                          }
-                        }}
-                      >
-                        <Rating point={data?.rating} noText />
-                      </div>
-                    )}
+                    <div className="cursor-pointer">
+                      <Rating point={data?.rating} noText />
+                    </div>
                   </div>
                 </div>
                 <div className="w-full border-b border-dashed border-y-gray-500" />
