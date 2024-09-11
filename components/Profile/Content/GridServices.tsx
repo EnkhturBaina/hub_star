@@ -14,9 +14,9 @@ type Props = {
   isStars: boolean;
   editAdv?: (advertisement: Advertisement) => void;
   removeAdv?: (id: number) => void;
-  onIgeree?: () => void;
+  // onIgeree?: () => void;
 };
-const GridServices: React.FC<Props> = ({ servicesData, isStars, editAdv, removeAdv, onIgeree }) => {
+const GridServices: React.FC<Props> = ({ servicesData, isStars, editAdv, removeAdv }) => {
   function takeTypeName({
     userType,
     specialService,
@@ -115,11 +115,11 @@ const GridServices: React.FC<Props> = ({ servicesData, isStars, editAdv, removeA
                   </PopoverContent>
                 </Popover>
               )}
-              {onIgeree && (
+              {/* {onIgeree && (
                 <Button color="primary" onClick={() => onIgeree()}>
                   Гэрээ байгуулах
                 </Button>
-              )}
+              )} */}
             </div>
           </div>
         </div>

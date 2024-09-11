@@ -31,9 +31,9 @@ const DoingServices: React.FC<Props> = ({ userId }) => {
     getData();
   }, [getData]);
 
-  const onIgeree = () => {
-    window.open('http://192.82.92.171:3000/build/1881', '_blank');
-  };
+  // const onIgeree = () => {
+  //   window.open('http://192.82.92.171:3000/build/1881', '_blank');
+  // };
   return (
     <div className="mb-4 w-full overflow-hidden ">
       <div className="flex justify-end">
@@ -52,7 +52,7 @@ const DoingServices: React.FC<Props> = ({ userId }) => {
       ) : (
         <div className="mx-auto mt-4 max-w-c-1280">
           {isGrid ? (
-            <GridServices servicesData={advertisements} isStars={false} onIgeree={onIgeree} />
+            <GridServices servicesData={advertisements} isStars={false} />
           ) : (
             <ListServices servicesData={advertisements} isStars={false} />
           )}

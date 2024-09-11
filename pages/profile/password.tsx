@@ -2,8 +2,64 @@ import { motion } from 'framer-motion';
 import { Button, Input } from '@nextui-org/react';
 import ProfileLayout from '@/layouts/profile.layout';
 import withAuth from '@/components/Common/withAuth';
+import { useState } from 'react';
+import { EyeIcon } from '@heroicons/react/20/solid';
+import { AuthService } from '@/service/authentication/authentication.service';
+import { useAppContext } from '@/app/app-context';
+import toast from 'react-hot-toast';
+import { useRouter } from 'next/navigation';
 
 const Password = () => {
+  const { user } = useAppContext();
+  const router = useRouter();
+  const [isOldPasswordShow, setIsOldPasswordShow] = useState<boolean>(false);
+  const [isNewPasswordShow, setIsNewPasswordShow] = useState<boolean>(false);
+  const [isRepeatPasswordShow, setIsRepeatPasswordShow] = useState<boolean>(false);
+  const [oldPassword, setOldPassword] = useState<string>('');
+  const [newPassword, setNewPassword] = useState<string>('');
+  const [repeatPassword, setRepeatPassword] = useState<string>('');
+
+  const handleChangePassword = () => {
+    if (oldPassword == '') {
+      toast.error('Хуучин нууц үг оруулна уу.');
+      return;
+    }
+    if (newPassword == '') {
+      toast.error('Шинэ нууц үг оруулна уу.');
+      return;
+    }
+    if (repeatPassword == '') {
+      toast.error('Нууц үг давтах оруулна уу.');
+      return;
+    }
+    if (repeatPassword !== newPassword) {
+      toast.error('Нууц үг давтах таарахгүй байна.');
+      return;
+    }
+    AuthService.login({ username: user?.username, password: oldPassword })
+      .then(async res => {
+        AuthService.changePassword({
+          password: newPassword,
+          token: res.response.accessToken,
+        }).then(res => {
+          if (res.success) {
+            toast.success('Нууц үг амжилттай солилоо');
+            router.push('/auth/signin');
+            return;
+          }
+        });
+      })
+      .catch(err => {
+        toast.error(err + 'Хуучин нууц үг буруу.');
+        return;
+      });
+  };
+
+  const handleClear = () => {
+    setOldPassword('');
+    setNewPassword('');
+    setRepeatPassword('');
+  };
   return (
     <ProfileLayout>
       <motion.div
@@ -24,51 +80,83 @@ const Password = () => {
         viewport={{ once: true }}
         className="mb-4 grid w-full grid-cols-1 gap-y-4 overflow-hidden p-2"
       >
-        <Input
-          key="oldPassword"
-          type="password"
-          label="Хуучин нууц үг"
-          labelPlacement="outside"
-          placeholder="Хуучин нууц үг"
-          radius="sm"
-          size="lg"
-          variant="bordered"
-          classNames={{
-            label: 'font-bold',
-            inputWrapper: ['custom-input-wrapper', 'bg-white'],
-          }}
-        />
-        <Input
-          key="newPassword"
-          type="password"
-          label="Шинэ нууц үг"
-          labelPlacement="outside"
-          placeholder="Шинэ нууц үг"
-          radius="sm"
-          size="lg"
-          variant="bordered"
-          classNames={{
-            label: 'font-bold',
-            inputWrapper: ['custom-input-wrapper', 'bg-white'],
-          }}
-        />
-        <Input
-          key="repeatPassword"
-          type="password"
-          label="Нууц үг давтах"
-          labelPlacement="outside"
-          placeholder="Нууц үг давтах"
-          radius="sm"
-          size="lg"
-          variant="bordered"
-          classNames={{
-            label: 'font-bold',
-            inputWrapper: ['custom-input-wrapper', 'bg-white'],
-          }}
-        />
+        <div className="w-full h-fit relative flex items-center justify-center">
+          <Input
+            key="oldPassword"
+            type={!isOldPasswordShow && 'password'}
+            label="Хуучин нууц үг"
+            labelPlacement="outside"
+            placeholder="Хуучин нууц үг"
+            radius="sm"
+            size="lg"
+            variant="bordered"
+            classNames={{
+              label: 'font-bold',
+              inputWrapper: ['custom-input-wrapper', 'bg-white'],
+            }}
+            value={oldPassword}
+            onValueChange={setOldPassword}
+          />
+          <EyeIcon
+            width={16}
+            className="absolute right-5 top-[54%] cursor-pointer"
+            onClick={() => setIsOldPasswordShow(!isOldPasswordShow)}
+          />
+        </div>
+        <div className="w-full h-fit relative flex items-center justify-center">
+          <Input
+            key="newPassword"
+            type={!isNewPasswordShow && 'password'}
+            label="Шинэ нууц үг"
+            labelPlacement="outside"
+            placeholder="Шинэ нууц үг"
+            radius="sm"
+            size="lg"
+            variant="bordered"
+            classNames={{
+              label: 'font-bold',
+              inputWrapper: ['custom-input-wrapper', 'bg-white'],
+            }}
+            value={newPassword}
+            onValueChange={setNewPassword}
+          />
+          <EyeIcon
+            width={16}
+            className="absolute right-5 top-[54%] cursor-pointer"
+            onClick={() => setIsNewPasswordShow(!isNewPasswordShow)}
+          />
+        </div>
+        <div className="w-full h-fit relative flex items-center justify-center">
+          <Input
+            key="repeatPassword"
+            type={!isRepeatPasswordShow && 'password'}
+            label="Нууц үг давтах"
+            labelPlacement="outside"
+            placeholder="Нууц үг давтах"
+            radius="sm"
+            size="lg"
+            variant="bordered"
+            classNames={{
+              label: 'font-bold',
+              inputWrapper: ['custom-input-wrapper', 'bg-white'],
+            }}
+            value={repeatPassword}
+            onValueChange={setRepeatPassword}
+          />
+          <EyeIcon
+            width={16}
+            className="absolute right-5 top-[54%] cursor-pointer"
+            onClick={() => setIsRepeatPasswordShow(!isRepeatPasswordShow)}
+          />
+        </div>
 
         <div className="flex flex-row justify-end">
-          <Button className="mr-4 bg-mainColor !text-white" radius="sm" size="md">
+          <Button
+            className="mr-4 bg-mainColor !text-white"
+            radius="sm"
+            size="md"
+            onClick={handleChangePassword}
+          >
             Хадгалах
           </Button>
           <Button
@@ -76,6 +164,7 @@ const Password = () => {
             radius="sm"
             className="border-mainGray !bg-white !text-black"
             size="md"
+            onClick={handleClear}
           >
             Цуцлах
           </Button>
