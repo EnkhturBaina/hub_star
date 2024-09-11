@@ -118,26 +118,26 @@ const LeftMenu = () => {
         <Divider className="mx-auto w-11/12" />
         <MenuItem
           name="logout"
-          onClick={onOpen}
-          className={`!m-2 !flex !items-center !justify-between !rounded-xl !py-2 !leading-loose ${
-            pathUrl == 'logout' ? '!bg-mainColor !text-white' : '!text-red-600'
-          }`}
-        >
-          Системээс гарах
-          <Label className="!bg-transparent">
-            <CiLogout className="text-2xl !text-red-600" />
-          </Label>
-        </MenuItem>
-        <MenuItem
-          name="logout"
           onClick={onOpenDelModal}
           className={`!m-2 !flex !items-center !justify-between !rounded-xl !py-2 !leading-loose ${
-            pathUrl == 'logout' ? '!bg-mainColor !text-white' : '!text-red-600'
+            pathUrl == 'logout' ? '!bg-mainColor !text-white' : '!text-red-500 !font-semibold'
           }`}
         >
           Профайл устгах
           <Label className="!bg-transparent">
-            <CiLogout className="text-2xl !text-red-600" />
+            <CiLogout className="text-2xl !text-red-500" />
+          </Label>
+        </MenuItem>
+        <MenuItem
+          name="logout"
+          onClick={onOpen}
+          className={`!m-2 !flex !items-center !justify-between !rounded-xl !py-2 !leading-loose ${
+            pathUrl == 'logout' ? '!bg-mainColor !text-white' : '!text-green-500 !font-semibold'
+          }`}
+        >
+          Системээс гарах
+          <Label className="!bg-transparent">
+            <CiLogout className="text-2xl !text-green-600" />
           </Label>
         </MenuItem>
       </Menu>
