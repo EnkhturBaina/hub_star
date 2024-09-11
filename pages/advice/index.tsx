@@ -105,7 +105,7 @@ const AdvicePage: NextPage = () => {
           mainDirectionId={Number(router.query.mainDirectionId)}
           onDirectionIds={directionIds => setParams(prev => ({ ...prev, directionIds }))}
         />
-        <div className="px-6 pb-6 lg:w-3/4">
+        <div className="px-6 pb-6 w-full lg:w-3/4">
           <div className="my-4 flex flex-row justify-between">
             <div
               className="w-fit rounded-xl bg-white p-2 md:hidden block border-[#e4e4e7] border-2"
@@ -145,7 +145,7 @@ const AdvicePage: NextPage = () => {
               Онцгой үйлчилгээ оруулах
             </Button> */}
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {advices.map((item, index) => (
               <AdviceItem advice={item} key={index} />
             ))}

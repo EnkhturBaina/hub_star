@@ -36,7 +36,7 @@ const SideCheckDirection: React.FC<Props> = ({
   return (
     <div className={`shadow-[rgba(0,0,15,0.5)_5px_0px_5px_-5px] md:w-1/4 lg:w-[20%] ${className}`}>
       <div className="flex flex-row items-center justify-between border-b py-4 pr-2">
-        <strong className="text-lg">Шүүлтүүр</strong>
+        <strong className="lg:text-lg text-base">Шүүлтүүр</strong>
         <LuSettings2 className="text-xl" />
       </div>
       <CheckboxGroup
@@ -61,7 +61,7 @@ const SideCheckDirection: React.FC<Props> = ({
               key={index}
             >
               <div className="flex w-full flex-row items-center justify-between">
-                <span className="text-sm leading-none">{item?.name}</span>
+                <span className="lg:text-sm text-xs leading-none">{item?.name}</span>
                 <span className="text-sm">{item?.advices.length}</span>
               </div>
             </Checkbox>

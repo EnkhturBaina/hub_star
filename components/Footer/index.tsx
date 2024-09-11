@@ -70,7 +70,9 @@ const Footer: React.FC = () => {
                     viewport={{ once: true }}
                     className="animate_top"
                   >
-                    <h4 className="mb-9 text-itemtitle2 font-semibold text-gray-400">HUB STAR</h4>
+                    <h4 className="mb-9 lg:text-itemtitle2 text-xl font-semibold text-gray-400">
+                      HUB STAR
+                    </h4>
 
                     <ul>
                       {menus
@@ -79,7 +81,7 @@ const Footer: React.FC = () => {
                           <li key={item.id}>
                             <Link
                               href={{ pathname: '/docs/menu', query: { menuId: item.id } }}
-                              className="mb-3 inline-block text-white hover:text-mainColor"
+                              className="lg:text-base text-sm mb-3 inline-block text-white hover:text-mainColor"
                             >
                               {item.title}
                             </Link>
@@ -106,7 +108,9 @@ const Footer: React.FC = () => {
                     viewport={{ once: true }}
                     className="animate_top"
                   >
-                    <h4 className="mb-9 text-itemtitle2 font-semibold text-gray-400">ТУСЛАМЖ</h4>
+                    <h4 className="mb-9  lg:text-itemtitle2 text-xl text-itemtitle2 font-semibold text-gray-400">
+                      ТУСЛАМЖ
+                    </h4>
 
                     <ul>
                       {menus
@@ -115,7 +119,7 @@ const Footer: React.FC = () => {
                           <li key={item.id}>
                             <Link
                               href={{ pathname: '/docs/menu', query: { menuId: item.id } }}
-                              className="mb-3 inline-block text-white hover:text-mainColor"
+                              className="lg:text-base text-sm mb-3 inline-block text-white hover:text-mainColor"
                             >
                               {item.title}
                             </Link>
@@ -141,11 +145,11 @@ const Footer: React.FC = () => {
                     viewport={{ once: true }}
                     className="animate_top"
                   >
-                    <h4 className="mb-9 text-itemtitle2 font-semibold text-gray-400">
+                    <h4 className="mb-9 lg:text-itemtitle2 text-xl font-semibold text-gray-400 ">
                       ХОЛБОО БАРИХ
                     </h4>
 
-                    <ul>
+                    <ul className="lg:text-base text-sm">
                       <li>
                         <a href="#" className="mb-3 inline-block text-white hover:text-mainColor">
                           Утас: 7070-7070

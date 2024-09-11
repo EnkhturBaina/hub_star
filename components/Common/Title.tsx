@@ -6,7 +6,7 @@ type Props = {
 const Title: React.FC<Props> = ({ label }) => {
   return (
     <>
-      <h4 className="text-lg font-semibold text-black">{label}</h4>
+      <h4 className="lg:text-lg text-base font-semibold text-black">{label}</h4>
       <Divider className="my-4" />
     </>
   );

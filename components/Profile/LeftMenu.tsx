@@ -107,7 +107,7 @@ const LeftMenu = () => {
               name={el.url}
               active={pathUrl == el.url}
               onClick={() => handleItemClick(el)}
-              className={`!m-2 !rounded-xl ${
+              className={`!m-2 !rounded-xl lg:text-base text-sm ${
                 pathUrl == el.url ? '!bg-mainColor !text-white' : '!text-gray-500'
               }`}
             >

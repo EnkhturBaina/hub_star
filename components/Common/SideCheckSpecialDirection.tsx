@@ -55,7 +55,7 @@ const SideCheckSpecialDirection: React.FC<Props> = ({ closeFnc }) => {
   return (
     <div className={`shadow-[rgba(0,0,15,0.5)_5px_0px_5px_-5px]`}>
       <div className="flex flex-row items-center justify-between border-b py-4 pl-1.5 pr-3">
-        <strong className="text-lg">Шүүлтүүр</strong>
+        <strong className="lg:text-lg text-base">Шүүлтүүр</strong>
         <LuSettings2
           className="text-xl"
           onClick={closeFnc == undefined ? null : () => closeFnc()}
@@ -70,7 +70,11 @@ const SideCheckSpecialDirection: React.FC<Props> = ({ closeFnc }) => {
           return (
             <AccordionItem
               key={index}
-              title={<span className="text-sm text-black leading-normal">{direction.name}</span>}
+              title={
+                <span className="lg:text-sm text-xs text-black leading-normal">
+                  {direction.name}
+                </span>
+              }
               indicator={({ isOpen }) => (isOpen ? <BiMinus className="rotate-90" /> : <BsPlus />)}
             >
               <CheckboxGroup

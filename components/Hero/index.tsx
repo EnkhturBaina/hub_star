@@ -60,10 +60,10 @@ const Hero = () => {
   return (
     <>
       <section className="pb-2 lg:pb-2 xl:pb-4 pt-52">
-        <div className="mx-auto max-w-screen-2xl px-4 md:px-8 2xl:px-0">
+        <div className="mx-auto max-w-screen-2xl px-4 xl:px-8 2xl:px-0">
           <div className="flex flex-row gap-7.5 xl:gap-12.5 justify-center items-start">
             <div className="hidden md:block md:w-1/4">
-              <div className="animate_top mb-10 rounded-md border border-stroke bg-white p-6 shadow-md">
+              <div className="animate_top mb-10 rounded-md border border-stroke bg-white lg:p-6 py-4 px-3 shadow-md">
                 <Title label={t('services')} />
                 {mainDirections.length == 0 ? (
                   <LeftDirections />
@@ -92,7 +92,7 @@ const Hero = () => {
                             style={{ width: 25, height: 25 }}
                           />
                           <h4
-                            className={`!mt-0 ml-2 self-center text-lg font-semibold text-black ${!openParentAccordion.includes(md.id) && 'text-[#f7941d]'}`}
+                            className={`!mt-0 ml-2 self-center text-sm lg:text-lg font-semibold text-black ${!openParentAccordion.includes(md.id) && 'text-[#f7941d]'}`}
                           >
                             {md?.name}
                           </h4>
@@ -105,7 +105,9 @@ const Hero = () => {
                                   className="flex flex-row items-center justify-between cursor-pointer !opacity-100 transition-all duration-300 last:mb-0 hover:text-mainColor"
                                   onClick={() => toggleAccordion(d.id)}
                                 >
-                                  <span className="text-base text-[#646669]">{d.name}</span>
+                                  <span className="lg:text-base text-sm text-[#646669]">
+                                    {d.name}
+                                  </span>
                                   {d.subDirections.length > 0 && openAccordion === d.id ? (
                                     <BiMinus />
                                   ) : (
@@ -133,7 +135,7 @@ const Hero = () => {
                                         }}
                                       >
                                         <span className="text-red-500">*</span>
-                                        <div className="transition-all duration-300 ease-out !text-black hover:!text-yellow-400">
+                                        <div className="lg:text-sm text-xs transition-all duration-300 ease-out !text-black hover:!text-yellow-400">
                                           {sub.name}
                                         </div>
                                       </li>

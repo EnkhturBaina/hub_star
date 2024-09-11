@@ -263,7 +263,7 @@ const Header = () => {
         <SearchBox />
       </div>
       {/^\/profile\/.*/.test(pathUrl) || /^\/other-profile\.*/.test(pathUrl) || (
-        <div className="no-scrollbar mt-2 flex overflow-y-scroll md:justify-center">
+        <div className="w-full h-full no-scrollbar mt-2 flex overflow-y-scroll md:justify-center">
           <nav className="w-full">
             {advParam?.specialService ? (
               <SpecialTypeMenu />
