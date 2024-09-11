@@ -299,7 +299,7 @@ const SingleBlogPage: NextPage = () => {
                     className="mb-2 w-full min-h-[40px] rounded-md bg-mainColor font-bold leading-none text-white"
                     onClick={onConfirmOpen}
                   >
-                    <ShoppingCartIcon width={16} height={16} className="mb-1" />
+                    {/* <ShoppingCartIcon width={16} height={16} className="mb-1" /> */}
                     Үйлчилгээг захиалах
                   </Button>
                 )}
