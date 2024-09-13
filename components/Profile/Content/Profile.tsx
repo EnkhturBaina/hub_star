@@ -111,6 +111,22 @@ const Profile: React.FC<Props> = ({ user }) => {
             }}
             value={user?.email}
           />
+          <Input
+            disabled
+            key="organizationName"
+            type="text"
+            label="Байгууллагын нэр"
+            labelPlacement="outside"
+            placeholder="Байгууллагын нэр"
+            radius="sm"
+            size="lg"
+            variant="bordered"
+            classNames={{
+              label: 'font-bold',
+              inputWrapper: ['custom-input-wrapper', 'bg-white'],
+            }}
+            value={user?.organizationName ?? ''}
+          />
           <Textarea
             disabled
             variant="bordered"

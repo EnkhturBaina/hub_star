@@ -208,6 +208,29 @@ const Profile: NextPage = () => {
               }));
             }}
           />
+          {!profileData?.isCitizen && (
+            <Input
+              key="organizationName"
+              type="text"
+              label="Байгууллагын нэр"
+              labelPlacement="outside"
+              placeholder="Байгууллагын нэр"
+              radius="sm"
+              size="lg"
+              variant="bordered"
+              classNames={{
+                label: 'font-bold',
+                inputWrapper: ['custom-input-wrapper', 'bg-white'],
+              }}
+              value={profileData?.organizationName ?? ''}
+              onValueChange={e => {
+                setProfileData((prevState: Users) => ({
+                  ...prevState,
+                  organizationName: e,
+                }));
+              }}
+            />
+          )}
           <Textarea
             variant="bordered"
             label="Хаяг"

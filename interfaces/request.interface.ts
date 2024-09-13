@@ -14,6 +14,7 @@ export interface IAdParam extends IPageOptions {
   subDirectionIds?: number[];
   title?: string;
   userBy?: number;
+  executorBy?: number;
   createdBy?: number;
   provinceId?: number;
   districtId?: number;
@@ -22,7 +23,7 @@ export interface IAdParam extends IPageOptions {
   machineryTypeId?: number;
   specialService?: SpecialServiceType;
   isSpecial?: boolean;
-  notification?: any
+  notification?: any;
 }
 export interface ICreateAd {
   id?: number;

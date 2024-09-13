@@ -262,19 +262,21 @@ const Header = () => {
       <div className="mx-4 mt-2 block md:hidden">
         <SearchBox />
       </div>
-      {/^\/profile\/.*/.test(pathUrl) || /^\/other-profile\.*/.test(pathUrl) || (
-        <div className="w-full h-full no-scrollbar mt-2 flex overflow-y-scroll md:justify-center">
-          <nav className="w-full">
-            {advParam?.specialService ? (
-              <SpecialTypeMenu />
-            ) : router.pathname.includes('advice') ? (
-              <AdvicesTypeMenu />
-            ) : (
-              <UserTypeMenu />
-            )}
-          </nav>
-        </div>
-      )}
+      {/^\/profile\/.*/.test(pathUrl) ||
+        /^\/other-profile\.*/.test(pathUrl) ||
+        /^\/docs\.*/.test(pathUrl) || (
+          <div className="no-scrollbar mt-2 flex overflow-y-scroll md:justify-center">
+            <nav className="w-full">
+              {advParam?.specialService ? (
+                <SpecialTypeMenu />
+              ) : router.pathname.includes('advice') ? (
+                <AdvicesTypeMenu />
+              ) : (
+                <UserTypeMenu />
+              )}
+            </nav>
+          </div>
+        )}
     </header>
   );
 };

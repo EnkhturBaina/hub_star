@@ -20,7 +20,7 @@ const ServiceHistory: React.FC<Props> = ({ userId }) => {
       limit: 10,
       order: 'DESC',
       process: 'DONE',
-      userBy: userId,
+      executorBy: userId,
     }).then(res => {
       if (res.success) {
         setAdvertisements(res.response.data);

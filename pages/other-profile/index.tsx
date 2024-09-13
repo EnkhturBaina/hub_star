@@ -1,7 +1,7 @@
 import AuthName from '@/components/Auth/auth-name';
 import Contact from '@/components/Profile/Content/Contact';
-import DoingServices from '@/components/Profile/Content/DoingServices';
 import Profile from '@/components/Profile/Content/Profile';
+import ServiceHistory from '@/components/Profile/Content/ServiceHistory';
 import OtherLeftMenu from '@/components/Profile/OtherLeftMenu';
 import { AuthService } from '@/service/authentication/authentication.service';
 import { OtherProfileMenu } from '@/types/reference';
@@ -13,7 +13,6 @@ import { useRouter } from 'next/router';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { LuChevronLeft, LuLayoutGrid, LuMenu } from 'react-icons/lu';
 import { Segment, Sidebar, SidebarPushable, SidebarPusher } from 'semantic-ui-react';
-import ServiceHistory from '../profile/service-history';
 
 const OtherProfile: NextPage = () => {
   const [visible, setVisible] = useState(false);
