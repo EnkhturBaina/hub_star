@@ -108,7 +108,7 @@ const Footer: React.FC = () => {
                     viewport={{ once: true }}
                     className="animate_top"
                   >
-                    <h4 className="mb-9  lg:text-itemtitle2 text-xl text-itemtitle2 font-semibold text-gray-400">
+                    <h4 className="mb-9  lg:text-itemtitle2 text-xl text-item title2 font-semibold text-gray-400">
                       ТУСЛАМЖ
                     </h4>
 
@@ -152,22 +152,18 @@ const Footer: React.FC = () => {
                     <ul className="lg:text-base text-sm">
                       <li>
                         <a href="#" className="mb-3 inline-block text-white hover:text-mainColor">
-                          Утас: 7070-7070
+                          Утас: 9999-4698
                         </a>
                       </li>
                       <li>
                         <a href="#" className="mb-3 inline-block text-white hover:text-mainColor">
-                          Факс: +123 456789
+                          Имэйл: metastartllc@gmail.com
                         </a>
                       </li>
                       <li>
                         <a href="#" className="mb-3 inline-block text-white hover:text-mainColor">
-                          Имэйл: info@hubstar.mn
-                        </a>
-                      </li>
-                      <li>
-                        <a href="#" className="mb-3 inline-block text-white hover:text-mainColor">
-                          Хаяг: Улаанбаатар 13373, Баянзүрх дүүрэг, 6-р хороо, BARILGA.MN оффис
+                          Хаяг: Улаанбаатар 14192, Сүхбаатар, 7-р хороо, Orient Center оффис 5
+                          давхар
                         </a>
                       </li>
                     </ul>
