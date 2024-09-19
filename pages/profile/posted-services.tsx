@@ -14,6 +14,7 @@ import withAuth from '@/components/Common/withAuth';
 import AddService from '@/components/Profile/Content/AddService';
 import { ICreateAd } from '@/interfaces/request.interface';
 import { withTranslationProps } from '@/app/lib/with-translation';
+import toast from 'react-hot-toast';
 
 const PostedServices: NextPage = () => {
   const { user } = useAppContext();
@@ -41,11 +42,16 @@ const PostedServices: NextPage = () => {
   }, [getData]);
 
   const removeAdv = async (id: number) => {
-    await AdvertisementService.remove(id).then(res => {
-      if (res.success) {
-        getData();
-      }
-    });
+    await AdvertisementService.remove(id)
+      .then(res => {
+        if (res.success) {
+          toast.error('Амжилттай устгалаа.');
+          getData();
+        }
+      })
+      .catch(err => {
+        toast.error('Алдаа:' + err);
+      });
   };
 
   return (
