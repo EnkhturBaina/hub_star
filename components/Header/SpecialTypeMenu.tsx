@@ -55,7 +55,7 @@ const SpecialTypeMenu: React.FC = () => {
               specialService: item.type,
             });
           }}
-          className={`flex h-full flex-row md:flex-col gap-2 items-center justify-around p-2 min-w-40 special-service hover:bg-primary rounded-lg border border-white group shadow-md ${advParam.specialService == item.type ? 'bg-primary' : 'bg-white'}`}
+          className={`flex h-full flex-row md:flex-col md:gap-2 items-center justify-around p-2 min-w-40 special-service hover:bg-primary rounded-lg border border-white group shadow-md ${advParam.specialService == item.type ? 'bg-primary' : 'bg-white'}`}
         >
           <div
             className={`h-5 w-5 md:h-16 md:w-16 rounded-[4px] content-center flex ${advParam.specialService === item.type ? 'active-icon' : ''}`}
@@ -63,7 +63,7 @@ const SpecialTypeMenu: React.FC = () => {
             {item.icon}
           </div>
           <span
-            className={`flex items-center justify-center text-center align-middle text-xs font-bold leading-none text-[#212529] ml-2 md:ml-0 md:max-w-40 md:text-wrap group-hover:text-white ${advParam.specialService == item.type && 'text-white'}`}
+            className={`md:ml-0 ml-1 flex items-center justify-center md:text-center text-start align-middle text-xs font-bold leading-none text-[#212529] md:max-w-40 text-wrap group-hover:text-white ${advParam.specialService == item.type && 'text-white'}`}
           >
             {t(item.title)}
           </span>

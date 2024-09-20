@@ -21,17 +21,7 @@ import ConsultingService from './Step3/ConsultingService';
 import VocationalTraining from './Step3/VocationalTraining';
 import LaboratoryMaterial from './Step3/LaboratoryMaterial';
 import MakeBudget from './Step3/MakeBudget';
-import {
-  Button,
-  Checkbox,
-  Input,
-  Modal,
-  ModalBody,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  Textarea,
-} from '@nextui-org/react';
+import { Button, Checkbox, Modal, ModalBody, ModalContent, ModalFooter } from '@nextui-org/react';
 import MenuPage from '@/pages/docs/menu';
 import { useRouter } from 'next/router';
 

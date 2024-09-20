@@ -267,7 +267,7 @@ const Header = () => {
         /^\/docs\.*/.test(pathUrl) || (
           <div className="no-scrollbar mt-2 flex overflow-y-scroll md:justify-center">
             <nav className="w-full">
-              {advParam?.specialService ? (
+              {router?.pathname.includes('special') ? (
                 <SpecialTypeMenu />
               ) : router.pathname.includes('advice') ? (
                 <AdvicesTypeMenu />
