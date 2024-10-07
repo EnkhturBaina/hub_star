@@ -401,33 +401,18 @@ const AddService: React.FC<Props> = ({ isSpecial, setIsAddService, updateAdv }) 
             <MakeBudget adData={createAd} setAdData={setCreateAd} />
           )}
           <div className="flex flex-col gap-y-2">
-            {/* <Checkbox
-              isSelected={createAd?.isMessenger}
+            <Checkbox
+              isSelected={createAd?.isTermOfService}
+              onClick={onOpenChange}
+              disabled
               classNames={{
                 base: 'w-full',
                 label: 'w-full',
                 wrapper: 'custom-checkbox w-6 h-6',
               }}
-              onValueChange={isMessenger => setCreateAd({ ...createAd, isMessenger })}
             >
-              Мессэнжер нээх
-            </Checkbox> */}
-            {/* <Checkbox
-          isSelected={createAd?.isTermOfService}
-          classNames={{
-            base: 'w-full',
-            label: 'w-full',
-            wrapper: 'custom-checkbox w-6 h-6',
-          }}
-          onValueChange={isTermOfService => setCreateAd({ ...createAd, isTermOfService })}
-        > */}
-            <span>
-              {/* Үйлчилгээний нөхцөл зөвшөөрөх{' '} */}
-              <Button variant="light" onClick={onOpenChange}>
-                {/* <Button variant="light" onClick={onTermOfService}> */}* Үйлчилгээний нөхцөл
-              </Button>
-            </span>
-            {/* </Checkbox> */}
+              <span>Үйлчилгээний нөхцөл зөвшөөрөх </span>
+            </Checkbox>
           </div>
         </motion.div>
       )}
@@ -445,7 +430,6 @@ const AddService: React.FC<Props> = ({ isSpecial, setIsAddService, updateAdv }) 
         <ModalContent>
           {onClose => (
             <>
-              {/* <ModalHeader className="flex flex-col gap-1">Үйлчилгээний нөхцөл</ModalHeader> */}
               <ModalBody
                 style={{
                   width: '100%',
