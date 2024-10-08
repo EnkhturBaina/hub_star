@@ -23,7 +23,7 @@ const Supplier: React.FC<IProps> = ({ adData, materials, setAdData, getMachinery
   }, []);
   return (
     <>
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid md:grid-cols-3 gap-4">
         <CustomSelect
           label="Тоног төхөөрөмж"
           value={adData?.materialId}
@@ -119,7 +119,7 @@ const Supplier: React.FC<IProps> = ({ adData, materials, setAdData, getMachinery
           }));
         }}
       />
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid md:grid-cols-2 gap-4">
         <Input
           key="email"
           type="email"

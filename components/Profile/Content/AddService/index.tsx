@@ -111,21 +111,25 @@ const AddService: React.FC<Props> = ({ isSpecial, setIsAddService, updateAdv }) 
 
   const createAdRequest = () => {
     if (updateAdv) {
-      AdvertisementService.update(createAd).then(response => {
-        if (response.success) {
-          toast.success('Амжилттай заслаа.');
-          setCreateAd(defaultCreateAd);
-          setIsAddService(false);
-        }
-      });
+      AdvertisementService.update(createAd)
+        .then(response => {
+          if (response.success) {
+            toast.success('Амжилттай заслаа.');
+            setCreateAd(defaultCreateAd);
+            setIsAddService(false);
+          }
+        })
+        .catch(err => toast.error(err?.message));
     } else {
-      AdvertisementService.create(createAd).then(response => {
-        if (response.success) {
-          toast.success('Амжилттай хадгаллаа.');
-          setCreateAd(defaultCreateAd);
-          setStep(1);
-        }
-      });
+      AdvertisementService.create(createAd)
+        .then(response => {
+          if (response.success) {
+            toast.success('Амжилттай хадгаллаа.');
+            setCreateAd(defaultCreateAd);
+            setStep(1);
+          }
+        })
+        .catch(err => toast.error(err?.message));
     }
   };
 

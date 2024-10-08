@@ -40,7 +40,7 @@ const Transportation: React.FC<IProps> = ({
 
   return (
     <>
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid md:grid-cols-2 gap-4">
         <Input
           key="fromAddress"
           type="text"
@@ -160,7 +160,7 @@ const Transportation: React.FC<IProps> = ({
           }));
         }}
       />
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid md:grid-cols-2 gap-4">
         <Input
           key="email"
           type="email"

@@ -28,7 +28,7 @@ const Subscriber: React.FC<IProps> = ({ adData, setAdData }) => {
     };
   return (
     <>
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid md:grid-cols-2 gap-4">
         <Input
           key="measurement"
           type="text"
@@ -82,7 +82,7 @@ const Subscriber: React.FC<IProps> = ({ adData, setAdData }) => {
         value={adData?.desciption}
         onChange={handleChange('desciption')}
       />
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid md:grid-cols-2 gap-4">
         <Input
           key="email"
           type="email"

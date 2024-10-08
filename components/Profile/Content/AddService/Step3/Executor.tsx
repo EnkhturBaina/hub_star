@@ -15,7 +15,7 @@ interface IProps {
 const Executor: React.FC<IProps> = ({ adData, setAdData }) => {
   return (
     <>
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid md:grid-cols-3 gap-4">
         <Input
           key="workerCount"
           inputMode="text"
@@ -100,7 +100,7 @@ const Executor: React.FC<IProps> = ({ adData, setAdData }) => {
           }));
         }}
       />
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid md:grid-cols-2 gap-4">
         <Input
           key="email"
           type="email"
@@ -143,19 +143,6 @@ const Executor: React.FC<IProps> = ({ adData, setAdData }) => {
             }));
           }}
         />
-      </div>
-      <div className="flex flex-col gap-y-2">
-        <Checkbox
-          isSelected={adData?.isAfternoon}
-          classNames={{
-            base: 'w-full',
-            label: 'w-full',
-            wrapper: 'custom-checkbox w-6 h-6',
-          }}
-          onValueChange={isAfternoon => setAdData({ ...adData, isAfternoon })}
-        >
-          Өдрөөр хийх ажил
-        </Checkbox>
       </div>
     </>
   );

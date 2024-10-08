@@ -14,7 +14,7 @@ interface IProps {
 const InternationalTrade: React.FC<IProps> = ({ adData, setAdData }) => {
   return (
     <>
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid md:grid-cols-2 gap-4">
         <Input
           key="measurement"
           inputMode="text"
@@ -77,7 +77,7 @@ const InternationalTrade: React.FC<IProps> = ({ adData, setAdData }) => {
           }));
         }}
       />
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid md:grid-cols-2 gap-4">
         <Input
           key="email"
           type="email"

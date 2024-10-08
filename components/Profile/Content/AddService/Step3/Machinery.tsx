@@ -95,7 +95,7 @@ const Machinery: React.FC<IProps> = ({
           options={powerData.map(item => ({ value: item.id, label: item.name }))}
         />
       </div>
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid md:grid-cols-2 gap-4">
         <Input
           key="unitAmount"
           type="number"
@@ -176,7 +176,7 @@ const Machinery: React.FC<IProps> = ({
         value={adData?.desciption}
         onChange={handleChange('desciption')}
       />
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid md:grid-cols-2 gap-4">
         <Input
           key="email"
           type="email"
