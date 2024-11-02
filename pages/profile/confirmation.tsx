@@ -14,10 +14,9 @@ import toast from 'react-hot-toast';
 const Confirmation = () => {
   const router = useRouter();
   const getToken = async (token: string) => {
-    const response = await SsoGovService.getToken(token);
-    console.log('token =========>', response);
-    if (typeof response.data.access_token == 'string') {
-      const data = await SsoGovService.getData(response.data.access_token);
+    const { response } = await SsoGovService.getToken(token);
+    if (typeof response.access_token == 'string') {
+      const data = await SsoGovService.getData(response.access_token);
       console.log('data =========>', data);
     }
   };

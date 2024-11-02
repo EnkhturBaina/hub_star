@@ -48,7 +48,6 @@ export interface IResponseMyProfile extends IResponse {
     accessToken: string;
     refreshToken: string;
   };
-
 }
 export interface IResponseLocalFile extends IResponse {
   response: {
@@ -118,4 +117,12 @@ export interface IResponseAllParticipant extends IResponse {
 }
 export interface IResponseParticipant extends IResponse {
   response: Participant;
+}
+export interface IResponseSsoGovToken extends IResponse {
+  response: {
+    access_token: string;
+    expires_in: number;
+    scope: string;
+    token_type: string;
+  };
 }
