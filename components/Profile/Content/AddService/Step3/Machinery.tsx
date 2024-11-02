@@ -128,38 +128,6 @@ const Machinery: React.FC<IProps> = ({
           value={String(adData.packageAmount)}
           onChange={handleChange('packageAmount')}
         />
-        <Input
-          key="fromAddress"
-          type="text"
-          label="Хаанаас"
-          labelPlacement="outside"
-          placeholder="--"
-          radius="sm"
-          size="lg"
-          variant="bordered"
-          classNames={{
-            label: 'font-bold',
-            inputWrapper: ['custom-input-wrapper', 'bg-white'],
-          }}
-          value={adData?.fromAddress}
-          onChange={handleChange('fromAddress')}
-        />
-        <Input
-          key="toAddress"
-          type="text"
-          label="Хаашаа"
-          labelPlacement="outside"
-          placeholder="--"
-          radius="sm"
-          size="lg"
-          variant="bordered"
-          classNames={{
-            label: 'font-bold',
-            inputWrapper: ['custom-input-wrapper', 'bg-white'],
-          }}
-          value={adData?.toAddress}
-          onChange={handleChange('toAddress')}
-        />
       </div>
       <AdvImageUpload adData={adData} setAdData={setAdData} />
       <Textarea

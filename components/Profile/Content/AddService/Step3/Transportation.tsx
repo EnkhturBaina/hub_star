@@ -41,30 +41,8 @@ const Transportation: React.FC<IProps> = ({
   return (
     <>
       <div className="grid md:grid-cols-2 gap-4">
-        <Input
-          key="fromAddress"
-          type="text"
-          label="Бүтээгдэхүүний нэр"
-          labelPlacement="outside"
-          placeholder="--"
-          radius="sm"
-          size="lg"
-          variant="bordered"
-          classNames={{
-            label: 'font-bold',
-            inputWrapper: ['custom-input-wrapper', 'bg-white'],
-          }}
-          value={adData?.productName}
-          onValueChange={e => {
-            setAdData((prevState: ICreateAd) => ({
-              ...prevState,
-              productName: e,
-            }));
-          }}
-        />
-
         <CustomSelect
-          label="Машин механизмийн төрөл"
+          label="Тээврийн төрөл"
           value={adData?.machineryTypeId?.toString()}
           onSelectionChange={value => {
             setAdData((prevState: ICreateAd) => ({

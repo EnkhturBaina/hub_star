@@ -4,7 +4,7 @@ const initialState: IAdParam = {
   order: 'DESC',
   page: 1,
   limit: 10,
-  notification: 0,
+  process: 'CREATED',
 };
 export const advParamSlice = createSlice({
   name: 'AdvParam',
@@ -19,7 +19,7 @@ export const advParamSlice = createSlice({
       return state;
     },
     setNotfParam: (state, action: PayloadAction<any>) => {
-      state.notification = action.payload.notification
+      state.notification = action.payload.notification;
       return state;
     },
   },

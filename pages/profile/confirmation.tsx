@@ -15,6 +15,7 @@ import { withTranslationProps } from '@/app/lib/with-translation';
 import { ConfirmationOrganization } from '@/components/Profile/Content/confirmation-organization';
 import { ConfirmationCitizen } from '@/components/Profile/Content/confirmation-citizen';
 import { useRouter } from 'next/router';
+import { SsoGovService } from '@/service/sso-gov/sso-gov.service';
 
 const Confirmation = () => {
   const router = useRouter();
@@ -41,12 +42,8 @@ const Confirmation = () => {
     getMainDirection();
   }, [getMainDirection]);
 
-  const handleIsCitizen = (value: boolean) => {
-    setValues((prevState: Users) => ({
-      ...prevState,
-      isCitizen: value,
-    }));
-    setStep(2);
+  const handleIsCitizen = async (value: boolean) => {
+    SsoGovService.authRequestCitizen();
   };
   const handleSubmit = async () => {
     AuthService.updateById(user.id, { ...values, isConfirm: true })
