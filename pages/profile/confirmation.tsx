@@ -15,6 +15,7 @@ const Confirmation = () => {
   const router = useRouter();
   const getToken = async (token: string) => {
     const response = await SsoGovService.getToken(token);
+    console.log('token =========>', response.data);
     if (typeof response.data.access_token == 'string') {
       const data = await SsoGovService.getData(response.data.access_token);
       console.log('data =========>', data);
@@ -38,14 +39,14 @@ const Confirmation = () => {
       <div className="flex flex-col md:flex-row justify-center items-start gap-6">
         <Link
           className="flex h-50 md:w-1/2 w-full p-2 flex-col justify-center items-center gap-2 rounded bg-slate-100 flex-grow flex-shrink-0"
-          href={`${process.env.NEXT_PUBLIC_BASE_API_URL}/sso-gov/auth-request-org`}
+          href={`${process.env.NEXT_PUBLIC_BASE_API_URL}sso-gov/auth-request-org`}
         >
           <GrOrganization className="text-[150px] text-mainBgGray hover:text-mainBlue cursor-pointer" />
           <div className="font-medium text-center text-2xl">Хуулийн этгээд</div>
         </Link>
         <Link
           className="flex h-50 md:w-1/2 w-full p-2 flex-col justify-center items-center gap-2 rounded bg-slate-100 flex-grow flex-shrink-0"
-          href={`${process.env.NEXT_PUBLIC_BASE_API_URL}/sso-gov/auth-request-citizen`}
+          href={`${process.env.NEXT_PUBLIC_BASE_API_URL}sso-gov/auth-request-citizen`}
         >
           <GrUser className="text-[150px] text-mainBgGray hover:text-mainBlue cursor-pointer" />
           <div className="font-medium text-center text-2xl">Хувь хүн</div>
