@@ -15,7 +15,7 @@ const Confirmation = () => {
   const router = useRouter();
   const getToken = async (token: string) => {
     const response = await SsoGovService.getToken(token);
-    console.log('token =========>', response.data);
+    console.log('token =========>', response);
     if (typeof response.data.access_token == 'string') {
       const data = await SsoGovService.getData(response.data.access_token);
       console.log('data =========>', data);
