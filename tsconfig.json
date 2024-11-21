@@ -1,10 +1,6 @@
 {
   "compilerOptions": {
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "baseUrl": ".",
     "allowJs": true,
     "skipLibCheck": true,
@@ -24,57 +20,23 @@
       }
     ],
     "paths": {
-      "@styles/*": [
-        "./src/styles/*"
-      ],
-      "@components/*": [
-        "./src/components/*"
-      ],
-      "@api/*": [
-        "./src/api/*"
-      ],
-      "@models/*": [
-        "./src/models/*"
-      ],
-      "@lib/*": [
-        "./src/lib/*"
-      ],
-      "@hooks/*": [
-        "./src/hooks/*"
-      ],
-      "@services/*": [
-        "./src/services/*"
-      ],
-      "@constants": [
-        "./src/constants.ts"
-      ],
-      "@context/*": [
-        "./src/context/*"
-      ],
-      "@datas/*": [
-        "./src/datas/*"
-      ],
-      "@typeDefs/*": [
-        "./src/types/*"
-      ],
-      "@generated/*": [
-        "./src/generated/*"
-      ],
-      "@public/*": [
-        "./public/*"
-      ],
-      "@config/*": [
-        "./config/*"
-      ],
-      "@utils/*": [
-        "./src/utils/*"
-      ],
-      "@assets/*": [
-        "./src/assets/*"
-      ],
-      "@helpers/*": [
-        "./src/helpers/*"
-      ]
+      "@styles/*": ["./src/styles/*"],
+      "@components/*": ["./src/components/*"],
+      "@pages/*": ["./src/pages/*"],
+      "@models/*": ["./src/models/*"],
+      "@lib/*": ["./src/lib/*"],
+      "@hooks/*": ["./src/hooks/*"],
+      "@services/*": ["./src/services/*"],
+      "@constants": ["./src/constants.ts"],
+      "@context/*": ["./src/context/*"],
+      "@datas/*": ["./src/datas/*"],
+      "@typeDefs/*": ["./src/types/*"],
+      "@generated/*": ["./src/generated/*"],
+      "@public/*": ["./public/*"],
+      "@config/*": ["./config/*"],
+      "@utils/*": ["./src/utils/*"],
+      "@assets/*": ["./src/assets/*"],
+      "@helpers/*": ["./src/helpers/*"]
     },
     "strictNullChecks": false
   },
@@ -88,7 +50,5 @@
     "src/context/auth.js",
     ".next/types/**/*.ts"
   ],
-  "exclude": [
-    "node_modules"
-  ]
+  "exclude": ["node_modules"]
 }

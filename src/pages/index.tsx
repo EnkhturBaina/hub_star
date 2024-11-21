@@ -1,6 +1,12 @@
 import MainLayout from '@components/layouts/main';
-import React, { useState, useEffect } from 'react';
-const Index = () => {
-  return <MainLayout>Hello</MainLayout>;
+import { NextPageWithLayout } from '@typeDefs/site';
+import React, { ReactElement } from 'react';
+
+const HomePage: NextPageWithLayout = () => {
+  return 'Hello';
 };
-export default Index;
+
+HomePage.getLayout = function getLayout(page: ReactElement) {
+  return <MainLayout>{page}</MainLayout>;
+};
+export default HomePage;

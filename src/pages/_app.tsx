@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, ReactElement, ReactNode, useEffect, useState } from 'react';
 import type { AppProps } from 'next/app';
 
 import Router from 'next/router';
@@ -12,13 +12,16 @@ import { AuthProvider } from '@context/auth';
 // import { ManagedUIContext } from '@context/uiContext';
 
 import '@styles/main.scss';
-// import 'antd/dist/antd.css';
+import { NextPageWithLayout } from '@typeDefs/site';
 
 Router.events.on('routeChangeStart', () => NProgress.start());
 Router.events.on('routeChangeComplete', () => NProgress.done());
 Router.events.on('routeChangeError', () => NProgress.done());
 
-const MyApp: FC<AppProps> = ({ Component, router, pageProps }: AppProps) => {
+type AppPropsWithLayout = AppProps & {
+  Component: NextPageWithLayout;
+};
+const MyApp: FC<AppProps> = ({ Component, router, pageProps }: AppPropsWithLayout) => {
   const [pageLoading, setPageLoading] = useState(true);
 
   useEffect(() => {
@@ -38,13 +41,14 @@ const MyApp: FC<AppProps> = ({ Component, router, pageProps }: AppProps) => {
     router.events.on('routeChangeError', handleError);
   }, [router]);
 
-  return (
+  const getLayout = Component.getLayout ?? (page => page);
+  return getLayout(
     <>
-      {pageLoading && <Loader />}
+      {/* {pageLoading && <Loader />} */}
       <AuthProvider>
         {/* <ManagedUIContext>
-        
-          <SocketContext.Provider value={socket}> */}
+      
+        <SocketContext.Provider value={socket}> */}
         <Component {...pageProps} />
       </AuthProvider>
       {/* </SocketContext.Provider> */}
