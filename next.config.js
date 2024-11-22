@@ -17,12 +17,12 @@ module.exports = phase => {
       deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
       minimumCacheTTL: 60,
       domains: ['localhost', 'www.hubstar.mn'],
-       remotePatterns: [
-     	{
-	        protocol: 'https',
-        	hostname: 'www.hubstar.mn',
-	        pathname: '/api/local-files/**',
-	},
+      remotePatterns: [
+        {
+          protocol: 'https',
+          hostname: 'www.hubstar.mn',
+          pathname: '/api/local-files/**',
+        },
       ],
     },
     eslint: {

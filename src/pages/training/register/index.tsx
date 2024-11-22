@@ -1,12 +1,10 @@
 import MainLayout from '@components/layouts/main';
-import React, { ReactElement } from 'react';
-import { NextPageWithLayout } from '@typeDefs/site';
+import React from 'react';
+import { NextPage } from 'next';
+import { withTranslationProps } from '@utils/withTranslationProps';
 
-const RegisterPage: NextPageWithLayout = () => {
-  return 'Hello хэрхэн бүртгэл хийх талаар заавар';
+const RegisterPage: NextPage = () => {
+  return <MainLayout>Hello хэрхэн бүртгэл хийх талаар заавар</MainLayout>;
 };
-
-RegisterPage.getLayout = function getLayout(page: ReactElement) {
-  return <MainLayout>{page}</MainLayout>;
-};
+export const getStaticProps = withTranslationProps();
 export default RegisterPage;

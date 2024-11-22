@@ -1,12 +1,10 @@
 import MainLayout from '@components/layouts/main';
-import React, { ReactElement } from 'react';
-import { NextPageWithLayout } from '@typeDefs/site';
+import React from 'react';
+import { NextPage } from 'next';
+import { withTranslationProps } from '@utils/withTranslationProps';
 
-const ChangePasswordPage: NextPageWithLayout = () => {
-  return 'Hello change password';
+const ChangePasswordPage: NextPage = () => {
+  return <MainLayout>Hello change password</MainLayout>;
 };
-
-ChangePasswordPage.getLayout = function getLayout(page: ReactElement) {
-  return <MainLayout>{page}</MainLayout>;
-};
+export const getStaticProps = withTranslationProps();
 export default ChangePasswordPage;

@@ -6,9 +6,10 @@ class MyDocument extends Document {
       <Html>
         <Head>
           <link
-            href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700;800&display=swap"
+            href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200;300;400;500;700;900&display=swap"
             rel="stylesheet"
           />
+
           <link rel="manifest" href="/manifest.json" />
           <link href="/favicon.ico" rel="icon" type="image/png" sizes="32x32" />
           <meta name="theme-color" content="#317EFB" />

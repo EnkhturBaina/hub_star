@@ -1,4 +1,5 @@
 export * from './website/horizontal-logo';
+export * from './helper/add-icon';
 export * from './helper/plus-icon';
 export * from './helper/minus-icon';
 export * from './helper/notification-icon';

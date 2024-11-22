@@ -1,12 +1,10 @@
 import MainLayout from '@components/layouts/main';
-import React, { ReactElement } from 'react';
-import { NextPageWithLayout } from '@typeDefs/site';
+import { withTranslationProps } from '@utils/withTranslationProps';
+import { NextPage } from 'next';
+import React from 'react';
 
-const NewsPage: NextPageWithLayout = () => {
-  return 'Hello news';
+const NewsPage: NextPage = () => {
+  return <MainLayout>'Hello news'</MainLayout>;
 };
-
-NewsPage.getLayout = function getLayout(page: ReactElement) {
-  return <MainLayout>{page}</MainLayout>;
-};
+export const getStaticProps = withTranslationProps();
 export default NewsPage;

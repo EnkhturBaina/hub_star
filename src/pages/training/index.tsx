@@ -1,12 +1,10 @@
 import MainLayout from '@components/layouts/main';
-import React, { ReactElement } from 'react';
-import { NextPageWithLayout } from '@typeDefs/site';
+import React from 'react';
+import { NextPage } from 'next';
+import { withTranslationProps } from '@utils/withTranslationProps';
 
-const TrainingPage: NextPageWithLayout = () => {
-  return 'Hello Хэрэглэх заавар';
+const TrainingPage: NextPage = () => {
+  return <MainLayout>'Hello Хэрэглэх заавар'</MainLayout>;
 };
-
-TrainingPage.getLayout = function getLayout(page: ReactElement) {
-  return <MainLayout>{page}</MainLayout>;
-};
+export const getStaticProps = withTranslationProps();
 export default TrainingPage;

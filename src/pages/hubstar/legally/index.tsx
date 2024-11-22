@@ -1,12 +1,10 @@
 import MainLayout from '@components/layouts/main';
-import React, { ReactElement } from 'react';
-import { NextPageWithLayout } from '@typeDefs/site';
+import { withTranslationProps } from '@utils/withTranslationProps';
+import { NextPage } from 'next';
+import React from 'react';
 
-const LegallyPage: NextPageWithLayout = () => {
-  return 'Hello хууль эрх зүй';
+const LegallyPage: NextPage = () => {
+  return <MainLayout>'Hello хууль эрх зүй'</MainLayout>;
 };
-
-LegallyPage.getLayout = function getLayout(page: ReactElement) {
-  return <MainLayout>{page}</MainLayout>;
-};
+export const getStaticProps = withTranslationProps();
 export default LegallyPage;

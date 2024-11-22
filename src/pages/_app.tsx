@@ -1,28 +1,23 @@
-import { FC, ReactElement, ReactNode, useEffect, useState } from 'react';
+import { ComponentType, FC, useEffect, useState } from 'react';
 import type { AppProps } from 'next/app';
-
+import { appWithTranslation } from 'next-i18next';
 import Router from 'next/router';
 import NProgress from 'nprogress'; //nprogress module
 import 'nprogress/nprogress.css'; //styles of nprogress
 import Loader from '@components/common/loader';
 
 import { AuthProvider } from '@context/auth';
-
 // import { SocketContext, socket } from '@context/socket';
 // import { ManagedUIContext } from '@context/uiContext';
 
 import '@styles/main.scss';
-import { NextPageWithLayout } from '@typeDefs/site';
 
 Router.events.on('routeChangeStart', () => NProgress.start());
 Router.events.on('routeChangeComplete', () => NProgress.done());
 Router.events.on('routeChangeError', () => NProgress.done());
 
-type AppPropsWithLayout = AppProps & {
-  Component: NextPageWithLayout;
-};
-const MyApp: FC<AppProps> = ({ Component, router, pageProps }: AppPropsWithLayout) => {
-  const [pageLoading, setPageLoading] = useState(true);
+const MyApp: FC<AppProps> = ({ Component, router, pageProps }: AppProps) => {
+  const [pageLoading, setPageLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const handleStart = () => {
@@ -41,16 +36,18 @@ const MyApp: FC<AppProps> = ({ Component, router, pageProps }: AppPropsWithLayou
     router.events.on('routeChangeError', handleError);
   }, [router]);
 
-  const getLayout = Component.getLayout ?? (page => page);
-  return getLayout(
+  // const getLayout = Component.getLayout ?? (page => page);
+  return (
     <>
       {/* {pageLoading && <Loader />} */}
       <AuthProvider>
-        {/* <ManagedUIContext>
-      
-        <SocketContext.Provider value={socket}> */}
         <Component {...pageProps} />
       </AuthProvider>
+
+      {/* <ManagedUIContext>
+      
+        <SocketContext.Provider value={socket}> */}
+
       {/* </SocketContext.Provider> */}
       {/* //   </AuthProvider> */}
       {/* // </ManagedUIContext> */}
@@ -58,4 +55,4 @@ const MyApp: FC<AppProps> = ({ Component, router, pageProps }: AppPropsWithLayou
   );
 };
 
-export default MyApp;
+export default appWithTranslation(MyApp);
