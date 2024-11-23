@@ -11,6 +11,7 @@ import { AuthProvider } from '@context/auth';
 // import { ManagedUIContext } from '@context/uiContext';
 
 import '@styles/main.scss';
+import FabButton from '@components/common/fab-button';
 
 Router.events.on('routeChangeStart', () => NProgress.start());
 Router.events.on('routeChangeComplete', () => NProgress.done());
@@ -43,6 +44,7 @@ const MyApp: FC<AppProps> = ({ Component, router, pageProps }: AppProps) => {
       <AuthProvider>
         <Component {...pageProps} />
       </AuthProvider>
+      <FabButton />
 
       {/* <ManagedUIContext>
       

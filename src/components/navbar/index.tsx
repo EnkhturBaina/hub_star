@@ -20,10 +20,6 @@ const navigation = [
   { name: 'Directory', href: '#', current: false },
 ];
 
-function classNames(...classes) {
-  return classes.filter(Boolean).join(' ');
-}
-
 const Navbar: React.FC = () => {
   const { isAuthenticated } = useAuthState();
   const { Header, Content, Sider } = Layout;
