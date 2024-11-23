@@ -1,14 +1,46 @@
 import { HorizontalLogo } from '@components/common/icons';
+import { useAuthState } from '@context/auth';
+import AuthService from '@services/auth';
+import AuthTokenStorageService from '@services/AuthTokenStorageService';
 import { withTranslationProps } from '@utils/withTranslationProps';
-import { Alert } from 'antd';
+import { Alert, Button, Form, Input } from 'antd';
+import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
 import { NextPage } from 'next';
 import { useTranslation } from 'next-i18next';
 import Link from 'next/link';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 
 const SignInPage: NextPage = () => {
   const { t } = useTranslation();
-  const [loginError, setLoginError] = useState();
+  const router = useRouter();
+  const { setLogin, user } = useAuthState();
+  const [form] = Form.useForm();
+  const [loginError, setLoginError] = useState(null);
+  const [buttonLoader, setButtonLoader] = useState(false);
+
+  const onFinish = async () => {
+    try {
+      setButtonLoader(true);
+      const res = await AuthService.authenticate(form.getFieldsValue());
+      if (res && res.success) {
+        AuthTokenStorageService.store(res?.response?.accessToken);
+        setLogin(res?.response?.accessToken);
+        setLoginError(null);
+      } else {
+        setButtonLoader(false);
+        setLoginError('error');
+      }
+    } catch (e) {
+      setButtonLoader(false);
+      setLoginError('error');
+    }
+  };
+  useEffect(() => {
+    if (user) {
+      router.push('/');
+    }
+  }, [user]);
   return (
     <div className="flex min-h-full flex-1 flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
@@ -19,49 +51,39 @@ const SignInPage: NextPage = () => {
 
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-[480px]">
         <div className="bg-white px-6 py-12 shadow sm:rounded-lg sm:px-12">
-          <form action="#" method="POST" className="space-y-6">
+          <Form className="space-y-6" layout="vertical" form={form} onFinish={onFinish}>
             {loginError && (
-              <div className="mb-3 mt-4 w-64">
+              <div className="mb-3 mt-4 w-full">
                 <Alert
                   type="error"
                   message="Алдаа гарлаа"
                   description="Нэвтрэх нэр эсвэл нууц үг буруу байна"
+                  closable
                   onClose={() => setLoginError(null)}
                 />
               </div>
             )}
-            <div>
-              <label htmlFor="email" className="block text-sm/6 font-medium text-gray-900">
-                {t('emailOrPhone')}
-              </label>
-              <div className="mt-2">
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  required
-                  autoComplete="email"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"
-                />
-              </div>
-            </div>
-
-            <div>
-              <label htmlFor="password" className="block text-sm/6 font-medium text-gray-900">
-                {t('password')}
-              </label>
-              <div className="mt-2">
-                <input
-                  id="password"
-                  name="password"
-                  type="password"
-                  required
-                  autoComplete="current-password"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"
-                />
-              </div>
-            </div>
-
+            <Form.Item
+              name="username"
+              className="text-sm/6 font-medium text-gray-900"
+              label={t('emailOrPhone')}
+              rules={[
+                { required: true, message: 'Нэвтрэх нэрээ оруулна уу!' },
+                { type: 'string', warningOnly: true },
+              ]}
+            >
+              <Input />
+            </Form.Item>
+            <Form.Item
+              name="password"
+              className="text-sm/6 font-medium text-gray-900"
+              label={t('password')}
+              rules={[{ required: true, message: 'Нууц үгээ оруулна уу!' }]}
+            >
+              <Input.Password
+                iconRender={visible => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
+              />
+            </Form.Item>
             <div className="flex items-center justify-between">
               <div className="text-sm/6">
                 <Link
@@ -74,14 +96,15 @@ const SignInPage: NextPage = () => {
             </div>
 
             <div>
-              <button
-                type="submit"
-                className="flex w-full justify-center rounded-md bg-mainColor px-3 py-1.5 text-sm/6 font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              <Button
+                htmlType="submit"
+                className="flex w-full justify-center rounded-md bg-mainColor px-3 py-1.5 text-sm/6 font-semibold text-white shadow-sm"
+                loading={buttonLoader}
               >
                 {t('login')}
-              </button>
+              </Button>
             </div>
-          </form>
+          </Form>
         </div>
 
         <p className="mt-10 text-center text-sm/6 text-gray-500">

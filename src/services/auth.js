@@ -27,7 +27,7 @@ const AuthService = {
       headers: {
         'Content-Type': 'application/json',
         Authorization: token ? `Bearer ${token}` : null,
-        'X-API-KEY': process.env.X_API_KEY,
+        'X-API-KEY': process.env.NEXT_PUBLIC_X_API_KEY,
       },
     });
     return response;

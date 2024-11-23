@@ -10,7 +10,7 @@ const apiClient = axios.create({
   headers: {
     'Content-type': 'application/json',
     Authorization: '',
-    'X-API-KEY': process.env.X_API_KEY,
+    'X-API-KEY': process.env.NEXT_PUBLIC_X_API_KEY,
   },
 });
 
