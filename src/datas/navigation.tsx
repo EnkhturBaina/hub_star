@@ -29,11 +29,11 @@ export const UserNavigation: NavigationMenu[] = [
   { name: 'Зөвлөмжүүд', href: '/profile/my-advice' },
 ];
 export const CategoryNavigation: NavigationMenu[] = [
-  { name: 'subscriber', icon: <SubscriberIcon />, href: '/ad?userType=SUBSCRIBER' },
-  { name: 'executor', icon: <ExecutorIcon />, href: '/ad?userType=EXECUTOR' },
-  { name: 'supplier', icon: <SupplierIcon />, href: '/ad?userType=SUPPLIER' },
-  { name: 'transportation', icon: <TransportationIcon />, href: '/ad?userType=TRANSPORTATION' },
-  { name: 'machinery', icon: <MachineIcon />, href: '/ad?userType=MACHINERY' },
+  { name: 'subscriber', imagePath: '/images/subscriber.svg', href: '/ad?userType=SUBSCRIBER' },
+  { name: 'executor', imagePath: '/images/executor.svg', href: '/ad?userType=EXECUTOR' },
+  { name: 'supplier', imagePath: '/images/supplier.svg', href: '/ad?userType=SUPPLIER' },
+  { name: 'transportation', imagePath: '/images/transportation.svg', href: '/ad?userType=TRANSPORTATION' },
+  { name: 'machinery', imagePath: '/images/machinery.svg', href: '/ad?userType=MACHINERY' },
 ];
 export const SpecialCategoryNavigation: NavigationMenu[] = [
   {

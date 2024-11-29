@@ -7,21 +7,8 @@ import { useAuthState } from '@context/auth';
 import { useRouter } from 'next/router';
 import AuthService from '@services/auth';
 
-const user = {
-  name: 'Chelsea Hagon',
-  email: 'chelsea.hagon@example.com',
-  imageUrl:
-    'https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-};
-const navigation = [
-  { name: 'Dashboard', href: '#', current: true },
-  { name: 'Calendar', href: '#', current: false },
-  { name: 'Teams', href: '#', current: false },
-  { name: 'Directory', href: '#', current: false },
-];
-
 const Navbar: React.FC = () => {
-  const { isAuthenticated } = useAuthState();
+  const { isAuthenticated, user } = useAuthState();
   const { Header, Content, Sider } = Layout;
   const router = useRouter();
   return (
@@ -74,7 +61,13 @@ const Navbar: React.FC = () => {
                         key: 1,
                         label: (
                           <div className="relative flex rounded-full bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-                            <img alt="" src={user.imageUrl} className="size-8 rounded-full" />
+                            {user?.avatarId ? (
+                              <Image
+                                alt=""
+                                src={process.env.NEXT_PUBLIC_MEDIA_URL + user?.avatarId}
+                                className="size-8 rounded-full"
+                              />
+                            ) : null}
                           </div>
                         ),
                         children: UserNavigation.map((item, index) => ({

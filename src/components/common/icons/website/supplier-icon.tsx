@@ -9,31 +9,12 @@ export const SupplierIcon = (props: SVGProps<SVGSVGElement>) => {
       {...props}
     >
       <defs>
-        <style>
-          {`
-          .cls-1, .cls-2, .cls-3, .cls-4 {
-            fill: none;
-            stroke-linecap: round;
-            stroke-linejoin: round;
-          }
-          .cls-1, .cls-2, .cls-3 {
-            stroke-width: 6.17px;
-          }
-          .cls-1 {
-            stroke: url(#linear-gradient);
-          }
-          .cls-2 {
-            stroke: url(#linear-gradient-2);
-          }
-          .cls-3 {
-            stroke: url(#linear-gradient-3);
-          }
-          .cls-4 {
-            stroke: #212529;
-            stroke-width: 4.11px;
-          }
-          `}
-        </style>
+        <style
+          dangerouslySetInnerHTML={{
+            __html:
+              '.cls-1,.cls-2,.cls-3,.cls-4{fill:none;stroke-linecap:round;stroke-linejoin:round;}.cls-1,.cls-2,.cls-3{stroke-width:6.17px;}.cls-1{stroke:url(#linear-gradient);}.cls-2{stroke:url(#linear-gradient-2);}.cls-3{stroke:url(#linear-gradient-3);}.cls-4{stroke:#212529;stroke-width:4.11px;}',
+          }}
+        />
         <linearGradient
           id="linear-gradient"
           x1="-125.94"
@@ -43,8 +24,8 @@ export const SupplierIcon = (props: SVGProps<SVGSVGElement>) => {
           gradientTransform="matrix(1, 0, 0, -1, 194, 633.3)"
           gradientUnits="userSpaceOnUse"
         >
-          <stop offset="0" stopColor="#e38b21" />
-          <stop offset="1" stopColor="#ea5838" />
+          <stop offset={0} stopColor="#e38b21" />
+          <stop offset={1} stopColor="#ea5838" />
         </linearGradient>
         <linearGradient
           id="linear-gradient-2"

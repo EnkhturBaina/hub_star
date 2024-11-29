@@ -49,7 +49,6 @@ const MainLayout: React.FC<Props> = ({ children }) => {
     <Layout>
       <Navbar />
       <Layout>
-        <Sider></Sider>
         <Content>{children}</Content>
       </Layout>
       <Footer />

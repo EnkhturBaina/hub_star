@@ -6,35 +6,15 @@ export const SubscriberIcon = (props: SVGProps<SVGSVGElement>) => {
       xmlns="http://www.w3.org/2000/svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
       viewBox="0 0 100 100"
-      {...props} // Spread props for extensibility
+      {...props}
     >
       <defs>
-        <style>
-          {`
-          .cls-1, .cls-2, .cls-3 {
-            fill: none;
-          }
-          .cls-1 {
-            stroke: #212529;
-          }
-          .cls-1, .cls-2 {
-            stroke-linecap: round;
-            stroke-linejoin: round;
-            stroke-width: 4.28px;
-          }
-          .cls-2 {
-            stroke: #000;
-            stroke-opacity: 0.5;
-          }
-          .cls-3 {
-            stroke-width: 6.43px;
-            stroke: url(#linear-gradient);
-          }
-          .cls-4 {
-            fill: url(#linear-gradient-2);
-          }
-          `}
-        </style>
+        <style
+          dangerouslySetInnerHTML={{
+            __html:
+              '.cls-1,.cls-2,.cls-3{fill:none;}.cls-1{stroke:#212529;}.cls-1,.cls-2{stroke-linecap:round;stroke-linejoin:round;stroke-width:4.28px;}.cls-2{stroke:#000;stroke-opacity:0.5;}.cls-3{stroke-width:6.43px;stroke:url(#linear-gradient);}.cls-4{fill:url(#linear-gradient-2);}',
+          }}
+        />
         <linearGradient
           id="linear-gradient"
           x1="-171.23"
@@ -44,8 +24,8 @@ export const SubscriberIcon = (props: SVGProps<SVGSVGElement>) => {
           gradientTransform="matrix(1, 0, 0, -1, 194, 1106)"
           gradientUnits="userSpaceOnUse"
         >
-          <stop offset="0" stopColor="#e38b21" />
-          <stop offset="1" stopColor="#ea5838" />
+          <stop offset={0} stopColor="#e38b21" />
+          <stop offset={1} stopColor="#ea5838" />
         </linearGradient>
         <linearGradient
           id="linear-gradient-2"

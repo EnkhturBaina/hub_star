@@ -6,24 +6,15 @@ export const MachineIcon = (props: SVGProps<SVGSVGElement>) => {
       xmlns="http://www.w3.org/2000/svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
       viewBox="0 0 100 100"
-      {...props} // Spread props for customization
+      {...props}
     >
-      <title>Machine Icon</title>
       <defs>
-        <style>
-          {`
-            .cls-1, .cls-2, .cls-4 { fill: none; }
-            .cls-1, .cls-2, .cls-3, .cls-4 {
-              stroke-linecap: round;
-              stroke-linejoin: round;
-            }
-            .cls-1, .cls-2 { stroke-width: 5.86px; }
-            .cls-1 { stroke: url(#linear-gradient); }
-            .cls-2 { stroke: url(#linear-gradient-2); }
-            .cls-3 { fill: #fafafa; }
-            .cls-3, .cls-4 { stroke: #212529; stroke-width: 3.9px; }
-          `}
-        </style>
+        <style
+          dangerouslySetInnerHTML={{
+            __html:
+              '.cls-1,.cls-2,.cls-4{fill:none;}.cls-1,.cls-2,.cls-3,.cls-4{stroke-linecap:round;stroke-linejoin:round;}.cls-1,.cls-2{stroke-width:5.86px;}.cls-1{stroke:url(#linear-gradient);}.cls-2{stroke:url(#linear-gradient-2);}.cls-3{fill:#fafafa;}.cls-3,.cls-4{stroke:#212529;stroke-width:3.9px;}',
+          }}
+        />
         <linearGradient
           id="linear-gradient"
           x1="-157.16"
@@ -33,8 +24,8 @@ export const MachineIcon = (props: SVGProps<SVGSVGElement>) => {
           gradientTransform="matrix(1, 0, 0, -1, 194, 154.35)"
           gradientUnits="userSpaceOnUse"
         >
-          <stop offset="0" stopColor="#e38b21" />
-          <stop offset="1" stopColor="#ea5838" />
+          <stop offset={0} stopColor="#e38b21" />
+          <stop offset={1} stopColor="#ea5838" />
         </linearGradient>
         <linearGradient
           id="linear-gradient-2"
