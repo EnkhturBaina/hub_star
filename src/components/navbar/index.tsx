@@ -1,15 +1,24 @@
-import { AddIcon, HorizontalLogo, MessageIcon, NotificationIcon } from '@components/common/icons';
-import { Button, Divider, Layout, Menu } from 'antd';
+import {
+  AddIcon,
+  HorizontalLogo,
+  MessageIcon,
+  NotificationIcon,
+  SearchIcon,
+} from '@components/common/icons';
+import { Button, Divider, Input, Layout, Menu, Select, Space } from 'antd';
 import Link from 'next/link';
 import { UserNavigation } from '@datas/navigation';
 import Image from 'next/image';
 import { useAuthState } from '@context/auth';
 import { useRouter } from 'next/router';
 import AuthService from '@services/auth';
+import { useState } from 'react';
 
 const Navbar: React.FC = () => {
   const { isAuthenticated, user } = useAuthState();
   const { Header, Content, Sider } = Layout;
+  const [searchType, setSearchType] = useState('all');
+  const [search, setSearch] = useState(null);
   const router = useRouter();
   return (
     <>
@@ -25,22 +34,19 @@ const Navbar: React.FC = () => {
               </div>
             </div>
             <div className="min-w-0 flex-1 md:px-8 lg:px-0 xl:col-span-6">
-              <div className="flex items-center px-6 py-4 md:mx-auto md:max-w-unit-md lg:mx-0 lg:max-w-none xl:px-0">
-                <div className="w-full">
-                  <label htmlFor="search" className="sr-only">
-                    Search
-                  </label>
-                  <div className="relative">
-                    <input
-                      id="search"
-                      name="search"
-                      type="search"
-                      placeholder="Search"
-                      className="block w-full rounded-md border-0 bg-white py-1.5 pl-10 pr-3 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm/6"
-                    />
-                  </div>
-                </div>
-              </div>
+              <Space.Compact style={{ width: '100%' }}>
+                <Select
+                  options={[
+                    { value: 'all', label: 'Бүгд' },
+                    { value: 'ad', label: 'Үйлчилгээ' },
+                    { value: 'advice', label: 'Зөвлөмж' },
+                  ]}
+                  value={searchType}
+                  onChange={setSearchType}
+                />
+                <Input value={search} onChange={e => setSearch(e.target.value)} />
+                <Button type="primary" icon={<SearchIcon />}></Button>
+              </Space.Compact>
             </div>
 
             <div className="lg:flex lg:items-center lg:justify-end xl:col-span-4">

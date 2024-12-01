@@ -4,6 +4,7 @@ export * from './helper/plus-icon';
 export * from './helper/minus-icon';
 export * from './helper/notification-icon';
 export * from './helper/message-icon';
+export * from './helper/search-icon';
 export * from './social/facebook-icon';
 export * from './social/x-icon';
 export * from './social/linkedin-icon';

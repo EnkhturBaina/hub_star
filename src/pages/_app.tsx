@@ -12,6 +12,7 @@ import { AuthProvider } from '@context/auth';
 
 import '@styles/main.scss';
 import FabButton from '@components/common/fab-button';
+import { ConfigProvider } from 'antd';
 
 Router.events.on('routeChangeStart', () => NProgress.start());
 Router.events.on('routeChangeComplete', () => NProgress.done());
@@ -41,10 +42,12 @@ const MyApp: FC<AppProps> = ({ Component, router, pageProps }: AppProps) => {
   return (
     <>
       {/* {pageLoading && <Loader />} */}
-      <AuthProvider>
-        <Component {...pageProps} />
-      </AuthProvider>
-      <FabButton />
+      <ConfigProvider theme={{ token: { colorPrimary: '#F7941D' } }}>
+        <AuthProvider>
+          <Component {...pageProps} />
+        </AuthProvider>
+        <FabButton />
+      </ConfigProvider>
 
       {/* <ManagedUIContext>
       
