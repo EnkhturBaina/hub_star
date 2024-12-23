@@ -1,0 +1,16 @@
+.card {
+  max-width: 140px;
+  border-radius: 25px;
+  cursor: pointer;
+  :hover {
+    color: #f7941d;
+    transform: scale(1.1); // Томруулалт
+    svg {
+      transform: scale(1.1); // Томруулалт
+      fill: #f7941d; // Hover үед өнгө өөрчлөх
+    }
+  }
+  svg {
+    transition: transform 0.3s ease;
+  }
+}

@@ -5,21 +5,22 @@ import {
   NotificationIcon,
   SearchIcon,
 } from '@components/common/icons';
-import { Button, Divider, Input, Layout, Menu, Select, Space } from 'antd';
+import { Input, Layout, Menu, Select, Space } from 'antd';
 import Link from 'next/link';
 import { UserNavigation } from '@datas/navigation';
 import Image from 'next/image';
 import { useAuthState } from '@context/auth';
 import { useRouter } from 'next/router';
-import AuthService from '@services/auth';
 import { useState } from 'react';
+import { useTranslation } from 'next-i18next';
 
 const Navbar: React.FC = () => {
   const { isAuthenticated, user } = useAuthState();
   const { Header, Content, Sider } = Layout;
-  const [searchType, setSearchType] = useState('all');
-  const [search, setSearch] = useState(null);
   const router = useRouter();
+  const { t } = useTranslation();
+  const [searchType, setSearchType] = useState(router.query?.searchType ?? 'all');
+  const [search, setSearch] = useState(router.query?.search);
   return (
     <>
       {/* When the mobile menu is open, add `overflow-hidden` to the `body` element to prevent double scrollbars */}
@@ -37,15 +38,20 @@ const Navbar: React.FC = () => {
               <Space.Compact style={{ width: '100%' }}>
                 <Select
                   options={[
-                    { value: 'all', label: 'Бүгд' },
-                    { value: 'ad', label: 'Үйлчилгээ' },
-                    { value: 'advice', label: 'Зөвлөмж' },
+                    { value: 'all', label: t('all') },
+                    { value: 'ad', label: t('services') },
+                    { value: 'advice', label: t('advices') },
                   ]}
                   value={searchType}
                   onChange={setSearchType}
                 />
                 <Input value={search} onChange={e => setSearch(e.target.value)} />
-                <Button type="primary" icon={<SearchIcon />}></Button>
+                <Link
+                  className="inline-flex items-center rounded-e-md bg-mainColor px-3"
+                  href={{ pathname: '/search', query: { searchType, search } }}
+                >
+                  <SearchIcon />
+                </Link>
               </Space.Compact>
             </div>
 
@@ -56,7 +62,7 @@ const Navbar: React.FC = () => {
                   href="/auth/signin"
                   className="ml-6 inline-flex items-center rounded-md bg-mainColor px-3 py-2 text-sm font-semibold text-white shadow-sm cursor-pointer"
                 >
-                  Нэвтрэх
+                  {t('login')}
                 </Link>
               ) : (
                 <>

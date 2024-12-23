@@ -1,5 +1,6 @@
 {
-  "email": "И-мэйл",
+  "all": "全部",
+  "email": "電子郵件",
   "emailOrPhone": "郵件或電話",
   "password": "密碼",
   "confirmPassword": "確認密碼",
@@ -24,5 +25,23 @@
   "laboratoryMaterial": "材料實驗室檢驗",
   "makeBudget": "制定預算",
   "advices": "建議",
-  "totalValue": "總價值"
+  "totalValue": "總價值",
+  "about": "關於",
+  "commonSearch": "常見搜尋",
+  "legally": "合法",
+  "terms": "條款",
+  "feedback": "反饋",
+  "permission": "許可",
+  "membership": "會員",
+  "support": "支持",
+  "faq": "常見問題",
+  "introduction": "介紹",
+  "contact": "聯繫",
+  "phone": "電話",
+  "mail": "郵件",
+  "address": "地址",
+  "training": "培訓",
+  "postAd": "發布廣告",
+  "policy": "政策",
+  "siteDescription": "蒙古建築綜合門戶網站"
 }

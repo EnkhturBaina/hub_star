@@ -1,3 +1,4 @@
+import { AdCard, AdviceCard, Carousel, SpecialCard } from '@components/common/data-display';
 import MainLayout from '@components/layouts/main';
 import CategoryNav from '@components/navbar/category';
 import ReferenceService from '@services/reference';
@@ -6,7 +7,7 @@ import { classNames } from '@utils/helpers';
 import { withTranslationProps } from '@utils/withTranslationProps';
 import { NextPage } from 'next';
 import { useTranslation } from 'next-i18next';
-import React, { useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 
 const HomePage: NextPage = () => {
   const { t } = useTranslation();
@@ -114,47 +115,21 @@ const HomePage: NextPage = () => {
                 })}
               </div>
             </div>
-
-            {/* <div className="w-full max-w-[920px] md:w-3/4">
-              
-                <Fragment>
-                  <div className="mb-4 w-full overflow-hidden">
-                    <div className="custom-slider-container relative w-full rounded-xl">
-                      {news ? (
-                        <Fade
-                          {...properties}
-                          transitionDuration={500}
-                          easing="ease"
-                          indicators={indicators}
-                          autoplay={true}
-                        >
-                          {news?.map((el: RefNews, index: number) => {
-                            return (
-                              <div
-                                className="each-slide-effect rounded-xl cursor-pointer"
-                                key={index}
-                                onClick={() => {
-                                  router.replace(`news?id=${el.id}`);
-                                }}
-                              >
-                                <div
-                                  style={{
-                                    backgroundImage: `url(${process.env.NEXT_PUBLIC_MEDIA_URL + el.imageId})`,
-                                    backgroundSize: '100% 100%',
-                                  }}
-                                />
-                              </div>
-                            );
-                          })}
-                        </Fade>
-                      ) : null}
-                    </div>
+            <div className="w-full max-w-[920px] md:w-3/4">
+              <Fragment>
+                <div className="mb-4 w-full overflow-hidden">
+                  <div className="custom-slider-container relative w-full rounded-xl">
+                    <Carousel />
                   </div>
-                  <Feature />
-                  <GridCategory />
-                </Fragment>
-              {mainDirections.length == 0 ? <BlogItemSkeleton /> : <Blog />}
-            </div> */}
+                </div>
+                <SpecialCard />
+                <AdviceCard />
+                <AdCard />
+                {/* <Feature />
+                  <GridCategory /> */}
+              </Fragment>
+              {/* {mainDirections.length == 0 ? <BlogItemSkeleton /> : <Blog />} */}
+            </div>
           </div>
         </div>
       </section>

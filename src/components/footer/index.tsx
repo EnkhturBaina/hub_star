@@ -2,8 +2,10 @@ import Motion from '@components/common/motion';
 import { FooterLink, FooterTitle } from './helper';
 import { Divider } from 'antd';
 import { FacebookIcon, LinkedInIcon, XIcon } from '@components/common/icons';
+import { useTranslation } from 'next-i18next';
 
 const Footer: React.FC = () => {
+  const { t } = useTranslation();
   return (
     <footer className="border-stroke bg-mainDark">
       <div className="mx-auto max-w-screen-xl px-4 md:px-8 2xl:px-0">
@@ -15,62 +17,63 @@ const Footer: React.FC = () => {
                 <FooterTitle title="hubstar" />
                 <ul>
                   <li>
-                    <FooterLink href="/hubstar/about" title="Бидний тухай" />
+                    <FooterLink href="/hubstar/about" title={t('about')} />
                   </li>
                   <li>
-                    <FooterLink href="/hubstar/research" title="Нийтлэг хайлт" />
+                    <FooterLink href="/hubstar/research" title={t('commonSearch')} />
                   </li>
                   <li>
-                    <FooterLink href="/hubstar/legally" title="Хууль эрх зүй" />
+                    <FooterLink href="/hubstar/legally" title={t('legally')} />
                   </li>
                   <li>
-                    <FooterLink href="/hubstar/terms" title="Үйлчилгээний нөхцөл" />
+                    <FooterLink href="/hubstar/terms" title={t('terms')} />
                   </li>
                   <li>
-                    <FooterLink href="/hubstar/permission" title="Тусгай зөвшөөрөл" />
+                    <FooterLink href="/hubstar/permission" title={t('permission')} />
                   </li>
                 </ul>
               </Motion>
 
               <Motion>
-                <FooterTitle title="Тусламж" />
+                <FooterTitle title={t('support')} />
                 <ul>
                   <li>
-                    <FooterLink href="/support/feedback" title="Санал хүсэлт илгээх" />
+                    <FooterLink href="/support/feedback" title={t('feedback')} />
                   </li>
                   <li>
-                    <FooterLink href="/support/membership" title="Хамтран ажиллах" />
+                    <FooterLink href="/support/membership" title={t('membership')} />
                   </li>
                   <li>
-                    <FooterLink href="/support" title="Тусламжын хэсэг" />
+                    <FooterLink href="/support" title={t('support')} />
                   </li>
                   <li>
-                    <FooterLink href="/support/faq" title="Түгээмэл асуулт хариулт" />
+                    <FooterLink href="/support/faq" title={t('faq')} />
                   </li>
                   <li>
-                    <FooterLink href="/support/introduction" title="Үйлчилгээний танилцуулга" />
+                    <FooterLink href="/support/introduction" title={t('introduction')} />
                   </li>
                 </ul>
               </Motion>
               <Motion>
                 <h4 className="mb-9 lg:text-itemtitle2 text-xl font-semibold text-gray-400 ">
-                  ХОЛБОО БАРИХ
+                  {t('contact')}
                 </h4>
 
                 <ul className="lg:text-base text-sm">
                   <li>
                     <a href="#" className="mb-3 inline-block text-white hover:text-mainColor">
-                      Утас: 9999-4698
+                      {t('phone')}: 9999-4698
                     </a>
                   </li>
                   <li>
                     <a href="#" className="mb-3 inline-block text-white hover:text-mainColor">
-                      Имэйл: metastartllc@gmail.com
+                      {t('mail')}: metastartllc@gmail.com
                     </a>
                   </li>
                   <li>
                     <a href="#" className="mb-3 inline-block text-white hover:text-mainColor">
-                      Хаяг: Улаанбаатар 14192, Сүхбаатар, 7-р хороо, Orient Center оффис 5 давхар
+                      {t('address')}: Улаанбаатар 14192, Сүхбаатар, 7-р хороо, Orient Center оффис 5
+                      давхар
                     </a>
                   </li>
                 </ul>
@@ -84,24 +87,23 @@ const Footer: React.FC = () => {
             <Motion>
               <ul className="flex flex-wrap items-center gap-4">
                 <li className="flex flex-row">
-                  <FooterLink href="/training" title="Хэрэглэх заавар" />
+                  <FooterLink href="/training" title={t('training')} />
                   <Divider type="vertical" className="h-5 w-0.5 bg-white ml-5" />
                 </li>
                 <li className="flex flex-row">
-                  <FooterLink href="/training/new_ad" title="Сурталчилгаа байршуулах" />
+                  <FooterLink href="/training/post-ad" title={t('postAd')} />
                   <Divider type="vertical" className="h-5 w-0.5 bg-white ml-5" />
                 </li>
                 <li className="flex flex-row">
-                  <FooterLink href="/training/policy" title="Нууцлалын бодлого" />
+                  <FooterLink href="/training/policy" title={t('policy')} />
                   <Divider type="vertical" className="h-5 w-0.5 bg-white ml-5" />
                 </li>
                 <li className="flex flex-row">
-                  <FooterLink href="/training/register" title="Бүртгүүлэх" />
+                  <FooterLink href="/training/register" title={t('register')} />
                 </li>
               </ul>
               <p className="mt-4 text-gray-300 font-light">
-                &copy; {new Date().getFullYear()} HubStar.MN - Монголын барилгын нэгдсэн портал
-                сайт.
+                &copy; {new Date().getFullYear()} HubStar.MN - {t('siteDescription')}.
               </p>
             </Motion>
 

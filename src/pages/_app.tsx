@@ -42,7 +42,12 @@ const MyApp: FC<AppProps> = ({ Component, router, pageProps }: AppProps) => {
   return (
     <>
       {/* {pageLoading && <Loader />} */}
-      <ConfigProvider theme={{ token: { colorPrimary: '#F7941D' } }}>
+      <ConfigProvider
+        theme={{
+          token: { colorPrimary: '#F7941D' },
+          components: { Carousel: { arrowSize: 24 } },
+        }}
+      >
         <AuthProvider>
           <Component {...pageProps} />
         </AuthProvider>

@@ -11,7 +11,7 @@ module.exports = phase => {
 
   return {
     i18n,
-    reactStrictMode: false,
+    reactStrictMode: true,
     compress: true,
     images: {
       deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
@@ -28,10 +28,10 @@ module.exports = phase => {
     eslint: {
       ignoreDuringBuilds: true,
     },
-    swcMinify: false,
+    swcMinify: true,
     productionBrowserSourceMaps: true,
-    future: {
-      strictPostcssConfiguration: true,
+    experimental: {
+      forceSwcTransforms: true,
     },
     async headers() {
       return [
@@ -42,8 +42,7 @@ module.exports = phase => {
           headers: [
             {
               key: 'Cache-Control',
-              value:
-                'public, max-age=31536000, s-maxage=31536000, stale-while-revalidate=31536000, must-revalidate',
+              value: 'public, max-age=31536000, stale-while-revalidate=31536000',
             },
           ],
         },
@@ -54,8 +53,7 @@ module.exports = phase => {
           headers: [
             {
               key: 'Cache-Control',
-              value:
-                'public, max-age=31536000, s-maxage=31536000, stale-while-revalidate=31536000, must-revalidate',
+              value: 'public, max-age=31536000, stale-while-revalidate=31536000',
             },
           ],
         },

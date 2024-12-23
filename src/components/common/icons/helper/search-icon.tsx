@@ -13,32 +13,32 @@ export const SearchIcon = (props: SVGProps<SVGSVGElement>) => {
       <path
         d="M9.58329 17.4993C13.9555 17.4993 17.5 13.9549 17.5 9.58268C17.5 5.21043 13.9555 1.66602 9.58329 1.66602C5.21104 1.66602 1.66663 5.21043 1.66663 9.58268C1.66663 13.9549 5.21104 17.4993 9.58329 17.4993Z"
         stroke="#DADADA"
-        stroke-width="1.5"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M9.58329 17.4993C13.9555 17.4993 17.5 13.9549 17.5 9.58268C17.5 5.21043 13.9555 1.66602 9.58329 1.66602C5.21104 1.66602 1.66663 5.21043 1.66663 9.58268C1.66663 13.9549 5.21104 17.4993 9.58329 17.4993Z"
         stroke="white"
-        stroke-opacity="0.75"
-        stroke-width="1.5"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeOpacity="0.75"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M18.3333 18.3327L16.6666 16.666"
         stroke="#DADADA"
-        stroke-width="1.5"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M18.3333 18.3327L16.6666 16.666"
         stroke="white"
-        stroke-opacity="0.75"
-        stroke-width="1.5"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeOpacity="0.75"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );

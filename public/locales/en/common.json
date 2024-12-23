@@ -1,4 +1,5 @@
 {
+  "all": "All",
   "email": "E-mail",
   "emailOrPhone": "E-mail or Phone",
   "password": "Password",
@@ -24,5 +25,23 @@
   "laboratoryMaterial": "Material Laboratory Examination",
   "makeBudget": "Make Budget",
   "advices": "Advices",
-  "totalValue": "Total value"
+  "totalValue": "Total value",
+  "about": "About",
+  "commonSearch": "Common search",
+  "legally": "Legally",
+  "terms": "Terms",
+  "feedback": "Feedback",
+  "permission": "Permission",
+  "membership": "Membership",
+  "support": "Support",
+  "faq": "FAQ",
+  "introduction": "Introduction",
+  "contact": "Contact",
+  "phone": "Phone",
+  "mail": "Mail",
+  "address": "Address",
+  "training": "Training",
+  "postAd": "Post Ad",
+  "policy": "Policy",
+  "siteDescription": "Mongolian construction unified portal site"
 }

@@ -40,26 +40,26 @@ export const HorizontalLogo = (props: SVGProps<SVGSVGElement>) => {
           fill="url(#paint3_linear_1907_15260)"
         />
         <path
-          fill-rule="evenodd"
-          clip-rule="evenodd"
+          fillRule="evenodd"
+          clipRule="evenodd"
           d="M17.1842 16.3477V6.70023C17.1676 5.73477 16.9339 4.78537 16.5004 3.92216C16.0669 3.05894 15.4448 2.30398 14.6798 1.71301C13.9149 1.12205 13.0267 0.71019 12.0809 0.507859C11.1352 0.305529 10.1559 0.317894 9.21558 0.544042C10.5513 -0.226003 12.4829 0.0348524 17.1842 0.073459C18.5491 0.297035 19.8001 0.969382 20.7386 1.98376C21.6771 2.99814 22.2492 4.29641 22.3642 5.67246V18.9824L17.1842 16.3477Z"
           fill="url(#paint4_linear_1907_15260)"
         />
         <path
-          fill-rule="evenodd"
-          clip-rule="evenodd"
+          fillRule="evenodd"
+          clipRule="evenodd"
           d="M16.9929 6.70038C14.9322 6.70616 12.9575 7.52587 11.5003 8.98044C10.043 10.435 9.22166 12.4062 9.21559 14.4634V31.7842C7.78366 30.9589 7.03634 28.9482 4.29478 24.209C-1.18729 14.7295 -1.18729 17.6041 4.29478 8.12465C7.03634 3.38542 7.78366 1.37475 9.21559 0.549404C10.1559 0.323256 11.1352 0.31089 12.0809 0.513221C13.0267 0.715552 13.9149 1.12741 14.6798 1.71837C15.4448 2.30934 16.067 3.06431 16.5004 3.92752C16.9339 4.79073 17.1676 5.74013 17.1842 6.70559L16.9929 6.70038Z"
           fill="url(#paint5_linear_1907_15260)"
         />
         <path
-          fill-rule="evenodd"
-          clip-rule="evenodd"
+          fillRule="evenodd"
+          clipRule="evenodd"
           d="M19.7742 23.115V32.7656C19.7916 33.7305 20.0259 34.6792 20.4596 35.5416C20.8933 36.4041 21.5155 37.1584 22.2802 37.7487C23.045 38.3391 23.9327 38.7505 24.878 38.9526C25.8232 39.1548 26.8019 39.1424 27.7418 38.9166C26.406 39.6866 24.4745 39.4257 19.7742 39.3871C18.4091 39.1638 17.1578 38.4915 16.2192 37.4771C15.2805 36.4627 14.7082 35.1643 14.5931 33.7881V20.4824L19.7742 23.115Z"
           fill="url(#paint6_linear_1907_15260)"
         />
         <path
-          fill-rule="evenodd"
-          clip-rule="evenodd"
+          fillRule="evenodd"
+          clipRule="evenodd"
           d="M19.9654 32.7661C22.0261 32.7598 24.0005 31.9397 25.4575 30.485C26.9145 29.0303 27.7357 27.0592 27.7417 25.002V7.6875C29.1747 8.51285 29.921 10.5235 32.6625 15.2638C38.1446 24.7433 38.1446 21.8676 32.6625 31.3471C29.921 36.0863 29.1747 38.097 27.7417 38.9223C26.8019 39.1482 25.8232 39.1605 24.8779 38.9584C23.9327 38.7563 23.0449 38.3449 22.2802 37.7545C21.5155 37.1641 20.8933 36.4099 20.4596 35.5474C20.0258 34.685 19.7916 33.7363 19.7742 32.7714L19.9654 32.7661Z"
           fill="url(#paint7_linear_1907_15260)"
         />
@@ -73,8 +73,8 @@ export const HorizontalLogo = (props: SVGProps<SVGSVGElement>) => {
           y2="20.0065"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#293483" />
-          <stop offset="1" stop-color="#3A88C8" />
+          <stop stopColor="#293483" />
+          <stop offset="1" stopColor="#3A88C8" />
         </linearGradient>
         <linearGradient
           id="paint1_linear_1907_15260"
@@ -84,8 +84,8 @@ export const HorizontalLogo = (props: SVGProps<SVGSVGElement>) => {
           y2="19.9996"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#293483" />
-          <stop offset="1" stop-color="#3A88C8" />
+          <stop stopColor="#293483" />
+          <stop offset="1" stopColor="#3A88C8" />
         </linearGradient>
         <linearGradient
           id="paint2_linear_1907_15260"
@@ -95,8 +95,8 @@ export const HorizontalLogo = (props: SVGProps<SVGSVGElement>) => {
           y2="19.9996"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#293483" />
-          <stop offset="1" stop-color="#3A88C8" />
+          <stop stopColor="#293483" />
+          <stop offset="1" stopColor="#3A88C8" />
         </linearGradient>
         <linearGradient
           id="paint3_linear_1907_15260"
@@ -106,8 +106,8 @@ export const HorizontalLogo = (props: SVGProps<SVGSVGElement>) => {
           y2="19.9996"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#293483" />
-          <stop offset="1" stop-color="#3A88C8" />
+          <stop stopColor="#293483" />
+          <stop offset="1" stopColor="#3A88C8" />
         </linearGradient>
         <linearGradient
           id="paint4_linear_1907_15260"
@@ -117,8 +117,8 @@ export const HorizontalLogo = (props: SVGProps<SVGSVGElement>) => {
           y2="0.370831"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#F58020" />
-          <stop offset="1" stop-color="#F1C046" />
+          <stop stopColor="#F58020" />
+          <stop offset="1" stopColor="#F1C046" />
         </linearGradient>
         <linearGradient
           id="paint5_linear_1907_15260"
@@ -128,8 +128,8 @@ export const HorizontalLogo = (props: SVGProps<SVGSVGElement>) => {
           y2="21.3193"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#F58020" />
-          <stop offset="1" stop-color="#F1C046" />
+          <stop stopColor="#F58020" />
+          <stop offset="1" stopColor="#F1C046" />
         </linearGradient>
         <linearGradient
           id="paint6_linear_1907_15260"
@@ -139,8 +139,8 @@ export const HorizontalLogo = (props: SVGProps<SVGSVGElement>) => {
           y2="29.9713"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#293482" />
-          <stop offset="1" stop-color="#3A88C8" />
+          <stop stopColor="#293482" />
+          <stop offset="1" stopColor="#3A88C8" />
         </linearGradient>
         <linearGradient
           id="paint7_linear_1907_15260"
@@ -150,8 +150,8 @@ export const HorizontalLogo = (props: SVGProps<SVGSVGElement>) => {
           y2="23.3889"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#293482" />
-          <stop offset="1" stop-color="#3A88C8" />
+          <stop stopColor="#293482" />
+          <stop offset="1" stopColor="#3A88C8" />
         </linearGradient>
         <clipPath id="clip0_1907_15260">
           <rect width="172" height="40" fill="white" />
