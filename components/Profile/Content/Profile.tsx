@@ -127,20 +127,6 @@ const Profile: React.FC<Props> = ({ user }) => {
             }}
             value={user?.organizationName ?? ''}
           />
-          <Textarea
-            disabled
-            variant="bordered"
-            label="Хаяг"
-            labelPlacement="outside"
-            radius="sm"
-            placeholder="Хаяг"
-            classNames={{
-              base: 'w-full',
-              label: 'font-bold',
-              inputWrapper: ['custom-input-wrapper', 'bg-white'],
-            }}
-            value={user?.address}
-          />
         </motion.div>
       )}
     </>

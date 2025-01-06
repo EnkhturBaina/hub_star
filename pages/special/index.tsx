@@ -107,8 +107,8 @@ const SpecialService: NextPage = () => {
                   </div>
                   {advertisements.length > 0 ? (
                     <div className="grid grid-cols-2 2xl:grid-cols-3 gap-6">
-                      {advertisements.map((blog, key) => (
-                        <BlogItem blog={blog} key={key} />
+                      {advertisements.map(blog => (
+                        <BlogItem blog={blog} key={blog.id} />
                       ))}
                     </div>
                   ) : (

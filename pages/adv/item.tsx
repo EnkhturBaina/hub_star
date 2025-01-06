@@ -251,12 +251,19 @@ const SingleBlogPage: NextPage = () => {
                 </div>
                 <div className="w-full border-b border-dashed border-y-gray-500" />
                 <div className="flex flex-col">
-                  <span>Үнэ: </span>
-                  <strong className="text-4xl ">{moneyFormat(data?.price)} ₮</strong>
-                  <span>Нэгжийн үнэ: </span>
-                  <strong className="text-4xl ">{moneyFormat(data?.unitAmount)} ₮</strong>
-                  <span>Багцын үнэ: </span>
-                  <strong className="text-4xl ">{moneyFormat(data?.packageAmount)} ₮</strong>
+                  {data?.userType == 'SUPPLIER' ? (
+                    <>
+                      <span>Нэгжийн үнэ: </span>
+                      <strong className="text-4xl ">{moneyFormat(data?.unitAmount)} ₮</strong>
+                      <span>Багцын үнэ: </span>
+                      <strong className="text-4xl ">{moneyFormat(data?.packageAmount)} ₮</strong>
+                    </>
+                  ) : (
+                    <>
+                      <span>Үнэ: </span>
+                      <strong className="text-4xl ">{moneyFormat(data?.price)} ₮</strong>
+                    </>
+                  )}
                 </div>
                 <div className="w-full border-b border-dashed border-y-gray-500" />
                 <div className="flex flex-col">
