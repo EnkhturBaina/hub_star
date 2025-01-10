@@ -407,7 +407,13 @@ const AddService: React.FC<Props> = ({ isSpecial, setIsAddService, updateAdv }) 
           <div className="flex flex-col gap-y-2">
             <Checkbox
               isSelected={createAd?.isTermOfService}
-              onClick={onOpenChange}
+              onClick={() => {
+                if (createAd.isTermOfService) {
+                  setCreateAd({ ...createAd, isTermOfService: false });
+                } else {
+                  onOpenChange();
+                }
+              }}
               disabled
               classNames={{
                 base: 'w-full',
@@ -445,32 +451,14 @@ const AddService: React.FC<Props> = ({ isSpecial, setIsAddService, updateAdv }) 
                 <MenuPage />
               </ModalBody>
               <ModalFooter>
-                <Checkbox
-                  isSelected={createAd?.isTermOfService}
-                  classNames={{
-                    base: 'w-full',
-                    label: 'w-full',
-                    wrapper: 'custom-checkbox w-6 h-6',
-                  }}
-                  onValueChange={isTermOfService => setCreateAd({ ...createAd, isTermOfService })}
-                >
-                  <span>Үйлчилгээний нөхцөл зөвшөөрөх </span>
-                </Checkbox>
                 <Button
-                  color="default"
-                  variant="light"
+                  className="w-full bg-mainColor text-white"
                   onClick={() => {
-                    if (!!createAd?.isTermOfService) {
-                      onClose();
-                      return;
-                    } else {
-                      setCreateAd(defaultCreateAd);
-                      toast.error('!Үйлчилгээний нөхцөл зөвшөөрөх');
-                      return;
-                    }
+                    setCreateAd({ ...createAd, isTermOfService: true });
+                    onClose();
                   }}
                 >
-                  Хаах
+                  Үйлчилгээний нөхцөл зөвшөөрөх
                 </Button>
               </ModalFooter>
             </>

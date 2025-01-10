@@ -74,10 +74,10 @@ const BlogItem = ({ blog }: { blog: Blog }) => {
           />
         </Link>
 
-        <div className="flex flex-col px-3 h-20">
+        <div className="flex flex-col px-3 h-30">
           {/* <span className="line-clamp-3">{`${desciption?.slice(0, 30)}...`}</span> */}
-
-          <h3 className="line-clamp-3 inline-block text-sm font-semibold text-black duration-300 hover:text-primary !text-ellipsis">
+          {/* w-fit line-clamp-4 inline-block !text-ellipsis  */}
+          <h3 className="text-sm font-semibold text-black duration-300 hover:text-primary line-clamp-2">
             <Link href={{ pathname: '/adv/item', query: { id } }}>{title}</Link>
           </h3>
           <strong className="w-fit md:text-base sm:text-sm text-xs line-clamp-3 !m-0 !p-0 h-fit flex items-center">
