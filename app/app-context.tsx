@@ -48,7 +48,7 @@ const AppProvider: React.FC<IProps> = ({ children }) => {
     hasNextPage: false,
     hasPreviousPage: false,
     itemCount: 1,
-    limit: 10,
+    limit: 9,
   });
   const accessToken = getAccessToken();
 

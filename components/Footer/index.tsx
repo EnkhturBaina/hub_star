@@ -113,18 +113,22 @@ const Footer: React.FC = () => {
                     </h4>
 
                     <ul>
-                      {menus
-                        .filter(item => item.type == 'SUPPORT')
-                        .map(item => (
-                          <li key={item.id}>
-                            <Link
-                              href={{ pathname: '/docs/menu', query: { menuId: item.id } }}
-                              className="lg:text-base text-sm mb-3 inline-block text-white hover:text-mainColor"
-                            >
-                              {item.title}
-                            </Link>
-                          </li>
-                        ))}
+                      <li>
+                        <Link
+                          href={'/feedback'}
+                          className="lg:text-base text-sm mb-3 inline-block text-white hover:text-mainColor"
+                        >
+                          Санал хүсэлт илгээх
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          href={'/introduction'}
+                          className="lg:text-base text-sm mb-3 inline-block text-white hover:text-mainColor"
+                        >
+                          Үйлчилгээний танилцуулга
+                        </Link>
+                      </li>
                     </ul>
                   </motion.div>
                   <motion.div
