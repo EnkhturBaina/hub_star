@@ -51,6 +51,7 @@ const appSections = [
     name: 'Зөвлөмжүүд',
   },
 ];
+const a = 'hello';
 const webSections = [
   {
     id: 'login',
