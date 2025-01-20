@@ -233,8 +233,7 @@ const Header = () => {
       </div>
       {/^\/profile\/.*/.test(pathUrl) ||
         /^\/other-profile\.*/.test(pathUrl) ||
-        /^\/docs\.*/.test(pathUrl) ||
-        /^\/introduction\.*/.test(pathUrl) || (
+        /^\/docs\.*/.test(pathUrl) || (
           <div className="no-scrollbar mt-2 flex overflow-y-scroll md:justify-center">
             <nav className="w-full">
               {router?.pathname.includes('special') ? (
