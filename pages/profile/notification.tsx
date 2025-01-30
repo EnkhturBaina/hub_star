@@ -111,7 +111,7 @@ const Notification: NextPage = () => {
                       <p className="desc md:!text-base !text-sm">{item.description}</p>
 
                       <Link href={'/profile/information'} className="desc md:!text-base !text-sm">
-                        {item.createdUser?.lastName.substring(0, 1) +
+                        {item.createdUser?.lastName?.substring(0, 1) +
                           '.' +
                           item.createdUser?.firstName}
                       </Link>

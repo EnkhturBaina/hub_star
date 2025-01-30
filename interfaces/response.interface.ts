@@ -19,6 +19,11 @@ export interface IResponse {
   message: string;
   statusCode: number;
 }
+export interface IResponseSuccess {
+  success: boolean;
+  message: string;
+  response: any;
+}
 export interface IResponseLogin extends IResponse {
   response: {
     accessToken: string;

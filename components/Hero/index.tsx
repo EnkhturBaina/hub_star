@@ -21,6 +21,7 @@ import { AppDispatch } from '@/app/lib/store';
 import { useTypedSelector } from '@/app/lib/reducer';
 import { useTranslation } from 'react-i18next';
 import { BiMinus } from 'react-icons/bi';
+import { classNames } from '@/utils/util';
 
 const Hero = () => {
   const router = useRouter();
@@ -29,18 +30,13 @@ const Hero = () => {
   const advParam = useTypedSelector(state => state.advParam);
   const dispatch = useDispatch<AppDispatch>();
   const [news, setNews] = useState<RefNews[]>([]);
+  const [branches, setBranches] = useState([]);
+  const [partnerships, setPartnerships] = useState([]);
 
   const [openParentAccordion, setOpenParentAccordion] = useState<any[]>([]);
   const [openAccordion, setOpenAccordion] = useState<number>(undefined);
   const [parentId, setParentId] = useState<number>(undefined);
-
-  const getNews = () => {
-    ReferenceService.getNews().then(res => {
-      if (res.success) {
-        setNews(res.response);
-      }
-    });
-  };
+  const [choosedBranchId, setChoosedBranchId] = useState(0);
 
   const properties = {
     prevArrow: <CiCircleChevLeft className="m-4 text-6xl text-mainColor" />,
@@ -50,8 +46,31 @@ const Hero = () => {
   const indicators = index => <div className="custom-home-indicator"></div>;
 
   useEffect(() => {
-    getNews();
+    const loadNews = async () => {
+      const result = await ReferenceService.getNews();
+      if (result.success) {
+        setNews(result.response);
+      }
+    };
+    const loadBranch = async () => {
+      const result = await ReferenceService.getAllBranch();
+      if (result.success) {
+        setBranches(result.response);
+      }
+    };
+    loadNews();
+    loadBranch();
   }, []);
+
+  useEffect(() => {
+    const loadPartnership = async () => {
+      const result = await ReferenceService.getAllPartnership(choosedBranchId);
+      if (result.success) {
+        setPartnerships(result.response);
+      }
+    };
+    loadPartnership();
+  }, [choosedBranchId]);
 
   const toggleAccordion = (id: number) => {
     setOpenAccordion(openAccordion === id ? null : id);
@@ -65,6 +84,60 @@ const Hero = () => {
             <div className="hidden md:block md:w-1/4">
               <div className="animate_top mb-10 rounded-md border border-stroke bg-white lg:p-6 py-4 px-3 shadow-md">
                 <Title label={t('services')} />
+                <div className="mb-5 flex flex-row cursor-pointer">
+                  <Image
+                    src="/images/icon/branch.svg"
+                    alt="add"
+                    className="rounded-md object-contain object-center"
+                    width="0"
+                    height="0"
+                    sizes="100vw"
+                    style={{ width: 25, height: 25 }}
+                  />
+                  <h4
+                    className={classNames(
+                      '!mt-0 ml-2 self-center text-sm lg:text-lg font-semibold text-black uppercase'
+                    )}
+                  >
+                    Салбарын байгууллагууд
+                  </h4>
+                </div>
+                <ul>
+                  {branches.map((branch: any, index: number) => (
+                    <li key={index} className="mb-3">
+                      <div
+                        className="flex flex-row items-center justify-between cursor-pointer !opacity-100 transition-all duration-300 last:mb-0 hover:text-mainColor"
+                        onClick={() => setChoosedBranchId(branch?.id)}
+                      >
+                        <span className="lg:text-base text-sm text-[#646669]">{branch.name}</span>
+                        {choosedBranchId === branch.id ? <BiMinus /> : <BsPlus />}
+                      </div>
+                      {choosedBranchId === branch.id && (
+                        <ul className="w-full items-start py-4">
+                          {partnerships.map((partnership: any, j: number) => (
+                            <li
+                              key={j}
+                              className="flex gap-2 items-start text-justify text-sm mb-3 cursor-pointer !text-black transition-all duration-300 last:mb-0 hover:text-mainColor"
+                              onClick={() => {
+                                router.push({
+                                  pathname: '/partnership',
+                                  query: {
+                                    choosedId: partnership?.id,
+                                  },
+                                });
+                              }}
+                            >
+                              <span className="text-red-500">*</span>
+                              <div className="lg:text-sm text-xs transition-all duration-300 ease-out !text-black hover:!text-yellow-400">
+                                {partnership?.name}
+                              </div>
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </li>
+                  ))}
+                </ul>
                 {mainDirections.length == 0 ? (
                   <LeftDirections />
                 ) : (

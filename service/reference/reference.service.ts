@@ -16,6 +16,7 @@ import {
   IResponsePage,
   IResponseParticipant,
   IResponseSubDirections,
+  IResponseSuccess,
 } from '@/interfaces/response.interface';
 import { api } from '../api.service';
 import {
@@ -91,13 +92,22 @@ const getMachinery = (params: IMachineryParam): Promise<IResponseMachinery> => {
 };
 const getParticipant = (params: IParticipantParam): Promise<IResponseAllParticipant> => {
   return api.get('/ad/participant', { params });
-}
+};
 const createParticipant = (data: Participant): Promise<IResponseParticipant> => {
   return api.post('/ad/participant', data);
-}
+};
 const removeParticipant = (id: number): Promise<IResponse> => {
   return api.delete('/ad/participant' + id);
-}
+};
+const getAllBranch = (): Promise<IResponseSuccess> => {
+  return api.get('/reference/branch');
+};
+const getAllPartnership = (branchId?: any): Promise<IResponseSuccess> => {
+  return api.get('/partnership', { params: { branchId } });
+};
+const getByIdPartnership = (partnershipId: any): Promise<IResponseSuccess> => {
+  return api.get(`/partnership/${partnershipId}`);
+};
 export const ReferenceService = {
   getMainDirection,
   getMainDirectionById,
@@ -119,5 +129,8 @@ export const ReferenceService = {
   getMachinery,
   getParticipant,
   createParticipant,
-  removeParticipant
+  removeParticipant,
+  getAllBranch,
+  getAllPartnership,
+  getByIdPartnership,
 };
