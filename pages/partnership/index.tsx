@@ -22,7 +22,7 @@ const PartnershipPage: NextPage = () => {
   }, [router.query?.choosedId]);
 
   return (
-    <section className="pt-35 lg:pt-40 xl:pt-42.5">
+    <section className="xl:pt-18">
       <div className="bg-gray-100 px-4 md:px-8 2xl:px-0 ">
         <div className="mx-auto max-w-screen-xl pt-12 pb-3">
           <div>

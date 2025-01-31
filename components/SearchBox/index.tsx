@@ -61,6 +61,7 @@ const SearchBox: React.FC = () => {
   }, [isOpen]);
 
   const handleSelection = (mainDirectionId: number) => {
+    router.push('/adv');
     dispatch(
       setAdvParam({ page: 1, limit: 10, order: 'DESC', mainDirectionIds: [mainDirectionId] })
     );
