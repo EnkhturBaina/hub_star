@@ -10,7 +10,7 @@ import {
   Image,
   Input,
   Textarea,
-} from '@nextui-org/react';
+} from '@heroui/react';
 import { BsImage } from 'react-icons/bs';
 import { ICreateAd } from '@/interfaces/request.interface';
 import ImageUpload from '@/components/Image/image-upload';

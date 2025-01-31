@@ -1,4 +1,4 @@
-import { Button } from '@nextui-org/react';
+import { Button } from '@heroui/react';
 import { CiGrid41, CiGrid2H } from 'react-icons/ci';
 import { useState } from 'react';
 import { useAppContext } from '@/app/app-context';
@@ -18,7 +18,7 @@ const SavedServices = () => {
           <Button
             className="min-w-unit-12 !px-0"
             radius="sm"
-            onClick={() => {
+            onPress={() => {
               setIsGrid(!isGrid);
             }}
           >
@@ -30,15 +30,9 @@ const SavedServices = () => {
         ) : (
           <div className="mx-auto mt-4 max-w-c-1280">
             {isGrid ? (
-              <GridServices
-                servicesData={user.saveAdvertisements}
-                isStars={false}
-              />
+              <GridServices servicesData={user.saveAdvertisements} isStars={false} />
             ) : (
-              <ListServices
-                servicesData={user.saveAdvertisements}
-                isStars={false}
-              />
+              <ListServices servicesData={user.saveAdvertisements} isStars={false} />
             )}
           </div>
         )}

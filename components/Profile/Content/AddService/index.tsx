@@ -21,7 +21,7 @@ import ConsultingService from './Step3/ConsultingService';
 import VocationalTraining from './Step3/VocationalTraining';
 import LaboratoryMaterial from './Step3/LaboratoryMaterial';
 import MakeBudget from './Step3/MakeBudget';
-import { Button, Checkbox, Modal, ModalBody, ModalContent, ModalFooter } from '@nextui-org/react';
+import { Button, Checkbox, Modal, ModalBody, ModalContent, ModalFooter } from '@heroui/react';
 import MenuPage from '@/pages/docs/menu';
 import { useRouter } from 'next/router';
 
@@ -453,7 +453,7 @@ const AddService: React.FC<Props> = ({ isSpecial, setIsAddService, updateAdv }) 
               <ModalFooter>
                 <Button
                   className="w-full bg-mainColor text-white"
-                  onClick={() => {
+                  onPress={() => {
                     setCreateAd({ ...createAd, isTermOfService: true });
                     onClose();
                   }}

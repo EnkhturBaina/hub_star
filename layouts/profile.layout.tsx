@@ -11,7 +11,7 @@ import { Users } from '@/types/user';
 import { AuthService } from '@/service/authentication/authentication.service';
 import toast from 'react-hot-toast';
 import { useAppContext } from '@/app/app-context';
-import { Image } from '@nextui-org/react';
+import { Image } from '@heroui/react';
 
 type Props = {
   children: React.ReactNode;

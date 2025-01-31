@@ -3,7 +3,7 @@ import SpecialServiceData from '@/app/data/SpecialServiceData';
 import UserTabData from '@/app/data/UserTabData';
 import Rating from '@/components/Common/Rating';
 import { Advertisement } from '@/types/advertisement';
-import { Button, Popover, PopoverContent, PopoverTrigger, Tooltip } from '@nextui-org/react';
+import { Button, Popover, PopoverContent, PopoverTrigger, Tooltip } from '@heroui/react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -90,7 +90,7 @@ const GridServices: React.FC<Props> = ({ servicesData, isStars, editAdv, removeA
             <div className="flex flex-row items-center justify-end gap-2">
               {editAdv && (
                 <Tooltip content="Засах">
-                  <Button isIconOnly color="primary" onClick={() => editAdv(adv)}>
+                  <Button isIconOnly color="primary" onPress={() => editAdv(adv)}>
                     <FaEdit />
                   </Button>
                 </Tooltip>
@@ -108,7 +108,7 @@ const GridServices: React.FC<Props> = ({ servicesData, isStars, editAdv, removeA
                       <div className="text-wrap font-bold ">
                         Үйлчилгээг устгахдаа итгэлтэй байна уу?
                       </div>
-                      <Button variant="solid" color="danger" onClick={() => removeAdv(adv?.id)}>
+                      <Button variant="solid" color="danger" onPress={() => removeAdv(adv?.id)}>
                         Тийм
                       </Button>
                     </div>

@@ -7,7 +7,7 @@ import PaginationComp from '@/components/Pagination';
 import { IAdviceParam } from '@/interfaces/request.interface';
 import { ReferenceService } from '@/service/reference/reference.service';
 import { Advice, MainDirection, PageMeta } from '@/types/reference';
-import { Button, Select, SelectItem } from '@nextui-org/react';
+import { Button, Select, SelectItem } from '@heroui/react';
 import { GetStaticProps, NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useCallback, useEffect, useRef, useState } from 'react';

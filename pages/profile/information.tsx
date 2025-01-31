@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Button, Input, Textarea } from '@nextui-org/react';
+import { Button, Input, Textarea } from '@heroui/react';
 import { useEffect, useMemo, useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 import ProfileFields from '@/components/Skeleton/ProfileFields';

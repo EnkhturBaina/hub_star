@@ -5,7 +5,7 @@ import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 import ThemeToggler from './ThemeToggler';
-import { Avatar, Button, Divider, Input } from '@nextui-org/react';
+import { Avatar, Button, Divider, Input } from '@heroui/react';
 import SearchBox from '../SearchBox';
 
 const Header = () => {
@@ -150,8 +150,7 @@ const Header = () => {
       </div>
       <div>
         <nav>
-          <ul className="flex flex-col gap-5 xl:flex-row xl:items-center xl:gap-10">
-          </ul>
+          <ul className="flex flex-col gap-5 xl:flex-row xl:items-center xl:gap-10"></ul>
         </nav>
       </div>
     </header>

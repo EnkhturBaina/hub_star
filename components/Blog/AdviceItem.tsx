@@ -12,7 +12,7 @@ import {
   Button,
   useDisclosure,
   ModalBody,
-} from '@nextui-org/react';
+} from '@heroui/react';
 type Props = {
   advice: Advice;
 };
@@ -38,7 +38,7 @@ const AdviceItem: React.FC<Props> = ({ advice }) => {
       className="animate_top rounded-lg overflow-hidden bg-white shadow-md"
     >
       <Button
-        onClick={onOpen}
+        onPress={onOpen}
         className="relative h-56 w-full bg-[#DADADA] flex flex-col justify-center items-center"
       >
         <Image

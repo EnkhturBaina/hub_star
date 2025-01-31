@@ -1,4 +1,4 @@
-import { Button } from '@nextui-org/react';
+import { Button } from '@heroui/react';
 import Image from 'next/image';
 import { useRef } from 'react';
 import { Slide, SlideshowRef } from 'react-slideshow-image';
@@ -31,7 +31,7 @@ const Gallery: React.FC<Props> = ({ images }) => {
           {images.map((item, index) => (
             <Button
               key={index}
-              onClick={() => slideRef.current.goTo(index)}
+              onPress={() => slideRef.current.goTo(index)}
               style={{ backgroundImage: `url(${item})` }}
             ></Button>
           ))}

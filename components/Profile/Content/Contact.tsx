@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import ProfileFields from '@/components/Skeleton/ProfileFields';
 import Users from '@/types/user';
-import { Input, Textarea } from '@nextui-org/react';
+import { Input, Textarea } from '@heroui/react';
 import Rating from '@/components/Common/Rating';
 import { useCallback, useEffect, useState } from 'react';
 import { AdvertisementService } from '@/service/advertisement/advertisement.service';

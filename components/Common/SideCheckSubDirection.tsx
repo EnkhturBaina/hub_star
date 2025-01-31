@@ -1,5 +1,5 @@
 import { LuSettings2 } from 'react-icons/lu';
-import { Accordion, AccordionItem, Checkbox, CheckboxGroup, Image } from '@nextui-org/react';
+import { Accordion, AccordionItem, Checkbox, CheckboxGroup, Image } from '@heroui/react';
 import { RefDirection, SubDirection, SpecialServiceType } from '@/types/reference';
 import { useTypedSelector } from '@/app/lib/reducer';
 import { useDispatch } from 'react-redux';
@@ -70,7 +70,9 @@ const SideCheckSubDirection: React.FC<Props> = ({ closeFnc }) => {
               {mainDirection.directions.map((direction: RefDirection, refIndex: number) => (
                 <AccordionItem
                   key={refIndex}
-                  indicator={({ isOpen }) => (isOpen ? <BiMinus className='rotate-90'/> : <BsPlus />)}
+                  indicator={({ isOpen }) =>
+                    isOpen ? <BiMinus className="rotate-90" /> : <BsPlus />
+                  }
                   title={
                     <span className="text-sm text-black leading-normal ml-1">{direction.name}</span>
                   }

@@ -1,4 +1,4 @@
-import { Spinner } from '@nextui-org/react';
+import { Spinner } from '@heroui/react';
 import React, { useState, useEffect } from 'react';
 
 const LoadingProvider = ({ children }) => {

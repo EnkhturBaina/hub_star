@@ -3,7 +3,7 @@ import { useAppContext } from '@/app/app-context';
 import { setAdvParam } from '@/app/lib/features/adv-param';
 import { useTypedSelector } from '@/app/lib/reducer';
 import { IAdParam } from '@/interfaces/request.interface';
-import { Pagination } from '@nextui-org/react';
+import { Pagination } from '@heroui/react';
 import { motion } from 'framer-motion';
 import React from 'react';
 import { useDispatch } from 'react-redux';

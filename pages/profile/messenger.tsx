@@ -1,4 +1,4 @@
-import { Avatar, Chip, Divider, Input, Textarea } from '@nextui-org/react';
+import { Avatar, Chip, Divider, Input, Textarea } from '@heroui/react';
 import { CiSearch } from 'react-icons/ci';
 import { FaSmile } from 'react-icons/fa';
 import { IoIosAdd } from 'react-icons/io';

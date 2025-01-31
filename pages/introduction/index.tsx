@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import IntroSection from '@/components/introduction/IntroSection';
-import { Button } from '@nextui-org/react';
+import { Button } from '@heroui/react';
 import { classNames } from '@/utils/util';
 import IntroSectionWeb from '@/components/introduction/IntroSectionWeb';
 
@@ -420,7 +420,7 @@ const Introduction: React.FC = () => {
                 'my-1 font-bold w-full justify-start',
                 activeSection == item.id ? 'bg-mainColor text-white' : 'text-[#909294]'
               )}
-              onClick={() => router.push(`#${item.id}`)}
+              onPress={() => router.push(`#${item.id}`)}
             >
               {item.name}
             </Button>
@@ -435,7 +435,7 @@ const Introduction: React.FC = () => {
                 'my-1 font-bold w-full justify-start',
                 activeSection == item.id ? 'bg-mainColor text-white' : 'text-[#909294]'
               )}
-              onClick={() => router.push(`#${item.id}`)}
+              onPress={() => router.push(`#${item.id}`)}
             >
               {item.name}
             </Button>

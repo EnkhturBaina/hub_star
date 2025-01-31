@@ -10,7 +10,7 @@ import {
   ModalHeader,
   Textarea,
   useDisclosure,
-} from '@nextui-org/react';
+} from '@heroui/react';
 import BreadCrumbs from '@/components/BreadCrumbs';
 import { FaStar } from 'react-icons/fa';
 import { Fragment, useCallback, useEffect, useState } from 'react';
@@ -238,7 +238,7 @@ const SingleBlogPage: NextPage = () => {
                     <Button
                       radius="sm"
                       className="ml-4 min-w-unit-10 h-fit py-1 border-1 bg-white !px-0 hover:border-orange-400 hover:text-red-400"
-                      onClick={() => onSave()}
+                      onPress={() => onSave()}
                     >
                       <BiHeart className="text-2xl" />
                     </Button>
@@ -308,7 +308,7 @@ const SingleBlogPage: NextPage = () => {
                   <Button
                     radius="full"
                     className="mb-2 w-full min-h-[40px] rounded-md bg-mainColor font-bold leading-none text-white"
-                    onClick={onConfirmOpen}
+                    onPress={onConfirmOpen}
                   >
                     {/* <ShoppingCartIcon width={16} height={16} className="mb-1" /> */}
                     Үйлчилгээг захиалах
@@ -318,7 +318,7 @@ const SingleBlogPage: NextPage = () => {
                   (data?.participants || []).find(item => item.userType == 'SUBSCRIBER')?.userBy ==
                     user?.id && (
                     <Button
-                      onClick={() => onOpen()}
+                      onPress={() => onOpen()}
                       radius="full"
                       className="mb-2 w-full rounded-md bg-mainColor font-bold leading-none text-white"
                     >
@@ -326,7 +326,7 @@ const SingleBlogPage: NextPage = () => {
                     </Button>
                   )}
                 <Button
-                  onClick={() => router.replace(`/other-profile?item=${data.createdBy}`)}
+                  onPress={() => router.replace(`/other-profile?item=${data.createdBy}`)}
                   className="mb-2 w-full rounded-md bg-mainColor font-bold leading-none text-white"
                 >
                   <UserCircleIcon width={18} height={18} />
@@ -419,16 +419,16 @@ const SingleBlogPage: NextPage = () => {
                   </Button>
                   <Button
                     color="primary"
-                    onPress={onConfirmClose}
-                    onClick={() =>
+                    onPress={() => {
+                      onConfirmClose();
                       handleNotification({
                         id: 0,
                         receiveBy: data.createdBy,
                         advertisementId: data.id,
                         type: 'ORDER',
                         description: 'Таньд ирсэн захиалга.',
-                      })
-                    }
+                      });
+                    }}
                   >
                     Тийм
                   </Button>

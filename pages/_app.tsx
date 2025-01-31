@@ -3,7 +3,7 @@ import { appWithTranslation } from 'next-i18next';
 import { AppProvider } from '@/app/app-context';
 import '@/styles/globals.css';
 import 'semantic-ui-css/semantic.min.css';
-import { NextUIProvider } from '@nextui-org/react';
+import { HeroUIProvider } from '@heroui/react';
 import { ThemeProvider } from 'next-themes';
 import Footer from '@/components/Footer';
 import ScrollToTop from '@/components/ScrollToTop';
@@ -28,7 +28,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   return (
     <div className={`dark:bg-black ${roboto.className}`}>
-      <NextUIProvider>
+      <HeroUIProvider>
         <Provider store={store}>
           <ThemeProvider enableSystem={false} attribute="class" defaultTheme="light">
             <div className="w-full min-h-screen h-fit flex flex-col justify-between">
@@ -53,7 +53,7 @@ function MyApp({ Component, pageProps }: AppProps) {
             </div>
           </ThemeProvider>
         </Provider>
-      </NextUIProvider>
+      </HeroUIProvider>
     </div>
   );
 }

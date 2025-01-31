@@ -1,5 +1,5 @@
 'use client';
-import { Button, Input } from '@nextui-org/react';
+import { Button, Input } from '@heroui/react';
 import Link from 'next/link';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
@@ -101,7 +101,7 @@ const Signup: React.FC<Props> = ({ step, setStep, setDetails }) => {
       <Button
         radius="full"
         className="mb-2 w-full rounded-md bg-mainColor font-bold leading-none text-white"
-        onClick={register}
+        onPress={register}
       >
         Бүртгүүлэх
       </Button>

@@ -1,6 +1,6 @@
 'use client';
 import { motion } from 'framer-motion';
-import { Input, Textarea } from '@nextui-org/react';
+import { Input, Textarea } from '@heroui/react';
 import ProfileFields from '@/components/Skeleton/ProfileFields';
 import { Users } from '@/types/user';
 

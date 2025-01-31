@@ -1,4 +1,4 @@
-import { Divider } from '@nextui-org/react';
+import { Divider } from '@heroui/react';
 import Image from 'next/image';
 import { BsPlus } from 'react-icons/bs';
 import { Fade } from 'react-slideshow-image';

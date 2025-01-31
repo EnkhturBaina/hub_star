@@ -7,7 +7,7 @@ import { Fragment, useCallback, useEffect, useState } from 'react';
 import Link from 'next/link';
 import { ReferenceService } from '@/service/reference/reference.service';
 import { RefNotification } from '@/types/reference';
-import { Button } from '@nextui-org/react';
+import { Button } from '@heroui/react';
 import toast from 'react-hot-toast';
 import { NextPage } from 'next';
 import Empty from '@/components/Empty';
@@ -127,7 +127,7 @@ const Notification: NextPage = () => {
                           size="sm"
                           radius="full"
                           className="w-fit rounded-md bg-red-400 font-bold leading-none text-white"
-                          onClick={() => {
+                          onPress={() => {
                             handleUpdate({ ...item, type: 'IGNORE' });
                             handleReceive({
                               advertisementId: item.advertisementId,
@@ -144,7 +144,7 @@ const Notification: NextPage = () => {
                           size="sm"
                           radius="full"
                           className="w-fit rounded-md bg-blue-500 font-bold leading-none text-white"
-                          onClick={() => {
+                          onPress={() => {
                             handleUpdate({ ...item, type: 'APPROVE' });
                             handleReceive({
                               ...item,

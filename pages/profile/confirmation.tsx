@@ -10,7 +10,7 @@ import { SsoGovService } from '@/service/sso-gov/sso-gov.service';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
-import { Button, Input } from '@nextui-org/react';
+import { Button, Input } from '@heroui/react';
 import { classNames } from '@/utils/util';
 
 const Confirmation = () => {
@@ -49,7 +49,7 @@ const Confirmation = () => {
       <div className="flex flex-col md:flex-row justify-center items-start gap-6">
         <Button
           className="flex h-50 md:w-1/2 w-full p-2 flex-col justify-center items-center gap-2 rounded bg-slate-100 flex-grow flex-shrink-0"
-          onClick={() => setType('org')}
+          onPress={() => setType('org')}
           isIconOnly
         >
           <GrOrganization
@@ -62,7 +62,7 @@ const Confirmation = () => {
         </Button>
         <Button
           className="flex h-50 md:w-1/2 w-full p-2 flex-col justify-center items-center gap-2 rounded bg-slate-100 flex-grow flex-shrink-0"
-          onClick={() => setType('citizen')}
+          onPress={() => setType('citizen')}
           isIconOnly
         >
           <GrUser

@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { Avatar, Badge, Button, Divider } from '@nextui-org/react';
+import { Avatar, Badge, Button, Divider } from '@heroui/react';
 import SearchBox from '../SearchBox';
 import { useAppContext } from '@/app/app-context';
 import AuthName from '../Auth/auth-name';

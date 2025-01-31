@@ -1,5 +1,5 @@
 import { LuChevronLeft, LuSettings2 } from 'react-icons/lu';
-import { Accordion, AccordionItem, Checkbox, CheckboxGroup } from '@nextui-org/react';
+import { Accordion, AccordionItem, Checkbox, CheckboxGroup } from '@heroui/react';
 import { RefDirection, SubDirection } from '@/types/reference';
 import { useCallback, useEffect, useState } from 'react';
 import { ReferenceService } from '@/service/reference/reference.service';

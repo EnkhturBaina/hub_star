@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { FaEdit, FaTrash } from 'react-icons/fa';
 import { Advertisement } from '@/types/advertisement';
 import Rating from '@/components/Common/Rating';
-import { Button, Popover, PopoverContent, PopoverTrigger } from '@nextui-org/react';
+import { Button, Popover, PopoverContent, PopoverTrigger } from '@heroui/react';
 import { Menu, MenuButton, MenuItem, Transition } from '@headlessui/react';
 import { EllipsisVerticalIcon } from '@heroicons/react/20/solid';
 

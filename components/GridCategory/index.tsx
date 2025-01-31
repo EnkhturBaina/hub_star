@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import CatItem from './CatItem';
-import { Button } from '@nextui-org/react';
+import { Button } from '@heroui/react';
 import { motion } from 'framer-motion';
 import { useDraggable } from 'react-use-draggable-scroll';
 import { ReferenceService } from '@/service/reference/reference.service';

@@ -1,6 +1,6 @@
 import ImageUpload from '@/components/Image/image-upload';
 import { ICreateAd } from '@/interfaces/request.interface';
-import { Button, Card, CardFooter, Chip, Image } from '@nextui-org/react';
+import { Button, Card, CardFooter, Chip, Image } from '@heroui/react';
 import { BsImage } from 'react-icons/bs';
 type Props = {
   adData: ICreateAd;

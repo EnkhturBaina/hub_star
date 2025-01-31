@@ -1,5 +1,5 @@
 'use client';
-import { Button, Input } from '@nextui-org/react';
+import { Button, Input } from '@heroui/react';
 import Link from 'next/link';
 import toast from 'react-hot-toast';
 import { AuthService } from '@/service/authentication/authentication.service';
@@ -59,7 +59,7 @@ const SendOtp: React.FC<Props> = ({ username, setUsername, step, setStep, setDet
       <Button
         radius="full"
         className="mb-2 w-full rounded-md bg-mainColor font-bold leading-none text-white"
-        onClick={register}
+        onPress={register}
       >
         Хүсэлт явуулах
       </Button>

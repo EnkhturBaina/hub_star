@@ -3,7 +3,7 @@ import ImageUpload from '@/components/Image/image-upload';
 import CustomSelect from '@/components/Inputs/Select';
 import { MainDirection, UserType } from '@/types/reference';
 import Users from '@/types/user';
-import { Image, Input, Textarea } from '@nextui-org/react';
+import { Image, Input, Textarea } from '@heroui/react';
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { BsImage } from 'react-icons/bs';

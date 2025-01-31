@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import Empty from '@/components/Empty';
-import { Button } from '@nextui-org/react';
+import { Button } from '@heroui/react';
 import { CiGrid2H, CiGrid41 } from 'react-icons/ci';
 import GridServices from './GridServices';
 import ListServices from './ListServices';

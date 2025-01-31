@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Popover, PopoverTrigger, PopoverContent } from '@nextui-org/react';
+import { Button, Popover, PopoverTrigger, PopoverContent } from '@heroui/react';
 import Image from 'next/image';
 import { useAppContext } from '@/app/app-context';
 import { RefDirection, MainDirection } from '@/types/reference';

@@ -1,5 +1,5 @@
 'use client';
-import { Button, Input } from '@nextui-org/react';
+import { Button, Input } from '@heroui/react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { AuthService } from '@/service/authentication/authentication.service';
@@ -8,7 +8,7 @@ import { useRouter } from 'next/router';
 type Props = {
   token: string;
   step: number;
-  setStep: React.Dispatch<React.SetStateAction<number>>
+  setStep: React.Dispatch<React.SetStateAction<number>>;
 };
 const ChangePassword: React.FC<Props> = ({ token, step, setStep }) => {
   const router = useRouter();
@@ -56,14 +56,14 @@ const ChangePassword: React.FC<Props> = ({ token, step, setStep }) => {
       <Button
         radius="full"
         className="mb-2 w-full rounded-md bg-mainColor font-bold leading-none text-white"
-        onClick={changePassword}
+        onPress={changePassword}
       >
         Нууц үг солих
       </Button>
       <Button
         radius="full"
         className="mb-2 w-full rounded-md font-bold leading-none"
-        onClick={() => {
+        onPress={() => {
           setStep(step - 1);
         }}
       >

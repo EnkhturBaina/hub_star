@@ -1,5 +1,5 @@
 // components/Drawer.js
-import { Button } from '@nextui-org/react';
+import { Button } from '@heroui/react';
 import { BiSolidRightArrowAlt } from 'react-icons/bi';
 
 const Drawer = ({ children, setIsOpen = (v: boolean) => {}, isOpen = false }) => {

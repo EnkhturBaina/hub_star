@@ -1,4 +1,4 @@
-import { Button } from '@nextui-org/react';
+import { Button } from '@heroui/react';
 
 interface IProps {
   label: string;
@@ -6,7 +6,7 @@ interface IProps {
   onClick: () => void;
 }
 const CustomButton: React.FC<IProps> = props => (
-  <Button radius="sm" className={props.className} onClick={props.onClick}>
+  <Button radius="sm" className={props.className} onPress={props.onClick}>
     {props.label}
   </Button>
 );

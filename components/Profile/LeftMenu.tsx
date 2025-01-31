@@ -1,7 +1,7 @@
 'use client';
 import React, { useState } from 'react';
 import { MenuItem, Menu, Label } from 'semantic-ui-react';
-import { Divider, Input, ModalBody } from '@nextui-org/react';
+import { Divider, Input, ModalBody } from '@heroui/react';
 import { CiLogout } from 'react-icons/ci';
 import { usePathname, useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
@@ -12,7 +12,7 @@ import {
   ModalFooter,
   Button,
   useDisclosure,
-} from '@nextui-org/react';
+} from '@heroui/react';
 import { AuthService } from '@/service/authentication/authentication.service';
 import { removeAccessToken } from '@/service/api.service';
 import { ProfileRoute } from '@/types/reference';

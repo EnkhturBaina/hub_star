@@ -1,5 +1,5 @@
 'use client';
-import { Button } from '@nextui-org/react';
+import { Button } from '@heroui/react';
 import { CiGrid41, CiGrid2H } from 'react-icons/ci';
 import { useCallback, useEffect, useState } from 'react';
 import { useAppContext } from '@/app/app-context';
@@ -61,7 +61,7 @@ const PostedServices: NextPage = () => {
           <Button
             className="min-w-unit-12 !px-0"
             radius="sm"
-            onClick={() => {
+            onPress={() => {
               setIsGrid(!isGrid);
             }}
           >

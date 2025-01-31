@@ -1,7 +1,14 @@
 'use client';
-import { Autocomplete, AutocompleteItem, Button } from '@nextui-org/react';
+import {
+  Autocomplete,
+  AutocompleteItem,
+  Button,
+  Card,
+  CardBody,
+  Divider,
+  Input,
+} from '@heroui/react';
 import { useEffect, useState } from 'react';
-import DropDown from './DropDown';
 import { useAppContext } from '@/app/app-context';
 import { useDispatch } from 'react-redux';
 import { setAdvParam } from '@/app/lib/features/adv-param';
@@ -90,7 +97,7 @@ const SearchBox: React.FC = () => {
                   key={idx}
                   className={`min-w-[300px] min-h-[38px] h-fit w-fit rounded-md flex justify-between items-center text-[14px] hover:bg-[#f39d34] hover:text-white text-black 
                   ${md.id == selectedID?.id ? 'bg-[#F7941D] !text-white' : 'bg-transparent'}`}
-                  onClick={() => {
+                  onPress={() => {
                     setSelectedID({ id: md.id, name: md.name });
                     setSelectedItems(md.directions);
                   }}
@@ -147,7 +154,22 @@ const SearchBox: React.FC = () => {
           </div>
         </div>
       </Drawer>
-
+      {/* 
+      <div className="flex flex-col w-full">
+        <Input
+          size="sm"
+          radius="none"
+          placeholder="Хайх..."
+          value={searchVal}
+          onValueChange={setSearchVal}
+        />
+        <Card className="bg-orange-300 max-w-[400px]">
+          <CardBody>
+            <p>Make beautiful websites regardless of your design experience.</p>
+          </CardBody>
+          <Divider />
+        </Card>
+      </div> */}
       <Autocomplete
         label=""
         size="sm"

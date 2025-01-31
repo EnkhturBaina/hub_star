@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Button, Input } from '@nextui-org/react';
+import { Button, Input } from '@heroui/react';
 import ProfileLayout from '@/layouts/profile.layout';
 import withAuth from '@/components/Common/withAuth';
 import { useState } from 'react';

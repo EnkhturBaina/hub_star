@@ -1,12 +1,11 @@
 import { setAccessToken } from '@/service/api.service';
 import { AuthService } from '@/service/authentication/authentication.service';
-import { Button, Input } from '@nextui-org/react';
+import { Button, Input, Divider } from '@heroui/react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { Divider } from 'semantic-ui-react';
 import toast from 'react-hot-toast';
 import { useTranslation } from 'next-i18next';
 import { EyeDropperIcon, EyeIcon } from '@heroicons/react/20/solid';
@@ -120,11 +119,11 @@ const Signin = () => {
                   {t('forgotPassword')}
                 </Link>
               </div>
-              <Divider horizontal />
+              <Divider />
               <Button
                 radius="full"
                 className="mb-2 w-full rounded-md bg-mainColor font-bold leading-none text-white"
-                onClick={login}
+                onPress={login}
               >
                 {t('login')}
               </Button>

@@ -1,7 +1,7 @@
 import { AuthService } from '@/service/authentication/authentication.service';
 import { OtpType } from '@/types/reference';
 import Users from '@/types/user';
-import { Button, Input } from '@nextui-org/react';
+import { Button, Input } from '@heroui/react';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
@@ -15,13 +15,7 @@ type Props = {
   setUser?: (user: Users) => void;
   setAccessToken?: (accessToken: string) => void;
 };
-const Verification: React.FC<Props> = ({
-  details,
-  type,
-  step,
-  setStep,
-  setAccessToken,
-}) => {
+const Verification: React.FC<Props> = ({ details, type, step, setStep, setAccessToken }) => {
   const router = useRouter();
   const [otp, setOtp] = useState<string>('');
   const verification = () => {
@@ -59,14 +53,14 @@ const Verification: React.FC<Props> = ({
       <Button
         radius="full"
         className="mb-2 w-full rounded-md bg-mainColor font-bold leading-none text-white"
-        onClick={verification}
+        onPress={verification}
       >
         Баталгаажуулах
       </Button>
       <Button
         radius="full"
         className="mb-2 w-full rounded-md font-bold leading-none"
-        onClick={() => {
+        onPress={() => {
           setStep(step - 1);
         }}
       >

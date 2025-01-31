@@ -5,7 +5,7 @@ import SideCheckSubDirection from '@/components/Common/SideCheckSubDirection';
 import PaginationComp from '@/components/Pagination';
 import { IAdParam } from '@/interfaces/request.interface';
 import { OrderType, SpecialServiceType } from '@/types/reference';
-import { Select, SelectItem } from '@nextui-org/react';
+import { Select, SelectItem } from '@heroui/react';
 import { GetStaticProps, NextPage } from 'next';
 import { useRouter } from 'next/router';
 import React, { useRef, useState } from 'react';

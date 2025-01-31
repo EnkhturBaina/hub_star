@@ -3,7 +3,7 @@ import { withTranslationProps } from '@/app/lib/with-translation';
 import withAuth from '@/components/Common/withAuth';
 import AddService from '@/components/Profile/Content/AddService';
 import ProfileLayout from '@/layouts/profile.layout';
-import { Card, CardBody } from '@nextui-org/react';
+import { Card, CardBody } from '@heroui/react';
 import { GetStaticProps, NextPage } from 'next';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
