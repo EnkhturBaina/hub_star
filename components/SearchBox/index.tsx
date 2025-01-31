@@ -1,14 +1,18 @@
 'use client';
 import {
-  Autocomplete,
-  AutocompleteItem,
+  ListboxItem,
+  Listbox,
   Button,
-  Card,
-  CardBody,
-  Divider,
   Input,
+  Modal,
+  ModalContent,
+  ModalBody,
+  useDisclosure,
+  ModalHeader,
+  CardBody,
+  Card,
 } from '@heroui/react';
-import { useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { useAppContext } from '@/app/app-context';
 import { useDispatch } from 'react-redux';
 import { setAdvParam } from '@/app/lib/features/adv-param';
@@ -16,22 +20,21 @@ import Drawer from '../Drawer';
 import { useRouter } from 'next/router';
 import { MainDirection, RefDirection, SubDirection } from '@/types/reference';
 import Image from 'next/image';
-import { BiMinus, BiPlus, BiRightArrowAlt } from 'react-icons/bi';
-import { LuArrowRightFromLine } from 'react-icons/lu';
-import { PiArrowRightBold } from 'react-icons/pi';
+import { BiMinus, BiPlus } from 'react-icons/bi';
+import { ReferenceService } from '@/service/reference/reference.service';
 
 type selectedProps = {
   id: MainDirection['id'];
   name: MainDirection['name'];
 };
-
 const SearchBox: React.FC = () => {
   const router = useRouter();
   const dispatch = useDispatch();
-  const [searchVal, setSearchVal] = useState<string>(undefined);
+  const [searchVal, setSearchVal] = useState<string>('');
   const { mainDirections } = useAppContext();
+  const [directions, setDirections] = useState([]);
 
-  const [isOpen, setIsOpen] = useState(false);
+  const [openDrawer, setIsOpenDrawer] = useState(false);
   const [subID, setSubID] = useState<number>(null);
 
   // const [selectedID, setSelectedID] = useState<selectedProps>({
@@ -44,6 +47,7 @@ const SearchBox: React.FC = () => {
   //   mainDirections[0]?.directions || []
   // );
   const [selectedItems, setSelectedItems] = useState<MainDirection['directions'] | any>([]);
+  const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
 
   // useEffect(() => {
   //   if (mainDirections.length > 0) {
@@ -60,19 +64,26 @@ const SearchBox: React.FC = () => {
     setSelectedID(null);
   }, [isOpen]);
 
-  const handleSelection = (mainDirectionId: number) => {
-    router.push('/adv');
-    dispatch(
-      setAdvParam({ page: 1, limit: 10, order: 'DESC', mainDirectionIds: [mainDirectionId] })
-    );
-  };
+  useEffect(() => {
+    const loadData = async () => {
+      if (searchVal.length >= 3) {
+        const result = await ReferenceService.getDirectionFilter({
+          name: searchVal,
+          lang: router.locale.toUpperCase(),
+        });
+        setDirections(result.response.data);
+      }
+    };
+    loadData();
+  }, [searchVal]);
 
   const onClickDirection = (
     mainDirection: MainDirection,
-    direction: RefDirection,
+    direction?: RefDirection,
     subDirection?: SubDirection | any
   ) => {
-    setIsOpen(false);
+    setIsOpenDrawer(false);
+    onClose();
     router.push('/adv');
     dispatch(
       setAdvParam({
@@ -80,7 +91,7 @@ const SearchBox: React.FC = () => {
         page: 1,
         limit: 10,
         mainDirectionIds: [mainDirection.id],
-        directionIds: [direction.id],
+        directionIds: direction?.id && [direction.id],
         subDirectionIds: subDirection?.id && [subDirection?.id],
       })
     );
@@ -89,7 +100,7 @@ const SearchBox: React.FC = () => {
   return (
     <div className="flex w-full h-10 flex-row">
       {/* <DropDown /> */}
-      <Drawer isOpen={isOpen} setIsOpen={setIsOpen}>
+      <Drawer isOpen={openDrawer} setIsOpen={setIsOpenDrawer}>
         <div className="!mb-2 !mt-0 md:flex gap-[48px] h-min w-full">
           <div className="w-fit flex flex-col gap-0 items-start justify-start">
             {mainDirections.map((md: MainDirection, idx: number) => (
@@ -171,7 +182,73 @@ const SearchBox: React.FC = () => {
           <Divider />
         </Card>
       </div> */}
-      <Autocomplete
+      {/* {JSON.stringify(directions)} */}
+      <div className="w-full">
+        <Input
+          classNames={{
+            base: 'w-full h-10',
+            mainWrapper: 'h-full',
+            input: 'text-small',
+            inputWrapper:
+              'h-full font-normal text-default-500 bg-default-400/20 dark:bg-default-500/20',
+          }}
+          placeholder="Хайх ..."
+          size="sm"
+          type="search"
+          onClick={onOpen}
+        />
+      </div>
+      <Modal isOpen={isOpen} scrollBehavior={'outside'} onOpenChange={onOpenChange}>
+        <ModalContent>
+          <ModalHeader>Хайлт</ModalHeader>
+          <ModalBody>
+            <Input
+              classNames={{
+                base: 'w-full h-10',
+                mainWrapper: 'h-full',
+                input: 'text-small',
+                inputWrapper:
+                  'h-full font-normal text-default-500 bg-default-400/20 dark:bg-default-500/20',
+              }}
+              placeholder="Хайх ..."
+              size="sm"
+              type="search"
+              value={searchVal}
+              onValueChange={setSearchVal}
+            />
+            {directions.map(item => (
+              <Fragment key={item?.id}>
+                <Card className="cursor-pointer">
+                  <CardBody className="text-lg bg-slate-300" onClick={() => onClickDirection(item)}>
+                    {item?.name}
+                  </CardBody>
+                  {(item?.directions ?? []).map(direction => (
+                    <Card key={direction?.id} className="ml-1">
+                      <CardBody
+                        className="text-medium bg-slate-200"
+                        onClick={() => onClickDirection(item, direction)}
+                      >
+                        {direction?.name}
+                      </CardBody>
+                      {(direction?.subDirections ?? []).map(sub => (
+                        <Card key={sub?.id} className="ml-2 bg-slate-100">
+                          <CardBody
+                            className="text-medium"
+                            onClick={() => onClickDirection(item, direction, sub)}
+                          >
+                            {sub?.name}
+                          </CardBody>
+                        </Card>
+                      ))}
+                    </Card>
+                  ))}
+                </Card>
+              </Fragment>
+            ))}
+          </ModalBody>
+        </ModalContent>
+      </Modal>
+      {/* <Autocomplete
         label=""
         size="sm"
         radius="none"
@@ -192,13 +269,13 @@ const SearchBox: React.FC = () => {
           // mainWrapper: 'contents h-10',
           // innerWrapper: '!pb-0',
         }}
-      >
-        {mainDirections.map(item => (
+      > */}
+      {/* {directions.map(item => (
           <AutocompleteItem key={item.id} value={item.id}>
             {item.name}
           </AutocompleteItem>
-        ))}
-      </Autocomplete>
+        ))} */}
+      {/* </Autocomplete> */}
       {/* <Button
         radius="none"
         isIconOnly

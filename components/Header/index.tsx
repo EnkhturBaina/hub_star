@@ -85,7 +85,7 @@ const Header = () => {
 
   return (
     <header
-      className={`fixed left-0 top-0 !z-999 w-full bg-white ${
+      className={`fixed left-0 top-0 z-30 w-full bg-white ${
         pathUrl === '/profile' ? 'py-4' : 'pt-0'
       } shadow ${stickyMenu ? 'shadow transition duration-100' : ''}`}
     >

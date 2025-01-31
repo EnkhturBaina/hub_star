@@ -41,7 +41,7 @@ const SingleFeature: React.FC<IProps> = ({ specialService }) => {
       whileInView="visible"
       transition={{ duration: 0.5 }}
       viewport={{ once: true }}
-      className="animate_top z-40 flex md:h-35 h-30 cursor-pointer flex-col items-center justify-center rounded-lg border border-white bg-white shadow-md transition-all hover:bg-primary hover:shadow-solid-4 group"
+      className="animate_top flex md:h-35 h-30 cursor-pointer flex-col items-center justify-center rounded-lg border border-white bg-white shadow-md transition-all hover:bg-primary hover:shadow-solid-4 group"
     >
       <div
         onClick={() => handleSpecialService(specialService.type)}

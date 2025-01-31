@@ -33,6 +33,9 @@ import { Participant, RefNotification } from '@/types/reference';
 const getMainDirection = (params: IMainDirectionParam): Promise<IResponseMainDirections> => {
   return api.get('/reference/main-direction', { params });
 };
+const getDirectionFilter = (params: any): Promise<IResponseSuccess> => {
+  return api.get('/reference/main-direction/filter', { params });
+};
 const getMainDirectionById = (id: number): Promise<IResponseMainDirection> => {
   return api.get('/reference/main-direction/show/' + id);
 };
@@ -110,6 +113,7 @@ const getByIdPartnership = (partnershipId: any): Promise<IResponseSuccess> => {
 };
 export const ReferenceService = {
   getMainDirection,
+  getDirectionFilter,
   getMainDirectionById,
   getDirection,
   getSubDirection,

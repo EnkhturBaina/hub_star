@@ -25,8 +25,6 @@ const Feature = () => {
       whileInView="visible"
       transition={{ duration: 1, delay: 0.5 }}
       viewport={{ once: true }}
-      className="animate_top"
-      id="features"
     >
       <div className="w-full overflow-hidden">
         <Title label={t('specialService')} />
