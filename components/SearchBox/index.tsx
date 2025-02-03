@@ -181,8 +181,10 @@ const SearchBox: React.FC = () => {
                   className={`min-w-[300px] min-h-[38px] h-fit w-fit rounded-md flex justify-between items-center text-[14px] hover:bg-[#f39d34] hover:text-white text-black 
                   ${md.id == selectedID?.id ? 'bg-[#F7941D] !text-white' : 'bg-transparent'}`}
                   onPress={() => {
-                    setSelectedID({ id: md.id, name: md.name });
-                    setSelectedItems(md.directions);
+                    selectedID?.id == md.id
+                      ? setSelectedID(null)
+                      : setSelectedID({ id: md.id, name: md.name }),
+                      setSelectedItems(md.directions);
                   }}
                 >
                   <div className="flex items-center gap-1 w-fit">

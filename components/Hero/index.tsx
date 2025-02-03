@@ -92,7 +92,7 @@ const Hero = () => {
                     width="0"
                     height="0"
                     sizes="100vw"
-                    style={{ width: 25, height: 25 }}
+                    style={{ width: 30, height: 30 }}
                   />
                   <h4
                     className={classNames(
