@@ -96,7 +96,7 @@ const Hero = () => {
                   />
                   <h4
                     className={classNames(
-                      '!mt-0 ml-2 self-center text-sm lg:text-lg font-semibold text-black uppercase'
+                      '!mt-0 ml-2 self-center text-sm lg:text-lg font-semibold text-black'
                     )}
                   >
                     Салбарын байгууллагууд
@@ -107,7 +107,11 @@ const Hero = () => {
                     <li key={index} className="mb-3">
                       <div
                         className="flex flex-row items-center justify-between cursor-pointer !opacity-100 transition-all duration-300 last:mb-0 hover:text-mainColor"
-                        onClick={() => setChoosedBranchId(branch?.id)}
+                        onClick={() =>
+                          branch.id == choosedBranchId
+                            ? setChoosedBranchId(0)
+                            : setChoosedBranchId(branch?.id)
+                        }
                       >
                         <span className="lg:text-base text-sm text-[#646669]">{branch.name}</span>
                         {choosedBranchId === branch.id ? <BiMinus /> : <BsPlus />}

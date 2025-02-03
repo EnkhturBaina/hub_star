@@ -76,24 +76,32 @@ const Confirmation = () => {
       </div>
       <div className="flex flex-col gap-y-2">
         {type == 'org' ? (
-          <Input
-            inputMode="numeric"
-            label="Байгууллагын регистр"
-            labelPlacement="outside"
-            placeholder="--"
-            radius="sm"
-            size="lg"
-            variant="bordered"
-            classNames={{ label: 'font-bold', innerWrapper: ['custom-input-wrapper', 'bg-white'] }}
-            value={orgRegno}
-            onValueChange={setOrgregno}
-          />
+          <>
+            <div className="border border-yellow-400 bg-yellow-50 p-4 rounded-md text-yellow-800 mt-4">
+              Анхааруулга: Байгууллага тоон гарын үсгээр баталгаажуулалт хийгдэнэ
+            </div>
+            <Input
+              inputMode="numeric"
+              label="Байгууллагын регистр"
+              labelPlacement="outside"
+              placeholder="--"
+              radius="sm"
+              size="lg"
+              variant="bordered"
+              classNames={{
+                label: 'font-bold',
+                innerWrapper: ['custom-input-wrapper', 'bg-white'],
+              }}
+              value={orgRegno}
+              onValueChange={setOrgregno}
+            />
+          </>
         ) : null}
         <Button
           className="mr-4 bg-mainColor !text-white"
           radius="sm"
           size="md"
-          onClick={handleConfirm}
+          onPress={handleConfirm}
         >
           Баталгаажуулах
         </Button>

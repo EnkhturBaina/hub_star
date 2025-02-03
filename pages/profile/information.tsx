@@ -232,6 +232,27 @@ const Profile: NextPage = () => {
               }}
             />
           )}
+          <Input
+            key="organizationName"
+            type="text"
+            label="Байгууллагын регистр"
+            labelPlacement="outside"
+            placeholder="Байгууллагын регистр"
+            radius="sm"
+            size="lg"
+            variant="bordered"
+            classNames={{
+              label: 'font-bold',
+              inputWrapper: ['custom-input-wrapper', 'bg-white'],
+            }}
+            value={profileData?.organizationRegno ?? ''}
+            onValueChange={e => {
+              setProfileData((prevState: Users) => ({
+                ...prevState,
+                organizationRegno: e,
+              }));
+            }}
+          />
           <Textarea
             variant="bordered"
             label="Хаяг"
