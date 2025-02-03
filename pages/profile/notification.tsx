@@ -110,7 +110,13 @@ const Notification: NextPage = () => {
                     <div className="flex flex-col gap-2 justify-center items-start">
                       <p className="desc md:!text-base !text-sm">{item.description}</p>
 
-                      <Link href={'/profile/information'} className="desc md:!text-base !text-sm">
+                      <Link
+                        href={{
+                          pathname: '/other-profile',
+                          query: { item: item?.createdUser?.id },
+                        }}
+                        className="desc md:!text-base !text-sm"
+                      >
                         {item.createdUser?.lastName?.substring(0, 1) +
                           '.' +
                           item.createdUser?.firstName}

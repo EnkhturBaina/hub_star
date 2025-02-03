@@ -132,10 +132,11 @@ const Header = () => {
           <Divider orientation="vertical" className="mx-5 h-10 sm:mx-1 md:mx-2 xl:mx-5 xl:block" />
           <div className="flex flex-row items-center">
             {!user ? (
-              <Link className="text-black hover:text-primary " href="/auth/signin">
-                <Button radius="sm" className="h-12">
-                  <span className="font-bold">Нэвтрэх</span>
-                </Button>
+              <Link
+                className="px-4 py-2 rounded-md bg-mainColor text-white  transition-colors font-bold"
+                href="/auth/signin"
+              >
+                Нэвтрэх
               </Link>
             ) : (
               <>
