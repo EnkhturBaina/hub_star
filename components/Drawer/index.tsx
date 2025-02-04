@@ -1,4 +1,5 @@
 // components/Drawer.js
+import { classNames } from '@/utils/util';
 import { Button } from '@heroui/react';
 import { BiSolidRightArrowAlt } from 'react-icons/bi';
 
@@ -26,7 +27,10 @@ const Drawer = ({ children, setIsOpen = (v: boolean) => {}, isOpen = false }) =>
       {/* Drawer */}
       <div
         id="maxZindex"
-        className={`p-8 fixed inset-y-0 left-0 bg-white w-fit max-w-[90%] md:pr-20 shadow-lg transform transition-transform duration-300 ${isOpen ? 'translate-x-0' : '-translate-x-full'}`}
+        className={classNames(
+          'p-8 fixed inset-y-0 left-0 bg-white w-fit max-w-[90%] md:pr-20 shadow-lg transform transition-transform duration-300 overflow-y-auto',
+          isOpen ? 'translate-x-0' : '-translate-x-full'
+        )}
         style={{ visibility: isOpen ? 'visible' : 'hidden' }}
       >
         {children}

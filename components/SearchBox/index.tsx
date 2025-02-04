@@ -23,7 +23,6 @@ import Image from 'next/image';
 import { BiMinus, BiPlus } from 'react-icons/bi';
 import { ReferenceService } from '@/service/reference/reference.service';
 import { classNames } from '@/utils/util';
-import { BsPlus } from 'react-icons/bs';
 
 type selectedProps = {
   id: MainDirection['id'];
