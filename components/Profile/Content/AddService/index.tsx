@@ -407,7 +407,7 @@ const AddService: React.FC<Props> = ({ isSpecial, setIsAddService, updateAdv }) 
           <div className="flex flex-col gap-y-2">
             <Checkbox
               isSelected={createAd?.isTermOfService}
-              onClick={() => {
+              onChange={() => {
                 if (createAd.isTermOfService) {
                   setCreateAd({ ...createAd, isTermOfService: false });
                 } else {
