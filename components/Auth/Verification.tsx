@@ -6,18 +6,28 @@ import { useRouter } from 'next/router';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import OTPInput from 'react-otp-input';
+import ExpiredTimer from '@/components/Auth/expired';
 
 type Props = {
   details: string;
   type: OtpType;
   step: number;
+  username: string;
   setStep: React.Dispatch<React.SetStateAction<number>>;
   setUser?: (user: Users) => void;
   setAccessToken?: (accessToken: string) => void;
 };
-const Verification: React.FC<Props> = ({ details, type, step, setStep, setAccessToken }) => {
+const Verification: React.FC<Props> = ({
+  details,
+  type,
+  step,
+  username,
+  setStep,
+  setAccessToken,
+}) => {
   const router = useRouter();
   const [otp, setOtp] = useState<string>('');
+
   const verification = () => {
     AuthService.otpVerify({
       otp,
@@ -40,6 +50,23 @@ const Verification: React.FC<Props> = ({ details, type, step, setStep, setAccess
         }
       });
   };
+
+  const handleResend = () => {
+    try {
+      AuthService.sendOtp({ username, type: 'Forget' })
+        .then(response => {
+          if (response.success) {
+            details = response.response.details;
+          }
+        })
+        .catch(error => {
+          console.error('Error fetching :', error);
+          toast.error(error.response?.data?.message);
+        });
+    } catch (error) {
+      console.error('catch error :', error);
+    }
+  };
   return (
     <div className="mx-auto mb-10 grid w-[350px] grid-cols-1 rounded-md border border-stroke bg-gray-50 p-6 shadow-md">
       <div className="otp-wrapper">
@@ -49,6 +76,7 @@ const Verification: React.FC<Props> = ({ details, type, step, setStep, setAccess
           numInputs={6}
           renderInput={props => <input {...props} />}
         />
+        <ExpiredTimer secound={60} handleClick={handleResend} />
       </div>
       <Button
         radius="full"

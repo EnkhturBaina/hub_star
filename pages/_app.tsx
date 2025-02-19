@@ -42,7 +42,7 @@ function MyApp({ Component, pageProps }: AppProps) {
                     duration: 5000,
                   }}
                 />
-                {pathUrl === '/auth/signin' || pathUrl === '/auth/signup' ? null : <Header />}
+                {/^\/auth\/.*/.test(pathUrl) ? null : <Header />}
                 <LoadingProvider>
                   <Component {...pageProps} />
                 </LoadingProvider>

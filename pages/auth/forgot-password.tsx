@@ -54,17 +54,19 @@ const ForgotPasswordPage: NextPage = () => {
             />
           )}
           {step == 2 && (
-            <Verification
-              type={'Forget'}
-              details={details}
-              step={step}
-              setStep={setStep}
-              setAccessToken={setAccessToken}
-            />
+            <>
+              <Verification
+                type={'Forget'}
+                username={username}
+                details={details}
+                step={step}
+                setStep={setStep}
+                setAccessToken={setAccessToken}
+              />
+            </>
           )}
           {step == 3 && (
             <div>
-              {accessToken}
               <ChangePassword token={accessToken} step={step} setStep={setStep} />
             </div>
           )}
