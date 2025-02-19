@@ -8,12 +8,13 @@ import { useTranslation } from 'react-i18next';
 
 type Props = {
   step: number;
+  username: string;
+  setUsername: React.Dispatch<React.SetStateAction<string>>;
   setStep: React.Dispatch<React.SetStateAction<number>>;
   setDetails: React.Dispatch<React.SetStateAction<string>>;
 };
-const Signup: React.FC<Props> = ({ step, setStep, setDetails }) => {
+const Signup: React.FC<Props> = ({ username, setUsername, step, setStep, setDetails }) => {
   const { t } = useTranslation();
-  const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [password2, setPassword2] = useState<string>('');
 

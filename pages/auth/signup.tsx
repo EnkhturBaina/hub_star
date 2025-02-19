@@ -16,6 +16,7 @@ const SignupPage: NextPage = () => {
   const [step, setStep] = useState<number>(1);
   const [details, setDetails] = useState<string>('');
   const [user, setUser] = useState<Users>();
+  const [username, setUsername] = useState<string>('');
   const [accessToken, setAccessToken] = useState<string>();
   return (
     <section className="flex h-[calc(100vh-100px)] flex-wrap">
@@ -48,7 +49,15 @@ const SignupPage: NextPage = () => {
           viewport={{ once: true }}
           className="animate_top flex h-2/3 items-center justify-center self-center sm:w-full md:h-full md:w-1/2 lg:h-full lg:w-1/2"
         >
-          {step == 1 && <Signup step={step} setStep={setStep} setDetails={setDetails} />}
+          {step == 1 && (
+            <Signup
+              username={username}
+              setUsername={setUsername}
+              step={step}
+              setStep={setStep}
+              setDetails={setDetails}
+            />
+          )}
           {step == 2 && (
             <Verification
               type="Registration"
@@ -57,6 +66,7 @@ const SignupPage: NextPage = () => {
               setStep={setStep}
               setUser={setUser}
               setAccessToken={setAccessToken}
+              username={username}
             />
           )}
         </motion.div>
