@@ -2,12 +2,12 @@
 import React from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { UserTab } from '@/types/reference';
-import UserTabData from '@/data/UserTabData';
+import { UserTab } from '@typeDefs/reference';
+import UserTabData from '@datas/UserTabData';
 import { useDispatch } from 'react-redux';
-import { setAdvParam } from '@/lib/features/adv-param';
-import { useTypedSelector } from '@/lib/reducer';
-import SpecialServiceData from '@/data/SpecialServiceData';
+import { setAdvParam } from '@lib/features/adv-param';
+import { useTypedSelector } from '@lib/reducer';
+import SpecialServiceData from '@datas/SpecialServiceData';
 import { IAdParam } from '@/interfaces/request.interface';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'react-i18next';

@@ -2,9 +2,9 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useDispatch } from 'react-redux';
-import { setAdvParam } from '@/lib/features/adv-param';
-import { useTypedSelector } from '@/lib/reducer';
-import SpecialServiceData from '@/data/SpecialServiceData';
+import { setAdvParam } from '@lib/features/adv-param';
+import { useTypedSelector } from '@lib/reducer';
+import SpecialServiceData from '@datas/SpecialServiceData';
 import { IAdParam } from '@/interfaces/request.interface';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';

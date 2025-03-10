@@ -3,7 +3,7 @@ import { Button, Input } from '@heroui/react';
 import Link from 'next/link';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
-import { AuthService } from '@/service/authentication/authentication.service';
+import { AuthService } from '@services/authentication/authentication.service';
 import { useTranslation } from 'react-i18next';
 
 type Props = {

@@ -2,7 +2,7 @@
 import { Button, Input } from '@heroui/react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
-import { AuthService } from '@/service/authentication/authentication.service';
+import { AuthService } from '@services/authentication/authentication.service';
 import { useRouter } from 'next/router';
 
 type Props = {

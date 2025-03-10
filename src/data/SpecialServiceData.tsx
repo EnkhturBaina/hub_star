@@ -1,4 +1,4 @@
-import { SpecialService } from '@/types/reference';
+import { SpecialService } from '@typeDefs/reference';
 const SpecialServiceData: SpecialService[] = [
   {
     type: 'PUBLIC_SELECTION',

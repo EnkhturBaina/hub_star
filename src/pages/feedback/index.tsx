@@ -1,4 +1,4 @@
-import { FeedbackService } from '@/service/feedback';
+import { FeedbackService } from '@services/feedback';
 import React, { useState } from 'react';
 const FeedbackPage: React.FC = () => {
   const [name, setName] = useState('');

@@ -2,8 +2,8 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import CatItem from './CatItem';
 import { motion } from 'framer-motion';
 import { useDraggable } from 'react-use-draggable-scroll';
-import { ReferenceService } from '@/service/reference/reference.service';
-import { MainDirection } from '@/types/reference';
+import { ReferenceService } from '@services/reference/reference.service';
+import { MainDirection } from '@typeDefs/reference';
 import Title from '../Common/Title';
 import { useTranslation } from 'next-i18next';
 

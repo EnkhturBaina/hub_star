@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import BreadCrumbs from '@/components/Common/BreadCrumbs';
-import { ReferenceService } from '@/service/reference/reference.service';
-import { dateFormat } from '@/utils';
+import BreadCrumbs from '@components/Common/BreadCrumbs';
+import { ReferenceService } from '@services/reference/reference.service';
+import { dateFormat } from '@utils/index';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import ReactImageGallery from 'react-image-gallery';

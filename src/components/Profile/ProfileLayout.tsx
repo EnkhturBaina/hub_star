@@ -1,16 +1,16 @@
 'use client';
-import LeftMenu from '@/components/Profile/LeftMenu';
+import LeftMenu from '@components/Profile/LeftMenu';
 import React, { useRef, useState } from 'react';
 import { FaCamera } from 'react-icons/fa';
 import { SidebarPusher, SidebarPushable, Segment, Sidebar } from 'semantic-ui-react';
 import { LuChevronLeft, LuLayoutGrid, LuMenu } from 'react-icons/lu';
-import AuthName from '@/components/Auth/auth-name';
+import AuthName from '@components/Auth/auth-name';
 // import Image from 'next/image';
-import ImageUpload from '@/components/Image/image-upload';
-import { Users } from '@/types/user';
-import { AuthService } from '@/service/authentication/authentication.service';
+import ImageUpload from '@components/Image/image-upload';
+import { Users } from '@typeDefs/user';
+import { AuthService } from '@services/authentication/authentication.service';
 import toast from 'react-hot-toast';
-import { useAppContext } from '@/context/app-context';
+import { useAppContext } from '@context/app-context';
 import { Image } from '@heroui/react';
 
 type Props = {

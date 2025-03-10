@@ -1,5 +1,5 @@
 import React from 'react';
-import { classNames } from '@/utils';
+import { classNames } from '@utils/index';
 import Image from 'next/image';
 interface IProps {
   className: string;

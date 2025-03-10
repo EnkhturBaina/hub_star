@@ -1,5 +1,5 @@
 'use client';
-import { Advertisement } from '@/types/advertisement';
+import { Advertisement } from '@typeDefs/advertisement';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';

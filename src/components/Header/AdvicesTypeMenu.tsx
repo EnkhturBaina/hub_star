@@ -2,8 +2,8 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/router';
-import { ReferenceService } from '@/service/reference/reference.service';
-import { MainDirection } from '@/types/reference';
+import { ReferenceService } from '@services/reference/reference.service';
+import { MainDirection } from '@typeDefs/reference';
 import CatItem from '../GridCategory/CatItem';
 
 const AdvicesTypeMenu: React.FC = () => {

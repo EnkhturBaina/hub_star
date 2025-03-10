@@ -11,16 +11,16 @@ import {
   CardBody,
   Card,
 } from '@heroui/react';
-import { useAppContext } from '@/context/app-context';
+import { useAppContext } from '@context/app-context';
 import { useDispatch } from 'react-redux';
-import { setAdvParam } from '@/lib/features/adv-param';
+import { setAdvParam } from '@lib/features/adv-param';
 import Drawer from '../Drawer';
 import { useRouter } from 'next/router';
-import { MainDirection, RefDirection, SubDirection } from '@/types/reference';
+import { MainDirection, RefDirection, SubDirection } from '@typeDefs/reference';
 import Image from 'next/image';
 import { BiMinus, BiPlus } from 'react-icons/bi';
-import { ReferenceService } from '@/service/reference/reference.service';
-import { classNames } from '@/utils';
+import { ReferenceService } from '@services/reference/reference.service';
+import { classNames } from '@utils/index';
 
 type selectedProps = {
   id: MainDirection['id'];

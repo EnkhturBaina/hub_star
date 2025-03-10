@@ -1,5 +1,5 @@
 // components/Drawer.js
-import { classNames } from '@/utils';
+import { classNames } from '@utils/index';
 import { Button } from '@heroui/react';
 import { BiSolidRightArrowAlt } from 'react-icons/bi';
 

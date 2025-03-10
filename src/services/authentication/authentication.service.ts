@@ -8,7 +8,7 @@ import {
   IResponseOtpVerify,
   IResponseProfile,
 } from '@/interfaces/response.interface';
-import { Users } from '@/types/user';
+import { Users } from '@typeDefs/user';
 
 const register = (user: IUser): Promise<IResponseOtp> => {
   return api.post('/authentication/register', user);

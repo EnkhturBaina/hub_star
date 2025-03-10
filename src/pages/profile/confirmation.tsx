@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import ProfileLayout from '@/layouts/profile.layout';
-import withAuth from '@/components/Common/withAuth';
+import ProfileLayout from '@components/Profile/ProfileLayout';
+import withAuth from '@components/Common/withAuth';
 import { GrOrganization, GrUser } from 'react-icons/gr';
 import { GetStaticProps } from 'next';
-import { withTranslationProps } from '@/lib/with-translation';
+import { withTranslationProps } from '@lib/with-translation';
 import { useRouter } from 'next/router';
-import { SsoGovService } from '@/service/sso-gov/sso-gov.service';
+import { SsoGovService } from '@services/sso-gov/sso-gov.service';
 import toast from 'react-hot-toast';
 import { Button, Input } from '@heroui/react';
-import { classNames } from '@/utils';
+import { classNames } from '@utils/index';
 
 const Confirmation = () => {
   const router = useRouter();

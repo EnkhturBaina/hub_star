@@ -1,21 +1,21 @@
 import React, { useRef, useState } from 'react';
-import { useAppContext } from '@/context/app-context';
-import BlogItem from '@/components/Blog/BlogItem';
-import BreadCrumbs from '@/components/Common/BreadCrumbs';
-import PaginationComp from '@/components/Pagination';
+import { useAppContext } from '@context/app-context';
+import BlogItem from '@components/Blog/BlogItem';
+import BreadCrumbs from '@components/Common/BreadCrumbs';
+import PaginationComp from '@components/Pagination';
 import { IAdParam } from '@/interfaces/request.interface';
-import { OrderType } from '@/types/reference';
+import { OrderType } from '@typeDefs/reference';
 import { Select, SelectItem } from '@heroui/react';
 import { GetStaticProps, NextPage } from 'next';
 import { SidebarPusher, SidebarPushable, Segment, Sidebar } from 'semantic-ui-react';
 import { LuSettings2 } from 'react-icons/lu';
-import SpecialServiceData from '@/data/SpecialServiceData';
-import { useTypedSelector } from '@/lib/reducer';
+import SpecialServiceData from '@datas/SpecialServiceData';
+import { useTypedSelector } from '@lib/reducer';
 import { useDispatch } from 'react-redux';
-import { setAdvParam } from '@/lib/features/adv-param';
-import SideCheckSpecialDirection from '@/components/Common/SideCheckSpecialDirection';
+import { setAdvParam } from '@lib/features/adv-param';
+import SideCheckSpecialDirection from '@components/Common/SideCheckSpecialDirection';
 import { useTranslation } from 'next-i18next';
-import { withTranslationProps } from '@/lib/with-translation';
+import { withTranslationProps } from '@lib/with-translation';
 
 const SpecialService: NextPage = () => {
   const { t } = useTranslation();

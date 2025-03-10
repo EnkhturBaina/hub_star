@@ -1,12 +1,12 @@
-import { AuthService } from '@/service/authentication/authentication.service';
-import { OtpType } from '@/types/reference';
-import Users from '@/types/user';
+import { AuthService } from '@services/authentication/authentication.service';
+import { OtpType } from '@typeDefs/reference';
+import Users from '@typeDefs/user';
 import { Button, Input } from '@heroui/react';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import OTPInput from 'react-otp-input';
-import ExpiredTimer from '@/components/Auth/expired';
+import ExpiredTimer from '@components/Auth/expired';
 
 type Props = {
   details: string;

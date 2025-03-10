@@ -1,21 +1,21 @@
 import React, { Fragment, useCallback, useEffect, useState } from 'react';
-import { useAppContext } from '@/context/app-context';
+import { useAppContext } from '@context/app-context';
 import ProfileLayout from '@/layouts/profile.layout';
 import docSvg from '@/public/images/notification/docSvg.svg';
 import Image from 'next/image';
 import { format } from 'date-fns';
 import Link from 'next/link';
-import { ReferenceService } from '@/service/reference/reference.service';
-import { RefNotification } from '@/types/reference';
+import { ReferenceService } from '@services/reference/reference.service';
+import { RefNotification } from '@typeDefs/reference';
 import { Button } from '@heroui/react';
 import toast from 'react-hot-toast';
 import { NextPage } from 'next';
-import Empty from '@/components/Empty';
-import withAuth from '@/components/Common/withAuth';
-import { AdvertisementService } from '@/service/advertisement/advertisement.service';
+import Empty from '@components/Empty';
+import withAuth from '@components/Common/withAuth';
+import { AdvertisementService } from '@services/advertisement/advertisement.service';
 import { useDispatch } from 'react-redux';
-import { setNotfParam } from '@/lib/features/adv-param';
-import { useTypedSelector } from '@/lib/reducer';
+import { setNotfParam } from '@lib/features/adv-param';
+import { useTypedSelector } from '@lib/reducer';
 
 const Notification: NextPage = () => {
   const dispatch = useDispatch();

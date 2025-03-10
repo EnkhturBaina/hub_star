@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { Checkbox, Input, Textarea } from '@heroui/react';
 import { BsImage } from 'react-icons/bs';
 import { ICreateAd } from '@/interfaces/request.interface';
-import ImageUpload from '@/components/Image/image-upload';
+import ImageUpload from '@components/Image/image-upload';
 import Image from 'next/image';
 import AdvImageUpload from '../AdvImageUpload';
 interface IProps {

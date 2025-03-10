@@ -4,12 +4,12 @@ import { motion } from 'framer-motion';
 import { Checkbox, Input, Textarea } from '@heroui/react';
 import { BsImage } from 'react-icons/bs';
 import { ICreateAd, IMachineryParam } from '@/interfaces/request.interface';
-import ImageUpload from '@/components/Image/image-upload';
+import ImageUpload from '@components/Image/image-upload';
 import Image from 'next/image';
-import UserTabData from '@/data/UserTabData';
-import { MachineryType, UserTab } from '@/types/reference';
+import UserTabData from '@datas/UserTabData';
+import { MachineryType, UserTab } from '@typeDefs/reference';
 import { useEffect } from 'react';
-import CustomSelect from '@/components/Inputs/Select';
+import CustomSelect from '@components/Inputs/Select';
 import AdvImageUpload from '../AdvImageUpload';
 interface IProps {
   adData: ICreateAd;

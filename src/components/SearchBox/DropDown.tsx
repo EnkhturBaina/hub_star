@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { Button, Popover, PopoverTrigger, PopoverContent } from '@heroui/react';
 import Image from 'next/image';
-import { useAppContext } from '@/context/app-context';
-import { RefDirection, MainDirection } from '@/types/reference';
+import { useAppContext } from '@context/app-context';
+import { RefDirection, MainDirection } from '@typeDefs/reference';
 import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
-import { setAdvParam } from '@/lib/features/adv-param';
+import { setAdvParam } from '@lib/features/adv-param';
 import { BiSolidRightArrowAlt } from 'react-icons/bi';
 
 export default function DropDown() {

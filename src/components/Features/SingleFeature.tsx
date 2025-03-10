@@ -1,9 +1,9 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { SpecialService, SpecialServiceType } from '@/types/reference';
+import { SpecialService, SpecialServiceType } from '@typeDefs/reference';
 import { useDispatch } from 'react-redux';
-import { setAdvParam } from '@/lib/features/adv-param';
+import { setAdvParam } from '@lib/features/adv-param';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'react-i18next';
 interface IProps {

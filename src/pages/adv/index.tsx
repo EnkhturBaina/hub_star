@@ -1,22 +1,28 @@
 import React from 'react';
-import { useAppContext } from '@/context/app-context';
-import BlogItem from '@/components/Blog/BlogItem';
-import BreadCrumbs from '@/components/Common/BreadCrumbs';
-import SideCheckSubDirection from '@/components/Common/SideCheckSubDirection';
-import CustomSelect from '@/components/Inputs/Select';
-import PaginationComp from '@/components/Pagination';
+import { useAppContext } from '@context/app-context';
+import BlogItem from '@components/Blog/BlogItem';
+import BreadCrumbs from '@components/Common/BreadCrumbs';
+import SideCheckSubDirection from '@components/Common/SideCheckSubDirection';
+import CustomSelect from '@components/Inputs/Select';
+import PaginationComp from '@components/Pagination';
 import { IAdParam } from '@/interfaces/request.interface';
-import { ReferenceService } from '@/service/reference/reference.service';
-import { Address, MachineryType, MainDirection, OrderType, RefDirection } from '@/types/reference';
+import { ReferenceService } from '@services/reference/reference.service';
+import {
+  Address,
+  MachineryType,
+  MainDirection,
+  OrderType,
+  RefDirection,
+} from '@typeDefs/reference';
 import { GetStaticProps, NextPage } from 'next';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { SidebarPusher, SidebarPushable, Segment, Sidebar } from 'semantic-ui-react';
 import { LuSettings2 } from 'react-icons/lu';
-import { useTypedSelector } from '@/lib/reducer';
+import { useTypedSelector } from '@lib/reducer';
 import { useDispatch } from 'react-redux';
-import { setAdvParam } from '@/lib/features/adv-param';
-import UserTabData from '@/data/UserTabData';
-import { withTranslationProps } from '@/lib/with-translation';
+import { setAdvParam } from '@lib/features/adv-param';
+import UserTabData from '@datas/UserTabData';
+import { withTranslationProps } from '@lib/with-translation';
 import { useTranslation } from 'next-i18next';
 
 const BlogPage: NextPage = () => {

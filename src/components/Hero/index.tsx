@@ -9,19 +9,19 @@ import Blog from '../Blog';
 import GridCategory from '../GridCategory';
 import LeftDirections from '../Skeleton/LeftDirections';
 import BlogItemSkeleton from '../Skeleton/BlogItemSkeleton';
-import { useAppContext } from '@/context/app-context';
-import { RefDirection, MainDirection, RefNews, SubDirection } from '@/types/reference';
+import { useAppContext } from '@context/app-context';
+import { RefDirection, MainDirection, RefNews, SubDirection } from '@typeDefs/reference';
 import { Fragment, useEffect, useState } from 'react';
-import { ReferenceService } from '@/service/reference/reference.service';
+import { ReferenceService } from '@services/reference/reference.service';
 import { useRouter } from 'next/router';
 import Title from '../Common/Title';
-import { setAdvParam } from '@/lib/features/adv-param';
+import { setAdvParam } from '@lib/features/adv-param';
 import { useDispatch } from 'react-redux';
-import { AppDispatch } from '@/lib/store';
-import { useTypedSelector } from '@/lib/reducer';
+import { AppDispatch } from '@lib/store';
+import { useTypedSelector } from '@lib/reducer';
 import { useTranslation } from 'next-i18next';
 import { BiMinus } from 'react-icons/bi';
-import { classNames } from '@/utils';
+import { classNames } from '@utils/index';
 
 const Hero = () => {
   const router = useRouter();

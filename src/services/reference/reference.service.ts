@@ -29,7 +29,7 @@ import {
   IRefNotificationParam,
   ISubDirectionParam,
 } from '@/interfaces/request.interface';
-import { Participant, RefNotification } from '@/types/reference';
+import { Participant, RefNotification } from '@typeDefs/reference';
 const getMainDirection = (params: IMainDirectionParam): Promise<IResponseMainDirections> => {
   return api.get('/reference/main-direction', { params });
 };

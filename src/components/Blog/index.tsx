@@ -1,6 +1,6 @@
 import React from 'react';
 import BlogItem from './BlogItem';
-import { useAppContext } from '@/context/app-context';
+import { useAppContext } from '@context/app-context';
 import PaginationComp from '../Pagination';
 import Title from '../Common/Title';
 import { useTranslation } from 'react-i18next';

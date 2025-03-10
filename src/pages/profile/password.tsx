@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Button, Input } from '@heroui/react';
 import ProfileLayout from '@/layouts/profile.layout';
-import withAuth from '@/components/Common/withAuth';
+import withAuth from '@components/Common/withAuth';
 import { EyeIcon } from '@heroicons/react/20/solid';
-import { AuthService } from '@/service/authentication/authentication.service';
-import { useAppContext } from '@/context/app-context';
+import { AuthService } from '@services/authentication/authentication.service';
+import { useAppContext } from '@context/app-context';
 import toast from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
 

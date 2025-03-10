@@ -1,4 +1,4 @@
-import { UserTab } from '@/types/reference';
+import { UserTab } from '@typeDefs/reference';
 const UserTabData: UserTab[] = [
   {
     type: 'SUBSCRIBER',

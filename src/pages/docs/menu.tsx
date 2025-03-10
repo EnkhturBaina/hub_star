@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import AdSkeleton from '@/components/Skeleton/AdSkeleton';
-import { ReferenceService } from '@/service/reference/reference.service';
-import { FooterMenuPage } from '@/types/reference';
+import AdSkeleton from '@components/Skeleton/AdSkeleton';
+import { ReferenceService } from '@services/reference/reference.service';
+import { FooterMenuPage } from '@typeDefs/reference';
 import { GetStaticProps, NextPage } from 'next';
 import Image from 'next/image';
 import toast from 'react-hot-toast';
 import { motion } from 'framer-motion';
-import { withTranslationProps } from '@/lib/with-translation';
+import { withTranslationProps } from '@lib/with-translation';
 import { useSearchParams } from 'next/navigation';
 
 const MenuPage: NextPage = () => {

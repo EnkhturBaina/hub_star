@@ -3,13 +3,13 @@ import { Button } from '@heroui/react';
 import { CiGrid41, CiGrid2H } from 'react-icons/ci';
 import { useCallback, useEffect, useState } from 'react';
 import ProfileLayout from '@/layouts/profile.layout';
-import GridServices from '@/components/Profile/Content/GridServices';
-import ListServices from '@/components/Profile/Content/ListServices';
-import { Advertisement } from '@/types/advertisement';
-import { AdvertisementService } from '@/service/advertisement/advertisement.service';
-import { useAppContext } from '@/context/app-context';
-import Empty from '@/components/Empty';
-import withAuth from '@/components/Common/withAuth';
+import GridServices from '@components/Profile/Content/GridServices';
+import ListServices from '@components/Profile/Content/ListServices';
+import { Advertisement } from '@typeDefs/advertisement';
+import { AdvertisementService } from '@services/advertisement/advertisement.service';
+import { useAppContext } from '@context/app-context';
+import Empty from '@components/Empty';
+import withAuth from '@components/Common/withAuth';
 
 const ServiceHistory = () => {
   const { user } = useAppContext();

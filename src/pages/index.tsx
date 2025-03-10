@@ -1,5 +1,5 @@
-import { withTranslationProps } from '@/lib/with-translation';
-import Hero from '@/components/Hero';
+import { withTranslationProps } from '@lib/with-translation';
+import Hero from '@components/Hero';
 import { GetStaticProps, Metadata, NextPage } from 'next';
 
 export const metadata: Metadata = {

@@ -1,6 +1,6 @@
-import { ReferenceService } from '@/service/reference/reference.service';
-import { Advertisement } from '@/types/advertisement';
-import { MainDirection, PageMeta } from '@/types/reference';
+import { ReferenceService } from '@services/reference/reference.service';
+import { Advertisement } from '@typeDefs/advertisement';
+import { MainDirection, PageMeta } from '@typeDefs/reference';
 import {
   Dispatch,
   ReactNode,
@@ -11,10 +11,10 @@ import {
   useEffect,
   useState,
 } from 'react';
-import { AdvertisementService } from '@/service/advertisement/advertisement.service';
-import { Users } from '@/types/user';
-import { AuthService } from '@/service/authentication/authentication.service';
-import { getAccessToken } from '@/service/api.service';
+import { AdvertisementService } from '@services/advertisement/advertisement.service';
+import { Users } from '@typeDefs/user';
+import { AuthService } from '@services/authentication/authentication.service';
+import { getAccessToken } from '@services/api.service';
 import { useTypedSelector } from '../lib/reducer';
 import { useRouter } from 'next/router';
 interface IAppContextProps {

@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import { MainDirection } from '@/types/reference';
+import { MainDirection } from '@typeDefs/reference';
 import Image from 'next/image';
 import Link from 'next/link';
 interface IProps {

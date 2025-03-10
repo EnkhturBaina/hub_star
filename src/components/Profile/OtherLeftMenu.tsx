@@ -1,7 +1,7 @@
 'use client';
 import React from 'react';
 import { MenuItem, Menu } from 'semantic-ui-react';
-import { OtherProfileMenu } from '@/types/reference';
+import { OtherProfileMenu } from '@typeDefs/reference';
 
 type Props = {
   menus: OtherProfileMenu[];

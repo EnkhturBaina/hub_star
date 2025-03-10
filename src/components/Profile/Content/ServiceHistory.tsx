@@ -1,12 +1,12 @@
 import React from 'react';
 import { useCallback, useEffect, useState } from 'react';
-import Empty from '@/components/Empty';
+import Empty from '@components/Empty';
 import { Button } from '@heroui/react';
 import { CiGrid2H, CiGrid41 } from 'react-icons/ci';
 import GridServices from './GridServices';
 import ListServices from './ListServices';
-import { AdvertisementService } from '@/service/advertisement/advertisement.service';
-import { Advertisement } from '@/types/advertisement';
+import { AdvertisementService } from '@services/advertisement/advertisement.service';
+import { Advertisement } from '@typeDefs/advertisement';
 
 interface Props {
   userId: number;

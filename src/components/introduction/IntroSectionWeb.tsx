@@ -1,4 +1,4 @@
-import { classNames } from '@/utils';
+import { classNames } from '@utils/index';
 import Image from 'next/image';
 import React from 'react';
 interface IProps {

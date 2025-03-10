@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import ProfileFields from '@/components/Skeleton/ProfileFields';
-import Users from '@/types/user';
+import ProfileFields from '@components/Skeleton/ProfileFields';
+import Users from '@typeDefs/user';
 import { Input, Textarea } from '@heroui/react';
-import Rating from '@/components/Common/Rating';
-import { AdvertisementService } from '@/service/advertisement/advertisement.service';
+import Rating from '@components/Common/Rating';
+import { AdvertisementService } from '@services/advertisement/advertisement.service';
 import { toInteger } from 'lodash';
 type Props = {
   user: Users;

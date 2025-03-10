@@ -3,11 +3,7 @@ const { heroui } = require('@heroui/theme');
 
 module.exports = {
   content: [
-    './app/**/*.{js,ts,jsx,tsx,mdx}',
-    './pages/**/*.{js,ts,jsx,tsx,mdx}',
-    './components/**/*.{js,ts,jsx,tsx,mdx}',
-    './layouts/**/*.{js,ts,jsx,tsx,mdx}',
-    "// Or if using `src` directory:\r\n    './src/**/*.{js,ts,jsx,tsx,mdx}'",
+    './src/**/*.{js,ts,jsx,tsx,mdx}',
     './node_modules/@heroui/theme/dist/**/*.{js,ts,jsx,tsx}',
   ],
   darkMode: 'class',

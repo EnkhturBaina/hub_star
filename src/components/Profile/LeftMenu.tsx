@@ -13,11 +13,11 @@ import {
   Button,
   useDisclosure,
 } from '@heroui/react';
-import { AuthService } from '@/service/authentication/authentication.service';
-import { removeAccessToken } from '@/service/api.service';
-import { ProfileRoute } from '@/types/reference';
-import { useAppContext } from '@/context/app-context';
-import { AdvertisementService } from '@/service/advertisement/advertisement.service';
+import { AuthService } from '@services/authentication/authentication.service';
+import { removeAccessToken } from '@services/api.service';
+import { ProfileRoute } from '@typeDefs/reference';
+import { useAppContext } from '@context/app-context';
+import { AdvertisementService } from '@services/advertisement/advertisement.service';
 
 const profileRoutes: ProfileRoute[] = [
   {

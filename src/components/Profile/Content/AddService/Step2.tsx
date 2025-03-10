@@ -4,9 +4,9 @@ import { motion } from 'framer-motion';
 import { Input, Textarea } from '@heroui/react';
 import { useEffect, useState } from 'react';
 import { IAddressParam, ICreateAd } from '@/interfaces/request.interface';
-import { Address } from '@/types/reference';
-import { ReferenceService } from '@/service/reference/reference.service';
-import CustomSelect from '@/components/Inputs/Select';
+import { Address } from '@typeDefs/reference';
+import { ReferenceService } from '@services/reference/reference.service';
+import CustomSelect from '@components/Inputs/Select';
 interface IProps {
   adData: ICreateAd;
   setAdData: React.Dispatch<React.SetStateAction<ICreateAd>>;

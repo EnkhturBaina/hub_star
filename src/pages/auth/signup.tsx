@@ -3,9 +3,9 @@ import { Metadata, NextPage } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import Signup from '@/components/Auth/Signup';
-import Verification from '@/components/Auth/Verification';
-import Users from '@/types/user';
+import Signup from '@components/Auth/Signup';
+import Verification from '@components/Auth/Verification';
+import Users from '@typeDefs/user';
 
 export const metadata: Metadata = {
   title: 'Hub star',

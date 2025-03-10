@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Button, Input } from '@heroui/react';
 import toast, { Toaster } from 'react-hot-toast';
-import AccountFields from '@/components/Skeleton/AccountFields';
-import { Users } from '@/types/user';
-import { useAppContext } from '@/context/app-context';
-import { AuthService } from '@/service/authentication/authentication.service';
+import AccountFields from '@components/Skeleton/AccountFields';
+import { Users } from '@typeDefs/user';
+import { useAppContext } from '@context/app-context';
+import { AuthService } from '@services/authentication/authentication.service';
 import ProfileLayout from '@/layouts/profile.layout';
-import withAuth from '@/components/Common/withAuth';
+import withAuth from '@components/Common/withAuth';
 
 const Account: React.FC = () => {
   const { user } = useAppContext();

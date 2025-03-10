@@ -2,13 +2,13 @@
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import React, { useEffect, useState } from 'react';
-import { useAppContext } from '@/context/app-context';
-import { RefDirection, SpecialServiceType, SubDirection, UserType } from '@/types/reference';
+import { useAppContext } from '@context/app-context';
+import { RefDirection, SpecialServiceType, SubDirection, UserType } from '@typeDefs/reference';
 import { ICreateAd } from '@/interfaces/request.interface';
-import { ReferenceService } from '@/service/reference/reference.service';
-import UserTabData from '@/data/UserTabData';
-import CustomSelect from '@/components/Inputs/Select';
-import SpecialServiceData from '@/data/SpecialServiceData';
+import { ReferenceService } from '@services/reference/reference.service';
+import UserTabData from '@datas/UserTabData';
+import CustomSelect from '@components/Inputs/Select';
+import SpecialServiceData from '@datas/SpecialServiceData';
 interface IProps {
   isSpecial: boolean;
   adData: ICreateAd;

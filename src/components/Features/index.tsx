@@ -1,7 +1,7 @@
 'use client';
 import React from 'react';
 import SingleFeature from './SingleFeature';
-import SpecialServiceData from '@/data/SpecialServiceData';
+import SpecialServiceData from '@datas/SpecialServiceData';
 import { motion } from 'framer-motion';
 import Title from '../Common/Title';
 import { useTranslation } from 'react-i18next';

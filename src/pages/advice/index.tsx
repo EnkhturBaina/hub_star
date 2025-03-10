@@ -1,11 +1,11 @@
-import { withTranslationProps } from '@/lib/with-translation';
-import AdviceItem from '@/components/Blog/AdviceItem';
-import BreadCrumbs from '@/components/Common/BreadCrumbs';
-import SideCheckDirection from '@/components/Common/SideCheckDirection';
-import PaginationComp from '@/components/Pagination';
+import { withTranslationProps } from '@lib/with-translation';
+import AdviceItem from '@components/Blog/AdviceItem';
+import BreadCrumbs from '@components/Common/BreadCrumbs';
+import SideCheckDirection from '@components/Common/SideCheckDirection';
+import PaginationComp from '@components/Pagination';
 import { IAdviceParam } from '@/interfaces/request.interface';
-import { ReferenceService } from '@/service/reference/reference.service';
-import { Advice, MainDirection, PageMeta } from '@/types/reference';
+import { ReferenceService } from '@services/reference/reference.service';
+import { Advice, MainDirection, PageMeta } from '@typeDefs/reference';
 import { Select, SelectItem } from '@heroui/react';
 import { GetStaticProps, NextPage } from 'next';
 import { useTranslation } from 'next-i18next';

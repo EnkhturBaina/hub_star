@@ -1,8 +1,8 @@
 import { LuChevronLeft, LuSettings2 } from 'react-icons/lu';
 import { Checkbox, CheckboxGroup } from '@heroui/react';
 import { useCallback, useEffect, useState } from 'react';
-import { ReferenceService } from '@/service/reference/reference.service';
-import { RefDirection } from '@/types/reference';
+import { ReferenceService } from '@services/reference/reference.service';
+import { RefDirection } from '@typeDefs/reference';
 import { useRouter } from 'next/router';
 
 type Props = {

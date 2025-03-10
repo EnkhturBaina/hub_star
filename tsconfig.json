@@ -20,7 +20,14 @@
       }
     ],
     "paths": {
-      "@/*": ["./src/*"],
+      "@components/*": ["./src/components/*"],
+      "@context/*": ["./src/context/*"],
+      "@services/*": ["./src/services/*"],
+      "@typeDefs/*": ["./src/types/*"],
+      "@lib/*": ["./src/lib/*"],
+      "@utils/*": ["./src/utils/*"],
+      "@datas/*": ["./src/data/*"],
+      "@styles/*": ["./src/styles/*"],
       "react": ["./node_modules/@types/react"]
     },
     "strictNullChecks": false

@@ -1,7 +1,7 @@
 'use client';
-import { useAppContext } from '@/context/app-context';
-import { setAdvParam } from '@/lib/features/adv-param';
-import { useTypedSelector } from '@/lib/reducer';
+import { useAppContext } from '@context/app-context';
+import { setAdvParam } from '@lib/features/adv-param';
+import { useTypedSelector } from '@lib/reducer';
 import { IAdParam } from '@/interfaces/request.interface';
 import { Pagination } from '@heroui/react';
 import { motion } from 'framer-motion';

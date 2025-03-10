@@ -1,5 +1,5 @@
-import { AdProcess } from '@/types/advertisement';
-import { AddressType, OrderType, OtpType, SpecialServiceType, UserType } from '@/types/reference';
+import { AdProcess } from '@typeDefs/advertisement';
+import { AddressType, OrderType, OtpType, SpecialServiceType, UserType } from '@typeDefs/reference';
 export interface IPageOptions {
   order: OrderType;
   page: number;

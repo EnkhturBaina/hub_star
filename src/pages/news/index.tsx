@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import AdSkeleton from '@/components/Skeleton/AdSkeleton';
-import { ReferenceService } from '@/service/reference/reference.service';
-import { RefNews } from '@/types/reference';
+import AdSkeleton from '@components/Skeleton/AdSkeleton';
+import { ReferenceService } from '@services/reference/reference.service';
+import { RefNews } from '@typeDefs/reference';
 import { NextPage } from 'next';
 import Image from 'next/image';
 import toast from 'react-hot-toast';

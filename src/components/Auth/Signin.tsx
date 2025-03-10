@@ -1,5 +1,5 @@
-import { setAccessToken } from '@/service/api.service';
-import { AuthService } from '@/service/authentication/authentication.service';
+import { setAccessToken } from '@services/api.service';
+import { AuthService } from '@services/authentication/authentication.service';
 import { Button, Input, Divider } from '@heroui/react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';

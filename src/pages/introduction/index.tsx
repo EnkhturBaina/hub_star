@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import IntroSection from '@/components/introduction/IntroSection';
+import IntroSection from '@components/introduction/IntroSection';
 import { Button } from '@heroui/react';
-import { classNames } from '@/utils';
-import IntroSectionWeb from '@/components/introduction/IntroSectionWeb';
+import { classNames } from '@utils/index';
+import IntroSectionWeb from '@components/introduction/IntroSectionWeb';
 
 const appSections = [
   {

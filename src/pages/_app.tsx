@@ -1,21 +1,21 @@
 import React from 'react';
 import { AppProps } from 'next/app';
 import { appWithTranslation } from 'next-i18next';
-import { AppProvider } from '@/context/app-context';
-import '@/styles/globals.css';
+import { AppProvider } from '@context/app-context';
+import '@styles/globals.css';
 import 'semantic-ui-css/semantic.min.css';
 import { HeroUIProvider } from '@heroui/react';
 import { ThemeProvider } from 'next-themes';
-import Footer from '@/components/Footer';
-import ScrollToTop from '@/components/ScrollToTop';
+import Footer from '@components/Footer';
+import ScrollToTop from '@components/ScrollToTop';
 import { Nunito_Sans } from 'next/font/google';
-import Header from '@/components/Header';
-import FabButton from '@/components/Common/FabButton';
+import Header from '@components/Header';
+import FabButton from '@components/Common/FabButton';
 import 'react-image-gallery/styles/css/image-gallery.css';
 import { Provider } from 'react-redux';
-import { store } from '@/lib/store';
+import { store } from '@lib/store';
 import { Toaster } from 'react-hot-toast';
-import LoadingProvider from '@/components/Common/Loading';
+import LoadingProvider from '@components/Common/Loading';
 import { useRouter } from 'next/router';
 
 const roboto = Nunito_Sans({

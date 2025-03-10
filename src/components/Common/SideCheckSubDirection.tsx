@@ -1,10 +1,10 @@
 import { LuSettings2 } from 'react-icons/lu';
 import { Accordion, AccordionItem, Checkbox, CheckboxGroup, Image } from '@heroui/react';
-import { RefDirection, SubDirection } from '@/types/reference';
-import { useTypedSelector } from '@/lib/reducer';
+import { RefDirection, SubDirection } from '@typeDefs/reference';
+import { useTypedSelector } from '@lib/reducer';
 import { useDispatch } from 'react-redux';
-import { setAdvParam } from '@/lib/features/adv-param';
-import { useAppContext } from '@/context/app-context';
+import { setAdvParam } from '@lib/features/adv-param';
+import { useAppContext } from '@context/app-context';
 import { BsPlus } from 'react-icons/bs';
 import { useState } from 'react';
 import { BiMinus } from 'react-icons/bi';

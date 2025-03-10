@@ -2,18 +2,18 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Button } from '@heroui/react';
 import { CiGrid41, CiGrid2H } from 'react-icons/ci';
-import { useAppContext } from '@/context/app-context';
-import GridServices from '@/components/Profile/Content/GridServices';
-import ListServices from '@/components/Profile/Content/ListServices';
+import { useAppContext } from '@context/app-context';
+import GridServices from '@components/Profile/Content/GridServices';
+import ListServices from '@components/Profile/Content/ListServices';
 import ProfileLayout from '@/layouts/profile.layout';
 import { GetStaticProps, NextPage } from 'next';
-import { Advertisement } from '@/types/advertisement';
-import { AdvertisementService } from '@/service/advertisement/advertisement.service';
-import Empty from '@/components/Empty';
-import withAuth from '@/components/Common/withAuth';
-import AddService from '@/components/Profile/Content/AddService';
+import { Advertisement } from '@typeDefs/advertisement';
+import { AdvertisementService } from '@services/advertisement/advertisement.service';
+import Empty from '@components/Empty';
+import withAuth from '@components/Common/withAuth';
+import AddService from '@components/Profile/Content/AddService';
 import { ICreateAd } from '@/interfaces/request.interface';
-import { withTranslationProps } from '@/lib/with-translation';
+import { withTranslationProps } from '@lib/with-translation';
 import toast from 'react-hot-toast';
 
 const PostedServices: NextPage = () => {

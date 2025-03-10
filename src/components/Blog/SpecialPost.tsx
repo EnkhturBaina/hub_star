@@ -1,5 +1,5 @@
 'use client';
-import { Blog } from '@/types/blog';
+import { Blog } from '@typeDefs/blog';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 

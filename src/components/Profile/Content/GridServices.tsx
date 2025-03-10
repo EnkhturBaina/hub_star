@@ -1,8 +1,8 @@
 'use client';
-import SpecialServiceData from '@/data/SpecialServiceData';
-import UserTabData from '@/data/UserTabData';
-import Rating from '@/components/Common/Rating';
-import { Advertisement } from '@/types/advertisement';
+import SpecialServiceData from '@datas/SpecialServiceData';
+import UserTabData from '@datas/UserTabData';
+import Rating from '@components/Common/Rating';
+import { Advertisement } from '@typeDefs/advertisement';
 import { Button, Popover, PopoverContent, PopoverTrigger, Tooltip } from '@heroui/react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';

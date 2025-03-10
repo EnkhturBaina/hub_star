@@ -1,4 +1,4 @@
-import ImageUpload from '@/components/Image/image-upload';
+import ImageUpload from '@components/Image/image-upload';
 import { ICreateAd } from '@/interfaces/request.interface';
 import { Button, Card, CardFooter, Chip, Image } from '@heroui/react';
 import { BsImage } from 'react-icons/bs';

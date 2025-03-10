@@ -1,8 +1,8 @@
 'use client';
 import { motion } from 'framer-motion';
 import { Input } from '@heroui/react';
-import ProfileFields from '@/components/Skeleton/ProfileFields';
-import { Users } from '@/types/user';
+import ProfileFields from '@components/Skeleton/ProfileFields';
+import { Users } from '@typeDefs/user';
 
 interface IProps {
   user: Users | null;

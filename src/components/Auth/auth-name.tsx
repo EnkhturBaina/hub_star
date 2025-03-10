@@ -1,4 +1,4 @@
-import { Users } from '@/types/user';
+import { Users } from '@typeDefs/user';
 import { MdVerified } from 'react-icons/md';
 interface IProps {
   user: Users;

@@ -3,8 +3,8 @@ import { Divider } from '@heroui/react';
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
-import { ReferenceService } from '@/service/reference/reference.service';
-import { FooterMenu } from '@/types/reference';
+import { ReferenceService } from '@services/reference/reference.service';
+import { FooterMenu } from '@typeDefs/reference';
 import Link from 'next/link';
 
 const Footer: React.FC = () => {

@@ -1,8 +1,8 @@
 import React from 'react';
-import { useAppContext } from '@/context/app-context';
-import { withTranslationProps } from '@/lib/with-translation';
-import withAuth from '@/components/Common/withAuth';
-import AddService from '@/components/Profile/Content/AddService';
+import { useAppContext } from '@context/app-context';
+import { withTranslationProps } from '@lib/with-translation';
+import withAuth from '@components/Common/withAuth';
+import AddService from '@components/Profile/Content/AddService';
 import ProfileLayout from '@/layouts/profile.layout';
 import { Card, CardBody } from '@heroui/react';
 import { GetStaticProps, NextPage } from 'next';

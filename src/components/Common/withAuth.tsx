@@ -1,4 +1,4 @@
-import { getAccessToken } from '@/service/api.service';
+import { getAccessToken } from '@services/api.service';
 import Redirect from './Redirect';
 
 function withAuth(Component: React.ComponentType) {

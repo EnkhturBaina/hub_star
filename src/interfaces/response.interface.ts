@@ -1,4 +1,4 @@
-import { Advertisement } from '@/types/advertisement';
+import { Advertisement } from '@typeDefs/advertisement';
 import {
   Address,
   RefDirection,
@@ -12,8 +12,8 @@ import {
   RefNews,
   MachineryType,
   Participant,
-} from '@/types/reference';
-import { Users } from '@/types/user';
+} from '@typeDefs/reference';
+import { Users } from '@typeDefs/user';
 export interface IResponse {
   success: boolean;
   message: string;

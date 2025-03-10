@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { Button } from '@heroui/react';
 import { CiGrid41, CiGrid2H } from 'react-icons/ci';
-import { useAppContext } from '@/context/app-context';
-import GridServices from '@/components/Profile/Content/GridServices';
-import ListServices from '@/components/Profile/Content/ListServices';
+import { useAppContext } from '@context/app-context';
+import GridServices from '@components/Profile/Content/GridServices';
+import ListServices from '@components/Profile/Content/ListServices';
 import ProfileLayout from '@/layouts/profile.layout';
-import Empty from '@/components/Empty';
-import withAuth from '@/components/Common/withAuth';
+import Empty from '@components/Empty';
+import withAuth from '@components/Common/withAuth';
 
 const SavedServices = () => {
   const { user } = useAppContext();
