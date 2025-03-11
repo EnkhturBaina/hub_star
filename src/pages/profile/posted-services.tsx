@@ -2,27 +2,26 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Button } from '@heroui/react';
 import { CiGrid41, CiGrid2H } from 'react-icons/ci';
-import { useAppContext } from '@context/app-context';
-import GridServices from '@components/Profile/Content/GridServices';
-import ListServices from '@components/Profile/Content/ListServices';
-import ProfileLayout from '@/layouts/profile.layout';
+import GridServices from '@components/molecules/Profile/Content/GridServices';
+import ListServices from '@components/molecules/Profile/Content/ListServices';
 import { GetStaticProps, NextPage } from 'next';
 import { Advertisement } from '@typeDefs/advertisement';
 import { AdvertisementService } from '@services/advertisement/advertisement.service';
-import Empty from '@components/Empty';
-import withAuth from '@components/Common/withAuth';
-import AddService from '@components/Profile/Content/AddService';
-import { ICreateAd } from '@/interfaces/request.interface';
+import Empty from '@components/molecules/Empty';
+import withAuth from '@components/atoms/withAuth';
+import AddService from '@components/molecules/Profile/Content/AddService';
 import { withTranslationProps } from '@lib/with-translation';
 import toast from 'react-hot-toast';
+import { useAuthState } from '@context/auth';
+import ProfileLayout from '@components/molecules/Profile/ProfileLayout';
 
 const PostedServices: NextPage = () => {
-  const { user } = useAppContext();
+  const { user } = useAuthState();
   const [isGrid, setIsGrid] = useState(true);
   const [advertisements, setAdvertisements] = useState<Advertisement[]>([]);
   const [isSpecial, setIsSpecial] = useState<boolean>(false);
   const [isEditService, setIsEditService] = useState<boolean>(false);
-  const [updateAdv, setUpdateAdv] = useState<ICreateAd>();
+  const [updateAdv, setUpdateAdv] = useState();
 
   const getData = useCallback(async () => {
     await AdvertisementService.get({

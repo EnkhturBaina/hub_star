@@ -1,9 +1,5 @@
 import moment from 'moment';
 
-export function classNames(...classes: any) {
-  return classes.filter(Boolean).join(' ');
-}
-
 export function moneyFormat(
   amount: any | number,
   decimalCount = 0,

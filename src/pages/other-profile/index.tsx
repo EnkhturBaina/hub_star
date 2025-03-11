@@ -1,9 +1,9 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import AuthName from '@components/Auth/auth-name';
-import Contact from '@components/Profile/Content/Contact';
-import Profile from '@components/Profile/Content/Profile';
-import ServiceHistory from '@components/Profile/Content/ServiceHistory';
-import OtherLeftMenu from '@components/Profile/OtherLeftMenu';
+import AuthName from '@components/molecules/Auth/auth-name';
+import Contact from '@components/molecules/Profile/Content/Contact';
+import Profile from '@components/molecules/Profile/Content/Profile';
+import ServiceHistory from '@components/molecules/Profile/Content/ServiceHistory';
+import OtherLeftMenu from '@components/molecules/Profile/OtherLeftMenu';
 import { AuthService } from '@services/authentication/authentication.service';
 import { OtherProfileMenu } from '@typeDefs/reference';
 import Users from '@typeDefs/user';

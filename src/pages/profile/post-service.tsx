@@ -1,16 +1,17 @@
 import React from 'react';
-import { useAppContext } from '@context/app-context';
 import { withTranslationProps } from '@lib/with-translation';
-import withAuth from '@components/Common/withAuth';
-import AddService from '@components/Profile/Content/AddService';
-import ProfileLayout from '@/layouts/profile.layout';
+import withAuth from '@components/atoms/withAuth';
+import AddService from '@components/molecules/Profile/Content/AddService';
 import { Card, CardBody } from '@heroui/react';
 import { GetStaticProps, NextPage } from 'next';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { IoAddCircle } from 'react-icons/io5';
+import { useAuthState } from '@context/auth';
+import ProfileLayout from '@components/molecules/Profile/ProfileLayout';
+
 const PostService: NextPage = () => {
-  const { user } = useAppContext();
+  const { user } = useAuthState();
   const [isAddService, setIsAddService] = useState<boolean>(false);
   const [isSpecial, setIsSpecial] = useState<boolean>(false);
 

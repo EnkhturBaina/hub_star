@@ -1,22 +1,22 @@
 import React from 'react';
 import { AppProps } from 'next/app';
 import { appWithTranslation } from 'next-i18next';
-import { AppProvider } from '@context/app-context';
 import '@styles/globals.css';
 import 'semantic-ui-css/semantic.min.css';
 import { HeroUIProvider } from '@heroui/react';
 import { ThemeProvider } from 'next-themes';
-import Footer from '@components/Footer';
-import ScrollToTop from '@components/ScrollToTop';
+import Footer from '@components/molecules/Footer';
+import ScrollToTop from '@components/molecules/ScrollToTop';
 import { Nunito_Sans } from 'next/font/google';
-import Header from '@components/Header';
-import FabButton from '@components/Common/FabButton';
+import Header from '@components/molecules/Header';
+import FabButton from '@components/atoms/FabButton';
 import 'react-image-gallery/styles/css/image-gallery.css';
 import { Provider } from 'react-redux';
 import { store } from '@lib/store';
 import { Toaster } from 'react-hot-toast';
-import LoadingProvider from '@components/Common/Loading';
+import LoadingProvider from '@components/atoms/Loading';
 import { useRouter } from 'next/router';
+import { AuthProvider } from '@context/auth';
 
 const roboto = Nunito_Sans({
   subsets: ['latin'],
@@ -33,7 +33,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <Provider store={store}>
           <ThemeProvider enableSystem={false} attribute="class" defaultTheme="light">
             <div className="w-full min-h-screen h-fit flex flex-col justify-between">
-              <AppProvider>
+              <AuthProvider>
                 <Toaster
                   position="top-right"
                   reverseOrder={false}
@@ -48,7 +48,7 @@ function MyApp({ Component, pageProps }: AppProps) {
                   <Component {...pageProps} />
                 </LoadingProvider>
                 <FabButton />
-              </AppProvider>
+              </AuthProvider>
               <Footer />
               <ScrollToTop />
             </div>

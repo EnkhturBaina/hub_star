@@ -1,11 +1,9 @@
 import React from 'react';
-import { useAppContext } from '@context/app-context';
-import BlogItem from '@components/Blog/BlogItem';
-import BreadCrumbs from '@components/Common/BreadCrumbs';
-import SideCheckSubDirection from '@components/Common/SideCheckSubDirection';
-import CustomSelect from '@components/Inputs/Select';
-import PaginationComp from '@components/Pagination';
-import { IAdParam } from '@/interfaces/request.interface';
+import BlogItem from '@components/molecules/Blog/BlogItem';
+import BreadCrumbs from '@components/atoms/BreadCrumbs';
+import SideCheckSubDirection from '@components/atoms/SideCheckSubDirection';
+import CustomSelect from '@components/molecules/Inputs/Select';
+import PaginationComp from '@components/molecules/Pagination';
 import { ReferenceService } from '@services/reference/reference.service';
 import {
   Address,
@@ -19,18 +17,15 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { SidebarPusher, SidebarPushable, Segment, Sidebar } from 'semantic-ui-react';
 import { LuSettings2 } from 'react-icons/lu';
 import { useTypedSelector } from '@lib/reducer';
-import { useDispatch } from 'react-redux';
-import { setAdvParam } from '@lib/features/adv-param';
 import UserTabData from '@datas/UserTabData';
 import { withTranslationProps } from '@lib/with-translation';
 import { useTranslation } from 'next-i18next';
+import { useRouter } from 'next/router';
 
-const BlogPage: NextPage = () => {
+const AdvertisementPage: NextPage = () => {
   const { t } = useTranslation();
-  const { advertisements, adMeta } = useAppContext();
-
   const advParam = useTypedSelector(state => state.advParam);
-  const dispatch = useDispatch();
+  const router = useRouter();
   const [materials, setMaterials] = useState<MachineryType[]>([]);
   const [machineryTypes, setMachineryTypes] = useState<MachineryType[]>([]);
   const [provinces, setProvinces] = useState<Address[]>([]);
@@ -41,6 +36,7 @@ const BlogPage: NextPage = () => {
   const [directions, setDirections] = useState<RefDirection[]>([]);
   const [visible, setVisible] = useState(false);
   const sideBarRef = useRef(null);
+  const advertisements = [];
 
   const getUserTypeName = useCallback(() => {
     const currentIndex = UserTabData.findIndex(item => item.type == advParam.userType);
@@ -134,8 +130,8 @@ const BlogPage: NextPage = () => {
     getKhoroo();
   }, [getKhoroo]);
 
-  const onAdvParam = (param: IAdParam) => {
-    dispatch(setAdvParam(param));
+  const onAdvParam = (param: any) => {
+    router.push({ query: param });
   };
 
   return (
@@ -180,7 +176,7 @@ const BlogPage: NextPage = () => {
                       <span className="lg:text-xl text-nowrap">
                         {t('services')} |{' '}
                         <span className="!font-semibold">
-                          {adMeta.itemCount + ' ' + t('service').toLowerCase()}
+                          {10 + ' ' + t('service').toLowerCase()}
                         </span>
                       </span>
                       <CustomSelect
@@ -299,7 +295,7 @@ const BlogPage: NextPage = () => {
                       <BlogItem blog={blog} key={blog.id} />
                     ))}
                   </div>
-                  <PaginationComp page={adMeta.page} pageCount={adMeta.pageCount} />
+                  <PaginationComp page={router.query?.page} pageCount={router.query.pageCount} />
                 </div>
               </div>
             </Segment>
@@ -310,4 +306,4 @@ const BlogPage: NextPage = () => {
   );
 };
 export const getStaticProps: GetStaticProps = withTranslationProps();
-export default BlogPage;
+export default AdvertisementPage;

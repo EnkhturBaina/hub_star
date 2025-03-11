@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import AdSkeleton from '@components/Skeleton/AdSkeleton';
+import AdSkeleton from '@components/molecules/Skeleton/AdSkeleton';
 import { ReferenceService } from '@services/reference/reference.service';
 import { FooterMenuPage } from '@typeDefs/reference';
 import { GetStaticProps, NextPage } from 'next';

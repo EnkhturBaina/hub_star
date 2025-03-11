@@ -1,7 +1,6 @@
 import React from 'react';
 import Document, { Html, Head, Main, NextScript } from 'next/document';
 import type { DocumentContext, DocumentInitialProps, DocumentProps } from 'next/document';
-import i18nextConfig from '../../next-i18next.config';
 
 type Props = DocumentProps & {
   // add custom document props
@@ -13,7 +12,7 @@ class MyDocument extends Document<Props> {
   }
 
   render(): JSX.Element {
-    const currentLocale = this.props.__NEXT_DATA__.locale ?? i18nextConfig.i18n.defaultLocale;
+    const currentLocale = this.props.__NEXT_DATA__.locale;
 
     return (
       <Html lang={currentLocale}>

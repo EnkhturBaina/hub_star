@@ -1,32 +1,26 @@
 import React, { useRef, useState } from 'react';
-import { useAppContext } from '@context/app-context';
-import BlogItem from '@components/Blog/BlogItem';
-import BreadCrumbs from '@components/Common/BreadCrumbs';
-import PaginationComp from '@components/Pagination';
-import { IAdParam } from '@/interfaces/request.interface';
-import { OrderType } from '@typeDefs/reference';
+import BlogItem from '@components/molecules/Blog/BlogItem';
+import BreadCrumbs from '@components/atoms/BreadCrumbs';
+import PaginationComp from '@components/molecules/Pagination';
 import { Select, SelectItem } from '@heroui/react';
 import { GetStaticProps, NextPage } from 'next';
 import { SidebarPusher, SidebarPushable, Segment, Sidebar } from 'semantic-ui-react';
 import { LuSettings2 } from 'react-icons/lu';
 import SpecialServiceData from '@datas/SpecialServiceData';
-import { useTypedSelector } from '@lib/reducer';
-import { useDispatch } from 'react-redux';
-import { setAdvParam } from '@lib/features/adv-param';
-import SideCheckSpecialDirection from '@components/Common/SideCheckSpecialDirection';
+import SideCheckSpecialDirection from '@components/atoms/SideCheckSpecialDirection';
 import { useTranslation } from 'next-i18next';
 import { withTranslationProps } from '@lib/with-translation';
+import { useRouter } from 'next/router';
 
 const SpecialService: NextPage = () => {
   const { t } = useTranslation();
-  const { advertisements, adMeta } = useAppContext();
-  const advParam = useTypedSelector(state => state.advParam);
-  const dispatch = useDispatch();
+  const advertisements = [];
+  const router = useRouter();
   const [visible, setVisible] = useState(false);
   const sideBarRef = useRef(null);
 
-  const onAdvParam = (param: IAdParam) => {
-    dispatch(setAdvParam(param));
+  const onAdvParam = (param: any) => {
+    router.push({ query: param });
   };
 
   return (
@@ -36,13 +30,16 @@ const SpecialService: NextPage = () => {
           <div className="mx-auto flex max-w-screen-2xl flex-row justify-between gap-7.5 px-6 pt-20 pb-6 lg:flex-row xl:gap-12.5">
             <div className="flex flex-col">
               <span className="text-xl">
-                {t('totalValue')}: <span className="font-bold">{adMeta.itemCount}</span>
+                {t('totalValue')}: <span className="font-bold">{router.query.itemCount}</span>
               </span>
               <div>
                 <BreadCrumbs
                   items={[
                     t('specialService'),
-                    t(SpecialServiceData.find(item => item.type == advParam.specialService)?.title),
+                    t(
+                      SpecialServiceData.find(item => item.type == router.query.specialService)
+                        ?.title
+                    ),
                   ]}
                 />
               </div>
@@ -96,7 +93,7 @@ const SpecialService: NextPage = () => {
                       }}
                       value="DESC"
                       onChange={e => {
-                        onAdvParam({ ...advParam, order: e.target.value as OrderType });
+                        onAdvParam({ order: e.target.value });
                       }}
                     >
                       <SelectItem key="DESC">Огноогоор (Z-A)</SelectItem>
@@ -114,7 +111,7 @@ const SpecialService: NextPage = () => {
                       Хайлт олдсонгүй
                     </div>
                   )}
-                  <PaginationComp page={adMeta.page} pageCount={adMeta.pageCount} />
+                  <PaginationComp page={router.query.page} pageCount={router.query.pageCount} />
                 </div>
               </div>
             </Segment>

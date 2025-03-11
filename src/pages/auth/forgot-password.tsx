@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { NextPage } from 'next';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import SendOtp from '@components/Auth/SendOtp';
-import Verification from '@components/Auth/Verification';
-import ChangePassword from '@components/Auth/ChangePassword';
+import SendOtp from '@components/molecules/Auth/SendOtp';
+import Verification from '@components/molecules/Auth/Verification';
+import ChangePassword from '@components/molecules/Auth/ChangePassword';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 const ForgotPasswordPage: NextPage = () => {

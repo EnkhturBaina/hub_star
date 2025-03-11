@@ -37,9 +37,12 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "src/components/Profile/ListboxWrapper.jsx",
+    "src/components/molecules/Profile/ListboxWrapper.jsx",
     "setupTests.js",
-    "jest.config.js"
+    "jest.config.js",
+    "src/lib/**/js",
+    "src/services/**/ts",
+    "next.config.js"
   ],
   "exclude": ["node_modules"]
 }

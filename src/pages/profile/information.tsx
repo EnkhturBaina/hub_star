@@ -1,17 +1,17 @@
+import React, { useEffect, useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Button, Input, Textarea } from '@heroui/react';
-import { useEffect, useMemo, useState } from 'react';
 import toast from 'react-hot-toast';
-import ProfileFields from '@components/Skeleton/ProfileFields';
-import { useAppContext } from '@context/app-context';
+import ProfileFields from '@components/molecules/Skeleton/ProfileFields';
 import { Users } from '@typeDefs/user';
 import { AuthService } from '@services/authentication/authentication.service';
-import ProfileLayout from '@/layouts/profile.layout';
 import { NextPage } from 'next';
-import withAuth from '@components/Common/withAuth';
+import withAuth from '@components/atoms/withAuth';
+import { useAuthState } from '@context/auth';
+import ProfileLayout from '@components/molecules/Profile/ProfileLayout';
 
 const Profile: NextPage = () => {
-  const { user } = useAppContext();
+  const { user } = useAuthState();
   const [profileData, setProfileData] = useState<Users>(null);
   const [isSaving, setIsSaving] = useState<boolean>(false);
 

@@ -1,6 +1,4 @@
 import React, { Fragment, useCallback, useEffect, useState } from 'react';
-import { useAppContext } from '@context/app-context';
-import ProfileLayout from '@/layouts/profile.layout';
 import docSvg from '@/public/images/notification/docSvg.svg';
 import Image from 'next/image';
 import { format } from 'date-fns';
@@ -10,18 +8,20 @@ import { RefNotification } from '@typeDefs/reference';
 import { Button } from '@heroui/react';
 import toast from 'react-hot-toast';
 import { NextPage } from 'next';
-import Empty from '@components/Empty';
-import withAuth from '@components/Common/withAuth';
+import Empty from '@components/molecules/Empty';
+import withAuth from '@components/atoms/withAuth';
 import { AdvertisementService } from '@services/advertisement/advertisement.service';
 import { useDispatch } from 'react-redux';
 import { setNotfParam } from '@lib/features/adv-param';
 import { useTypedSelector } from '@lib/reducer';
+import { useAuthState } from '@context/auth';
+import ProfileLayout from '@components/molecules/Profile/ProfileLayout';
 
 const Notification: NextPage = () => {
   const dispatch = useDispatch();
   const advParam = useTypedSelector(state => state.advParam);
 
-  const { user } = useAppContext();
+  const { user } = useAuthState();
   const [notifications, setNotifications] = useState<RefNotification[]>([]);
 
   const getData = useCallback(async () => {

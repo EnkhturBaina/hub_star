@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import { Button } from '@heroui/react';
 import { CiGrid41, CiGrid2H } from 'react-icons/ci';
-import { useAppContext } from '@context/app-context';
-import GridServices from '@components/Profile/Content/GridServices';
-import ListServices from '@components/Profile/Content/ListServices';
-import ProfileLayout from '@/layouts/profile.layout';
-import Empty from '@components/Empty';
-import withAuth from '@components/Common/withAuth';
+import GridServices from '@components/molecules/Profile/Content/GridServices';
+import ListServices from '@components/molecules/Profile/Content/ListServices';
+import Empty from '@components/molecules/Empty';
+import withAuth from '@components/atoms/withAuth';
+import { useAuthState } from '@context/auth';
+import ProfileLayout from '@components/molecules/Profile/ProfileLayout';
 
 const SavedServices = () => {
-  const { user } = useAppContext();
+  const { user } = useAuthState();
   const [isGrid, setIsGrid] = useState(true);
   return (
     <ProfileLayout>

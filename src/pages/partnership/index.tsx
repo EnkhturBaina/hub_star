@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import BreadCrumbs from '@components/Common/BreadCrumbs';
+import BreadCrumbs from '@components/atoms/BreadCrumbs';
 import { ReferenceService } from '@services/reference/reference.service';
 import { dateFormat } from '@utils/index';
 import { NextPage } from 'next';

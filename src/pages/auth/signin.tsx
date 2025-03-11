@@ -1,5 +1,5 @@
 import React from 'react';
-import Signin from '@components/Auth/Signin';
+import Signin from '@components/molecules/Auth/Signin';
 import { Metadata, NextPage } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 export const metadata: Metadata = {

@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Button, Input } from '@heroui/react';
-import ProfileLayout from '@/layouts/profile.layout';
-import withAuth from '@components/Common/withAuth';
+import withAuth from '@components/atoms/withAuth';
 import { EyeIcon } from '@heroicons/react/20/solid';
 import { AuthService } from '@services/authentication/authentication.service';
-import { useAppContext } from '@context/app-context';
 import toast from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
+import { useAuthState } from '@context/auth';
+import ProfileLayout from '@components/molecules/Profile/ProfileLayout';
 
 const Password = () => {
-  const { user } = useAppContext();
+  const { user } = useAuthState();
   const router = useRouter();
   const [isOldPasswordShow, setIsOldPasswordShow] = useState<boolean>(false);
   const [isNewPasswordShow, setIsNewPasswordShow] = useState<boolean>(false);

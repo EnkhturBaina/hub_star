@@ -2,15 +2,15 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Button, Input } from '@heroui/react';
 import toast, { Toaster } from 'react-hot-toast';
-import AccountFields from '@components/Skeleton/AccountFields';
+import AccountFields from '@components/molecules/Skeleton/AccountFields';
 import { Users } from '@typeDefs/user';
-import { useAppContext } from '@context/app-context';
 import { AuthService } from '@services/authentication/authentication.service';
-import ProfileLayout from '@/layouts/profile.layout';
-import withAuth from '@components/Common/withAuth';
+import withAuth from '@components/atoms/withAuth';
+import { useAuthState } from '@context/auth';
+import ProfileLayout from '@components/molecules/Profile/ProfileLayout';
 
 const Account: React.FC = () => {
-  const { user } = useAppContext();
+  const { user } = useAuthState();
   const [values, setValues] = useState<Users>(user);
   const [isSaving, setIsSaving] = useState<boolean>(false);
 

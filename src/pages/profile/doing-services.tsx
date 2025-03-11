@@ -1,11 +1,11 @@
 import React from 'react';
-import ProfileLayout from '@/layouts/profile.layout';
-import { useAppContext } from '@context/app-context';
-import withAuth from '@components/Common/withAuth';
-import DoingServices from '@components/Profile/Content/DoingServices';
+import withAuth from '@components/atoms/withAuth';
+import DoingServices from '@components/molecules/Profile/Content/DoingServices';
+import ProfileLayout from '@components/molecules/Profile/ProfileLayout';
+import { useAuthState } from '@context/auth';
 
 const DoingServicePage = () => {
-  const { user } = useAppContext();
+  const { user } = useAuthState();
   return (
     <ProfileLayout>
       <DoingServices userId={user?.id} />

@@ -1,19 +1,18 @@
 'use client';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Advice, PageMeta } from '@typeDefs/reference';
-import { useAppContext } from '@context/app-context';
 import { motion } from 'framer-motion';
-import ProfileLayout from '@/layouts/profile.layout';
 import { ReferenceService } from '@services/reference/reference.service';
-import { IAdviceParam } from '@/interfaces/request.interface';
-import PaginationComp from '@components/Pagination';
-import AdviceItem from '@components/Blog/AdviceItem';
-import Empty from '@components/Empty';
-import withAuth from '@components/Common/withAuth';
+import PaginationComp from '@components/molecules/Pagination';
+import AdviceItem from '@components/molecules/Blog/AdviceItem';
+import Empty from '@components/molecules/Empty';
+import withAuth from '@components/atoms/withAuth';
+import { useAuthState } from '@context/auth';
+import ProfileLayout from '@components/molecules/Profile/ProfileLayout';
 
 const Advices = () => {
-  const { user } = useAppContext();
-  const [params] = useState<IAdviceParam>({
+  const { user } = useAuthState();
+  const [params] = useState({
     page: 1,
     limit: 10,
     order: 'DESC',
