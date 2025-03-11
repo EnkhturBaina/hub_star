@@ -5,7 +5,7 @@ import { Input, Textarea } from '@heroui/react';
 import { useEffect, useState } from 'react';
 import { IAddressParam, ICreateAd } from '@/interfaces/request.interface';
 import { Address } from '@typeDefs/reference';
-import { ReferenceService } from '@services/reference/reference.service';
+import ReferenceService from '@services/reference';
 import CustomSelect from '@components/molecules/Inputs/Select';
 interface IProps {
   adData: ICreateAd;

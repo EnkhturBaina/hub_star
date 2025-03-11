@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { Advice, PageMeta } from '@typeDefs/reference';
 import { motion } from 'framer-motion';
-import { ReferenceService } from '@services/reference/reference.service';
+import ReferenceService from '@services/reference';
 import PaginationComp from '@components/molecules/Pagination';
 import AdviceItem from '@components/molecules/Blog/AdviceItem';
 import Empty from '@components/molecules/Empty';

@@ -18,13 +18,13 @@ import { setAdvParam } from '@lib/features/adv-param';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '@lib/store';
 import { useTypedSelector } from '@lib/reducer';
-import { useTranslation } from 'next-i18next';
 import { BiMinus } from 'react-icons/bi';
 import classNames from '@utils/classNames';
+import { useTranslations } from 'next-intl';
 
 const Hero = () => {
   const router = useRouter();
-  const { t } = useTranslation();
+  const t = useTranslations();
   const mainDirections = [];
   const advParam = useTypedSelector(state => state.advParam);
   const dispatch = useDispatch<AppDispatch>();

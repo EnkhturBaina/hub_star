@@ -3,7 +3,7 @@ import { Divider } from '@heroui/react';
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
-import { ReferenceService } from '@services/reference/reference.service';
+import ReferenceService from '@services/reference';
 import { FooterMenu } from '@typeDefs/reference';
 import Link from 'next/link';
 

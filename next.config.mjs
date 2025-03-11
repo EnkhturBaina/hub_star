@@ -3,11 +3,6 @@ import process from 'process';
 
 const nextConfig = {
   reactStrictMode: true,
-  i18n: {
-    defaultLocale: 'mn',
-    locales: ['mn', 'en', 'zh'],
-    localeDetection: false,
-  },
   compress: true,
   images: {
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
@@ -31,7 +26,7 @@ const nextConfig = {
   },
   env: {
     BASE_API_URL: process.env.NEXT_PUBLIC_BASE_API_URL,
-    X_API_KEY: process.env.X_API_KEY,
+    X_API_KEY: process.env.NEXT_PUBLIC_X_API_KEY,
   },
   async headers() {
     return [

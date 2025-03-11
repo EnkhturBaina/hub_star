@@ -2,16 +2,16 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import CatItem from './CatItem';
 import { motion } from 'framer-motion';
 import { useDraggable } from 'react-use-draggable-scroll';
-import { ReferenceService } from '@services/reference/reference.service';
+import ReferenceService from '@services/reference';
 import { MainDirection } from '@typeDefs/reference';
 import Title from '../../atoms/Title';
-import { useTranslation } from 'next-i18next';
+import { useTranslations } from 'next-intl';
 
 const GridCategory = () => {
   const ref = useRef(); // We will use React useRef hook to reference the wrapping div:
   const { events } = useDraggable(ref); // Now we pass the reference to the useDraggable hook:
   const [mainDirections, setMainDirections] = useState<MainDirection[]>([]);
-  const { t } = useTranslation();
+  const t = useTranslations();
 
   const getMainDirection = useCallback(async () => {
     await ReferenceService.getMainDirection({ isAdvice: true }).then(res => {

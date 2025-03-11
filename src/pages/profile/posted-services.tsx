@@ -10,7 +10,6 @@ import { AdvertisementService } from '@services/advertisement/advertisement.serv
 import Empty from '@components/molecules/Empty';
 import withAuth from '@components/atoms/withAuth';
 import AddService from '@components/molecules/Profile/Content/AddService';
-import { withTranslationProps } from '@lib/with-translation';
 import toast from 'react-hot-toast';
 import { useAuthState } from '@context/auth';
 import ProfileLayout from '@components/molecules/Profile/ProfileLayout';
@@ -112,5 +111,4 @@ const PostedServices: NextPage = () => {
     </ProfileLayout>
   );
 };
-export const getStaticProps: GetStaticProps = withTranslationProps();
 export default withAuth(PostedServices);

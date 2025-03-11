@@ -1,5 +1,4 @@
 import React from 'react';
-import { withTranslationProps } from '@lib/with-translation';
 import withAuth from '@components/atoms/withAuth';
 import AddService from '@components/molecules/Profile/Content/AddService';
 import { Card, CardBody } from '@heroui/react';
@@ -62,5 +61,4 @@ const PostService: NextPage = () => {
   );
 };
 
-export const getStaticProps: GetStaticProps = withTranslationProps();
 export default withAuth(PostService);

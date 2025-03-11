@@ -1,13 +1,13 @@
 import React from 'react';
 import BlogItem from './BlogItem';
-import { useAppContext } from '@context/filter';
 import PaginationComp from '../Pagination';
 import Title from '../../atoms/Title';
-import { useTranslation } from 'react-i18next';
+import { useTranslations } from 'next-intl';
 
 const Blog = () => {
-  const { advertisements, adMeta } = useAppContext();
-  const { t } = useTranslation();
+  const advertisements = [];
+  const adMeta = { page: 1, pageCount: 1 };
+  const t = useTranslations();
   return (
     <section className="mt-4">
       <div className="w-full overflow-hidden">

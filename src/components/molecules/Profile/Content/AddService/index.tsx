@@ -13,7 +13,7 @@ import Executor from './Step3/Executor';
 import Supplier from './Step3/Supplier';
 import Transportation from './Step3/Transportation';
 import Machinery from './Step3/Machinery';
-import { ReferenceService } from '@services/reference/reference.service';
+import ReferenceService from '@services/reference';
 import { MachineryType } from '@typeDefs/reference';
 import PublicSelection from './Step3/PublicSelection';
 import InternationalTrade from './Step3/InternationalTrade';

@@ -2,7 +2,7 @@ import { LuChevronLeft, LuSettings2 } from 'react-icons/lu';
 import { Accordion, AccordionItem, Checkbox, CheckboxGroup } from '@heroui/react';
 import { RefDirection, SubDirection } from '@typeDefs/reference';
 import { useCallback, useEffect, useState } from 'react';
-import { ReferenceService } from '@services/reference/reference.service';
+import ReferenceService from '@services/reference';
 import { useTypedSelector } from '@lib/reducer';
 import { useDispatch } from 'react-redux';
 import { setAdvParam } from '@lib/features/adv-param';

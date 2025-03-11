@@ -2,13 +2,13 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import SpecialServiceData from '@datas/SpecialServiceData';
-import { useTranslation } from 'next-i18next';
 import Link from 'next/link';
 import classNames from '@utils/classNames';
 import { useRouter } from 'next/router';
+import { useTranslations } from 'next-intl';
 
 const SpecialTypeMenu: React.FC = () => {
-  const { t } = useTranslation();
+  const t = useTranslations();
   const router = useRouter();
   return (
     <motion.div

@@ -1,6 +1,6 @@
-import { withTranslationProps } from '@lib/with-translation';
+import React from 'react';
 import Hero from '@components/molecules/Hero';
-import { GetStaticProps, Metadata, NextPage } from 'next';
+import { Metadata, NextPage } from 'next';
 
 export const metadata: Metadata = {
   title: 'Hub star',
@@ -14,5 +14,4 @@ const HomePage: NextPage = () => {
     </main>
   );
 };
-export const getStaticProps: GetStaticProps = withTranslationProps();
 export default HomePage;

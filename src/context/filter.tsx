@@ -1,4 +1,4 @@
-import { ReferenceService } from '@services/reference/reference.service';
+import ReferenceService from '@services/reference';
 import { Advertisement } from '@typeDefs/advertisement';
 import { MainDirection, PageMeta } from '@typeDefs/reference';
 import React, { createContext, useCallback, useContext, useEffect, useState } from 'react';

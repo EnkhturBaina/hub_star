@@ -4,7 +4,7 @@ import BreadCrumbs from '@components/atoms/BreadCrumbs';
 import SideCheckSubDirection from '@components/atoms/SideCheckSubDirection';
 import CustomSelect from '@components/molecules/Inputs/Select';
 import PaginationComp from '@components/molecules/Pagination';
-import { ReferenceService } from '@services/reference/reference.service';
+import ReferenceService from '@services/reference';
 import {
   Address,
   MachineryType,
@@ -12,18 +12,17 @@ import {
   OrderType,
   RefDirection,
 } from '@typeDefs/reference';
-import { GetStaticProps, NextPage } from 'next';
+import { NextPage } from 'next';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { SidebarPusher, SidebarPushable, Segment, Sidebar } from 'semantic-ui-react';
 import { LuSettings2 } from 'react-icons/lu';
 import { useTypedSelector } from '@lib/reducer';
 import UserTabData from '@datas/UserTabData';
-import { withTranslationProps } from '@lib/with-translation';
-import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
+import { useTranslations } from 'next-intl';
 
 const AdvertisementPage: NextPage = () => {
-  const { t } = useTranslation();
+  const t = useTranslations();
   const advParam = useTypedSelector(state => state.advParam);
   const router = useRouter();
   const [materials, setMaterials] = useState<MachineryType[]>([]);
@@ -305,5 +304,4 @@ const AdvertisementPage: NextPage = () => {
     </>
   );
 };
-export const getStaticProps: GetStaticProps = withTranslationProps();
 export default AdvertisementPage;

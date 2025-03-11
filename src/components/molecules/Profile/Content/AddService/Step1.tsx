@@ -1,21 +1,19 @@
 'use client';
-import { useTranslation } from 'react-i18next';
-import { motion } from 'framer-motion';
 import React, { useEffect, useState } from 'react';
-import { useAppContext } from '@context/filter';
+import { motion } from 'framer-motion';
 import { RefDirection, SpecialServiceType, SubDirection, UserType } from '@typeDefs/reference';
-import { ICreateAd } from '@/interfaces/request.interface';
-import { ReferenceService } from '@services/reference/reference.service';
+import ReferenceService from '@services/reference';
 import UserTabData from '@datas/UserTabData';
 import CustomSelect from '@components/molecules/Inputs/Select';
 import SpecialServiceData from '@datas/SpecialServiceData';
+import { useTranslations } from 'next-intl';
 interface IProps {
   isSpecial: boolean;
-  adData: ICreateAd;
-  setAdData: React.Dispatch<React.SetStateAction<ICreateAd>>;
+  adData: any;
+  setAdData: React.Dispatch<React.SetStateAction<any>>;
 }
 const Step1: React.FC<IProps> = ({ isSpecial, adData, setAdData }) => {
-  const { t } = useTranslation();
+  const t = useTranslations();
   const mainDirections = [];
   const [directions, setDirections] = useState<RefDirection[]>([]);
   const [subDirections, setSubDirections] = useState<SubDirection[]>([]);
@@ -67,7 +65,7 @@ const Step1: React.FC<IProps> = ({ isSpecial, adData, setAdData }) => {
           label="Онцгой үйлчилгээ"
           value={adData?.specialService}
           onSelectionChange={value => {
-            setAdData((prevState: ICreateAd) => ({
+            setAdData((prevState: any) => ({
               ...prevState,
               specialService: value as SpecialServiceType,
             }));
@@ -80,7 +78,7 @@ const Step1: React.FC<IProps> = ({ isSpecial, adData, setAdData }) => {
             label="Хэрэглэгчийн төрөл"
             value={adData?.userType}
             onSelectionChange={value => {
-              setAdData((prevState: ICreateAd) => ({
+              setAdData((prevState: any) => ({
                 ...prevState,
                 userType: value as UserType,
               }));
@@ -91,7 +89,7 @@ const Step1: React.FC<IProps> = ({ isSpecial, adData, setAdData }) => {
             label="Үйл ажиллагааны үндсэн чиглэл"
             value={adData.mainDirectionId}
             onSelectionChange={value => {
-              setAdData((adData: ICreateAd) => ({
+              setAdData((adData: any) => ({
                 ...adData,
                 mainDirectionId: Number(value),
               }));
@@ -104,7 +102,7 @@ const Step1: React.FC<IProps> = ({ isSpecial, adData, setAdData }) => {
         label="Үйл ажиллагааны чиглэл"
         value={adData?.directionId}
         onSelectionChange={value => {
-          setAdData((adData: ICreateAd) => ({
+          setAdData((adData: any) => ({
             ...adData,
             directionId: Number(value),
           }));
@@ -115,7 +113,7 @@ const Step1: React.FC<IProps> = ({ isSpecial, adData, setAdData }) => {
         label="Үйл ажиллагааны нэр"
         value={adData?.subDirectionId}
         onSelectionChange={value => {
-          setAdData((adData: ICreateAd) => ({
+          setAdData((adData: any) => ({
             ...adData,
             subDirectionId: Number(value),
           }));

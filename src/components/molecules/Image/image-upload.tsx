@@ -1,4 +1,4 @@
-import { ReferenceService } from '@services/reference/reference.service';
+import ReferenceService from '@services/reference';
 import { useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
 

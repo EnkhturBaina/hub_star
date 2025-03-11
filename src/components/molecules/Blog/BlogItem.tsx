@@ -1,4 +1,5 @@
 'use client';
+import React from 'react';
 import SpecialServiceData from '@datas/SpecialServiceData';
 import UserTabData from '@datas/UserTabData';
 import { Blog } from '@typeDefs/blog';
@@ -7,10 +8,10 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import { useTranslations } from 'next-intl';
 
 const BlogItem = ({ blog }: { blog: Blog }) => {
-  const { t } = useTranslation();
+  const t = useTranslations();
   const { id, title, desciption, userType, specialService } = blog;
   const [imagePath, setImagePath] = useState('/images/blog_img.jpg');
   const [blogType, setBlogType] = useState('');

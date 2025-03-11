@@ -2,8 +2,6 @@ import React, { useEffect, useState } from 'react';
 import ProfileLayout from '@components/molecules/Profile/ProfileLayout';
 import withAuth from '@components/atoms/withAuth';
 import { GrOrganization, GrUser } from 'react-icons/gr';
-import { GetStaticProps } from 'next';
-import { withTranslationProps } from '@lib/with-translation';
 import { useRouter } from 'next/router';
 import { SsoGovService } from '@services/sso-gov/sso-gov.service';
 import toast from 'react-hot-toast';
@@ -106,5 +104,4 @@ const Confirmation = () => {
     </ProfileLayout>
   );
 };
-export const getStaticProps: GetStaticProps = withTranslationProps();
 export default withAuth(Confirmation);

@@ -1,7 +1,7 @@
 import { LuSettings2 } from 'react-icons/lu';
 import { Checkbox, CheckboxGroup } from '@heroui/react';
 import { useCallback, useEffect, useState } from 'react';
-import { ReferenceService } from '@services/reference/reference.service';
+import ReferenceService from '@services/reference';
 import { RefDirection } from '@typeDefs/reference';
 import { useRouter } from 'next/router';
 

@@ -8,12 +8,11 @@ import { SidebarPusher, SidebarPushable, Segment, Sidebar } from 'semantic-ui-re
 import { LuSettings2 } from 'react-icons/lu';
 import SpecialServiceData from '@datas/SpecialServiceData';
 import SideCheckSpecialDirection from '@components/atoms/SideCheckSpecialDirection';
-import { useTranslation } from 'next-i18next';
-import { withTranslationProps } from '@lib/with-translation';
 import { useRouter } from 'next/router';
+import { useTranslations } from 'next-intl';
 
 const SpecialService: NextPage = () => {
-  const { t } = useTranslation();
+  const t = useTranslations();
   const advertisements = [];
   const router = useRouter();
   const [visible, setVisible] = useState(false);
@@ -121,5 +120,4 @@ const SpecialService: NextPage = () => {
     </>
   );
 };
-export const getStaticProps: GetStaticProps = withTranslationProps();
 export default SpecialService;

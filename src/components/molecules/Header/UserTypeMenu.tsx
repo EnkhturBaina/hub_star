@@ -5,12 +5,12 @@ import { motion } from 'framer-motion';
 import { UserTab } from '@typeDefs/reference';
 import UserTabData from '@datas/UserTabData';
 import { useRouter } from 'next/router';
-import { useTranslation } from 'react-i18next';
 import Link from 'next/link';
 import classNames from '@utils/classNames';
+import { useTranslations } from 'next-intl';
 
 const UserTypeMenu: React.FC = () => {
-  const { t } = useTranslation();
+  const t = useTranslations();
   const router = useRouter();
 
   return (

@@ -1,25 +1,23 @@
-import { withTranslationProps } from '@lib/with-translation';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import AdviceItem from '@components/molecules/Blog/AdviceItem';
 import BreadCrumbs from '@components/atoms/BreadCrumbs';
 import SideCheckDirection from '@components/atoms/SideCheckDirection';
 import PaginationComp from '@components/molecules/Pagination';
-import { IAdviceParam } from '@/interfaces/request.interface';
-import { ReferenceService } from '@services/reference/reference.service';
+import ReferenceService from '@services/reference';
 import { Advice, MainDirection, PageMeta } from '@typeDefs/reference';
 import { Select, SelectItem } from '@heroui/react';
-import { GetStaticProps, NextPage } from 'next';
-import { useTranslation } from 'next-i18next';
+import { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import { useCallback, useEffect, useRef, useState } from 'react';
 import { LuSettings2 } from 'react-icons/lu';
 import { Sidebar } from 'semantic-ui-react';
+import { useTranslations } from 'next-intl';
 
 /** Зөвлөмжүүд */
 const AdvicePage: NextPage = () => {
-  const { t } = useTranslation();
+  const t = useTranslations();
   const router = useRouter();
   const [advices, setAdvices] = useState<Advice[]>([]);
-  const [params, setParams] = useState<IAdviceParam>({ page: 1, limit: 10, order: 'DESC' });
+  const [params, setParams] = useState<any>({ page: 1, limit: 10, order: 'DESC' });
   const [pageMeta, setPageMeta] = useState<PageMeta>({
     page: 1,
     limit: 10,
@@ -154,5 +152,4 @@ const AdvicePage: NextPage = () => {
     </section>
   );
 };
-export const getStaticProps: GetStaticProps = withTranslationProps();
 export default AdvicePage;

@@ -18,28 +18,28 @@ import { Advertisement } from '@typeDefs/advertisement';
 import toast from 'react-hot-toast';
 import { useRouter } from 'next/router';
 import { Advice, RefNotification } from '@typeDefs/reference';
-import { ReferenceService } from '@services/reference/reference.service';
+import ReferenceService from '@services/reference';
 import { GetStaticProps, NextPage } from 'next';
 import ImageGallery from 'react-image-gallery';
-import { useAppContext } from '@context/filter';
 import Rating from '@components/atoms/Rating';
 import UserTabData from '@datas/UserTabData';
 import SpecialServiceData from '@datas/SpecialServiceData';
 import { useDispatch } from 'react-redux';
 import { setAdvParam } from '@lib/features/adv-param';
-import { withTranslationProps } from '@lib/with-translation';
 import { useSearchParams } from 'next/navigation';
 import BlogItem from '@components/molecules/Blog/BlogItem';
 import { dateFormat, moneyFormat } from '@utils/index';
 import { BiHeart } from 'react-icons/bi';
 import { UserCircleIcon } from '@heroicons/react/20/solid';
-import { useTranslation } from 'next-i18next';
+import { useTranslations } from 'next-intl';
+import { useAuthState } from '@context/auth';
 
 const SingleBlogPage: NextPage = () => {
-  const { t } = useTranslation();
+  const t = useTranslations();
   const router = useRouter();
   const dispatch = useDispatch();
-  const { user, advertisements } = useAppContext();
+  const { user } = useAuthState();
+  const advertisements = [];
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const {
     isOpen: isConfirmOpen,

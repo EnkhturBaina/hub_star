@@ -1,18 +1,17 @@
-import { setAccessToken } from '@services/api.service';
+import React, { useState } from 'react';
 import { AuthService } from '@services/authentication/authentication.service';
 import { Button, Input, Divider } from '@heroui/react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
 import toast from 'react-hot-toast';
-import { useTranslation } from 'next-i18next';
-import { EyeDropperIcon, EyeIcon } from '@heroicons/react/20/solid';
+import { EyeIcon } from '@heroicons/react/20/solid';
+import { useTranslations } from 'next-intl';
 
 const Signin = () => {
   const router = useRouter();
-  const { t } = useTranslation();
+  const t = useTranslations();
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
 

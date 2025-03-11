@@ -1,9 +1,10 @@
 'use client';
+import React from 'react';
 import { Button, Input } from '@heroui/react';
 import Link from 'next/link';
 import toast from 'react-hot-toast';
 import { AuthService } from '@services/authentication/authentication.service';
-import { useTranslation } from 'react-i18next';
+import { useTranslations } from 'next-intl';
 
 type Props = {
   username: string;
@@ -13,8 +14,7 @@ type Props = {
   setDetails: React.Dispatch<React.SetStateAction<string>>;
 };
 const SendOtp: React.FC<Props> = ({ username, setUsername, step, setStep, setDetails }) => {
-  const { t } = useTranslation();
-
+  const t = useTranslations();
   const register = () => {
     if (username == '') {
       toast.error('И-Мэйл хаягаа оруулна уу.');

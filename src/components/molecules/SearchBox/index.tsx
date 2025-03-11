@@ -19,7 +19,7 @@ import { useRouter } from 'next/router';
 import { MainDirection, RefDirection, SubDirection } from '@typeDefs/reference';
 import Image from 'next/image';
 import { BiMinus, BiPlus } from 'react-icons/bi';
-import { ReferenceService } from '@services/reference/reference.service';
+import ReferenceService from '@services/reference';
 import classNames from '@utils/classNames';
 
 type selectedProps = {

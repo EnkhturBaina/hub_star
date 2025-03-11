@@ -1,18 +1,17 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import Link from 'next/link';
 import { SpecialService, SpecialServiceType } from '@typeDefs/reference';
 import { useDispatch } from 'react-redux';
 import { setAdvParam } from '@lib/features/adv-param';
 import { useRouter } from 'next/router';
-import { useTranslation } from 'react-i18next';
+import { useTranslations } from 'next-intl';
 interface IProps {
   specialService: SpecialService;
 }
 const SingleFeature: React.FC<IProps> = ({ specialService }) => {
   const dispatch = useDispatch();
   const router = useRouter();
-  const { t } = useTranslation();
+  const t = useTranslations();
   const handleSpecialService = (type: SpecialServiceType) => {
     dispatch(
       setAdvParam({

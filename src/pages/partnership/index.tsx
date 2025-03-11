@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import BreadCrumbs from '@components/atoms/BreadCrumbs';
-import { ReferenceService } from '@services/reference/reference.service';
+import ReferenceService from '@services/reference';
 import { dateFormat } from '@utils/index';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';

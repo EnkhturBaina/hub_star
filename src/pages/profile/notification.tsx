@@ -3,7 +3,7 @@ import docSvg from '@/public/images/notification/docSvg.svg';
 import Image from 'next/image';
 import { format } from 'date-fns';
 import Link from 'next/link';
-import { ReferenceService } from '@services/reference/reference.service';
+import ReferenceService from '@services/reference';
 import { RefNotification } from '@typeDefs/reference';
 import { Button } from '@heroui/react';
 import toast from 'react-hot-toast';

@@ -1,10 +1,11 @@
 'use client';
+import React from 'react';
 import { Button, Input } from '@heroui/react';
 import Link from 'next/link';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { AuthService } from '@services/authentication/authentication.service';
-import { useTranslation } from 'react-i18next';
+import { useTranslations } from 'next-intl';
 
 type Props = {
   step: number;
@@ -14,7 +15,7 @@ type Props = {
   setDetails: React.Dispatch<React.SetStateAction<string>>;
 };
 const Signup: React.FC<Props> = ({ username, setUsername, step, setStep, setDetails }) => {
-  const { t } = useTranslation();
+  const t = useTranslations();
   const [password, setPassword] = useState<string>('');
   const [password2, setPassword2] = useState<string>('');
 

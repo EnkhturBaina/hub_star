@@ -4,10 +4,10 @@ import SingleFeature from './SingleFeature';
 import SpecialServiceData from '@datas/SpecialServiceData';
 import { motion } from 'framer-motion';
 import Title from '../../atoms/Title';
-import { useTranslation } from 'react-i18next';
+import { useTranslations } from 'next-intl';
 
 const Feature = () => {
-  const { t } = useTranslation();
+  const t = useTranslations();
   return (
     <motion.div
       variants={{

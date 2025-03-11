@@ -1,10 +1,8 @@
+import React, { useCallback, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import Image from 'next/image';
-import { useCallback, useState } from 'react';
 import { RiHome5Fill } from 'react-icons/ri';
 import { useRouter } from 'next/router';
-import { useTranslation, Trans } from 'next-i18next';
-import { useDispatch } from 'react-redux';
 
 const container = {
   hidden: {
@@ -20,10 +18,8 @@ const container = {
   },
 };
 
-const FabButton = () => {
+const LanguageSwitcher = ({ locale = 'mn' }: { locale: string }) => {
   const router = useRouter();
-  const dispatch = useDispatch();
-  const { t, i18n } = useTranslation('common');
   const [isFabEnabled, setIsFabEnabled] = useState(false);
 
   const toggleFAB = useCallback(() => {
@@ -36,11 +32,10 @@ const FabButton = () => {
     { id: 'zh', name: '中國人', img: '/zh.png' },
   ];
 
-  const handleChangeLanguage = (languageCode: string) => {
+  const changeLanguage = (locale: string) => {
     // Change language using i18next
-    i18n.changeLanguage(languageCode);
-    // Redirect to the same page with the new language
-    router.push(router.pathname, router.asPath, { locale: languageCode });
+    document.cookie = `locale=${locale}; path=/`;
+    router.reload();
   };
   const handleHome = () => {
     router.push('/');
@@ -59,7 +54,7 @@ const FabButton = () => {
       <div className="bg-white shadow-lg h-14 w-14 rounded-full flex items-center justify-center cursor-pointer active:scale-95 transition-all ease-in">
         <div onClick={toggleFAB} className={`rounded-full transition-transform ease-in`}>
           {langs
-            ?.filter(el => el.id === router.locale)
+            ?.filter(el => el.id == locale)
             ?.map((el, index) => {
               return (
                 <Image
@@ -99,7 +94,7 @@ const FabButton = () => {
                       key={index}
                       className="h-14 w-14 rounded-full"
                       onClick={() => {
-                        handleChangeLanguage(el.id);
+                        changeLanguage(el.id);
                         setIsFabEnabled(false);
                       }}
                     >
@@ -123,4 +118,4 @@ const FabButton = () => {
   );
 };
 
-export default FabButton;
+export default LanguageSwitcher;

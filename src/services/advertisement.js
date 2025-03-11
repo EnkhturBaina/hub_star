@@ -1,40 +1,56 @@
 import apiClient from '../lib/apiClient';
 const AdvertisementService = {
   async getAd(params) {
-    return apiClient.get('/advertisement', { params });
+    const response = await apiClient.get('/advertisement', { params });
+    return response.data;
   },
   async getById(id) {
-    return apiClient.get(`/advertisement/${id}`);
+    const response = await apiClient.get(`/advertisement/${id}`);
+    return response.data;
   },
   async create(payload) {
-    return apiClient.post('/advertisement', payload);
+    const response = await apiClient.post('/advertisement', payload);
+    return response.data;
   },
   async update(id, payload) {
-    return apiClient.patch('/advertisement/' + id, payload);
+    const response = await apiClient.patch('/advertisement/' + id, payload);
+    return response.data;
   },
   async save(id) {
-    return apiClient.post('advertisement/save/' + id);
+    const response = await apiClient.post('advertisement/save/' + id);
+    return response.data;
   },
   async remove(id) {
-    return apiClient.delete('advertisement/' + id);
+    const response = await apiClient.delete('advertisement/' + id);
+    return response.data;
   },
   async createNotification(payload) {
-    return apiClient.post('/notification', payload);
+    const response = await apiClient.post('/notification', payload);
+    return response.data;
+  },
+  async getNotification(payload) {
+    const response = await apiClient.get('/notification', payload);
+    return response.data;
   },
   async updateNotification(id, payload) {
-    return apiClient.patch('/notification/' + id, payload);
+    const response = await apiClient.patch('/notification/' + id, payload);
+    return response.data;
   },
   async removeNotification(id) {
-    return apiClient.delete('/notification/' + id);
+    const response = await apiClient.delete('/notification/' + id);
+    return response.data;
   },
   async getParticipant(params) {
-    return api.get('/ad/participant', { params });
+    const response = await apiClient.get('/ad/participant', { params });
+    return response.data;
   },
   async createParticipant(data) {
-    return api.post('/ad/participant', data);
+    const response = await apiClient.post('/ad/participant', data);
+    return response.data;
   },
   async removeParticipant(id) {
-    return api.delete('/ad/participant' + id);
+    const response = await apiClient.delete('/ad/participant' + id);
+    return response.data;
   },
 };
 export default AdvertisementService;

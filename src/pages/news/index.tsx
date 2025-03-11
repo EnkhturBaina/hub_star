@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import AdSkeleton from '@components/molecules/Skeleton/AdSkeleton';
-import { ReferenceService } from '@services/reference/reference.service';
+import ReferenceService from '@services/reference';
 import { RefNews } from '@typeDefs/reference';
 import { NextPage } from 'next';
 import Image from 'next/image';

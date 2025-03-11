@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import AdSkeleton from '@components/molecules/Skeleton/AdSkeleton';
-import { ReferenceService } from '@services/reference/reference.service';
+import ReferenceService from '@services/reference';
 import { FooterMenuPage } from '@typeDefs/reference';
-import { GetStaticProps, NextPage } from 'next';
+import { NextPage } from 'next';
 import Image from 'next/image';
 import toast from 'react-hot-toast';
 import { motion } from 'framer-motion';
-import { withTranslationProps } from '@lib/with-translation';
 import { useSearchParams } from 'next/navigation';
 
 const MenuPage: NextPage = () => {
@@ -71,6 +70,4 @@ const MenuPage: NextPage = () => {
     </section>
   );
 };
-
-export const getStaticProps: GetStaticProps = withTranslationProps();
 export default MenuPage;

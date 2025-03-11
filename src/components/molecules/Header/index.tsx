@@ -14,10 +14,9 @@ import { emptyAdvParam, setNotfParam } from '@lib/features/adv-param';
 import { useTypedSelector } from '@lib/reducer';
 import SpecialTypeMenu from './SpecialTypeMenu';
 import UserTypeMenu from './UserTypeMenu';
-import { ReferenceService } from '@services/reference/reference.service';
 import AdvicesTypeMenu from './AdvicesTypeMenu';
-import { getCookie } from 'cookies-next';
 import ThemeToggler from './ThemeToggler';
+import AdvertisementService from '@services/advertisement';
 
 const Header = () => {
   const { user } = useAuthState();
@@ -45,17 +44,27 @@ const Header = () => {
   };
 
   useEffect(() => {
-    if (getCookie('access-token')) {
-      ReferenceService.getNotification({ receiveBy: user?.id }).then(res => {
-        if (res.success) {
-          dispatch(
-            setNotfParam({
-              notification: res.response.reduce((total, item) => total + (item.isSeen ? 0 : 1), 0),
-            })
-          );
+    const loadNotification = async () => {
+      try {
+        if (user) {
+          AdvertisementService.getNotification({ receiveBy: user?.id }).then(res => {
+            if (res.success) {
+              dispatch(
+                setNotfParam({
+                  notification: res.response.reduce(
+                    (total, item) => total + (item.isSeen ? 0 : 1),
+                    0
+                  ),
+                })
+              );
+            }
+          });
         }
-      });
-    }
+      } catch (error) {
+        console.log('error =======>', error);
+      }
+    };
+    loadNotification();
   }, [user]);
 
   useEffect(() => {

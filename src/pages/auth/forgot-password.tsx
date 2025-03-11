@@ -5,7 +5,6 @@ import { motion } from 'framer-motion';
 import SendOtp from '@components/molecules/Auth/SendOtp';
 import Verification from '@components/molecules/Auth/Verification';
 import ChangePassword from '@components/molecules/Auth/ChangePassword';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 const ForgotPasswordPage: NextPage = () => {
   const [step, setStep] = useState<number>(1);
@@ -75,11 +74,4 @@ const ForgotPasswordPage: NextPage = () => {
     </section>
   );
 };
-export async function getStaticProps({ locale }) {
-  return {
-    props: {
-      ...(await serverSideTranslations(locale, ['common'])),
-    },
-  };
-}
 export default ForgotPasswordPage;

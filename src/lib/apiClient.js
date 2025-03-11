@@ -1,5 +1,5 @@
-/* eslint-disable no-undef */
 import axios from 'axios';
+import process from 'process';
 import AuthTokenStorageService from '@services/AuthTokenStorageService';
 
 // const token = AuthTokenStorageService.getAccessToken();
@@ -7,7 +7,6 @@ import AuthTokenStorageService from '@services/AuthTokenStorageService';
 const getToken = () => {
   return AuthTokenStorageService.getAccessToken();
 };
-
 let apiClient = axios.create({
   baseURL: process.env.BASE_API_URL,
   headers: {
