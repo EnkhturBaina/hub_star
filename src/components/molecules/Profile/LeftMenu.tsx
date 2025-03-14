@@ -17,7 +17,7 @@ import { AuthService } from '@services/authentication/authentication.service';
 import { removeAccessToken } from '@services/api.service';
 import { ProfileRoute } from '@typeDefs/reference';
 import { useAuthState } from '@context/auth';
-import { AdvertisementService } from '@services/advertisement/advertisement.service';
+import AdvertisementService from '@services/advertisement';
 
 const profileRoutes: ProfileRoute[] = [
   {

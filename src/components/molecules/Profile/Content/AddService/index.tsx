@@ -1,13 +1,10 @@
 'use client';
 import { motion } from 'framer-motion';
 import { Progress } from 'semantic-ui-react';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Step1 from './Step1';
 import Step2 from './Step2';
 import toast from 'react-hot-toast';
-import { AdvertisementService } from '@services/advertisement/advertisement.service';
-import { ICreateAd, IMachineryParam } from '@/interfaces/request.interface';
-
 import Subscriber from './Step3/Subscriber';
 import Executor from './Step3/Executor';
 import Supplier from './Step3/Supplier';
@@ -22,8 +19,8 @@ import VocationalTraining from './Step3/VocationalTraining';
 import LaboratoryMaterial from './Step3/LaboratoryMaterial';
 import MakeBudget from './Step3/MakeBudget';
 import { Button, Checkbox, Modal, ModalBody, ModalContent, ModalFooter } from '@heroui/react';
-import MenuPage from '@/pages/docs/menu';
 import { useRouter } from 'next/router';
+import AdvertisementService from '@services/advertisement';
 
 const defaultCreateAd: ICreateAd = {
   mainDirectionId: null,

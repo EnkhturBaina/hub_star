@@ -4,15 +4,15 @@ import { Button } from '@heroui/react';
 import { CiGrid41, CiGrid2H } from 'react-icons/ci';
 import GridServices from '@components/molecules/Profile/Content/GridServices';
 import ListServices from '@components/molecules/Profile/Content/ListServices';
-import { GetStaticProps, NextPage } from 'next';
+import { NextPage } from 'next';
 import { Advertisement } from '@typeDefs/advertisement';
-import { AdvertisementService } from '@services/advertisement/advertisement.service';
 import Empty from '@components/molecules/Empty';
 import withAuth from '@components/atoms/withAuth';
 import AddService from '@components/molecules/Profile/Content/AddService';
 import toast from 'react-hot-toast';
 import { useAuthState } from '@context/auth';
 import ProfileLayout from '@components/molecules/Profile/ProfileLayout';
+import AdvertisementService from '@services/advertisement';
 
 const PostedServices: NextPage = () => {
   const { user } = useAuthState();

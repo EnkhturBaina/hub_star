@@ -1,9 +1,7 @@
 import React, { Fragment, useCallback, useEffect, useState } from 'react';
-import docSvg from '@/public/images/notification/docSvg.svg';
 import Image from 'next/image';
 import { format } from 'date-fns';
 import Link from 'next/link';
-import ReferenceService from '@services/reference';
 import { RefNotification } from '@typeDefs/reference';
 import { Button } from '@heroui/react';
 import toast from 'react-hot-toast';
@@ -19,7 +17,7 @@ const Notification: NextPage = () => {
   const [notifications, setNotifications] = useState<RefNotification[]>([]);
 
   const getData = useCallback(async () => {
-    await ReferenceService.getNotification({
+    await AdvertisementService.getNotification({
       receiveBy: user?.id,
     }).then(res => {
       if (res.success) {
@@ -33,7 +31,7 @@ const Notification: NextPage = () => {
   }, [getData]);
 
   const handleUpdate = async (notification: RefNotification) => {
-    await ReferenceService.updateNotification(notification.id, {
+    await AdvertisementService.updateNotification(notification.id, {
       ...notification,
       isSeen: true,
     }).then(res => {
@@ -47,14 +45,14 @@ const Notification: NextPage = () => {
 
   const handleReceive = async (notification: RefNotification) => {
     if (notification.type == 'APPROVE') {
-      await ReferenceService.createParticipant({
+      await AdvertisementService.createParticipant({
         userType: notification.advertisement.userType == 'SUBSCRIBER' ? 'EXECUTOR' : 'SUBSCRIBER',
         advertisementId: notification.advertisementId,
         userBy: notification.receiveBy,
       });
       await AdvertisementService.update({ id: notification.advertisementId, process: 'DOING' });
     }
-    await ReferenceService.createNotification(notification)
+    await AdvertisementService.createNotification(notification)
       .then(res => {
         if (res.success) {
           toast.success('Амжилттай үйлчилгээний төлөв солигдлоо');
@@ -78,7 +76,7 @@ const Notification: NextPage = () => {
                   <div className="content">
                     <div className="docImg md:p-auto !p-2" onClick={() => handleUpdate(item)}>
                       <Image
-                        src={docSvg}
+                        src="images/notification/docSvg.svg"
                         color="red"
                         width={24}
                         height={24}

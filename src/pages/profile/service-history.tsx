@@ -5,11 +5,11 @@ import { useCallback, useEffect, useState } from 'react';
 import GridServices from '@components/molecules/Profile/Content/GridServices';
 import ListServices from '@components/molecules/Profile/Content/ListServices';
 import { Advertisement } from '@typeDefs/advertisement';
-import { AdvertisementService } from '@services/advertisement/advertisement.service';
 import Empty from '@components/molecules/Empty';
 import withAuth from '@components/atoms/withAuth';
 import { useAuthState } from '@context/auth';
 import ProfileLayout from '@components/molecules/Profile/ProfileLayout';
+import AdvertisementService from '@services/advertisement';
 
 const ServiceHistory = () => {
   const { user } = useAuthState();

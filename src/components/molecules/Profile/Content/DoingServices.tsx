@@ -5,8 +5,8 @@ import { Button } from '@heroui/react';
 import { CiGrid2H, CiGrid41 } from 'react-icons/ci';
 import GridServices from './GridServices';
 import ListServices from './ListServices';
-import { AdvertisementService } from '@services/advertisement/advertisement.service';
 import { Advertisement } from '@typeDefs/advertisement';
+import AdvertisementService from '@services/advertisement';
 
 type Props = {
   userId: number;

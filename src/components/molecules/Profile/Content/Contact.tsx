@@ -4,8 +4,8 @@ import ProfileFields from '@components/molecules/Skeleton/ProfileFields';
 import Users from '@typeDefs/user';
 import { Input, Textarea } from '@heroui/react';
 import Rating from '@components/atoms/Rating';
-import { AdvertisementService } from '@services/advertisement/advertisement.service';
 import { toInteger } from 'lodash';
+import AdvertisementService from '@services/advertisement';
 type Props = {
   user: Users;
 };
