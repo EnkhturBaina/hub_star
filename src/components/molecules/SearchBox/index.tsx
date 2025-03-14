@@ -11,9 +11,6 @@ import {
   CardBody,
   Card,
 } from '@heroui/react';
-import { useAppContext } from '@context/filter';
-import { useDispatch } from 'react-redux';
-import { setAdvParam } from '@lib/features/adv-param';
 import Drawer from '../Drawer';
 import { useRouter } from 'next/router';
 import { MainDirection, RefDirection, SubDirection } from '@typeDefs/reference';
@@ -28,7 +25,6 @@ type selectedProps = {
 };
 const SearchBox: React.FC = () => {
   const router = useRouter();
-  const dispatch = useDispatch();
   const [searchVal, setSearchVal] = useState<string>('');
   const mainDirections = [];
   const [directions, setDirections] = useState([]);
@@ -87,17 +83,14 @@ const SearchBox: React.FC = () => {
   ) => {
     setIsOpenDrawer(false);
     onClose();
-    router.push('/adv');
-    dispatch(
-      setAdvParam({
-        order: 'DESC',
-        page: 1,
-        limit: 10,
+    router.push({
+      pathname: '/adv',
+      query: {
         mainDirectionIds: [mainDirection.id],
-        directionIds: direction?.id && [direction.id],
-        subDirectionIds: subDirection?.id && [subDirection?.id],
-      })
-    );
+        directionIds: direction?.id,
+        subDirectionIds: subDirection?.id,
+      },
+    });
   };
 
   return (
@@ -134,9 +127,7 @@ const SearchBox: React.FC = () => {
                     <div
                       key={idx}
                       onClick={() => {
-                        choosedBranchId == branch?.id
-                          ? setChoosedBranchId(0)
-                          : setChoosedBranchId(branch.id);
+                        setChoosedBranchId(choosedBranchId === branch?.id ? 0 : branch.id);
                       }}
                       className="mb-2 !scale-100 cursor-pointer !opacity-100 transition-all duration-300 last:mb-0"
                     >
@@ -178,10 +169,12 @@ const SearchBox: React.FC = () => {
                   className={`min-w-[300px] min-h-[38px] h-fit w-fit rounded-md flex justify-between items-center text-[14px] hover:bg-[#f39d34] hover:text-white text-black 
                   ${md.id == selectedID?.id ? 'bg-[#F7941D] !text-white' : 'bg-transparent'}`}
                   onPress={() => {
-                    selectedID?.id == md.id
-                      ? setSelectedID(null)
-                      : setSelectedID({ id: md.id, name: md.name }),
+                    if (selectedID?.id == md.id) {
+                      setSelectedID(null);
+                    } else {
+                      setSelectedID({ id: md.id, name: md.name });
                       setSelectedItems(md.directions);
+                    }
                   }}
                 >
                   <div className="flex items-center gap-1 w-fit">

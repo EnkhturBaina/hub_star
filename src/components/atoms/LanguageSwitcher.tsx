@@ -1,8 +1,9 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import Image from 'next/image';
 import { RiHome5Fill } from 'react-icons/ri';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 
 const container = {
   hidden: {
@@ -18,10 +19,13 @@ const container = {
   },
 };
 
-const LanguageSwitcher = ({ locale = 'mn' }: { locale: string }) => {
-  const router = useRouter();
+const LanguageSwitcher = () => {
   const [isFabEnabled, setIsFabEnabled] = useState(false);
+  const router = useRouter();
 
+  useEffect(() => {
+    setIsFabEnabled(prev => !prev);
+  }, [router.locale]);
   const toggleFAB = useCallback(() => {
     setIsFabEnabled(prevState => !prevState);
   }, []);
@@ -32,11 +36,11 @@ const LanguageSwitcher = ({ locale = 'mn' }: { locale: string }) => {
     { id: 'zh', name: '中國人', img: '/zh.png' },
   ];
 
-  const changeLanguage = (locale: string) => {
-    // Change language using i18next
-    document.cookie = `locale=${locale}; path=/`;
-    router.reload();
-  };
+  // const changeLanguage = (locale: string) => {
+  //   // Change language using i18next
+  //   router.locale = locale;
+  //   router.reload();
+  // };
   const handleHome = () => {
     router.push('/');
   };
@@ -54,7 +58,7 @@ const LanguageSwitcher = ({ locale = 'mn' }: { locale: string }) => {
       <div className="bg-white shadow-lg h-14 w-14 rounded-full flex items-center justify-center cursor-pointer active:scale-95 transition-all ease-in">
         <div onClick={toggleFAB} className={`rounded-full transition-transform ease-in`}>
           {langs
-            ?.filter(el => el.id == locale)
+            ?.filter(el => el.id == router.locale)
             ?.map((el, index) => {
               return (
                 <Image
@@ -90,13 +94,11 @@ const LanguageSwitcher = ({ locale = 'mn' }: { locale: string }) => {
               <div className="flex flex-col items-center gap-4 bg-white rounded-full shadow-lg p-2">
                 {langs.map((el, index) => {
                   return (
-                    <motion.li
+                    <Link
                       key={index}
                       className="h-14 w-14 rounded-full"
-                      onClick={() => {
-                        changeLanguage(el.id);
-                        setIsFabEnabled(false);
-                      }}
+                      href={router.asPath}
+                      locale={el.id}
                     >
                       <Image
                         className="h-14 w-14 sm:h-10 sm:w-10 transition-all duration-300 hover:opacity-100 dark:hidden"
@@ -106,7 +108,7 @@ const LanguageSwitcher = ({ locale = 'mn' }: { locale: string }) => {
                         height="0"
                         sizes="100vw"
                       />
-                    </motion.li>
+                    </Link>
                   );
                 })}
               </div>

@@ -1,12 +1,12 @@
+import React, { useState } from 'react';
 import { AuthService } from '@services/authentication/authentication.service';
 import { OtpType } from '@typeDefs/reference';
 import Users from '@typeDefs/user';
-import { Button, Input } from '@heroui/react';
+import { Button } from '@heroui/react';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
 import toast from 'react-hot-toast';
-import OTPInput from 'react-otp-input';
-import ExpiredTimer from '@components/molecules/Auth/expired';
+import ExpiredTimer from '@components/atoms/expiredTimer';
+import { OtpField } from '@components/atoms/otpField';
 
 type Props = {
   details: string;
@@ -70,12 +70,7 @@ const Verification: React.FC<Props> = ({
   return (
     <div className="mx-auto mb-10 grid w-[350px] grid-cols-1 rounded-md border border-stroke bg-gray-50 p-6 shadow-md">
       <div className="otp-wrapper">
-        <OTPInput
-          value={otp}
-          onChange={setOtp}
-          numInputs={6}
-          renderInput={props => <input {...props} />}
-        />
+        <OtpField length={6} onComplete={setOtp} />
         <ExpiredTimer secound={60} handleClick={handleResend} />
       </div>
       <Button

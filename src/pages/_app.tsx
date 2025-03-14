@@ -6,19 +6,16 @@ import '@styles/globals.css';
 import 'semantic-ui-css/semantic.min.css';
 import { HeroUIProvider } from '@heroui/react';
 import { ThemeProvider } from 'next-themes';
-import Footer from '@components/molecules/Footer';
-import ScrollToTop from '@components/molecules/ScrollToTop';
 import { Nunito_Sans } from 'next/font/google';
-import Header from '@components/molecules/Header';
-import LanguageSwitcher from '@components/atoms/LanguageSwitcher';
-import 'react-image-gallery/styles/css/image-gallery.css';
-import { Provider } from 'react-redux';
-import { store } from '@lib/store';
 import { Toaster } from 'react-hot-toast';
-import LoadingProvider from '@components/atoms/Loading';
 import { useRouter } from 'next/router';
 import { AuthProvider } from '@context/auth';
-import cookie from 'js-cookie';
+import Header from '@components/molecules/Header';
+import LanguageSwitcher from '@components/atoms/LanguageSwitcher';
+import Footer from '@components/molecules/Footer';
+import ScrollToTop from '@components/molecules/ScrollToTop';
+import { MainProvider } from '@context/main';
+import { SocketProvider } from '@context/socketContext';
 
 const roboto = Nunito_Sans({
   subsets: ['latin'],
@@ -29,19 +26,30 @@ const roboto = Nunito_Sans({
 interface MyAppProps extends AppProps {
   pageProps: {
     messages: Record<string, string>;
-    locale: string;
   };
 }
 function MyApp({ Component, pageProps }: MyAppProps) {
   const router = useRouter();
+  const locale = router.locale || 'mn';
+  const isAuthRoute = router.pathname.startsWith('/auth');
 
   return (
-    <NextIntlClientProvider messages={pageProps.messages} locale={pageProps.locale}>
+    <NextIntlClientProvider
+      messages={pageProps.messages}
+      locale={locale}
+      timeZone="Asia/Ulaanbaatar"
+    >
       <div className={`dark:bg-black ${roboto.className}`}>
         <HeroUIProvider>
-          <Provider store={store}>
-            <ThemeProvider enableSystem={false} attribute="class" defaultTheme="light">
-              <div className="w-full min-h-screen h-fit flex flex-col justify-between">
+          <ThemeProvider enableSystem={false} attribute="class" defaultTheme="light">
+            <div className="w-full min-h-screen h-fit flex flex-col justify-between">
+              {isAuthRoute ? (
+                <AuthProvider>
+                  <Component {...pageProps} />
+                  <LanguageSwitcher />
+                  <Footer />
+                </AuthProvider>
+              ) : (
                 <AuthProvider>
                   <Toaster
                     position="top-right"
@@ -52,17 +60,19 @@ function MyApp({ Component, pageProps }: MyAppProps) {
                       duration: 5000,
                     }}
                   />
-                  {/^\/auth\/.*/.test(router.pathname) ? null : <Header />}
-                  <LoadingProvider>
-                    <Component {...pageProps} />
-                  </LoadingProvider>
-                  <LanguageSwitcher locale={pageProps.locale} />
+                  <SocketProvider>
+                    <MainProvider>
+                      <Header />
+                      <Component {...pageProps} />
+                      <LanguageSwitcher />
+                      <Footer />
+                      <ScrollToTop />
+                    </MainProvider>
+                  </SocketProvider>
                 </AuthProvider>
-                <Footer />
-                <ScrollToTop />
-              </div>
-            </ThemeProvider>
-          </Provider>
+              )}
+            </div>
+          </ThemeProvider>
         </HeroUIProvider>
       </div>
     </NextIntlClientProvider>
@@ -70,11 +80,18 @@ function MyApp({ Component, pageProps }: MyAppProps) {
 }
 MyApp.getInitialProps = async (appContext: any) => {
   const { ctx } = appContext;
-  const locale = ctx.req?.cookies?.locale || cookie.get('locale');
-  const messages = (await import(`../locales/${locale}.json`)).default;
+  const locale = ctx.locale || 'mn';
+  let messages;
+  try {
+    messages = (await import(`../locales/${locale}.json`)).default;
+  } catch (error: any) {
+    console.warn(`⚠️ Missing locale file for "${locale}", falling back to "mn"`);
+    messages = (await import(`../locales/mn.json`)).default;
+    console.log('noop ====>', error);
+  }
 
   const appProps = await App.getInitialProps(appContext);
-  return { ...appProps, pageProps: { ...appProps.pageProps, messages, locale } };
+  return { ...appProps, pageProps: { ...appProps.pageProps, messages } };
 };
 
 export default MyApp;

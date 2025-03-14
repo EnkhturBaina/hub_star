@@ -1,37 +1,47 @@
 'use client';
-import React from 'react';
-import { Button, Input } from '@heroui/react';
+import React, { useState } from 'react';
 import Link from 'next/link';
-import toast from 'react-hot-toast';
-import { AuthService } from '@services/authentication/authentication.service';
+import AuthService from '@services/auth';
 import { useTranslations } from 'next-intl';
+import TextField from '@components/atoms/textField';
+import MyButton from '@components/atoms/button';
+import MyAlert from '@components/atoms/alert';
+import IApiResponse from '@typeDefs/response';
 
-type Props = {
+interface IProps {
   username: string;
-  setUsername: React.Dispatch<React.SetStateAction<string>>;
+  setUsername: (value: string) => void;
   step: number;
-  setStep: React.Dispatch<React.SetStateAction<number>>;
-  setDetails: React.Dispatch<React.SetStateAction<string>>;
-};
-const SendOtp: React.FC<Props> = ({ username, setUsername, step, setStep, setDetails }) => {
+  setStep: (value: number) => void;
+  setDetails: (value: string) => void;
+}
+const SendOtp: React.FC<IProps> = ({ username, setUsername, step, setStep, setDetails }) => {
   const t = useTranslations();
-  const register = () => {
+  const [buttonLoader, setButtonLoader] = useState(false);
+  const [otpError, setOtpError] = useState(null);
+  const [errors, setErrors] = useState({ show: false, name: false });
+
+  const sendOtp = async () => {
+    let isError = false;
     if (username == '') {
-      toast.error('И-Мэйл хаягаа оруулна уу.');
-    } else {
+      isError = false;
+      setErrors(prevState => ({ ...prevState, show: true, name: true }));
+    }
+    if (isError) return;
+    else {
       try {
-        AuthService.sendOtp({ username, type: 'Forget' })
-          .then(response => {
-            if (response.success) {
-              setDetails(response.response.details);
-              setStep(step + 1);
-            }
-          })
-          .catch(error => {
-            console.error('Error fetching :', error);
-            toast.error(error.response?.data?.message);
-          });
+        setButtonLoader(true);
+        const result: IApiResponse = await AuthService.sendOtp({ username, type: 'Forget' });
+        if (result && result.success) {
+          setDetails(result.response?.details);
+          setStep(step + 1);
+        } else {
+          setButtonLoader(false);
+          setOtpError('error');
+        }
       } catch (error) {
+        setButtonLoader(false);
+        setOtpError('error');
         console.error('catch error :', error);
       }
     }
@@ -39,32 +49,21 @@ const SendOtp: React.FC<Props> = ({ username, setUsername, step, setStep, setDet
 
   return (
     <div className="mx-auto mb-10 grid w-[350px] grid-cols-1 rounded-md border border-stroke bg-gray-50 p-6 shadow-md">
-      <Input
-        key="username"
-        type="text"
+      {otpError ? (
+        <MyAlert message="Хүсэлт илгээхэд алдаа гарлаа" onClose={() => setOtpError(null)} />
+      ) : null}
+      <TextField
         label={t('emailOrPhone')}
-        labelPlacement="outside"
         placeholder={t('emailOrPhone')}
-        radius="sm"
-        size="lg"
-        variant="bordered"
-        classNames={{
-          base: 'mb-8',
-          label: 'font-bold',
-          inputWrapper: ['custom-input-wrapper', 'bg-white'],
-        }}
-        color={'default'}
-        onValueChange={setUsername}
+        value={username}
+        handleChange={setUsername}
+        error={errors.name ? 'Нэвтрэх нэрээ оруулна уу.' : null}
       />
-      <Button
-        radius="full"
-        className="mb-2 w-full rounded-md bg-mainColor font-bold leading-none text-white"
-        onPress={register}
-      >
+      <MyButton onClick={sendOtp} loading={buttonLoader}>
         Хүсэлт явуулах
-      </Button>
+      </MyButton>
       <div className="text-center text-sm">
-        Та бүртгэлтэй юу?{' '}
+        Та бүртгэлтэй юу?
         <Link className="text-primary" href="/auth/signin">
           Нэвтрэх
         </Link>

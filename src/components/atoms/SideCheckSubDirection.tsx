@@ -1,53 +1,44 @@
 import React, { useState } from 'react';
-import { LuSettings2 } from 'react-icons/lu';
-import { Accordion, AccordionItem, Checkbox, CheckboxGroup } from '@heroui/react';
+import { Accordion, AccordionItem } from '@heroui/react';
 import { RefDirection, SubDirection } from '@typeDefs/reference';
-import { useTypedSelector } from '@lib/reducer';
-import { useDispatch } from 'react-redux';
-import { setAdvParam } from '@lib/features/adv-param';
 import { BsPlus } from 'react-icons/bs';
 import { BiMinus } from 'react-icons/bi';
+import { useRouter } from 'next/router';
+import { useMainState } from '@context/main';
+import Checkbox from './checkbox';
 
-type Props = {
-  closeFnc?: () => void;
-};
-const SideCheckSubDirection: React.FC<Props> = ({ closeFnc }) => {
-  const advParam = useTypedSelector(state => state.advParam);
-  const mainDirections = [];
-  const dispatch = useDispatch();
-
+const SideCheckSubDirection = () => {
+  const { mainDirections } = useMainState();
+  const router = useRouter();
   const [openParentAccordion, setOpenParentAccordion] = useState<any[]>([]);
 
-  const onChangeValue = (value: string[]) => {
-    const filteredMainDirections = mainDirections
-      .map(mainDir => {
-        const filteredDirections = mainDir.directions.filter(dir =>
-          dir.subDirections.some(subDir => value.includes(subDir.id?.toString()))
-        );
-        return {
-          ...mainDir,
-          directions: filteredDirections,
-        };
-      })
-      .filter(mainDir => mainDir.directions.length > 0);
-    const mainDirectionIds = filteredMainDirections.map(item => item.id);
-    const directionIds = filteredMainDirections.flatMap(item => item.directions.map(dir => dir.id));
-    dispatch(
-      setAdvParam({
-        ...advParam,
-        page: 1,
-        limit: 10,
-        mainDirectionIds,
-        directionIds,
-        subDirectionIds: value.map(item => parseInt(item)),
-      })
+  // Query-оос ID-уудыг авч массив болгож хөрвүүлэх
+  const choosedSubDir = router.query.subDirectionIds
+    ? Array.isArray(router.query.subDirectionIds)
+      ? router.query.subDirectionIds
+      : [router.query.subDirectionIds]
+    : [];
+
+  const handleCheckboxChange = (value: string) => {
+    const newSelection = choosedSubDir.includes(value)
+      ? choosedSubDir.filter(item => item !== value)
+      : [...choosedSubDir, value];
+    router.push(
+      {
+        pathname: router.pathname,
+        query: {
+          ...router.query,
+          subDirectionIds: newSelection,
+        },
+      },
+      undefined,
+      { shallow: true }
     );
   };
   return (
     <div className={`shadow-[rgba(0,0,15,0.5)_5px_0px_5px_-5px]`}>
       <div className="flex flex-row items-center justify-between border-b py-4 pr-2 mb-2">
         <h4 className="ml-1 !font-semibold text-lg text-gray-700">Шүүлтүүр</h4>
-        <LuSettings2 className="text-xl" onClick={closeFnc} />
       </div>
       {mainDirections.map((mainDirection, index) => (
         <div className="mb-5" key={index}>
@@ -77,31 +68,16 @@ const SideCheckSubDirection: React.FC<Props> = ({ closeFnc }) => {
                   }
                   className="removeMarginFromH2"
                 >
-                  <CheckboxGroup
-                    key={index}
-                    color="warning"
-                    onValueChange={onChangeValue}
-                    value={(advParam.subDirectionIds || []).map(item => item.toString())}
-                  >
-                    {direction.subDirections.map((subDir: SubDirection, index: number) => {
-                      return (
-                        <Checkbox
-                          key={index}
-                          value={String(subDir.id)}
-                          classNames={{
-                            label: 'w-full',
-                            base: 'w-full max-w-full',
-                            wrapper: 'custom-checkbox w-6 h-6',
-                          }}
-                        >
-                          <div className="flex w-full flex-row items-center justify-between">
-                            <span className="text-sm leading-4">{subDir.name}</span>
-                            <span className="text-sm">{subDir?.advertisements?.length}</span>
-                          </div>
-                        </Checkbox>
-                      );
-                    })}
-                  </CheckboxGroup>
+                  {direction.subDirections.map((subDir: SubDirection, index: number) => {
+                    return (
+                      <Checkbox
+                        key={index}
+                        label={subDir.name}
+                        checked={choosedSubDir.includes(subDir.id.toString())}
+                        onChange={() => handleCheckboxChange(subDir.id.toString())}
+                      />
+                    );
+                  })}
                 </AccordionItem>
               ))}
             </Accordion>

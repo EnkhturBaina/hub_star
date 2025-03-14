@@ -2,9 +2,10 @@ import apiClient from '../lib/apiClient';
 import { isEmpty } from 'lodash';
 import AuthTokenStorageService from './AuthTokenStorageService';
 import axios from 'axios';
+import process from 'process';
 
 const AuthService = {
-  async login(username, password) {
+  async authenticate(username, password) {
     const response = await apiClient.post('/authentication/login', { username, password });
     return response.data;
   },

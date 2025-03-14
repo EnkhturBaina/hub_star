@@ -1,40 +1,13 @@
 'use client';
+import React, { useEffect, useState } from 'react';
 import { Divider } from '@heroui/react';
 import { motion } from 'framer-motion';
-import { useEffect, useState } from 'react';
-import { usePathname } from 'next/navigation';
 import ReferenceService from '@services/reference';
 import { FooterMenu } from '@typeDefs/reference';
 import Link from 'next/link';
 
 const Footer: React.FC = () => {
   const [menus, setMenus] = useState<FooterMenu[]>([]);
-  const containerStyle = {
-    width: '400px',
-    height: '400px',
-  };
-
-  const center = {
-    lat: -3.745,
-    lng: -38.523,
-  };
-  // const { isLoaded } = useJsApiLoader({
-  //   id: "google-map-script",
-  //   googleMapsApiKey: "YOUR_API_KEY",
-  // });
-  // const [map, setMap] = useState(null);
-
-  // const onLoad = useCallback(function callback(map) {
-  //   const bounds = new window.google.maps.LatLngBounds(center);
-  //   map.fitBounds(bounds);
-
-  //   setMap(map);
-  // }, []);
-
-  // const onUnmount = useCallback(function callback(map) {
-  //   setMap(null);
-  // }, []);
-  const pathUrl = usePathname();
   useEffect(() => {
     ReferenceService.getMenu().then(res => {
       if (res.success) {
@@ -48,149 +21,147 @@ const Footer: React.FC = () => {
       <footer className="border-stroke bg-mainDark ">
         <div className="mx-auto max-w-screen-xl px-4 md:px-8 2xl:px-0">
           {/* <!-- Footer Top --> */}
-          {pathUrl === '/auth/signin' || pathUrl === '/auth/signup' ? null : (
-            <div className="border-b pt-10 lg:pt-15 pb-6">
-              <div className="flex flex-wrap gap-8 lg:justify-between lg:gap-0">
-                <div className="flex w-full flex-col gap-8 md:flex-row md:justify-between md:gap-0">
-                  <motion.div
-                    variants={{
-                      hidden: {
-                        opacity: 0,
-                        y: -20,
-                      },
+          <div className="border-b pt-10 lg:pt-15 pb-6">
+            <div className="flex flex-wrap gap-8 lg:justify-between lg:gap-0">
+              <div className="flex w-full flex-col gap-8 md:flex-row md:justify-between md:gap-0">
+                <motion.div
+                  variants={{
+                    hidden: {
+                      opacity: 0,
+                      y: -20,
+                    },
 
-                      visible: {
-                        opacity: 1,
-                        y: 0,
-                      },
-                    }}
-                    initial="hidden"
-                    whileInView="visible"
-                    transition={{ duration: 1, delay: 0.1 }}
-                    viewport={{ once: true }}
-                    className="animate_top"
-                  >
-                    <h4 className="mb-9 lg:text-itemtitle2 text-xl font-semibold text-gray-400">
-                      HUB STAR
-                    </h4>
+                    visible: {
+                      opacity: 1,
+                      y: 0,
+                    },
+                  }}
+                  initial="hidden"
+                  whileInView="visible"
+                  transition={{ duration: 1, delay: 0.1 }}
+                  viewport={{ once: true }}
+                  className="animate_top"
+                >
+                  <h4 className="mb-9 lg:text-itemtitle2 text-xl font-semibold text-gray-400">
+                    HUB STAR
+                  </h4>
 
-                    <ul>
-                      {menus
-                        .filter(item => item.type == 'MAIN')
-                        .map(item => (
-                          <li key={item.id}>
-                            <Link
-                              href={{ pathname: '/docs/menu', query: { menuId: item.id } }}
-                              className="lg:text-base text-sm mb-3 inline-block text-white hover:text-mainColor"
-                            >
-                              {item.title}
-                            </Link>
-                          </li>
-                        ))}
-                    </ul>
-                  </motion.div>
+                  <ul>
+                    {menus
+                      .filter(item => item.type == 'MAIN')
+                      .map(item => (
+                        <li key={item.id}>
+                          <Link
+                            href={{ pathname: '/docs/menu', query: { menuId: item.id } }}
+                            className="lg:text-base text-sm mb-3 inline-block text-white hover:text-mainColor"
+                          >
+                            {item.title}
+                          </Link>
+                        </li>
+                      ))}
+                  </ul>
+                </motion.div>
 
-                  <motion.div
-                    variants={{
-                      hidden: {
-                        opacity: 0,
-                        y: -20,
-                      },
+                <motion.div
+                  variants={{
+                    hidden: {
+                      opacity: 0,
+                      y: -20,
+                    },
 
-                      visible: {
-                        opacity: 1,
-                        y: 0,
-                      },
-                    }}
-                    initial="hidden"
-                    whileInView="visible"
-                    transition={{ duration: 1, delay: 0.1 }}
-                    viewport={{ once: true }}
-                    className="animate_top"
-                  >
-                    <h4 className="mb-9  lg:text-itemtitle2 text-xl text-item title2 font-semibold text-gray-400">
-                      ТУСЛАМЖ
-                    </h4>
+                    visible: {
+                      opacity: 1,
+                      y: 0,
+                    },
+                  }}
+                  initial="hidden"
+                  whileInView="visible"
+                  transition={{ duration: 1, delay: 0.1 }}
+                  viewport={{ once: true }}
+                  className="animate_top"
+                >
+                  <h4 className="mb-9  lg:text-itemtitle2 text-xl text-item title2 font-semibold text-gray-400">
+                    ТУСЛАМЖ
+                  </h4>
 
-                    <ul>
-                      <li>
-                        <Link
-                          href={'/feedback'}
-                          className="lg:text-base text-sm mb-3 inline-block text-white hover:text-mainColor"
-                        >
-                          Санал хүсэлт илгээх
-                        </Link>
-                      </li>
-                      <li>
-                        <Link
-                          href={'/introduction'}
-                          className="lg:text-base text-sm mb-3 inline-block text-white hover:text-mainColor"
-                        >
-                          Үйлчилгээний танилцуулга
-                        </Link>
-                      </li>
-                    </ul>
-                  </motion.div>
-                  <motion.div
-                    variants={{
-                      hidden: {
-                        opacity: 0,
-                        y: -20,
-                      },
+                  <ul>
+                    <li>
+                      <Link
+                        href={'/feedback'}
+                        className="lg:text-base text-sm mb-3 inline-block text-white hover:text-mainColor"
+                      >
+                        Санал хүсэлт илгээх
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        href={'/introduction'}
+                        className="lg:text-base text-sm mb-3 inline-block text-white hover:text-mainColor"
+                      >
+                        Үйлчилгээний танилцуулга
+                      </Link>
+                    </li>
+                  </ul>
+                </motion.div>
+                <motion.div
+                  variants={{
+                    hidden: {
+                      opacity: 0,
+                      y: -20,
+                    },
 
-                      visible: {
-                        opacity: 1,
-                        y: 0,
-                      },
-                    }}
-                    initial="hidden"
-                    whileInView="visible"
-                    transition={{ duration: 1, delay: 0.1 }}
-                    viewport={{ once: true }}
-                    className="animate_top"
-                  >
-                    <h4 className="mb-9 lg:text-itemtitle2 text-xl font-semibold text-gray-400 ">
-                      ХОЛБОО БАРИХ
-                    </h4>
+                    visible: {
+                      opacity: 1,
+                      y: 0,
+                    },
+                  }}
+                  initial="hidden"
+                  whileInView="visible"
+                  transition={{ duration: 1, delay: 0.1 }}
+                  viewport={{ once: true }}
+                  className="animate_top"
+                >
+                  <h4 className="mb-9 lg:text-itemtitle2 text-xl font-semibold text-gray-400 ">
+                    ХОЛБОО БАРИХ
+                  </h4>
 
-                    <ul className="lg:text-base text-sm">
-                      <li>
-                        <a href="#" className="mb-3 inline-block text-white hover:text-mainColor">
-                          Утас: 9999-4698
-                        </a>
-                      </li>
-                      <li>
-                        <a href="#" className="mb-3 inline-block text-white hover:text-mainColor">
-                          Имэйл: metastartllc@gmail.com
-                        </a>
-                      </li>
-                      <li>
-                        <a href="#" className="mb-3 inline-block text-white hover:text-mainColor">
-                          Хаяг: Улаанбаатар 14192, Сүхбаатар, 7-р хороо, Orient Center оффис 5
-                          давхар
-                        </a>
-                      </li>
-                    </ul>
-                  </motion.div>
-                  <motion.div
-                    variants={{
-                      hidden: {
-                        opacity: 0,
-                        y: -20,
-                      },
+                  <ul className="lg:text-base text-sm">
+                    <li>
+                      <a href="#" className="mb-3 inline-block text-white hover:text-mainColor">
+                        Утас: 9999-4698
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#" className="mb-3 inline-block text-white hover:text-mainColor">
+                        Имэйл: metastartllc@gmail.com
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#" className="mb-3 inline-block text-white hover:text-mainColor">
+                        Хаяг: Улаанбаатар 14192, Сүхбаатар, 7-р хороо, Orient Center оффис 5 давхар
+                      </a>
+                    </li>
+                  </ul>
+                </motion.div>
+                <motion.div
+                  variants={{
+                    hidden: {
+                      opacity: 0,
+                      y: -20,
+                    },
 
-                      visible: {
-                        opacity: 1,
-                        y: 0,
-                      },
-                    }}
-                    initial="hidden"
-                    whileInView="visible"
-                    transition={{ duration: 1, delay: 0.1 }}
-                    viewport={{ once: true }}
-                    className="animate_top"
-                  >
-                    {/* {isLoaded ? (
+                    visible: {
+                      opacity: 1,
+                      y: 0,
+                    },
+                  }}
+                  initial="hidden"
+                  whileInView="visible"
+                  transition={{ duration: 1, delay: 0.1 }}
+                  viewport={{ once: true }}
+                  className="animate_top"
+                >
+                  {/* {isLoaded ? (
                     <GoogleMap
                       mapContainerStyle={containerStyle}
                       center={center}
@@ -204,11 +175,10 @@ const Footer: React.FC = () => {
                   ) : (
                     <></>
                   )} */}
-                  </motion.div>
-                </div>
+                </motion.div>
               </div>
             </div>
-          )}
+          </div>
           {/* <!-- Footer Top --> */}
 
           {/* <!-- Footer Bottom --> */}

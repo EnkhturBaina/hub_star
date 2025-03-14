@@ -1,32 +1,22 @@
 import React, { useState } from 'react';
 import { Button, Popover, PopoverTrigger, PopoverContent } from '@heroui/react';
 import Image from 'next/image';
-import { useAppContext } from '@context/filter';
 import { RefDirection, MainDirection } from '@typeDefs/reference';
 import { useRouter } from 'next/router';
-import { useDispatch } from 'react-redux';
-import { setAdvParam } from '@lib/features/adv-param';
 import { BiSolidRightArrowAlt } from 'react-icons/bi';
 
 export default function DropDown() {
   // Sticky menu
   const router = useRouter();
   const mainDirections = [];
-  const [isOpen, setIsOpen] = useState<boolean>(false);
-  const dispatch = useDispatch();
+  const [isOpen, setIsOpen] = useState(false);
 
   const onClickDirection = (direction: RefDirection) => {
     setIsOpen(false);
-    router.push('/adv');
-    dispatch(
-      setAdvParam({
-        order: 'DESC',
-        page: 1,
-        limit: 10,
-        mainDirectionIds: [direction.mainDirectionId],
-        directionIds: [direction.id],
-      })
-    );
+    router.push({
+      pathname: 'adv',
+      query: { mainDirectionIds: [direction.mainDirectionId], directionIds: [direction.id] },
+    });
   };
   return (
     <Popover

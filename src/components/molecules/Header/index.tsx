@@ -7,23 +7,18 @@ import { Avatar, Badge, Divider } from '@heroui/react';
 import SearchBox from '../SearchBox';
 import { useAuthState } from '@context/auth';
 import AuthName from '../Auth/auth-name';
-import useSocket from '@services/socket-client';
 import { useRouter } from 'next/router';
-import { useDispatch } from 'react-redux';
-import { emptyAdvParam, setNotfParam } from '@lib/features/adv-param';
-import { useTypedSelector } from '@lib/reducer';
 import SpecialTypeMenu from './SpecialTypeMenu';
 import UserTypeMenu from './UserTypeMenu';
 import AdvicesTypeMenu from './AdvicesTypeMenu';
-import ThemeToggler from './ThemeToggler';
-import AdvertisementService from '@services/advertisement';
+import { useSocket } from '@context/socketContext';
 
 const Header = () => {
   const { user } = useAuthState();
-  const advParam = useTypedSelector(state => state.advParam);
-  const dispatch = useDispatch();
   const router = useRouter();
-  const socket = useSocket();
+  const { isConnected } = useSocket();
+  const specialRoute = router.pathname.startsWith('/special');
+  const adviceRouter = router.pathname.startsWith('/advice');
 
   const [navigationOpen] = useState(false);
   const [stickyMenu, setStickyMenu] = useState(false);
@@ -39,53 +34,8 @@ const Header = () => {
     }
   };
   const handleHome = () => {
-    dispatch(emptyAdvParam());
     router.push('/');
   };
-
-  useEffect(() => {
-    const loadNotification = async () => {
-      try {
-        if (user) {
-          AdvertisementService.getNotification({ receiveBy: user?.id }).then(res => {
-            if (res.success) {
-              dispatch(
-                setNotfParam({
-                  notification: res.response.reduce(
-                    (total, item) => total + (item.isSeen ? 0 : 1),
-                    0
-                  ),
-                })
-              );
-            }
-          });
-        }
-      } catch (error) {
-        console.log('error =======>', error);
-      }
-    };
-    loadNotification();
-  }, [user]);
-
-  useEffect(() => {
-    if (socket) {
-      console.log('Attempting to connect...');
-      socket.on('connect', () => {
-        console.log('Connected!');
-      });
-      const handleNotification = (count: number) => {
-        dispatch(
-          setNotfParam({
-            notification: count,
-          })
-        );
-      };
-      socket.on('notification', handleNotification);
-      return () => {
-        socket.off('notification', handleNotification);
-      };
-    }
-  }, [socket]);
 
   useEffect(() => {
     window.addEventListener('scroll', handleStickyMenu);
@@ -99,19 +49,6 @@ const Header = () => {
     >
       <div className="pt-4 relative mx-auto flex max-w-screen-xl flex-row items-center justify-between px-4 md:px-8 xl:flex 2xl:px-0">
         <div className="w-full mr-4 flex gap-8 items-center justify-between">
-          {/* <Image
-            src="/images/logo/svg_logo.svg"
-            alt="logo"
-            onClick={() => {
-              router.push('/');
-              setAdParam(prev => ({ ...prev, userType: undefined }));
-            }}
-            priority
-            className="rounded-md object-contain object-center hover:cursor-pointer h-20 w-50"
-            width="0"
-            height="0"
-            sizes="100vw"
-          /> */}
           <div style={{ position: 'relative', width: '170px', height: '50px' }}>
             <Image
               src="/images/logo/svg_logo.svg"
@@ -166,7 +103,7 @@ const Header = () => {
 
                 <div className="flex w-30 flex-row justify-around gap-2">
                   <Link href="/profile/notification">
-                    <Badge content={advParam.notification || 0}>
+                    <Badge content={0}>
                       <svg
                         width="26"
                         height="26"
@@ -235,7 +172,7 @@ const Header = () => {
               </>
             )}
           </div>
-          <ThemeToggler />
+          useSocket: {isConnected ? 'true' : 'false'}
         </div>
       </div>
       <div className="mx-4 mt-2 block md:hidden">
@@ -248,9 +185,9 @@ const Header = () => {
         /^\/partnership\.*/.test(pathUrl) || (
           <div className="no-scrollbar mt-2 flex overflow-y-scroll md:justify-center">
             <nav className="w-full">
-              {router?.pathname.includes('special') ? (
+              {specialRoute ? (
                 <SpecialTypeMenu />
-              ) : router.pathname.includes('advice') ? (
+              ) : adviceRouter ? (
                 <AdvicesTypeMenu />
               ) : (
                 <UserTypeMenu />

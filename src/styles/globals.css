@@ -375,9 +375,6 @@ pre {
 .otp-wrapper input:focus {
   border-color: #555 !important;
 }
-.special-service:hover svg path {
-  fill: white;
-}
 .active-icon path {
   fill: white;
 }

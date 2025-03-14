@@ -1,55 +1,33 @@
-import React, { Fragment, useEffect, useState } from 'react';
-import { Divider } from '@heroui/react';
+import React, { useEffect, useState } from 'react';
+import LanguageSwitcher from '@components/atoms/LanguageSwitcher';
+import LoadingProvider from '@components/atoms/Loading';
+import Header from '../Header';
+import Footer from '../Footer';
+import ScrollToTop from '../ScrollToTop';
+import Title from '@components/atoms/Title';
 import Image from 'next/image';
-import { BsPlus } from 'react-icons/bs';
-import { Fade } from 'react-slideshow-image';
-import 'react-slideshow-image/dist/styles.css';
-import { CiCircleChevRight, CiCircleChevLeft } from 'react-icons/ci';
-import Feature from '../Features';
-import AdvertisementSection from '../Advertisement';
-import GridCategory from '../GridCategory';
-import LeftDirections from '../Skeleton/LeftDirections';
-import BlogItemSkeleton from '../Skeleton/BlogItemSkeleton';
-import { RefDirection, MainDirection, RefNews, SubDirection } from '@typeDefs/reference';
+import classNames from '@utils/classNames';
 import ReferenceService from '@services/reference';
 import { useRouter } from 'next/router';
-import Title from '../../atoms/Title';
-import { BiMinus } from 'react-icons/bi';
-import classNames from '@utils/classNames';
 import { useTranslations } from 'next-intl';
+import { BsPlus } from 'react-icons/bs';
+import { BiMinus } from 'react-icons/bi';
+import LeftDirections from '../Skeleton/LeftDirections';
+import { MainDirection, RefDirection, SubDirection } from '@typeDefs/reference';
 import Link from 'next/link';
+import { Divider } from '@heroui/react';
 
-const Hero = () => {
+const MainLayout = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
   const t = useTranslations();
-  const [mainDirections, setMainDirections] = useState([]);
-  const [news, setNews] = useState<RefNews[]>([]);
   const [branches, setBranches] = useState([]);
   const [partnerships, setPartnerships] = useState([]);
-
+  const [mainDirections, setMainDirections] = useState([]);
   const [openParentAccordion, setOpenParentAccordion] = useState<any[]>([]);
   const [openAccordion, setOpenAccordion] = useState<number>(undefined);
-  const [, setParentId] = useState<number>(undefined);
   const [choosedBranchId, setChoosedBranchId] = useState(0);
 
-  const properties = {
-    prevArrow: <CiCircleChevLeft className="m-4 text-6xl text-mainColor" />,
-    nextArrow: <CiCircleChevRight className="m-4 text-6xl text-mainColor" />,
-  };
-
-  const indicators = () => <div className="custom-home-indicator"></div>;
-
   useEffect(() => {
-    const loadNews = async () => {
-      try {
-        const result = await ReferenceService.getNews();
-        if (result.success) {
-          setNews(result.response);
-        }
-      } catch (error) {
-        console.log('news =======>', error);
-      }
-    };
     const loadBranch = async () => {
       try {
         const result = await ReferenceService.getAllBranch();
@@ -72,7 +50,6 @@ const Hero = () => {
         console.log(error);
       }
     };
-    loadNews();
     loadBranch();
     loadMainDirection();
   }, []);
@@ -90,9 +67,9 @@ const Hero = () => {
   const toggleAccordion = (id: number) => {
     setOpenAccordion(openAccordion === id ? null : id);
   };
-
   return (
     <>
+      <Header />
       <section className="pb-2 lg:pb-2 xl:pb-4 pt-52">
         <div className="mx-auto max-w-screen-2xl px-4 xl:px-8 2xl:px-0">
           <div className="flex flex-row gap-7.5 xl:gap-12.5 justify-center items-start">
@@ -171,7 +148,6 @@ const Hero = () => {
                                 ? prev.filter(pp => pp !== md.id)
                                 : [...prev, md.id]
                             );
-                            setParentId(md.id);
                           }}
                         >
                           <Image
@@ -213,7 +189,6 @@ const Hero = () => {
                                         <Link
                                           className="flex gap-2 items-start text-justify text-sm mb-3 cursor-pointer !text-black transition-all duration-300 last:mb-0 hover:text-mainColor"
                                           href={{
-                                            pathname: '/adv',
                                             query: {
                                               mainDirectionIds: [md.id],
                                               directionIds: [d.id],
@@ -234,7 +209,6 @@ const Hero = () => {
                             ))}
                           </ul>
                         )}
-
                         <Divider className="my-4" />
                       </div>
                     );
@@ -243,50 +217,14 @@ const Hero = () => {
               </div>
             </div>
 
-            <div className="w-full max-w-[920px] md:w-3/4">
-              <Fragment>
-                <div className="mb-4 w-full overflow-hidden">
-                  <div className="custom-slider-container relative w-full rounded-xl">
-                    {news ? (
-                      <Fade
-                        {...properties}
-                        transitionDuration={500}
-                        easing="ease"
-                        indicators={indicators}
-                        autoplay={true}
-                      >
-                        {news?.map((el: RefNews, index: number) => {
-                          return (
-                            <div
-                              className="each-slide-effect rounded-xl cursor-pointer"
-                              key={index}
-                              onClick={() => {
-                                router.replace(`news?id=${el.id}`);
-                              }}
-                            >
-                              <div
-                                style={{
-                                  backgroundImage: `url(${process.env.NEXT_PUBLIC_MEDIA_URL + el.imageId})`,
-                                  backgroundSize: '100% 100%',
-                                }}
-                              />
-                            </div>
-                          );
-                        })}
-                      </Fade>
-                    ) : null}
-                  </div>
-                </div>
-                <Feature />
-                <GridCategory />
-              </Fragment>
-              {mainDirections.length == 0 ? <BlogItemSkeleton /> : <AdvertisementSection />}
-            </div>
+            <div className="w-full max-w-[920px] md:w-3/4">{children}</div>
           </div>
         </div>
       </section>
+      <LanguageSwitcher />
+      <Footer />
+      <ScrollToTop />
     </>
   );
 };
-
-export default Hero;
+export default MainLayout;

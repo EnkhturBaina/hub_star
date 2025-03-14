@@ -4,6 +4,10 @@ import process from 'process';
 const nextConfig = {
   reactStrictMode: true,
   compress: true,
+  i18n: {
+    locales: ['mn', 'en', 'zh'],
+    defaultLocale: 'mn',
+  },
   images: {
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
     minimumCacheTTL: 60,
@@ -21,9 +25,6 @@ const nextConfig = {
   },
   swcMinify: false,
   productionBrowserSourceMaps: true,
-  future: {
-    strictPostcssConfiguration: true,
-  },
   env: {
     BASE_API_URL: process.env.NEXT_PUBLIC_BASE_API_URL,
     X_API_KEY: process.env.NEXT_PUBLIC_X_API_KEY,

@@ -1,0 +1,20 @@
+.checkboxContainer {
+  display: flex;
+  align-items: flex-start; /* center-ээс flex-start болгож өөрчлөх */
+  gap: 8px;
+  cursor: pointer;
+}
+
+.checkboxInput {
+  margin: 4px 0 0 0; /* checkbox-ийг дээрээс margin өгөх */
+  min-width: 16px; /* width-ийг min-width болгох */
+  height: 16px;
+  cursor: pointer;
+  accent-color: #f4b740;
+}
+
+.label {
+  font-size: 14px;
+  line-height: 1.4;
+  flex: 1; /* текст wrap хийх боломжтой болгох */
+}

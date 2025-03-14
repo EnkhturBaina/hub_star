@@ -10,14 +10,14 @@ import ImageUpload from '@components/molecules/Image/image-upload';
 import { Users } from '@typeDefs/user';
 import { AuthService } from '@services/authentication/authentication.service';
 import toast from 'react-hot-toast';
-import { useAppContext } from '@context/filter';
+import { useAuthState } from '@context/auth';
 import { Image } from '@heroui/react';
 
 type Props = {
   children: React.ReactNode;
 };
 const ProfileLayout: React.FC<Props> = ({ children }) => {
-  const { user, setUser } = useAppContext();
+  const { user } = useAuthState();
   const [visible, setVisible] = useState(false);
 
   const sideBarRef = useRef(null);

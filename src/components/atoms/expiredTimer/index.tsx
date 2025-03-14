@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import styles from './expired.module.scss';
+// import styles from './expired.module.scss';
 interface IProps {
   secound?: number;
   handleClick: () => void;
@@ -25,7 +25,7 @@ const ExpiredTimer: React.FC<IProps> = ({ secound = 60, handleClick }) => {
     handleClick();
   };
   return (
-    <div className={styles.expiredTimer}>
+    <div className="flex items-center justify-center text-lg text-red-500 gap-1">
       {timeLeft == 0 ? (
         <p className="cursor-pointer hover:text-mainColor" onClick={onClick}>
           Дахин илгээх

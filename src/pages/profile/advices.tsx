@@ -4,7 +4,7 @@ import { Advice, PageMeta } from '@typeDefs/reference';
 import { motion } from 'framer-motion';
 import ReferenceService from '@services/reference';
 import PaginationComp from '@components/molecules/Pagination';
-import AdviceItem from '@components/molecules/Blog/AdviceItem';
+import AdviceItem from '@components/molecules/Advertisement/AdviceItem';
 import Empty from '@components/molecules/Empty';
 import withAuth from '@components/atoms/withAuth';
 import { useAuthState } from '@context/auth';

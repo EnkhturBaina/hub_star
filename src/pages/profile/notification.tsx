@@ -10,17 +10,11 @@ import toast from 'react-hot-toast';
 import { NextPage } from 'next';
 import Empty from '@components/molecules/Empty';
 import withAuth from '@components/atoms/withAuth';
-import { AdvertisementService } from '@services/advertisement/advertisement.service';
-import { useDispatch } from 'react-redux';
-import { setNotfParam } from '@lib/features/adv-param';
-import { useTypedSelector } from '@lib/reducer';
+import AdvertisementService from '@services/advertisement';
 import { useAuthState } from '@context/auth';
 import ProfileLayout from '@components/molecules/Profile/ProfileLayout';
 
 const Notification: NextPage = () => {
-  const dispatch = useDispatch();
-  const advParam = useTypedSelector(state => state.advParam);
-
   const { user } = useAuthState();
   const [notifications, setNotifications] = useState<RefNotification[]>([]);
 
@@ -38,14 +32,6 @@ const Notification: NextPage = () => {
     getData();
   }, [getData]);
 
-  useEffect(() => {
-    dispatch(
-      setNotfParam({
-        notification: notifications.reduce((total, item) => total + (item.isSeen ? 0 : 1), 0),
-      })
-    );
-  }, [notifications]);
-
   const handleUpdate = async (notification: RefNotification) => {
     await ReferenceService.updateNotification(notification.id, {
       ...notification,
@@ -53,14 +39,7 @@ const Notification: NextPage = () => {
     }).then(res => {
       if (res.success) {
         getData().then(() => {
-          setTimeout(() => {
-            dispatch(
-              setNotfParam({
-                notification:
-                  advParam.notification > 0 ? advParam.notification - 1 : advParam.notification,
-              })
-            );
-          }, 600);
+          setTimeout(() => {}, 600);
         });
       }
     });

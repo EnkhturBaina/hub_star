@@ -13,31 +13,28 @@ import {
 } from '@heroui/react';
 import BreadCrumbs from '@components/atoms/BreadCrumbs';
 import { FaStar } from 'react-icons/fa';
-import { AdvertisementService } from '@services/advertisement/advertisement.service';
 import { Advertisement } from '@typeDefs/advertisement';
 import toast from 'react-hot-toast';
 import { useRouter } from 'next/router';
 import { Advice, RefNotification } from '@typeDefs/reference';
 import ReferenceService from '@services/reference';
-import { GetStaticProps, NextPage } from 'next';
-import ImageGallery from 'react-image-gallery';
+import { NextPage } from 'next';
+// import ImageGallery from 'react-image-gallery';
 import Rating from '@components/atoms/Rating';
 import UserTabData from '@datas/UserTabData';
 import SpecialServiceData from '@datas/SpecialServiceData';
-import { useDispatch } from 'react-redux';
-import { setAdvParam } from '@lib/features/adv-param';
-import { useSearchParams } from 'next/navigation';
-import BlogItem from '@components/molecules/Blog/BlogItem';
 import { dateFormat, moneyFormat } from '@utils/index';
 import { BiHeart } from 'react-icons/bi';
 import { UserCircleIcon } from '@heroicons/react/20/solid';
 import { useTranslations } from 'next-intl';
 import { useAuthState } from '@context/auth';
+import ImageGallery from '@components/atoms/gallery';
+import AdvertisementCard from '@components/atoms/advertisement';
+import AdvertisementService from '@services/advertisement';
 
 const SingleBlogPage: NextPage = () => {
   const t = useTranslations();
   const router = useRouter();
-  const dispatch = useDispatch();
   const { user } = useAuthState();
   const advertisements = [];
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
@@ -51,7 +48,6 @@ const SingleBlogPage: NextPage = () => {
   const [description, setDescription] = useState<string>('');
   const [advices, setAdvices] = useState<Advice[]>([]);
   const [blogType, setBlogType] = useState('');
-  const searchParams = useSearchParams();
 
   const takeTypeName = () => {
     if (data.userType !== null) {
@@ -72,24 +68,14 @@ const SingleBlogPage: NextPage = () => {
   };
 
   const getData = useCallback(async () => {
-    if (searchParams.get('id')) {
-      await AdvertisementService.getById(searchParams.get('id')).then(res => {
+    if (router.query?.id) {
+      await AdvertisementService.getById(router.query?.id).then(res => {
         if (res.success) {
           setData(res.response);
-          dispatch(
-            setAdvParam({
-              page: 1,
-              limit: 10,
-              order: 'DESC',
-              userType: res.response.userType,
-              specialService: res.response.specialService,
-              mainDirectionIds: [res.response.mainDirectionId],
-            })
-          );
         }
       });
     }
-  }, [searchParams.get('id')]);
+  }, [router.query?.id]);
 
   const getAdvice = () => {
     ReferenceService.getAdvice({
@@ -168,16 +154,7 @@ const SingleBlogPage: NextPage = () => {
   useEffect(() => {
     if (data) {
       getAdvice();
-      slideImages?.length !== data.images?.length &&
-        data.images?.map((el: any) => {
-          setSlideImages(slideImages => [
-            ...slideImages,
-            {
-              original: process.env.NEXT_PUBLIC_MEDIA_URL + el.id,
-              thumbnail: process.env.NEXT_PUBLIC_MEDIA_URL + el.id,
-            },
-          ]);
-        });
+      setSlideImages(data.images.map(item => process.env.NEXT_PUBLIC_MEDIA_URL + item.id));
     }
   }, [data]);
 
@@ -204,14 +181,7 @@ const SingleBlogPage: NextPage = () => {
               <div className="animate_top">
                 <div className="mb-10 w-full overflow-hidden ">
                   <div className="relative aspect-[97/60] w-full sm:aspect-[97/44]">
-                    {slideImages && (
-                      <ImageGallery
-                        items={slideImages}
-                        showPlayButton={false}
-                        autoPlay={true}
-                        slideInterval={2000}
-                      />
-                    )}
+                    {slideImages && <ImageGallery images={slideImages} />}
                   </div>
                 </div>
 
@@ -350,8 +320,8 @@ const SingleBlogPage: NextPage = () => {
             <div className="mx-auto max-w-screen-xl py-10">
               <span className="text-xl font-bold">Ижил төсөөтэй үйлчилгээ</span>
               <div className="my-4 grid grid-cols-1 gap-7.5 md:grid-cols-2 lg:grid-cols-4 xl:gap-10">
-                {advertisements.map((blog, key) => (
-                  <BlogItem blog={blog} key={key} />
+                {advertisements.map(item => (
+                  <AdvertisementCard advertisement={item} key={item.id} />
                 ))}
               </div>
             </div>
@@ -438,5 +408,4 @@ const SingleBlogPage: NextPage = () => {
     </>
   );
 };
-export const getStaticProps: GetStaticProps = withTranslationProps();
 export default SingleBlogPage;

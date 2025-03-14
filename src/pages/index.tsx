@@ -14,4 +14,5 @@ const HomePage: NextPage = () => {
     </main>
   );
 };
+
 export default HomePage;

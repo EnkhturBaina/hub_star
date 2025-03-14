@@ -1,73 +1,71 @@
+import React, { useEffect, useState } from 'react';
 import { LuSettings2 } from 'react-icons/lu';
-import { Checkbox, CheckboxGroup } from '@heroui/react';
-import { useCallback, useEffect, useState } from 'react';
 import ReferenceService from '@services/reference';
 import { RefDirection } from '@typeDefs/reference';
 import { useRouter } from 'next/router';
+import IApiResponse from '@typeDefs/response';
+import Checkbox from './checkbox';
 
-type Props = {
-  mainDirectionId?: number;
-  onDirectionIds: (directionIds: number[]) => void;
-  className?: string;
-};
-const SideCheckDirection: React.FC<Props> = ({
-  mainDirectionId,
-  onDirectionIds,
-  className = '',
-}) => {
+const SideCheckDirection = () => {
   const router = useRouter();
   const [directions, setDirections] = useState<RefDirection[]>([]);
-  const onChangeValue = (values: string[]) => {
-    const currentDirections = directions.filter(item => values.includes(String(item?.id)));
-    onDirectionIds(currentDirections.map(item => item?.id));
-  };
-  const getDirection = useCallback(async () => {
-    await ReferenceService.getDirection({ mainDirectionId, lang: router.locale }).then(res => {
-      if (res.success) {
-        setDirections(res.response);
-      }
-    });
-  }, [mainDirectionId, router.locale]);
 
   useEffect(() => {
-    getDirection();
-  }, [getDirection]);
+    const loadDirection = async () => {
+      try {
+        if (router.query?.mainDirectionId) {
+          const result: IApiResponse = await ReferenceService.getDirection({
+            mainDirectionId: router.query?.mainDirectionId,
+            lang: router.locale,
+          });
+          if (result.success) {
+            setDirections(result.response);
+          }
+        }
+      } catch (error) {
+        console.log('noop direction =>', error);
+      }
+    };
+    loadDirection();
+  }, [router.query?.mainDirectionId, router.locale]);
+
+  const choosedDir = router.query.directionIds
+    ? Array.isArray(router.query.directionIds)
+      ? router.query.directionIds
+      : [router.query.directionIds]
+    : [];
+  const handleCheckboxChange = (value: string) => {
+    const newSelection = choosedDir.includes(value)
+      ? choosedDir.filter(item => item !== value)
+      : [...choosedDir, value];
+    router.push(
+      {
+        pathname: router.pathname,
+        query: {
+          ...router.query,
+          directionIds: newSelection,
+        },
+      },
+      undefined,
+      { shallow: true }
+    );
+  };
 
   return (
-    <div className={`shadow-[rgba(0,0,15,0.5)_5px_0px_5px_-5px] md:w-1/4 lg:w-[20%] ${className}`}>
+    <div className="shadow-[rgba(0,0,15,0.5)_5px_0px_5px_-5px]">
       <div className="flex flex-row items-center justify-between border-b py-4 pr-2">
         <strong className="lg:text-lg text-base">Шүүлтүүр</strong>
         <LuSettings2 className="text-xl" />
       </div>
-      <CheckboxGroup
-        label={''}
-        color="warning"
-        key={1}
-        // value={adParam.subDirectionIds?.map(item => item.toString())}
-        classNames={{
-          base: 'my-4',
-        }}
-        onValueChange={onChangeValue}
-      >
-        {directions.map((item, index) => {
-          return (
-            <Checkbox
-              value={String(item?.id)}
-              classNames={{
-                base: 'w-full max-w-full',
-                label: 'w-full font-bold text-black text-base',
-                wrapper: 'custom-checkbox w-6 h-6',
-              }}
-              key={index}
-            >
-              <div className="flex w-full flex-row items-center justify-between">
-                <span className="lg:text-sm text-xs leading-none">{item?.name}</span>
-                <span className="text-sm">{item?.advices.length}</span>
-              </div>
-            </Checkbox>
-          );
-        })}
-      </CheckboxGroup>
+
+      {directions.map((item, index) => (
+        <Checkbox
+          key={index}
+          label={item.name}
+          checked={choosedDir.includes(item.id.toString())}
+          onChange={() => handleCheckboxChange(item.id.toString())}
+        />
+      ))}
     </div>
   );
 };

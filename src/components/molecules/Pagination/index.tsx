@@ -1,18 +1,17 @@
-'use client';
 import { Pagination } from '@heroui/react';
 import { motion } from 'framer-motion';
 import React from 'react';
-import { useRouter } from 'next/router';
-interface IProps {
-  page: any;
-  pageCount: any;
-}
-const PaginationComp: React.FC<IProps> = ({ page, pageCount }) => {
-  const router = useRouter();
-
-  const handlePagination = (param: any) => {
-    router.push({ query: param });
-  };
+import { useMainState } from '@context/main';
+const PaginationComp = ({
+  page = 1,
+  pageCount = 1,
+  limit = 10,
+}: {
+  page?: number;
+  pageCount?: number;
+  limit?: number;
+}) => {
+  const { addQuery } = useMainState();
   return (
     <motion.div
       variants={{
@@ -34,13 +33,7 @@ const PaginationComp: React.FC<IProps> = ({ page, pageCount }) => {
     >
       <Pagination
         showControls
-        onChange={page =>
-          handlePagination({
-            process: 'CREATED',
-            page,
-            limit: 10,
-          })
-        }
+        onChange={page => addQuery({ page, limit })}
         total={pageCount}
         initialPage={page}
         classNames={{

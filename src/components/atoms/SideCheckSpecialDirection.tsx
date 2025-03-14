@@ -1,56 +1,61 @@
-import { LuChevronLeft, LuSettings2 } from 'react-icons/lu';
-import { Accordion, AccordionItem, Checkbox, CheckboxGroup } from '@heroui/react';
+import React, { useEffect, useState } from 'react';
+import { LuSettings2 } from 'react-icons/lu';
+import { Accordion, AccordionItem } from '@heroui/react';
 import { RefDirection, SubDirection } from '@typeDefs/reference';
-import { useCallback, useEffect, useState } from 'react';
 import ReferenceService from '@services/reference';
-import { useTypedSelector } from '@lib/reducer';
-import { useDispatch } from 'react-redux';
-import { setAdvParam } from '@lib/features/adv-param';
-import SpecialServiceData from '@datas/SpecialServiceData';
 import { BiMinus } from 'react-icons/bi';
 import { BsPlus } from 'react-icons/bs';
+import { useRouter } from 'next/router';
+import IApiResponse from '@typeDefs/response';
+import Checkbox from './checkbox';
 
 type Props = {
   closeFnc?: () => void;
 };
 const SideCheckSpecialDirection: React.FC<Props> = ({ closeFnc }) => {
-  const advParam = useTypedSelector(state => state.advParam);
-  const dispatch = useDispatch();
+  const router = useRouter();
   const [directions, setDirections] = useState<RefDirection[]>([]);
 
-  const onChangeValue = (value: string[]) => {
-    const currentDirections = directions.filter(item => {
-      return item.subDirections.some(subdir => value.includes(String(subdir.id)));
-    });
-    dispatch(
-      setAdvParam({
-        ...advParam,
-        page: 1,
-        limit: 10,
-        directionIds: currentDirections?.map(item => item.id),
-        subDirectionIds: value.map(item => Number(item)),
-      })
+  useEffect(() => {
+    const getDirection = async () => {
+      try {
+        if (router.query?.specialService) {
+          const result: IApiResponse = await ReferenceService.getDirection({
+            specialService: router.query?.specialService,
+          });
+          if (result.success) {
+            setDirections(result.response);
+          }
+        }
+      } catch (error) {
+        console.log('noop error:', error);
+      }
+    };
+    getDirection();
+  }, [router.query?.specialService]);
+
+  // Query-оос ID-уудыг авч массив болгож хөрвүүлэх
+  const choosedSubDir = router.query.subDirectionIds
+    ? Array.isArray(router.query.subDirectionIds)
+      ? router.query.subDirectionIds
+      : [router.query.subDirectionIds]
+    : [];
+  const handleCheckboxChange = (value: string) => {
+    const newSelection = choosedSubDir.includes(value)
+      ? choosedSubDir.filter(item => item !== value)
+      : [...choosedSubDir, value];
+    router.push(
+      {
+        pathname: router.pathname,
+        query: {
+          ...router.query,
+          subDirectionIds: newSelection,
+        },
+      },
+      undefined,
+      { shallow: true }
     );
   };
-  const getDirection = useCallback(async () => {
-    console.log(
-      'types',
-      SpecialServiceData.map(item => item.type)
-    );
-    await ReferenceService.getDirection({
-      specialServices: advParam.specialService
-        ? [advParam.specialService]
-        : SpecialServiceData.map(item => item.type),
-    }).then(res => {
-      if (res.success) {
-        setDirections(res.response);
-      }
-    });
-  }, [advParam.specialService]);
-
-  useEffect(() => {
-    getDirection();
-  }, [getDirection]);
 
   return (
     <div className={`shadow-[rgba(0,0,15,0.5)_5px_0px_5px_-5px]`}>
@@ -60,10 +65,6 @@ const SideCheckSpecialDirection: React.FC<Props> = ({ closeFnc }) => {
           className="text-xl"
           onClick={closeFnc == undefined ? null : () => closeFnc()}
         />
-        {/* <LuChevronLeft
-          className="text-2xl"
-          onClick={closeFnc == undefined ? null : () => closeFnc()}
-        /> */}
       </div>
       <Accordion>
         {directions.map((direction: RefDirection, index: number) => {
@@ -77,30 +78,16 @@ const SideCheckSpecialDirection: React.FC<Props> = ({ closeFnc }) => {
               }
               indicator={({ isOpen }) => (isOpen ? <BiMinus className="rotate-90" /> : <BsPlus />)}
             >
-              <CheckboxGroup
-                color="warning"
-                value={(advParam.subDirectionIds || []).map(item => item.toString())}
-                onValueChange={onChangeValue}
-              >
-                {direction.subDirections.map((subDir: SubDirection, index: number) => {
-                  return (
-                    <Checkbox
-                      value={String(subDir.id)}
-                      classNames={{
-                        base: 'w-full max-w-full',
-                        label: 'w-full',
-                        wrapper: 'custom-checkbox w-6 h-6',
-                      }}
-                      key={index}
-                    >
-                      <div className="flex w-full flex-row items-center justify-between">
-                        <span className="text-sm leading-none">{subDir.name}</span>
-                        <span className="text-sm">{subDir.advertisements.length}</span>
-                      </div>
-                    </Checkbox>
-                  );
-                })}
-              </CheckboxGroup>
+              {direction.subDirections.map((subDir: SubDirection, index: number) => {
+                return (
+                  <Checkbox
+                    key={index}
+                    label={subDir.name}
+                    checked={choosedSubDir.includes(subDir.id.toString())}
+                    onChange={() => handleCheckboxChange(subDir.id.toString())}
+                  />
+                );
+              })}
             </AccordionItem>
           );
         })}

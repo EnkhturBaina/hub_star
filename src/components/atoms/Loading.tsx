@@ -2,7 +2,7 @@ import { Spinner } from '@heroui/react';
 import { Router } from 'next/router';
 import React, { useState, useEffect } from 'react';
 
-const LoadingProvider = ({ children }) => {
+const LoadingProvider = ({ children }: { children: React.ReactNode }) => {
   const [pageLoading, setPageLoading] = useState(false);
 
   useEffect(() => {

@@ -60,6 +60,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       }
       const result: Response = await AuthService.getCurrentUser(token);
       if (result && result?.data.success) {
+        AuthTokenStorageService.store(token);
         setUser(result.data);
       } else {
         return null;

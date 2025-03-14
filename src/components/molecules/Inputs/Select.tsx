@@ -1,24 +1,31 @@
-import { Autocomplete, AutocompleteItem } from '@heroui/react';
+import React from 'react';
+import { Autocomplete, AutocompleteItem, AutocompleteProps } from '@heroui/react';
+
 interface IOption {
   label: string;
-  value?: string | number;
+  value: string; // Remove optional since it's needed as a key
 }
-type Props = {
-  label?: string;
-  value?: string | number;
-  onSelectionChange?: (key: string | number) => void;
+
+interface CustomSelectProps extends Omit<AutocompleteProps, 'children'> {
   options: IOption[];
-  className?: string;
+  onSelectionChange?: (key: string) => void; // More specific type
   size?: 'sm' | 'md' | 'lg';
-};
-const CustomSelect: React.FC<Props> = ({
+}
+
+const CustomSelect: React.FC<CustomSelectProps> = ({
   size = 'lg',
   className,
   label,
-  value,
   onSelectionChange,
   options,
+  ...restProps // Allow passing other Autocomplete props
 }) => {
+  const defaultClassNames = {
+    label: 'font-bold',
+    input: '!outline-none !shadow-none',
+    inputWrapper: '!outline-none !shadow-none',
+  };
+
   return (
     <Autocomplete
       className={className}
@@ -28,23 +35,20 @@ const CustomSelect: React.FC<Props> = ({
       radius="sm"
       size={size}
       variant="bordered"
-      selectedKey={String(value)}
       onSelectionChange={onSelectionChange}
       clearIcon={false}
       inputProps={{
-        classNames: {
-          label: 'font-bold',
-          input: '!outline-none !shadow-none',
-          inputWrapper: '!outline-none !shadow-none',
-        },
+        classNames: defaultClassNames,
       }}
+      {...restProps}
     >
-      {options.map(item => (
-        <AutocompleteItem key={item.value} value={item.value}>
-          {item.label}
+      {options.map(({ value, label }) => (
+        <AutocompleteItem key={value} value={value}>
+          {label}
         </AutocompleteItem>
       ))}
     </Autocomplete>
   );
 };
+
 export default CustomSelect;
