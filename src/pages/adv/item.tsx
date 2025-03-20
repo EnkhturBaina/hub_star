@@ -1,4 +1,3 @@
-'use client';
 import React, { Fragment, useCallback, useEffect, useState } from 'react';
 import {
   Button,
@@ -19,7 +18,6 @@ import { useRouter } from 'next/router';
 import { Advice, RefNotification } from '@typeDefs/reference';
 import ReferenceService from '@services/reference';
 import { NextPage } from 'next';
-// import ImageGallery from 'react-image-gallery';
 import Rating from '@components/atoms/Rating';
 import UserTabData from '@datas/UserTabData';
 import SpecialServiceData from '@datas/SpecialServiceData';

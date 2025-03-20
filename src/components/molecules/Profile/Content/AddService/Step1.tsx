@@ -1,45 +1,81 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { RefDirection, SpecialServiceType, SubDirection, UserType } from '@typeDefs/reference';
 import ReferenceService from '@services/reference';
 import UserTabData from '@datas/UserTabData';
-import CustomSelect from '@components/molecules/Inputs/Select';
 import SpecialServiceData from '@datas/SpecialServiceData';
 import { useTranslations } from 'next-intl';
+import SelectField from '@components/atoms/selectField';
+import { useRouter } from 'next/router';
+import IApiResponse from '@typeDefs/response';
+import { CreateAdvertisement } from '@typeDefs/advertisement';
 interface IProps {
   isSpecial: boolean;
-  adData: any;
+  adData: CreateAdvertisement;
   setAdData: React.Dispatch<React.SetStateAction<any>>;
 }
 const Step1: React.FC<IProps> = ({ isSpecial, adData, setAdData }) => {
   const t = useTranslations();
-  const mainDirections = [];
-  const [directions, setDirections] = useState<RefDirection[]>([]);
-  const [subDirections, setSubDirections] = useState<SubDirection[]>([]);
+  const router = useRouter();
+  const [mainDirections, setMainDirections] = useState([]);
+  const [directions, setDirections] = useState([]);
+  const [subDirections, setSubDirections] = useState([]);
 
   useEffect(() => {
-    ReferenceService.getDirection({
-      mainDirectionId: adData.mainDirectionId,
-      specialServices: [adData.specialService],
-      userType: adData.userType,
-    }).then(response => {
-      if (response.success) {
-        setDirections(response.response);
+    const loadMainDirection = async () => {
+      if (!adData.userType) return;
+      try {
+        const result: IApiResponse = await ReferenceService.getMainDirection({
+          lang: router.locale,
+          userType: adData.userType,
+        });
+        if (result.success) {
+          setMainDirections(result.response);
+        }
+      } catch (error) {
+        console.log('noop main directions =>', error);
       }
-    });
-  }, [adData.mainDirectionId, adData.specialService, adData.userType]);
+    };
+    loadMainDirection();
+  }, [adData.userType]);
 
   useEffect(() => {
-    ReferenceService.getSubDirection({
-      directionId: adData.directionId,
-      userType: adData.userType,
-    }).then(response => {
-      if (response.success) {
-        setSubDirections(response.response);
+    const loadDirection = async () => {
+      try {
+        if (adData.mainDirectionId || adData.specialService) {
+          const result: IApiResponse = await ReferenceService.getDirection({
+            mainDirectionId: adData.mainDirectionId,
+            specialService: adData.specialService,
+            userType: adData.userType,
+          });
+          if (result.success) {
+            setDirections(result.response);
+          }
+        }
+      } catch (error) {
+        console.log('noop directions =>', error);
       }
-    });
-  }, [adData.directionId, adData.userType]);
+    };
+    loadDirection();
+  }, [adData.mainDirectionId, adData.specialService]);
+
+  useEffect(() => {
+    const loadSubDirection = async () => {
+      if (!adData.directionId) return;
+      try {
+        const result = await ReferenceService.getSubDirection({
+          directionId: adData.directionId,
+          userType: adData.userType,
+        });
+        if (result.success) {
+          setSubDirections(result.response);
+        }
+      } catch (error) {
+        console.log('noop sub directions =>', error);
+      }
+    };
+    loadSubDirection();
+  }, [adData.directionId]);
 
   return (
     <motion.div
@@ -61,61 +97,38 @@ const Step1: React.FC<IProps> = ({ isSpecial, adData, setAdData }) => {
       className="mb-4 grid w-full grid-cols-1 gap-y-4 overflow-hidden p-2"
     >
       {isSpecial ? (
-        <CustomSelect
+        <SelectField
           label="Онцгой үйлчилгээ"
-          value={adData?.specialService}
-          onSelectionChange={value => {
-            setAdData((prevState: any) => ({
-              ...prevState,
-              specialService: value as SpecialServiceType,
-            }));
-          }}
           options={SpecialServiceData.map(item => ({ value: item.type, label: t(item.title) }))}
+          onChange={value => setAdData(prevState => ({ ...prevState, specialService: value }))}
         />
       ) : (
         <>
-          <CustomSelect
+          <SelectField
             label="Хэрэглэгчийн төрөл"
-            value={adData?.userType}
-            onSelectionChange={value => {
-              setAdData((prevState: any) => ({
-                ...prevState,
-                userType: value as UserType,
-              }));
-            }}
             options={UserTabData.map(item => ({ value: item.type, label: t(item.title) }))}
+            onChange={value => setAdData(prevState => ({ ...prevState, userType: value }))}
           />
-          <CustomSelect
+          <SelectField
             label="Үйл ажиллагааны үндсэн чиглэл"
-            value={adData.mainDirectionId}
-            onSelectionChange={value => {
-              setAdData((adData: any) => ({
-                ...adData,
-                mainDirectionId: Number(value),
-              }));
-            }}
             options={mainDirections.map(item => ({ value: item.id, label: item.name }))}
+            onChange={value => setAdData(prevState => ({ ...prevState, mainDirectionId: value }))}
           />
         </>
       )}
-      <CustomSelect
+      <SelectField
         label="Үйл ажиллагааны чиглэл"
-        value={adData?.directionId}
-        onSelectionChange={value => {
-          setAdData((adData: any) => ({
-            ...adData,
-            directionId: Number(value),
-          }));
-        }}
         options={directions.map(item => ({ value: item.id, label: item.name }))}
+        onChange={value => setAdData(prevState => ({ ...prevState, directionId: value }))}
       />
-      <CustomSelect
+
+      <SelectField
         label="Үйл ажиллагааны нэр"
         value={adData?.subDirectionId}
-        onSelectionChange={value => {
+        onChange={value => {
           setAdData((adData: any) => ({
             ...adData,
-            subDirectionId: Number(value),
+            subDirectionId: value,
           }));
         }}
         options={subDirections.map(item => ({ value: item.id, label: item.name }))}

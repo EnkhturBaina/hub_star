@@ -16,6 +16,7 @@ import Footer from '@components/molecules/Footer';
 import ScrollToTop from '@components/molecules/ScrollToTop';
 import { MainProvider } from '@context/main';
 import { SocketProvider } from '@context/socketContext';
+import ProfileLayout from '@components/molecules/Layouts/ProfileLayout';
 
 const roboto = Nunito_Sans({
   subsets: ['latin'],
@@ -32,6 +33,7 @@ function MyApp({ Component, pageProps }: MyAppProps) {
   const router = useRouter();
   const locale = router.locale || 'mn';
   const isAuthRoute = router.pathname.startsWith('/auth');
+  const isProfileRoute = router.pathname.startsWith('/profile');
 
   return (
     <NextIntlClientProvider
@@ -42,36 +44,54 @@ function MyApp({ Component, pageProps }: MyAppProps) {
       <div className={`dark:bg-black ${roboto.className}`}>
         <HeroUIProvider>
           <ThemeProvider enableSystem={false} attribute="class" defaultTheme="light">
-            <div className="w-full min-h-screen h-fit flex flex-col justify-between">
-              {isAuthRoute ? (
-                <AuthProvider>
-                  <Component {...pageProps} />
-                  <LanguageSwitcher />
-                  <Footer />
-                </AuthProvider>
-              ) : (
-                <AuthProvider>
-                  <Toaster
-                    position="top-right"
-                    reverseOrder={false}
-                    gutter={8}
-                    containerClassName="custom-toast-container"
-                    toastOptions={{
-                      duration: 5000,
-                    }}
-                  />
-                  <SocketProvider>
+            <AuthProvider>
+              <SocketProvider>
+                <div className="w-full min-h-screen h-fit flex flex-col justify-between">
+                  {isAuthRoute ? (
+                    <>
+                      <Component {...pageProps} />
+                      <LanguageSwitcher />
+                      <Footer />
+                    </>
+                  ) : isProfileRoute ? (
+                    <>
+                      <Toaster
+                        position="top-right"
+                        reverseOrder={false}
+                        gutter={8}
+                        containerClassName="custom-toast-container"
+                        toastOptions={{
+                          duration: 5000,
+                        }}
+                      />
+                      <Header />
+                      <ProfileLayout>
+                        <Component {...pageProps} />
+                      </ProfileLayout>
+                      <LanguageSwitcher />
+                      <Footer />
+                    </>
+                  ) : (
                     <MainProvider>
+                      <Toaster
+                        position="top-right"
+                        reverseOrder={false}
+                        gutter={8}
+                        containerClassName="custom-toast-container"
+                        toastOptions={{
+                          duration: 5000,
+                        }}
+                      />
                       <Header />
                       <Component {...pageProps} />
                       <LanguageSwitcher />
                       <Footer />
                       <ScrollToTop />
                     </MainProvider>
-                  </SocketProvider>
-                </AuthProvider>
-              )}
-            </div>
+                  )}
+                </div>
+              </SocketProvider>
+            </AuthProvider>
           </ThemeProvider>
         </HeroUIProvider>
       </div>

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Metadata, NextPage } from 'next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import Signup from '@components/molecules/Auth/Signup';
@@ -15,9 +14,9 @@ export const metadata: Metadata = {
 const SignupPage: NextPage = () => {
   const [step, setStep] = useState<number>(1);
   const [details, setDetails] = useState<string>('');
-  const [_, setUser] = useState<Users>();
+  const [, setUser] = useState<Users>();
   const [username, setUsername] = useState<string>('');
-  const [__, setAccessToken] = useState<string>();
+  const [, setAccessToken] = useState<string>();
   return (
     <section className="flex h-[calc(100vh-100px)] flex-wrap">
       <div className="relative flex h-full w-full flex-col justify-center lg:flex-row">
@@ -47,38 +46,33 @@ const SignupPage: NextPage = () => {
           whileInView="visible"
           transition={{ duration: 1, delay: 0.5 }}
           viewport={{ once: true }}
-          className="animate_top flex h-2/3 items-center justify-center self-center sm:w-full md:h-full md:w-1/2 lg:h-full lg:w-1/2"
+          className="animate_top flex h-2/3 items-center justify-center self-center sm:w-full md:h-full md:w-[90%] lg:h-full"
         >
-          {step == 1 && (
-            <Signup
-              username={username}
-              setUsername={setUsername}
-              step={step}
-              setStep={setStep}
-              setDetails={setDetails}
-            />
-          )}
-          {step == 2 && (
-            <Verification
-              type="Registration"
-              details={details}
-              step={step}
-              setStep={setStep}
-              setUser={setUser}
-              setAccessToken={setAccessToken}
-              username={username}
-            />
-          )}
+          <div>
+            {step == 1 && (
+              <Signup
+                username={username}
+                setUsername={setUsername}
+                step={step}
+                setStep={setStep}
+                setDetails={setDetails}
+              />
+            )}
+            {step == 2 && (
+              <Verification
+                type="Registration"
+                details={details}
+                step={step}
+                setStep={setStep}
+                setUser={setUser}
+                setAccessToken={setAccessToken}
+                username={username}
+              />
+            )}
+          </div>
         </motion.div>
       </div>
     </section>
   );
 };
-export async function getStaticProps({ locale }) {
-  return {
-    props: {
-      ...(await serverSideTranslations(locale, ['common'])),
-    },
-  };
-}
 export default SignupPage;

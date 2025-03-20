@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import LanguageSwitcher from '@components/atoms/LanguageSwitcher';
-import LoadingProvider from '@components/atoms/Loading';
 import Header from '../Header';
 import Footer from '../Footer';
 import ScrollToTop from '../ScrollToTop';

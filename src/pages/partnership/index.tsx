@@ -4,7 +4,7 @@ import ReferenceService from '@services/reference';
 import { dateFormat } from '@utils/index';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import ReactImageGallery from 'react-image-gallery';
+import ImageGallery from '@components/atoms/gallery';
 
 const PartnershipPage: NextPage = () => {
   const router = useRouter();
@@ -36,14 +36,10 @@ const PartnershipPage: NextPage = () => {
           <div className="animate_top">
             <div className="mb-10 w-full overflow-hidden ">
               <div className="relative aspect-[97/60] w-full sm:aspect-[97/44]">
-                <ReactImageGallery
-                  items={(partnership?.photoIds ?? []).map((item: string) => ({
-                    original: process.env.NEXT_PUBLIC_MEDIA_URL + item,
-                    thumbnail: process.env.NEXT_PUBLIC_MEDIA_URL + item,
-                  }))}
-                  showPlayButton={false}
-                  autoPlay={true}
-                  slideInterval={2000}
+                <ImageGallery
+                  images={(partnership?.photoIds ?? []).map(
+                    (item: string) => process.env.NEXT_PUBLIC_MEDIA_URL + item
+                  )}
                 />
               </div>
             </div>

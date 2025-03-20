@@ -1,11 +1,15 @@
 'use client';
 import React from 'react';
-import { Button, Input } from '@heroui/react';
 import Link from 'next/link';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
-import { AuthService } from '@services/authentication/authentication.service';
 import { useTranslations } from 'next-intl';
+import IApiResponse from '@typeDefs/response';
+import AuthService from '@services/auth';
+import MyAlert from '@components/atoms/alert';
+import TextField from '@components/atoms/textField';
+import PasswordField from '@components/atoms/passwordField';
+import MyButton from '@components/atoms/button';
 
 type Props = {
   step: number;
@@ -16,101 +20,95 @@ type Props = {
 };
 const Signup: React.FC<Props> = ({ username, setUsername, step, setStep, setDetails }) => {
   const t = useTranslations();
-  const [password, setPassword] = useState<string>('');
-  const [password2, setPassword2] = useState<string>('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [buttonLoader, setButtonLoader] = useState(false);
+  const [registerError, setRegisterError] = useState(null);
+  const [errors, setErrors] = useState({
+    show: false,
+    username: false,
+    password: false,
+    confirmPassword: false,
+  });
 
-  const register = () => {
+  const handleRegister = async () => {
+    let isError = false;
     if (username == '') {
+      isError = true;
+      setErrors(prevState => ({ ...prevState, show: true, username: true }));
       toast.error('И-Мэйл эсвэл утсаа оруулна уу.');
-    } else if (password == '') {
+    }
+    if (password == '') {
+      isError = true;
+      setErrors(prevState => ({ ...prevState, show: true, password: true }));
       toast.error('Нууц үгээ оруулна уу.');
-    } else if (password2 == '') {
+    }
+    if (confirmPassword == '') {
+      isError = true;
+      setErrors(prevState => ({ ...prevState, show: true, confirmPassword: true }));
       toast.error('Нууц үгээ давтан оруулна уу.');
-    } else if (password != password2) {
-      toast.error('Нууц тохирохгүй байна.');
-    } else {
+    }
+    if (password == confirmPassword) {
+      setRegisterError('Нууц үг таарсангүй.');
+    }
+    if (isError) return;
+    else {
       try {
-        AuthService.register({ username, password })
-          .then(response => {
-            if (response.success) {
-              setDetails(response.response.details);
-              setStep(step + 1);
-            }
-          })
-          .catch(error => {
-            console.error('Error fetching :', error);
-            toast.error(error.response?.data?.message);
-          });
+        setButtonLoader(true);
+        const result: IApiResponse = await AuthService.register(username, password);
+        if (result && result.success) {
+          setDetails(result.response?.details);
+          setStep(step + 1);
+        } else {
+          setButtonLoader(false);
+          setRegisterError('Хэрэглэгчийн бүртгэл амжилтгүй боллоо');
+        }
       } catch (error) {
-        console.error('catch error :', error);
+        if (error?.response?.data?.message == 'User with that email already exists') {
+          setRegisterError('error');
+        }
+        setButtonLoader(false);
+        setRegisterError('Хэрэглэгч бүртгэлтэй байна.');
+        console.error('Auth register noop:', error);
       }
     }
   };
 
   return (
     <div className="mx-auto mb-10 grid w-[350px] grid-cols-1 rounded-md border border-stroke bg-gray-50 p-6 shadow-md">
-      <Input
-        key="username"
-        type="text"
+      {registerError ? (
+        <div className="mb-3 mt-4">
+          <MyAlert message={registerError} onClose={() => setRegisterError(null)} />
+        </div>
+      ) : null}
+      <TextField
         label={t('emailOrPhone')}
-        labelPlacement="outside"
         placeholder={t('emailOrPhone')}
-        radius="sm"
-        size="lg"
-        variant="bordered"
-        classNames={{
-          base: 'mb-8',
-          label: 'font-bold',
-          inputWrapper: ['custom-input-wrapper', 'bg-white'],
-        }}
         value={username}
-        onValueChange={setUsername}
+        handleChange={setUsername}
+        error={errors.username ? 'Нэвтрэх нэрээ оруулна уу.' : null}
       />
-      <Input
-        key="password"
-        type="password"
+      <PasswordField
         label={t('password')}
-        labelPlacement="outside"
         placeholder={t('password')}
-        radius="sm"
-        size="lg"
-        variant="bordered"
-        classNames={{
-          base: 'mb-8',
-          label: 'font-bold',
-          inputWrapper: ['custom-input-wrapper', 'bg-white'],
-        }}
         value={password}
-        onValueChange={setPassword}
+        handleChange={setPassword}
+        error={errors.password ? 'Нууц үгээ оруулна уу.' : null}
       />
-      <Input
-        key="repeatPassword"
-        type="password"
+      <PasswordField
         label={t('confirmPassword')}
-        labelPlacement="outside"
         placeholder={t('confirmPassword')}
-        radius="sm"
-        size="lg"
-        variant="bordered"
-        classNames={{
-          base: 'mb-8',
-          label: 'font-bold',
-          inputWrapper: ['custom-input-wrapper', 'bg-white'],
-        }}
-        value={password2}
-        onValueChange={setPassword2}
+        value={confirmPassword}
+        handleChange={setConfirmPassword}
+        error={errors.confirmPassword ? 'Нууц үгээ оруулна уу.' : null}
       />
-      <Button
-        radius="full"
-        className="mb-2 w-full rounded-md bg-mainColor font-bold leading-none text-white"
-        onPress={register}
-      >
-        Бүртгүүлэх
-      </Button>
+      <MyButton loading={buttonLoader} onClick={handleRegister}>
+        {t('register')}
+      </MyButton>
       <div className="text-center text-sm">
-        Та бүртгэлтэй юу?{' '}
+        {t('doYouHaveAnAccount')}
         <Link className="text-primary" href="/auth/signin">
-          Нэвтрэх
+          {t('login')}
         </Link>
       </div>
     </div>

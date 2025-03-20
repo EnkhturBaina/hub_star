@@ -4,7 +4,6 @@ import Contact from '@components/molecules/Profile/Content/Contact';
 import Profile from '@components/molecules/Profile/Content/Profile';
 import ServiceHistory from '@components/molecules/Profile/Content/ServiceHistory';
 import OtherLeftMenu from '@components/molecules/Profile/OtherLeftMenu';
-import { AuthService } from '@services/authentication/authentication.service';
 import { OtherProfileMenu } from '@typeDefs/reference';
 import Users from '@typeDefs/user';
 import { NextPage } from 'next';
@@ -12,6 +11,7 @@ import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
 import { LuChevronLeft, LuLayoutGrid, LuMenu } from 'react-icons/lu';
 import { Segment, Sidebar, SidebarPushable, SidebarPusher } from 'semantic-ui-react';
+import AuthService from '@services/auth';
 
 const OtherProfile: NextPage = () => {
   const [visible, setVisible] = useState(false);
@@ -40,7 +40,7 @@ const OtherProfile: NextPage = () => {
   ];
   const getUser = useCallback(async () => {
     if (paramId) {
-      await AuthService.otherProfile(Number(paramId)).then(res => {
+      await AuthService.otherProfile(paramId).then(res => {
         if (res.success) {
           setUser(res.response);
         }

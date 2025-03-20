@@ -1,8 +1,6 @@
-'use client';
 import { Advice } from '@typeDefs/reference';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import Link from 'next/link';
 import React from 'react';
 import {
   Modal,

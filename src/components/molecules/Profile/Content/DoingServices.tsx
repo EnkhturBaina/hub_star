@@ -1,5 +1,5 @@
 import React from 'react';
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Empty from '@components/molecules/Empty';
 import { Button } from '@heroui/react';
 import { CiGrid2H, CiGrid41 } from 'react-icons/ci';
@@ -7,6 +7,7 @@ import GridServices from './GridServices';
 import ListServices from './ListServices';
 import { Advertisement } from '@typeDefs/advertisement';
 import AdvertisementService from '@services/advertisement';
+import IApiResponse from '@typeDefs/response';
 
 type Props = {
   userId: number;
@@ -15,22 +16,25 @@ const DoingServices: React.FC<Props> = ({ userId }) => {
   const [isGrid, setIsGrid] = useState(true);
   const [advertisements, setAdvertisements] = useState<Advertisement[]>([]);
 
-  const getData = useCallback(async () => {
-    await AdvertisementService.get({
-      page: 1,
-      limit: 10,
-      order: 'DESC',
-      process: 'DOING',
-      userBy: userId,
-    }).then(res => {
-      if (res.success) {
-        setAdvertisements(res.response.data);
-      }
-    });
-  }, []);
   useEffect(() => {
-    getData();
-  }, [getData]);
+    const loadData = async () => {
+      try {
+        const result: IApiResponse = await AdvertisementService.getAd({
+          page: 1,
+          limit: 10,
+          order: 'DESC',
+          process: 'DOING',
+          userBy: userId,
+        });
+        if (result.success) {
+          setAdvertisements(result.response?.data);
+        }
+      } catch (error) {
+        console.log('noop advertisement => ', error);
+      }
+    };
+    loadData();
+  }, []);
 
   // const onIgeree = () => {
   //   window.open('http://192.82.92.171:3000/build/1881', '_blank');

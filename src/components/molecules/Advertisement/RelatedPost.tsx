@@ -27,11 +27,13 @@ const RelatedPost: React.FC<Props> = ({ advertisement }) => (
     className="animate_top shadow-solid- rounded-lg bg-white"
   >
     <Link href={`/adv/`} className="relative block aspect-[368/239]">
-      {/* <Image
-        src={process.env.NEXT_PUBLIC_MEDIA_URL + advertisement.images[0].id}
-        alt={advertisement.title}
-        fill
-      /> */}
+      {advertisement.images.length > 0 ? (
+        <Image
+          src={process.env.NEXT_PUBLIC_MEDIA_URL + advertisement.images[0].id}
+          alt={advertisement.title}
+          fill
+        />
+      ) : null}
     </Link>
 
     <div className="flex flex-col px-6 pb-2">

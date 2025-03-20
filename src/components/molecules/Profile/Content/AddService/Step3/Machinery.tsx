@@ -1,98 +1,98 @@
-'use client';
-
-import { motion } from 'framer-motion';
-import { Checkbox, Input, Textarea } from '@heroui/react';
-import { BsImage } from 'react-icons/bs';
-import { ICreateAd, IMachineryParam } from '@/interfaces/request.interface';
-import ImageUpload from '@components/molecules/Image/image-upload';
-import Image from 'next/image';
-import { MachineryType } from '@typeDefs/reference';
-import { useEffect } from 'react';
-import CustomSelect from '@components/molecules/Inputs/Select';
+import React, { useEffect, useState } from 'react';
+import { Input, Textarea } from '@heroui/react';
+import { RefMachineryType } from '@typeDefs/reference';
 import AdvImageUpload from '../AdvImageUpload';
+import SelectField from '@components/atoms/selectField';
+import ReferenceService from '@services/reference';
+import IApiResponse from '@typeDefs/response';
 interface IProps {
-  adData: ICreateAd;
-  setAdData: React.Dispatch<React.SetStateAction<ICreateAd>>;
-  getMachinery: React.Dispatch<React.SetStateAction<IMachineryParam>>;
-  machineryType: MachineryType[];
-  powerData: MachineryType[];
-  markData: MachineryType[];
-  modelData: MachineryType[];
+  adData: any;
+  setAdData: React.Dispatch<React.SetStateAction<any>>;
 }
 //Машин механизм
-const Machinery: React.FC<IProps> = ({
-  adData,
-  setAdData,
-  getMachinery,
-  machineryType,
-  markData,
-  powerData,
-  modelData,
-}) => {
+const Machinery: React.FC<IProps> = ({ adData, setAdData }) => {
+  const [machineries, setMachineries] = useState([]);
+  const [powers, setPowers] = useState([]);
+  const [marks, setMarks] = useState([]);
+  const [models, setModels] = useState([]);
+
   const handleChange =
-    (prop: keyof ICreateAd) => (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    (prop: keyof any) => (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
       setAdData({ ...adData, [prop]: event.target.value });
     };
+
   useEffect(() => {
-    getMachinery({ type: 'MACHINERY_TYPE', id: undefined });
-    getMachinery({ type: 'MARK', id: undefined });
-    getMachinery({ type: 'POWER', id: undefined });
+    loadMachinery('MACHINERY_TYPE');
+    loadMachinery('POWER');
+    loadMachinery('MARK');
   }, []);
 
   useEffect(() => {
-    if (adData.markId) {
-      getMachinery({ type: 'MODEL', parentId: adData.markId });
-    }
+    if (adData.markId) loadMachinery('MODEL', adData.markId);
   }, [adData.markId]);
+
+  const loadMachinery = async (type: RefMachineryType, parentId?: any) => {
+    try {
+      const result: IApiResponse = await ReferenceService.getMachinery({ type, parentId });
+      if (result.success) {
+        if (type == 'MACHINERY_TYPE') setMachineries(result.response);
+        if (type == 'POWER') setPowers(result.response);
+        if (type == 'MARK') setMarks(result.response);
+        if (type == 'MODEL') setModels(result.response);
+      }
+    } catch (error) {
+      console.log('noop machinery =>', error);
+    }
+  };
 
   return (
     <>
       <div className="grid grid-cols-1 gap-4">
-        <CustomSelect
+        <SelectField
           label="Машин механизмийн төрөл"
-          value={adData?.machineryTypeId?.toString()}
-          onSelectionChange={value => {
-            setAdData((prevState: ICreateAd) => ({
+          value={adData?.machineryTypeId}
+          onChange={value => {
+            setAdData(prevState => ({
               ...prevState,
-              machineryTypeId: Number(value),
+              machineryTypeId: value,
             }));
           }}
-          options={machineryType.map(item => ({ value: item.id, label: item.name }))}
+          options={machineries.map(item => ({ value: item.id, label: item.name }))}
         />
       </div>
       <div className="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1  gap-4">
-        <CustomSelect
+        <SelectField
           label="Марк"
           value={adData?.markId?.toString()}
-          onSelectionChange={value => {
-            setAdData((prevState: ICreateAd) => ({
+          onChange={value => {
+            setAdData(prevState => ({
               ...prevState,
-              markId: Number(value),
+              markId: value,
             }));
           }}
-          options={markData.map(item => ({ value: item.id, label: item.name }))}
+          options={marks.map(item => ({ value: item.id, label: item.name }))}
         />
-        <CustomSelect
+        <SelectField
           label="Загвар"
           value={adData?.modelId?.toString()}
-          onSelectionChange={value => {
-            setAdData((prevState: ICreateAd) => ({
+          onChange={value =>
+            setAdData(prevState => ({
               ...prevState,
-              modelId: Number(value),
-            }));
-          }}
-          options={modelData.map(item => ({ value: item.id, label: item.name }))}
+              modelId: value,
+            }))
+          }
+          options={models.map(item => ({ value: item.id, label: item.name }))}
         />
-        <CustomSelect
+        <SelectField
           label="Хүчин чадал"
           value={adData?.powerId?.toString()}
-          onSelectionChange={value => {
-            setAdData((prevState: ICreateAd) => ({
+          onChange={value =>
+            setAdData(prevState => ({
               ...prevState,
-              powerId: Number(value),
-            }));
-          }}
-          options={powerData.map(item => ({ value: item.id, label: item.name }))}
+              powerId: value,
+            }))
+          }
+          options={powers.map(item => ({ value: item.id, label: item.name }))}
         />
       </div>
       <div className="grid md:grid-cols-2 gap-4">

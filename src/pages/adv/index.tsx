@@ -1,7 +1,6 @@
 import React from 'react';
 import BreadCrumbs from '@components/atoms/BreadCrumbs';
 import SideCheckSubDirection from '@components/atoms/SideCheckSubDirection';
-import CustomSelect from '@components/molecules/Inputs/Select';
 import PaginationComp from '@components/molecules/Pagination';
 import ReferenceService from '@services/reference';
 import { Address, MachineryType, PageMeta } from '@typeDefs/reference';
@@ -14,6 +13,7 @@ import { useTranslations } from 'next-intl';
 import AdvertisementService from '@services/advertisement';
 import { useMainState } from '@context/main';
 import AdvertisementCard from '@components/atoms/advertisement';
+import SelectField from '@components/atoms/selectField';
 
 const AdvertisementPage: NextPage = () => {
   const t = useTranslations();
@@ -157,15 +157,15 @@ const AdvertisementPage: NextPage = () => {
                           {pageMeta.itemCount + ' ' + t('service').toLowerCase()}
                         </span>
                       </span>
-                      <CustomSelect
+                      <SelectField
+                        label="Эрэмбэлэх"
                         value={router.query?.order}
-                        onSelectionChange={value => addQuery({ order: value })}
+                        onChange={value => addQuery({ order: value })}
                         options={[
                           { label: 'Хуучин нь эхэндээ', value: 'DESC' },
                           { label: 'Шинэ нь эхэндээ', value: 'ASC' },
                         ]}
-                        className="md:block hidden !w-fit !outline-none"
-                        size="sm"
+                        className="block w-fit outline-none"
                       />
                       {!visible ? (
                         <div
@@ -181,7 +181,7 @@ const AdvertisementPage: NextPage = () => {
                     <div className="w-full my-4 grid md:grid-cols-3 grid-cols-2 gap-3 justify-between">
                       {(router.query?.userType == 'MACHINERY' ||
                         router.query?.userType == 'TRANSPORTATION') && (
-                        <CustomSelect
+                        <SelectField
                           label="Төрөл"
                           value={router.query.machineryTypeId}
                           options={machineryTypes.map(item => ({
@@ -189,38 +189,25 @@ const AdvertisementPage: NextPage = () => {
                             label: item.name,
                           }))}
                           className="w-full !outline-none"
-                          size="sm"
-                          onSelectionChange={value => addQuery({ machineryTypeId: value })}
+                          onChange={value => addQuery({ machineryTypeId: value })}
                         />
                       )}
-                      <CustomSelect
-                        label="Эрэмбэлэх"
-                        value={router.query?.order}
-                        onSelectionChange={value => addQuery({ order: value })}
-                        options={[
-                          { label: 'Хуучин нь эхэндээ', value: 'DESC' },
-                          { label: 'Шинэ нь эхэндээ', value: 'ASC' },
-                        ]}
-                        className="md:hidden block w-full !outline-none"
-                        size="sm"
-                      />
+
                       {router.query?.userType == 'SUPPLIER' && (
-                        <CustomSelect
+                        <SelectField
                           label={'Бараа материалын төрөл'}
                           value={router.query?.materialId}
-                          onSelectionChange={value => addQuery({ materialId: Number(value) })}
+                          onChange={value => addQuery({ materialId: Number(value) })}
                           options={materials.map(item => ({
                             value: item.id.toString(),
                             label: item.name,
                           }))}
-                          className="w-full"
-                          size="sm"
                         />
                       )}
-                      <CustomSelect
+                      <SelectField
                         label={'Аймаг, хот'}
                         value={router.query?.provinceId}
-                        onSelectionChange={value => {
+                        onChange={value => {
                           addQuery({ provinceId: value });
                         }}
                         options={provinces.map(item => ({
@@ -228,29 +215,24 @@ const AdvertisementPage: NextPage = () => {
                           value: item.id.toString(),
                         }))}
                         className="w-full"
-                        size="sm"
                       />
-                      <CustomSelect
+                      <SelectField
                         label={'Сум, дүүрэг'}
                         value={router.query?.districtId}
-                        onSelectionChange={value => addQuery({ districtId: value })}
+                        onChange={value => addQuery({ districtId: value })}
                         options={districts.map(item => ({
                           label: item.name,
                           value: item.id.toString(),
                         }))}
-                        className="w-full"
-                        size="sm"
                       />
-                      <CustomSelect
+                      <SelectField
                         label={'Баг, хороо'}
                         value={router.query?.khorooId}
-                        onSelectionChange={value => addQuery({ khorooId: value })}
+                        onChange={value => addQuery({ khorooId: value })}
                         options={khoroos.map(item => ({
                           label: item.name,
                           value: item.id.toString(),
                         }))}
-                        className="w-full"
-                        size="sm"
                       />
                     </div>
                   </div>

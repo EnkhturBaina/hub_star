@@ -8,7 +8,6 @@ import AdviceItem from '@components/molecules/Advertisement/AdviceItem';
 import Empty from '@components/molecules/Empty';
 import withAuth from '@components/atoms/withAuth';
 import { useAuthState } from '@context/auth';
-import ProfileLayout from '@components/molecules/Profile/ProfileLayout';
 
 const Advices = () => {
   const { user } = useAuthState();
@@ -39,40 +38,36 @@ const Advices = () => {
     };
     getData();
   }, [params]);
+  if (advices.length) {
+    return <Empty />;
+  } else
+    return (
+      <>
+        <motion.div
+          variants={{
+            hidden: {
+              opacity: 0,
+              y: -20,
+            },
 
-  return (
-    <ProfileLayout>
-      {advices.length == 0 ? (
-        <Empty />
-      ) : (
-        <>
-          <motion.div
-            variants={{
-              hidden: {
-                opacity: 0,
-                y: -20,
-              },
-
-              visible: {
-                opacity: 1,
-                y: 0,
-              },
-            }}
-            initial="hidden"
-            whileInView="visible"
-            transition={{ duration: 1, delay: 0.5 }}
-            viewport={{ once: true }}
-            className="animate_top grid grid-cols-5 gap-3"
-          >
-            {advices.map((item, index) => {
-              return <AdviceItem advice={item} key={index} />;
-            })}
-          </motion.div>
-          <PaginationComp page={pageMeta.page} pageCount={pageMeta.pageCount} />
-        </>
-      )}
-    </ProfileLayout>
-  );
+            visible: {
+              opacity: 1,
+              y: 0,
+            },
+          }}
+          initial="hidden"
+          whileInView="visible"
+          transition={{ duration: 1, delay: 0.5 }}
+          viewport={{ once: true }}
+          className="animate_top grid grid-cols-5 gap-3"
+        >
+          {advices.map((item, index) => {
+            return <AdviceItem advice={item} key={index} />;
+          })}
+        </motion.div>
+        <PaginationComp page={pageMeta.page} pageCount={pageMeta.pageCount} />
+      </>
+    );
 };
 
 export default withAuth(Advices);

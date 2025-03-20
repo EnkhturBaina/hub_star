@@ -1,15 +1,12 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import CatItem from './CatItem';
 import { motion } from 'framer-motion';
-import { useDraggable } from 'react-use-draggable-scroll';
 import ReferenceService from '@services/reference';
 import { MainDirection } from '@typeDefs/reference';
 import Title from '../../atoms/Title';
 import { useTranslations } from 'next-intl';
 
 const GridCategory = () => {
-  const ref = useRef(); // We will use React useRef hook to reference the wrapping div:
-  const { events } = useDraggable(ref); // Now we pass the reference to the useDraggable hook:
   const [mainDirections, setMainDirections] = useState<MainDirection[]>([]);
   const t = useTranslations();
 
@@ -47,11 +44,7 @@ const GridCategory = () => {
         <Title label={t('advices')} />
       </div>
       <div className="mx-auto mt-5 max-w-c-1280 overflow-x-auto flex min-w-0">
-        <div
-          className="overflow-x-scroll grid md:grid-cols-4 grid-cols-2 gap-8 no-scrollbar w-full"
-          {...events}
-          ref={ref}
-        >
+        <div className="overflow-x-scroll grid md:grid-cols-4 grid-cols-2 gap-8 no-scrollbar w-full">
           {mainDirections.map((item, index) => (
             <CatItem mainDirection={item} key={index} />
           ))}

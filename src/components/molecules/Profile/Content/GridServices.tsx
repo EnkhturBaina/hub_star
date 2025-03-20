@@ -1,4 +1,4 @@
-'use client';
+import React from 'react';
 import SpecialServiceData from '@datas/SpecialServiceData';
 import UserTabData from '@datas/UserTabData';
 import Rating from '@components/atoms/Rating';

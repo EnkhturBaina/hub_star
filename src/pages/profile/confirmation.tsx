@@ -1,24 +1,25 @@
 import React, { useEffect, useState } from 'react';
-import ProfileLayout from '@components/molecules/Profile/ProfileLayout';
 import withAuth from '@components/atoms/withAuth';
 import { GrOrganization, GrUser } from 'react-icons/gr';
 import { useRouter } from 'next/router';
-import { SsoGovService } from '@services/sso-gov/sso-gov.service';
 import toast from 'react-hot-toast';
-import { Button, Input } from '@heroui/react';
+// import { Button, Input } from '@heroui/react';
 import classNames from '@utils/classNames';
+import AuthService from '@services/auth';
+import MyButton from '@components/atoms/button';
+import NumberField from '@components/atoms/numberField';
 
 const Confirmation = () => {
   const router = useRouter();
   const [type, setType] = useState('');
-  const [orgRegno, setOrgregno] = useState('');
+  const [orgRegno, setOrgregno] = useState<number>();
 
   useEffect(() => {
     const getToken = async (token: any) => {
       if (typeof router.query.code == 'string') {
-        const { response } = await SsoGovService.getToken(token);
+        const { response } = await AuthService.getSsoGovToken(token);
         if (typeof response.access_token == 'string') {
-          const data = await SsoGovService.getData(response.access_token);
+          const data = await AuthService.getSsoGovData(response.access_token);
           console.log('data =========>', data);
         }
       }
@@ -40,12 +41,11 @@ const Confirmation = () => {
     }
   };
   return (
-    <ProfileLayout>
+    <>
       <div className="flex flex-col md:flex-row justify-center items-start gap-6">
-        <Button
+        <MyButton
           className="flex h-50 md:w-1/2 w-full p-2 flex-col justify-center items-center gap-2 rounded bg-slate-100 flex-grow flex-shrink-0"
-          onPress={() => setType('org')}
-          isIconOnly
+          onClick={() => setType('org')}
         >
           <GrOrganization
             className={classNames(
@@ -54,11 +54,10 @@ const Confirmation = () => {
             )}
           />
           <div className="font-medium text-center text-2xl">Хуулийн этгээд</div>
-        </Button>
-        <Button
+        </MyButton>
+        <MyButton
           className="flex h-50 md:w-1/2 w-full p-2 flex-col justify-center items-center gap-2 rounded bg-slate-100 flex-grow flex-shrink-0"
-          onPress={() => setType('citizen')}
-          isIconOnly
+          onClick={() => setType('citizen')}
         >
           <GrUser
             className={classNames(
@@ -67,7 +66,7 @@ const Confirmation = () => {
             )}
           />
           <div className="font-medium text-center text-2xl">Хувь хүн</div>
-        </Button>
+        </MyButton>
       </div>
       <div className="flex flex-col gap-y-2">
         {type == 'org' ? (
@@ -75,33 +74,19 @@ const Confirmation = () => {
             <div className="border border-yellow-400 bg-yellow-50 p-4 rounded-md text-yellow-800 mt-4">
               Анхааруулга: Байгууллага тоон гарын үсгээр баталгаажуулалт хийгдэнэ
             </div>
-            <Input
-              inputMode="numeric"
+            <NumberField
               label="Байгууллагын регистр"
-              labelPlacement="outside"
               placeholder="--"
-              radius="sm"
-              size="lg"
-              variant="bordered"
-              classNames={{
-                label: 'font-bold',
-                innerWrapper: ['custom-input-wrapper', 'bg-white'],
-              }}
               value={orgRegno}
-              onValueChange={setOrgregno}
+              onChange={setOrgregno}
             />
           </>
         ) : null}
-        <Button
-          className="mr-4 bg-mainColor !text-white"
-          radius="sm"
-          size="md"
-          onPress={handleConfirm}
-        >
+        <MyButton className="mt-4" onClick={handleConfirm}>
           Баталгаажуулах
-        </Button>
+        </MyButton>
       </div>
-    </ProfileLayout>
+    </>
   );
 };
 export default withAuth(Confirmation);

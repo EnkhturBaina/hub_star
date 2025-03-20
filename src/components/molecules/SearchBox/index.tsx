@@ -95,7 +95,6 @@ const SearchBox: React.FC = () => {
 
   return (
     <div className="flex w-full h-10 flex-row">
-      {/* <DropDown /> */}
       <Drawer isOpen={openDrawer} setIsOpen={setIsOpenDrawer}>
         <div className="!mb-2 !mt-0 md:flex gap-[48px] h-min w-full">
           <div className="w-fit flex flex-col gap-0 items-start justify-start">

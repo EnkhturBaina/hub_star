@@ -1,13 +1,19 @@
-import { getAccessToken } from '@services/api.service';
-import Redirect from './Redirect';
+import React, { useEffect } from 'react';
+import { useRouter } from 'next/router';
+import { useAuthState } from '@context/auth';
 
-function withAuth(Component: React.ComponentType) {
-  const token = getAccessToken();
-  return function AuthComponent(props: any) {
-    if (token) {
-      return <Component {...props} />;
-    }
-    return <Redirect to={'/auth/signin'} />;
+function withAuth<P extends object>(Component: React.ComponentType<P>) {
+  return function WithAuthComponent(props: P) {
+    const router = useRouter();
+    const { isAuthenticated } = useAuthState();
+
+    useEffect(() => {
+      if (!isAuthenticated) {
+        router.replace('/auth/signin');
+      }
+    }, []);
+
+    return isAuthenticated ? <Component {...props} /> : null;
   };
 }
 export default withAuth;

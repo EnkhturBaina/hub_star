@@ -156,10 +156,13 @@ export type RefNews = {
   relLink: string;
   imageId: number;
 };
+
+export type RefMachineryType = 'MACHINERY_TYPE' | 'MARK' | 'POWER' | 'MODEL' | 'MATERIAL';
+
 export type MachineryType = {
   id: number;
   name: string;
-  type: string;
+  type: RefMachineryType;
   parentId: number;
 };
 export type Participant = {

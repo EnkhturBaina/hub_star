@@ -1,25 +1,24 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Button, Input } from '@heroui/react';
-import toast, { Toaster } from 'react-hot-toast';
+import toast from 'react-hot-toast';
 import AccountFields from '@components/molecules/Skeleton/AccountFields';
 import { Users } from '@typeDefs/user';
-import { AuthService } from '@services/authentication/authentication.service';
 import withAuth from '@components/atoms/withAuth';
 import { useAuthState } from '@context/auth';
-import ProfileLayout from '@components/molecules/Profile/ProfileLayout';
+import AuthService from '@services/auth';
+import TextField from '@components/atoms/textField';
+import MyButton from '@components/atoms/button';
 
 const Account: React.FC = () => {
   const { user } = useAuthState();
   const [values, setValues] = useState<Users>(user);
-  const [isSaving, setIsSaving] = useState<boolean>(false);
+  const [buttonLoader, setButtonLoader] = useState<boolean>(false);
 
-  const handleChange =
-    (prop: keyof Users) => (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-      setValues({ ...values, [prop]: event.target.value });
-    };
+  const handleChange = (prop: keyof Users) => (value: any) => {
+    setValues({ ...values, [prop]: value });
+  };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!values?.bank) {
       toast.error('Банкны нэр оруулна уу.');
     } else if (!values?.bankAccountNo) {
@@ -27,115 +26,57 @@ const Account: React.FC = () => {
     } else if (!values?.bankAccount) {
       toast.error('Эзэмшигчийн нэр оруулна уу.');
     } else {
-      setIsSaving(true);
-      AuthService.updateById(user.id, values)
-        .then(response => {
-          if (response.success) {
-            setIsSaving(false);
-            toast.success('Амжилттай хадгаллаа');
-          }
-        })
-        .catch(error => {
-          toast.error('Error fetching :' + error);
-        });
+      try {
+        setButtonLoader(true);
+        const result = await AuthService.updateById(user.id, values);
+        if (result.success) {
+          setButtonLoader(false);
+          toast.success('Амжилттай хадгаллаа');
+        }
+      } catch (error) {
+        console.log('noop bank =>', error);
+      }
     }
   };
-  return (
-    <ProfileLayout>
-      {!values ? (
-        <AccountFields />
-      ) : (
-        <motion.div
-          variants={{
-            hidden: {
-              opacity: 0,
-              y: -20,
-            },
+  if (!values) return <AccountFields />;
+  else
+    return (
+      <motion.div
+        variants={{
+          hidden: {
+            opacity: 0,
+            y: -20,
+          },
 
-            visible: {
-              opacity: 1,
-              y: 0,
-            },
-          }}
-          initial="hidden"
-          whileInView="visible"
-          transition={{ duration: 1, delay: 0.5 }}
-          viewport={{ once: true }}
-          className="mb-4 grid w-full grid-cols-1 gap-y-4 overflow-hidden p-2"
-        >
-          <Toaster
-            position="top-center"
-            reverseOrder={false}
-            gutter={8}
-            containerClassName=""
-            containerStyle={{}}
-            toastOptions={{
-              duration: 5000,
-            }}
-          />
-          <Input
-            key="bank"
-            type="text"
-            label="Банкны нэр"
-            labelPlacement="outside"
-            placeholder="Банкны нэр"
-            radius="sm"
-            size="lg"
-            variant="bordered"
-            classNames={{
-              label: 'font-bold',
-              inputWrapper: ['custom-input-wrapper', 'bg-white'],
-            }}
-            value={values?.bank ?? ''}
-            onChange={handleChange('bank')}
-          />
-          <Input
-            key="bankAccountNo"
-            type="number"
-            label="Дансны дугаар"
-            labelPlacement="outside"
-            placeholder="Дансны дугаар"
-            radius="sm"
-            size="lg"
-            variant="bordered"
-            classNames={{
-              label: 'font-bold',
-              inputWrapper: ['custom-input-wrapper', 'bg-white'],
-            }}
-            value={values?.bankAccountNo ?? ''}
-            onChange={handleChange('bankAccountNo')}
-          />
-          <Input
-            key="bankAccount"
-            type="text"
-            label="Эзэмшигчийн нэр"
-            labelPlacement="outside"
-            placeholder="Эзэмшигчийн нэр"
-            radius="sm"
-            size="lg"
-            variant="bordered"
-            classNames={{
-              label: 'font-bold',
-              inputWrapper: ['custom-input-wrapper', 'bg-white'],
-            }}
-            value={values?.bankAccount ?? ''}
-            onChange={handleChange('bankAccount')}
-          />
-
-          <div className="flex flex-row justify-end">
-            <Button
-              className="mr-4 bg-mainColor !text-white"
-              radius="sm"
-              size="md"
-              onClick={handleSubmit}
-              isDisabled={isSaving}
-            >
-              Хадгалах
-            </Button>
-          </div>
-        </motion.div>
-      )}
-    </ProfileLayout>
-  );
+          visible: {
+            opacity: 1,
+            y: 0,
+          },
+        }}
+        initial="hidden"
+        whileInView="visible"
+        transition={{ duration: 1, delay: 0.5 }}
+        viewport={{ once: true }}
+        className="mb-4 grid w-full grid-cols-1 gap-y-4 overflow-hidden p-2"
+      >
+        <TextField
+          label="Банкны нэр"
+          placeholder="--"
+          value={values.bank}
+          handleChange={handleChange('bank')}
+        />
+        <TextField
+          label="Дансны дугаар"
+          placeholder="--"
+          value={values.bankAccountNo}
+          handleChange={handleChange('bankAccountNo')}
+        />
+        <div className="flex flex-row justify-end">
+          <MyButton onClick={handleSubmit} loading={buttonLoader}>
+            Хадгалах
+          </MyButton>
+        </div>
+      </motion.div>
+    );
 };
 export default withAuth(Account);

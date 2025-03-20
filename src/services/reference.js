@@ -1,3 +1,4 @@
+import uploadClient from '@lib/uploadClient';
 import apiClient from '../lib/apiClient';
 
 const ReferenceService = {
@@ -63,6 +64,10 @@ const ReferenceService = {
   },
   async newFeedback(payload) {
     const response = await apiClient.post('/feedback', payload);
+    return response.data;
+  },
+  async uploadFile(payload) {
+    const response = await uploadClient.post('/local-files/fileUpload/', payload);
     return response.data;
   },
 };

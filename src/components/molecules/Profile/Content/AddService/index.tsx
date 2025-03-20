@@ -1,7 +1,6 @@
-'use client';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Progress } from 'semantic-ui-react';
-import React, { useEffect, useState } from 'react';
 import Step1 from './Step1';
 import Step2 from './Step2';
 import toast from 'react-hot-toast';
@@ -10,19 +9,19 @@ import Executor from './Step3/Executor';
 import Supplier from './Step3/Supplier';
 import Transportation from './Step3/Transportation';
 import Machinery from './Step3/Machinery';
-import ReferenceService from '@services/reference';
-import { MachineryType } from '@typeDefs/reference';
 import PublicSelection from './Step3/PublicSelection';
 import InternationalTrade from './Step3/InternationalTrade';
 import ConsultingService from './Step3/ConsultingService';
 import VocationalTraining from './Step3/VocationalTraining';
 import LaboratoryMaterial from './Step3/LaboratoryMaterial';
 import MakeBudget from './Step3/MakeBudget';
-import { Button, Checkbox, Modal, ModalBody, ModalContent, ModalFooter } from '@heroui/react';
-import { useRouter } from 'next/router';
+import { Checkbox, Modal, ModalBody, ModalContent, ModalFooter } from '@heroui/react';
 import AdvertisementService from '@services/advertisement';
+import Terms from '@components/atoms/terms';
+import MyButton from '@components/atoms/button';
+import { CreateAdvertisement } from '@typeDefs/advertisement';
 
-const defaultCreateAd: ICreateAd = {
+const defaultCreateAd = {
   mainDirectionId: null,
   directionId: null,
   subDirectionId: null,
@@ -55,56 +54,23 @@ const defaultCreateAd: ICreateAd = {
 type Props = {
   isSpecial: boolean;
   setIsAddService: React.Dispatch<React.SetStateAction<boolean>>;
-  updateAdv?: ICreateAd;
+  updateAdv?: any;
 };
 const AddService: React.FC<Props> = ({ isSpecial, setIsAddService, updateAdv }) => {
-  const router = useRouter();
   const [step, setStep] = useState(1);
   const maxStep = 3;
-  const [createAd, setCreateAd] = useState<ICreateAd>(defaultCreateAd);
-
-  const [machineryType, setMachineryType] = useState<MachineryType[]>([]);
-  const [markData, setMarkData] = useState<MachineryType[]>([]);
-  const [powerData, setPowerData] = useState<MachineryType[]>([]);
-  const [modelData, setModelData] = useState<MachineryType[]>([]);
-  const [materials, setMaterials] = useState<MachineryType[]>([]);
-
+  const [createAd, setCreateAd] = useState<CreateAdvertisement>(defaultCreateAd);
   const [isOpen, setIsOpen] = useState(false);
 
   const onOpenChange = async () => {
-    await ReferenceService.getPageByType('TERM_OF_SERVICE').then(res => {
-      if (res.success) {
-        router.push('?menuId=' + res.response.menuId);
-        setIsOpen(!isOpen);
-      }
-    });
+    setIsOpen(!isOpen);
   };
 
-  const totalCounter = Object.entries(createAd).reduce((total, _) => total + 1, 0);
+  const totalCounter = Object.entries(createAd).reduce(total => total + 1, 0);
   const valueCounter = Object.entries(createAd).reduce(
     (total, item) => total + (item[1] !== null ? 1 : 0),
     0
   );
-
-  const onTermOfService = async () => {
-    await ReferenceService.getPageByType('TERM_OF_SERVICE').then(res => {
-      if (res.success) {
-        window.open('/docs/menu?menuId=' + res.response.menuId, '_blank');
-      }
-    });
-  };
-
-  const getMachinery = (params: IMachineryParam) => {
-    ReferenceService.getMachinery(params).then(response => {
-      if (response.success) {
-        params.type == 'MACHINERY_TYPE' && setMachineryType(response.response);
-        params.type == 'MARK' && setMarkData(response.response);
-        params.type == 'POWER' && setPowerData(response.response);
-        params.type == 'MODEL' && setModelData(response.response);
-        params.type == 'MATERIAL' && setMaterials(response.response);
-      }
-    });
-  };
 
   const createAdRequest = () => {
     if (updateAdv) {
@@ -298,7 +264,7 @@ const AddService: React.FC<Props> = ({ isSpecial, setIsAddService, updateAdv }) 
   };
 
   useEffect(() => {
-    updateAdv && setCreateAd(updateAdv);
+    if (updateAdv) setCreateAd(updateAdv);
   }, [updateAdv]);
   return (
     <motion.div
@@ -355,33 +321,13 @@ const AddService: React.FC<Props> = ({ isSpecial, setIsAddService, updateAdv }) 
             <Executor adData={createAd} setAdData={setCreateAd} />
           )}
           {createAd?.userType == 'SUPPLIER' && (
-            <Supplier
-              adData={createAd}
-              setAdData={setCreateAd}
-              materials={materials}
-              getMachinery={getMachinery}
-            />
+            <Supplier adData={createAd} setAdData={setCreateAd} />
           )}
           {createAd?.userType == 'TRANSPORTATION' && (
-            <Transportation
-              adData={createAd}
-              setAdData={setCreateAd}
-              getMachinery={getMachinery}
-              machineryType={machineryType}
-              powerData={powerData}
-              markData={markData}
-            />
+            <Transportation adData={createAd} setAdData={setCreateAd} />
           )}
           {createAd?.userType == 'MACHINERY' && (
-            <Machinery
-              adData={createAd}
-              setAdData={setCreateAd}
-              getMachinery={getMachinery}
-              machineryType={machineryType}
-              powerData={powerData}
-              markData={markData}
-              modelData={modelData}
-            />
+            <Machinery adData={createAd} setAdData={setCreateAd} />
           )}
           {createAd?.specialService == 'PUBLIC_SELECTION' && (
             <PublicSelection adData={createAd} setAdData={setCreateAd} />
@@ -445,41 +391,28 @@ const AddService: React.FC<Props> = ({ isSpecial, setIsAddService, updateAdv }) 
                   overflowY: 'auto',
                 }}
               >
-                <MenuPage />
+                <Terms />
               </ModalBody>
               <ModalFooter>
-                <Button
-                  className="w-full bg-mainColor text-white"
-                  onPress={() => {
+                <MyButton
+                  className="w-full"
+                  onClick={() => {
                     setCreateAd({ ...createAd, isTermOfService: true });
                     onClose();
                   }}
                 >
                   Үйлчилгээний нөхцөл зөвшөөрөх
-                </Button>
+                </MyButton>
               </ModalFooter>
             </>
           )}
         </ModalContent>
       </Modal>
       <div className="flex flex-row justify-between p-2">
-        <Button
-          variant="bordered"
-          radius="sm"
-          className="border-mainGray !bg-white !text-black"
-          size="md"
-          onClick={() => stepFnc('back')}
-        >
+        <MyButton variant="secondary" onClick={() => stepFnc('back')}>
           Буцах
-        </Button>
-        <Button
-          className="mr-4 bg-mainColor !text-white"
-          radius="sm"
-          size="md"
-          onClick={() => stepFnc('next')}
-        >
-          Хадгалах {`${step}/${maxStep}`}
-        </Button>
+        </MyButton>
+        <MyButton onClick={() => stepFnc('next')}>Хадгалах {`${step}/${maxStep}`}</MyButton>
       </div>
     </motion.div>
   );

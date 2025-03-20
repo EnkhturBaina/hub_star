@@ -1,9 +1,11 @@
 'use client';
-import { Button, Input } from '@heroui/react';
-import { useState } from 'react';
-import toast from 'react-hot-toast';
-import { AuthService } from '@services/authentication/authentication.service';
+import React, { useState } from 'react';
 import { useRouter } from 'next/router';
+import MyButton from '@components/atoms/button';
+import TextField from '@components/atoms/textField';
+import { useTranslations } from 'next-intl';
+import AuthService from '@services/auth';
+import MyAlert from '@components/atoms/alert';
 
 type Props = {
   token: string;
@@ -11,25 +13,33 @@ type Props = {
   setStep: React.Dispatch<React.SetStateAction<number>>;
 };
 const ChangePassword: React.FC<Props> = ({ token, step, setStep }) => {
+  const t = useTranslations();
   const router = useRouter();
-  const [password, setPassword] = useState<string>('');
+  const [password, setPassword] = useState('');
+  const [buttonLoader, setButtonLoader] = useState(false);
+  const [formError, setFormError] = useState(null);
+  const [errors, setErrors] = useState({ show: false, password: false });
 
-  const changePassword = () => {
+  const changePassword = async () => {
+    let isError = false;
     if (password == '') {
-      toast.error('Нууц үгээ оруулна уу.');
-    } else {
+      isError = true;
+      setErrors(prevState => ({ ...prevState, show: true, password: true }));
+    }
+    if (isError) return;
+    else {
       try {
-        AuthService.changePassword({ token, password })
-          .then(response => {
-            if (response.success) {
-              router.push('/auth/signin');
-            }
-          })
-          .catch(error => {
-            console.error('Error fetching :', error);
-            toast.error(error.response?.data?.message);
-          });
+        setButtonLoader(true);
+        const result = await AuthService.changePassword({ token, password });
+        if (result && result.success) {
+          router.push('/auth/signin');
+        } else {
+          setButtonLoader(false);
+          setFormError('error');
+        }
       } catch (error) {
+        setButtonLoader(false);
+        setFormError('error');
         console.error('catch error :', error);
       }
     }
@@ -37,38 +47,29 @@ const ChangePassword: React.FC<Props> = ({ token, step, setStep }) => {
 
   return (
     <div className="mx-auto mb-10 grid w-[350px] grid-cols-1 rounded-md border border-stroke bg-gray-50 p-6 shadow-md">
-      <Input
-        key="password"
-        type="text"
-        label="Нууц үг"
-        labelPlacement="outside"
-        placeholder="Нууц үг"
-        radius="sm"
-        size="lg"
-        variant="bordered"
-        classNames={{
-          base: 'mb-8',
-          label: 'font-bold',
-          inputWrapper: ['custom-input-wrapper', 'bg-white'],
-        }}
-        onValueChange={setPassword}
+      {formError ? (
+        <div className="mb-3 mt-4">
+          <MyAlert message="Нууц үг солиход алдаа гарлаа." onClose={() => setFormError(null)} />
+        </div>
+      ) : null}
+      <TextField
+        label={t('password')}
+        placeholder={t('password')}
+        value={password}
+        handleChange={setPassword}
+        error={errors.password ? 'Нууц үгээ оруулна уу.' : null}
       />
-      <Button
-        radius="full"
-        className="mb-2 w-full rounded-md bg-mainColor font-bold leading-none text-white"
-        onPress={changePassword}
-      >
-        Нууц үг солих
-      </Button>
-      <Button
-        radius="full"
-        className="mb-2 w-full rounded-md font-bold leading-none"
-        onPress={() => {
+      <MyButton className="mb-2" loading={buttonLoader} onClick={changePassword}>
+        {t('changePassword')}
+      </MyButton>
+      <MyButton
+        variant="link"
+        onClick={() => {
           setStep(step - 1);
         }}
       >
-        Буцах
-      </Button>
+        {t('back')}
+      </MyButton>
     </div>
   );
 };

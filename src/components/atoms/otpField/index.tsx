@@ -5,7 +5,7 @@ interface OtpFieldProps {
   onComplete?: (code: string) => void;
 }
 
-export const OtpField: React.FC<OtpFieldProps> = ({ length = 6, onComplete }) => {
+const OtpField: React.FC<OtpFieldProps> = ({ length = 6, onComplete }) => {
   const [otp, setOtp] = useState<string[]>(new Array(length).fill(''));
   const inputRefs = useRef([]);
 
@@ -57,3 +57,4 @@ export const OtpField: React.FC<OtpFieldProps> = ({ length = 6, onComplete }) =>
     </div>
   );
 };
+export default OtpField;

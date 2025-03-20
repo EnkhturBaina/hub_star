@@ -1,102 +1,80 @@
-'use client';
-
-import { motion } from 'framer-motion';
-import { Checkbox, Input, Textarea } from '@heroui/react';
-import { BsImage } from 'react-icons/bs';
-import { ICreateAd, IMachineryParam } from '@/interfaces/request.interface';
-import ImageUpload from '@components/molecules/Image/image-upload';
-import Image from 'next/image';
-import CustomSelect from '@components/molecules/Inputs/Select';
-import { MachineryType } from '@typeDefs/reference';
-import { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { Input, Textarea } from '@heroui/react';
 import AdvImageUpload from '../AdvImageUpload';
+import SelectField from '@components/atoms/selectField';
+import TextField from '@components/atoms/textField';
+import NumberField from '@components/atoms/numberField';
+import ReferenceService from '@services/reference';
+import IApiResponse from '@typeDefs/response';
 interface IProps {
-  adData: ICreateAd;
-  materials: MachineryType[];
-  setAdData: React.Dispatch<React.SetStateAction<ICreateAd>>;
-  getMachinery: React.Dispatch<React.SetStateAction<IMachineryParam>>;
+  adData: any;
+  setAdData: React.Dispatch<React.SetStateAction<any>>;
 }
 //Ханган нийлүүлэгч
-const Supplier: React.FC<IProps> = ({ adData, materials, setAdData, getMachinery }) => {
+const Supplier: React.FC<IProps> = ({ adData, setAdData }) => {
+  const [materials, setMaterials] = useState([]);
+
   useEffect(() => {
-    getMachinery({ type: 'MATERIAL' });
+    const loadMaterials = async () => {
+      try {
+        const result: IApiResponse = await ReferenceService.getMachinery({ type: 'MATERIAL' });
+        if (result.success) {
+          setMaterials(result.response);
+        }
+      } catch (error) {
+        console.log('noop machinery =>', error);
+      }
+    };
+    loadMaterials();
   }, []);
   return (
     <>
       <div className="grid md:grid-cols-3 gap-4">
-        <CustomSelect
+        <SelectField
           label="Тоног төхөөрөмж"
           value={adData?.materialId}
-          onSelectionChange={value => {
-            setAdData((prevState: ICreateAd) => ({
+          onChange={value => {
+            setAdData(prevState => ({
               ...prevState,
-              materialId: Number(value),
+              materialId: value,
             }));
           }}
           options={materials.map(item => ({ value: item.id, label: item.name }))}
         />
-        <Input
+        <TextField
           key="productName"
           type="text"
           label="Бүтээгдэхүүний нэр"
-          labelPlacement="outside"
           placeholder="--"
-          radius="sm"
-          size="lg"
-          variant="bordered"
-          classNames={{
-            label: 'font-bold',
-            inputWrapper: ['custom-input-wrapper', 'bg-white'],
-          }}
           value={adData?.productName}
-          onValueChange={e => {
-            setAdData((prevState: ICreateAd) => ({
+          handleChange={value =>
+            setAdData(prevState => ({
               ...prevState,
-              productName: e,
-            }));
-          }}
+              productName: value,
+            }))
+          }
         />
-        <Input
-          key="unitAmount"
-          type="number"
+        <NumberField
           label="Нэгжийн үнэ"
-          labelPlacement="outside"
           placeholder="--"
-          radius="sm"
-          size="lg"
-          variant="bordered"
-          classNames={{
-            label: 'font-bold',
-            inputWrapper: ['custom-input-wrapper', 'bg-white'],
-          }}
-          value={String(adData.unitAmount)}
-          onValueChange={e => {
-            setAdData((prevState: ICreateAd) => ({
+          value={adData.unitAmount}
+          onChange={value => {
+            setAdData(prevState => ({
               ...prevState,
-              unitAmount: parseInt(e),
+              unitAmount: value,
             }));
           }}
         />
-        <Input
-          key="packageAmount"
-          type="number"
+        <NumberField
           label="Багцын үнэ"
-          labelPlacement="outside"
           placeholder="--"
-          radius="sm"
-          size="lg"
-          variant="bordered"
-          classNames={{
-            label: 'font-bold',
-            inputWrapper: ['custom-input-wrapper', 'bg-white'],
-          }}
-          value={String(adData.packageAmount)}
-          onValueChange={e => {
-            setAdData((prevState: ICreateAd) => ({
+          value={adData.packageAmount}
+          onChange={value =>
+            setAdData(prevState => ({
               ...prevState,
-              packageAmount: parseInt(e),
-            }));
-          }}
+              packageAmount: value,
+            }))
+          }
         />
       </div>
       <AdvImageUpload adData={adData} setAdData={setAdData} />
@@ -113,7 +91,7 @@ const Supplier: React.FC<IProps> = ({ adData, materials, setAdData, getMachinery
         }}
         value={adData?.desciption}
         onValueChange={e => {
-          setAdData((prevState: ICreateAd) => ({
+          setAdData(prevState => ({
             ...prevState,
             desciption: e,
           }));
@@ -135,7 +113,7 @@ const Supplier: React.FC<IProps> = ({ adData, materials, setAdData, getMachinery
           }}
           value={adData?.email}
           onValueChange={e => {
-            setAdData((prevState: ICreateAd) => ({
+            setAdData(prevState => ({
               ...prevState,
               email: e,
             }));
@@ -156,7 +134,7 @@ const Supplier: React.FC<IProps> = ({ adData, materials, setAdData, getMachinery
           }}
           value={adData?.phone}
           onValueChange={e => {
-            setAdData((prevState: ICreateAd) => ({
+            setAdData(prevState => ({
               ...prevState,
               phone: e,
             }));

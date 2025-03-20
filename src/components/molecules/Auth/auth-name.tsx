@@ -1,3 +1,4 @@
+import React from 'react';
 import { Users } from '@typeDefs/user';
 import { MdVerified } from 'react-icons/md';
 interface IProps {

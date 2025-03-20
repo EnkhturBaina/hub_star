@@ -1,15 +1,10 @@
-'use client';
-
-import { motion } from 'framer-motion';
-import { Checkbox, Input, Textarea } from '@heroui/react';
-import { BsImage } from 'react-icons/bs';
-import { ICreateAd } from '@/interfaces/request.interface';
-import ImageUpload from '@components/molecules/Image/image-upload';
-import Image from 'next/image';
+import React from 'react';
+import { Input, Textarea } from '@heroui/react';
 import AdvImageUpload from '../AdvImageUpload';
+import { CreateAdvertisement } from '@typeDefs/advertisement';
 interface IProps {
-  adData: ICreateAd;
-  setAdData: React.Dispatch<React.SetStateAction<ICreateAd>>;
+  adData: CreateAdvertisement;
+  setAdData: React.Dispatch<React.SetStateAction<CreateAdvertisement>>;
 }
 //Гүйцэтгэгч
 const Executor: React.FC<IProps> = ({ adData, setAdData }) => {
@@ -31,7 +26,7 @@ const Executor: React.FC<IProps> = ({ adData, setAdData }) => {
           }}
           value={adData?.workerCount && adData.workerCount.toString()}
           onValueChange={e => {
-            setAdData((prevState: ICreateAd) => ({
+            setAdData((prevState: CreateAdvertisement) => ({
               ...prevState,
               workerCount: parseInt(e),
             }));
@@ -52,7 +47,7 @@ const Executor: React.FC<IProps> = ({ adData, setAdData }) => {
           }}
           value={adData?.counter?.toString()}
           onValueChange={e => {
-            setAdData((prevState: ICreateAd) => ({
+            setAdData((prevState: CreateAdvertisement) => ({
               ...prevState,
               counter: parseInt(e),
             }));
@@ -73,7 +68,7 @@ const Executor: React.FC<IProps> = ({ adData, setAdData }) => {
           }}
           value={String(adData.price)}
           onValueChange={e => {
-            setAdData((prevState: ICreateAd) => ({
+            setAdData((prevState: CreateAdvertisement) => ({
               ...prevState,
               price: parseInt(e),
             }));
@@ -94,7 +89,7 @@ const Executor: React.FC<IProps> = ({ adData, setAdData }) => {
         }}
         value={adData?.desciption}
         onValueChange={e => {
-          setAdData((prevState: ICreateAd) => ({
+          setAdData((prevState: CreateAdvertisement) => ({
             ...prevState,
             desciption: e,
           }));
@@ -116,7 +111,7 @@ const Executor: React.FC<IProps> = ({ adData, setAdData }) => {
           }}
           value={adData?.email}
           onValueChange={e => {
-            setAdData((prevState: ICreateAd) => ({
+            setAdData((prevState: CreateAdvertisement) => ({
               ...prevState,
               email: e,
             }));
@@ -137,7 +132,7 @@ const Executor: React.FC<IProps> = ({ adData, setAdData }) => {
           }}
           value={adData?.phone}
           onValueChange={e => {
-            setAdData((prevState: ICreateAd) => ({
+            setAdData((prevState: CreateAdvertisement) => ({
               ...prevState,
               phone: e,
             }));

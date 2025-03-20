@@ -4,7 +4,6 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import toast from 'react-hot-toast';
 import { useTranslations } from 'next-intl';
 import { useAuthState } from '@context/auth';
 import IApiResponse from '@typeDefs/response';
@@ -28,10 +27,8 @@ const Signin = () => {
     if (username == '') {
       isError = true;
       setErrors(prevState => ({ ...prevState, show: true, name: true }));
-      toast.error('И-Мэйл эсвэл утас оруулна уу.');
     }
     if (password == '') {
-      toast.error('Нууц үгээ оруулна уу.');
       setErrors(prevState => ({ ...prevState, show: true, password: true }));
     }
     if (isError) return;

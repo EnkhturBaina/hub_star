@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import ProfileFields from '@components/molecules/Skeleton/ProfileFields';
 import Users from '@typeDefs/user';
-import { Input, Textarea } from '@heroui/react';
 import Rating from '@components/atoms/Rating';
 import { toInteger } from 'lodash';
 import AdvertisementService from '@services/advertisement';
+import TextField from '@components/atoms/textField';
+import TextAreaField from '@components/atoms/textAreaField';
 type Props = {
   user: Users;
 };
@@ -62,66 +63,10 @@ const Contact: React.FC<Props> = ({ user }) => {
           <div className="items-center">
             <Rating point={rating} />
           </div>
-          <Input
-            disabled
-            key="phone"
-            type="text"
-            label="Утасны дугаар"
-            labelPlacement="outside"
-            placeholder="Утасны дугаар"
-            radius="sm"
-            size="lg"
-            variant="bordered"
-            classNames={{
-              label: 'font-bold',
-              inputWrapper: ['custom-input-wrapper', 'bg-white'],
-            }}
-            value={user?.phone}
-          />
-          <Input
-            disabled
-            key="webUrl"
-            type="email"
-            label="Веб хуудас"
-            labelPlacement="outside"
-            radius="sm"
-            size="lg"
-            variant="bordered"
-            classNames={{
-              label: 'font-bold',
-              inputWrapper: ['custom-input-wrapper', 'bg-white'],
-            }}
-            value={user?.webUrl}
-          />
-          <Input
-            disabled
-            key="email"
-            type="email"
-            label="И-мэйл хаяг"
-            labelPlacement="outside"
-            radius="sm"
-            size="lg"
-            variant="bordered"
-            classNames={{
-              label: 'font-bold',
-              inputWrapper: ['custom-input-wrapper', 'bg-white'],
-            }}
-            value={user?.email}
-          />
-          <Textarea
-            disabled
-            variant="bordered"
-            label="Хаяг"
-            labelPlacement="outside"
-            radius="sm"
-            placeholder="Хаяг"
-            classNames={{
-              base: 'w-full',
-              label: 'font-bold',
-              inputWrapper: ['custom-input-wrapper', 'bg-white'],
-            }}
-            value={user?.address}
-          />
+          <TextField label="Утасны дугаар" value={user?.phone} disabled />
+          <TextField label="Веб хуудас" value={user?.webUrl} disabled />
+          <TextField label="И-мэйл хаяг" value={user?.email} disabled />
+          <TextAreaField disabled label="Хаяг" value={user?.address} onChange={() => {}} />
         </motion.div>
       )}
     </>

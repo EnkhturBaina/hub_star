@@ -1,4 +1,3 @@
-'use client';
 import React from 'react';
 import { BreadcrumbItem, Breadcrumbs } from '@heroui/react';
 type Props = {

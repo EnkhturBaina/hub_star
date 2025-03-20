@@ -59,6 +59,14 @@ const Footer: React.FC = () => {
                           </Link>
                         </li>
                       ))}
+                    <li>
+                      <Link
+                        href="/terms"
+                        className="lg:text-base text-sm mb-3 inline-block text-white hover:text-mainColor"
+                      >
+                        Үйлчилгээний нөхцөл
+                      </Link>
+                    </li>
                   </ul>
                 </motion.div>
 

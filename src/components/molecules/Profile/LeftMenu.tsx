@@ -1,7 +1,7 @@
 'use client';
 import React, { useState } from 'react';
 import { MenuItem, Menu, Label } from 'semantic-ui-react';
-import { Divider, Input, ModalBody } from '@heroui/react';
+import { Divider, ModalBody } from '@heroui/react';
 import { CiLogout } from 'react-icons/ci';
 import { usePathname, useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
@@ -13,11 +13,11 @@ import {
   Button,
   useDisclosure,
 } from '@heroui/react';
-import { AuthService } from '@services/authentication/authentication.service';
-import { removeAccessToken } from '@services/api.service';
 import { ProfileRoute } from '@typeDefs/reference';
 import { useAuthState } from '@context/auth';
 import AdvertisementService from '@services/advertisement';
+import AuthService from '@services/auth';
+import TextField from '@components/atoms/textField';
 
 const profileRoutes: ProfileRoute[] = [
   {
@@ -82,6 +82,7 @@ const profileRoutes: ProfileRoute[] = [
   },
 ];
 const LeftMenu = () => {
+  const { setLogout } = useAuthState();
   const router = useRouter();
   const pathUrl = usePathname();
   const [delValue, setDelValue] = useState<string>();
@@ -161,12 +162,7 @@ const LeftMenu = () => {
                   className="rounded-xl bg-mainColor font-bold leading-none text-white"
                   onPress={() => {
                     onClose();
-                    AuthService.logout().then(response => {
-                      if (response.success) {
-                        removeAccessToken();
-                        router.push('/');
-                      }
-                    });
+                    setLogout();
                   }}
                 >
                   Гарах
@@ -191,7 +187,7 @@ const LeftMenu = () => {
                 Та дараах 448302 тоог оруулаад `Устгах` товчийг дарна уу?
               </ModalHeader>
               <ModalBody>
-                <Input value={delValue} onChange={e => setDelValue(e.target.value)} />
+                <TextField value={delValue} onChange={e => setDelValue(e.target.value)} />
               </ModalBody>
               <ModalFooter className="w-full flex justify-start items-center pl-0">
                 <Button color="default" variant="light" onPress={onClose}>
@@ -212,8 +208,7 @@ const LeftMenu = () => {
                       if (res.success && res.response.meta.itemCount == 0) {
                         AuthService.removeUser(user.id).then(response => {
                           if (response.success) {
-                            removeAccessToken();
-                            router.push('/auth/signin');
+                            setLogout();
                           }
                         });
                       } else {

@@ -28,6 +28,7 @@ const nextConfig = {
   env: {
     BASE_API_URL: process.env.NEXT_PUBLIC_BASE_API_URL,
     X_API_KEY: process.env.NEXT_PUBLIC_X_API_KEY,
+    MEDIA_URL: process.env.NEXT_PUBLIC_MEDIA_URL,
   },
   async headers() {
     return [

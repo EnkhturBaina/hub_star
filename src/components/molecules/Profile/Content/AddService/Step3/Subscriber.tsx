@@ -1,29 +1,17 @@
-'use client';
-
-import { motion } from 'framer-motion';
-import {
-  Button,
-  Card,
-  CardFooter,
-  CardHeader,
-  Checkbox,
-  Image,
-  Input,
-  Textarea,
-} from '@heroui/react';
-import { BsImage } from 'react-icons/bs';
-import { ICreateAd } from '@/interfaces/request.interface';
-import ImageUpload from '@components/molecules/Image/image-upload';
-import ImageList from '../AdvImageUpload';
+import React from 'react';
+import { Input, Textarea } from '@heroui/react';
 import AdvImageUpload from '../AdvImageUpload';
+import { CreateAdvertisement } from '@typeDefs/advertisement';
+
 interface IProps {
-  adData: ICreateAd;
-  setAdData: React.Dispatch<React.SetStateAction<ICreateAd>>;
+  adData: CreateAdvertisement;
+  setAdData: React.Dispatch<React.SetStateAction<CreateAdvertisement>>;
 }
 //Захиалагч
 const Subscriber: React.FC<IProps> = ({ adData, setAdData }) => {
   const handleChange =
-    (prop: keyof ICreateAd) => (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    (prop: keyof CreateAdvertisement) =>
+    (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
       setAdData({ ...adData, [prop]: event.target.value });
     };
   return (
@@ -44,7 +32,7 @@ const Subscriber: React.FC<IProps> = ({ adData, setAdData }) => {
           }}
           value={adData?.measurement}
           onValueChange={e => {
-            setAdData((prevState: ICreateAd) => ({
+            setAdData((prevState: CreateAdvertisement) => ({
               ...prevState,
               measurement: e,
             }));

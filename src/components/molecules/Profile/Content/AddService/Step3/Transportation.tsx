@@ -1,98 +1,86 @@
-'use client';
-
-import { motion } from 'framer-motion';
-import { Checkbox, Input, Textarea } from '@heroui/react';
-import { BsImage } from 'react-icons/bs';
-import { ICreateAd, IMachineryParam } from '@/interfaces/request.interface';
-import ImageUpload from '@components/molecules/Image/image-upload';
-import Image from 'next/image';
-import UserTabData from '@datas/UserTabData';
-import { MachineryType, UserTab } from '@typeDefs/reference';
+import React, { useState } from 'react';
+import { Input, Textarea } from '@heroui/react';
+import { CreateAdvertisement } from '@typeDefs/advertisement';
+import { RefMachineryType } from '@typeDefs/reference';
 import { useEffect } from 'react';
-import CustomSelect from '@components/molecules/Inputs/Select';
 import AdvImageUpload from '../AdvImageUpload';
+import SelectField from '@components/atoms/selectField';
+import NumberField from '@components/atoms/numberField';
+import IApiResponse from '@typeDefs/response';
+import ReferenceService from '@services/reference';
 interface IProps {
-  adData: ICreateAd;
-  setAdData: React.Dispatch<React.SetStateAction<ICreateAd>>;
-  getMachinery: React.Dispatch<React.SetStateAction<IMachineryParam>>;
-  machineryType: MachineryType[];
-  powerData: MachineryType[];
-  markData: MachineryType[];
+  adData: CreateAdvertisement;
+  setAdData: React.Dispatch<React.SetStateAction<CreateAdvertisement>>;
 }
 //Тээвэр
-const Transportation: React.FC<IProps> = ({
-  adData,
-  setAdData,
-  getMachinery,
-  machineryType,
-  markData,
-  powerData,
-}) => {
-  const handleChange =
-    (prop: keyof ICreateAd) => (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-      setAdData({ ...adData, [prop]: event.target.value });
-    };
+const Transportation: React.FC<IProps> = ({ adData, setAdData }) => {
+  const [machineryTypes, setMachineryTypes] = useState([]);
+  const [powers, setPowers] = useState([]);
+  const [marks, setMarks] = useState([]);
+
   useEffect(() => {
-    getMachinery({ type: 'MACHINERY_TYPE' });
-    getMachinery({ type: 'MARK' });
-    getMachinery({ type: 'POWER' });
+    const loadMachinery = async (type: RefMachineryType) => {
+      try {
+        const result: IApiResponse = await ReferenceService.getMachinery({ type });
+        if (result.success) {
+          if (type == 'MACHINERY_TYPE') setMachineryTypes(result.response);
+          if (type == 'POWER') setPowers(result.response);
+          if (type == 'MARK') setMarks(result.response);
+        }
+      } catch (error) {
+        console.log('noop machinery =>', error);
+      }
+    };
+    loadMachinery('MACHINERY_TYPE');
+    loadMachinery('POWER');
+    loadMachinery('MARK');
   }, []);
 
   return (
     <>
       <div className="grid md:grid-cols-2 gap-4">
-        <CustomSelect
+        <SelectField
           label="Тээврийн төрөл"
-          value={adData?.machineryTypeId?.toString()}
-          onSelectionChange={value => {
-            setAdData((prevState: ICreateAd) => ({
+          value={adData?.machineryTypeId}
+          onChange={value => {
+            setAdData((prevState: CreateAdvertisement) => ({
               ...prevState,
-              machineryTypeId: Number(value),
+              machineryTypeId: parseInt(value),
             }));
           }}
-          options={machineryType.map(item => ({ value: item.id, label: item.name }))}
+          options={machineryTypes.map(item => ({ value: item.id, label: item.name }))}
         />
-        <CustomSelect
+        <SelectField
           label="Марк"
-          value={adData?.markId?.toString()}
-          onSelectionChange={value => {
-            setAdData((prevState: ICreateAd) => ({
+          value={adData?.markId}
+          onChange={value => {
+            setAdData((prevState: CreateAdvertisement) => ({
               ...prevState,
-              markId: Number(value),
+              markId: parseInt(value),
             }));
           }}
-          options={markData.map(item => ({ value: item.id, label: item.name }))}
+          options={marks.map(item => ({ value: item.id, label: item.name }))}
         />
-        <CustomSelect
+        <SelectField
           label="Хүчин чадал"
           value={adData?.powerId?.toString()}
-          onSelectionChange={value => {
-            setAdData((prevState: ICreateAd) => ({
+          onChange={value => {
+            setAdData((prevState: CreateAdvertisement) => ({
               ...prevState,
-              powerId: Number(value),
+              powerId: parseInt(value),
             }));
           }}
-          options={powerData.map(item => ({ value: item.id, label: item.name }))}
+          options={powers.map(item => ({ value: item.id, label: item.name }))}
         />
 
-        <Input
-          key="unitAmount"
-          type="number"
+        <NumberField
           label="Нэгж үнэлгээ.цаг"
-          labelPlacement="outside"
           placeholder="--"
-          radius="sm"
-          size="lg"
-          variant="bordered"
-          classNames={{
-            label: 'font-bold',
-            inputWrapper: ['custom-input-wrapper', 'bg-white'],
-          }}
-          value={String(adData.unitAmount)}
-          onValueChange={e => {
-            setAdData((prevState: ICreateAd) => ({
+          value={adData.unitAmount}
+          onChange={value => {
+            setAdData((prevState: CreateAdvertisement) => ({
               ...prevState,
-              unitAmount: parseInt(e),
+              unitAmount: value,
             }));
           }}
         />
@@ -111,7 +99,7 @@ const Transportation: React.FC<IProps> = ({
           }}
           value={String(adData.packageAmount)}
           onValueChange={e => {
-            setAdData((prevState: ICreateAd) => ({
+            setAdData((prevState: CreateAdvertisement) => ({
               ...prevState,
               packageAmount: parseInt(e),
             }));
@@ -132,7 +120,7 @@ const Transportation: React.FC<IProps> = ({
         }}
         value={adData?.desciption}
         onValueChange={e => {
-          setAdData((prevState: ICreateAd) => ({
+          setAdData((prevState: CreateAdvertisement) => ({
             ...prevState,
             desciption: e,
           }));
@@ -154,7 +142,7 @@ const Transportation: React.FC<IProps> = ({
           }}
           value={adData?.email}
           onValueChange={e => {
-            setAdData((prevState: ICreateAd) => ({
+            setAdData((prevState: CreateAdvertisement) => ({
               ...prevState,
               email: e,
             }));
@@ -175,7 +163,7 @@ const Transportation: React.FC<IProps> = ({
           }}
           value={adData?.phone}
           onValueChange={e => {
-            setAdData((prevState: ICreateAd) => ({
+            setAdData((prevState: CreateAdvertisement) => ({
               ...prevState,
               phone: e,
             }));

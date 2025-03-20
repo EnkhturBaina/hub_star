@@ -1,4 +1,4 @@
-'use client';
+import React from 'react';
 import { motion } from 'framer-motion';
 import { Input } from '@heroui/react';
 import ProfileFields from '@components/molecules/Skeleton/ProfileFields';

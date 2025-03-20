@@ -1,21 +1,26 @@
 // components/Drawer.js
+import React from 'react';
 import classNames from '@utils/classNames';
-import { Button } from '@heroui/react';
 import { BiSolidRightArrowAlt } from 'react-icons/bi';
-
-const Drawer = ({ children, setIsOpen = (v: boolean) => {}, isOpen = false }) => {
+import MyButton from '@components/atoms/button';
+interface IProps {
+  children: React.ReactNode;
+  setIsOpen: (value: boolean) => void;
+  isOpen: boolean;
+}
+const Drawer = ({ children, setIsOpen, isOpen = false }: IProps) => {
   const toggleDrawer = () => {
     setIsOpen(!isOpen);
   };
 
   return (
     <>
-      <Button radius="none" className="rounded-l-md bg-white border-1" onClick={toggleDrawer}>
+      <MyButton onClick={toggleDrawer}>
         <div className="flex flex-row items-center">
           <span className="font-bold">Бүгд</span>
           <BiSolidRightArrowAlt size={20} />
         </div>
-      </Button>
+      </MyButton>
 
       {/* Mask */}
       <div

@@ -26,6 +26,7 @@ const TextField: React.FC<TextFieldProps> = ({
           error ? 'border-red-500' : 'border-gray-300',
           className ?? ''
         )}
+        placeholder="--"
         {...props}
         onChange={e => handleChange(e.target.value)}
       />

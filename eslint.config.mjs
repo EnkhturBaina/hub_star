@@ -11,8 +11,16 @@ export default [
   ...tseslint.configs.recommended,
   pluginReact.configs.flat.recommended,
   {
+    settings: {
+      react: {
+        version: 'detect',
+      },
+    },
     rules: {
       '@typescript-eslint/no-explicit-any': 'off',
     },
+  },
+  {
+    ignores: ['**/node_modules/**', '**/.next/**'],
   },
 ];

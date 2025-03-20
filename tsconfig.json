@@ -40,8 +40,8 @@
     "src/components/molecules/Profile/ListboxWrapper.jsx",
     "setupTests.js",
     "jest.config.js",
-    "src/lib/**/js",
-    "src/services/**/ts",
+    "src/lib/**/*.js",
+    "src/services/**/*.js",
     "next.config.js"
   ],
   "exclude": ["node_modules"]

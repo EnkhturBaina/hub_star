@@ -3,6 +3,7 @@ import { isEmpty } from 'lodash';
 import AuthTokenStorageService from './AuthTokenStorageService';
 import axios from 'axios';
 import process from 'process';
+import uploadClient from '@lib/uploadClient';
 
 const AuthService = {
   async authenticate(username, password) {
@@ -40,8 +41,16 @@ const AuthService = {
     const response = await apiClient.post('/authentication/change-password', payload);
     return response.data;
   },
-  async updateById(id, payload) {
-    const response = await apiClient.patch('/users/' + id, payload);
+  async changeAvatar(payload) {
+    const response = await uploadClient.post('/users/avatar', payload);
+    return response.data;
+  },
+  async changeCover(payload) {
+    const response = await uploadClient.post('/users/cover', payload);
+    return response.data;
+  },
+  async editMyProfile(payload) {
+    const response = await apiClient.patch('/users/profile', payload);
     return response.data;
   },
   async removeUser(id) {
@@ -49,7 +58,7 @@ const AuthService = {
     return response.data;
   },
   logout() {
-    AuthTokenStorageService.clearToken();
+    AuthTokenStorageService.clear();
   },
   isAuthenticated() {
     return !isEmpty(AuthTokenStorageService.getAccessToken());

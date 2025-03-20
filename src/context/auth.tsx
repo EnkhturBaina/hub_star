@@ -9,6 +9,7 @@ export interface AuthContextData {
   loading: boolean;
   setLogin: (token: string) => void;
   setLogout: () => void;
+  loadUserFromCookies: () => void;
 }
 
 export const authContextDefaultValue: AuthContextData = {
@@ -17,6 +18,7 @@ export const authContextDefaultValue: AuthContextData = {
   loading: true,
   setLogin: () => null,
   setLogout: () => null,
+  loadUserFromCookies: () => null,
 };
 
 export const AuthStateContext = createContext<AuthContextData>(authContextDefaultValue);
@@ -26,29 +28,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    async function loadUserFromCookies() {
-      const authToken =
-        AuthTokenStorageService.getAccessToken() &&
-        AuthTokenStorageService.getAccessToken() != 'false'
-          ? AuthTokenStorageService.getAccessToken()
-          : '';
-      if (authToken) {
-        try {
-          const res = await AuthService.getCurrentUser(authToken);
-          if (res && res?.status === 200) {
-            if (!isEmpty(res?.data)) {
-              setUser(res?.data?.response?.user);
-            }
-          } else {
-            return null;
-          }
-        } catch (err) {
-          console.log(err);
-        }
-        setLoading(false);
-      }
-      setLoading(false);
-    }
     loadUserFromCookies();
   }, []);
 
@@ -61,7 +40,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       const result: Response = await AuthService.getCurrentUser(token);
       if (result && result?.data.success) {
         AuthTokenStorageService.store(token);
-        setUser(result.data);
+        setUser(result.data?.response?.user);
       } else {
         return null;
       }
@@ -76,6 +55,30 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     setUser(null);
   };
 
+  async function loadUserFromCookies() {
+    const authToken =
+      AuthTokenStorageService.getAccessToken() &&
+      AuthTokenStorageService.getAccessToken() != 'false'
+        ? AuthTokenStorageService.getAccessToken()
+        : '';
+    if (authToken) {
+      try {
+        const res = await AuthService.getCurrentUser(authToken);
+        if (res && res?.status === 200) {
+          if (!isEmpty(res?.data)) {
+            setUser(res?.data?.response?.user);
+          }
+        } else {
+          return null;
+        }
+      } catch (err) {
+        console.log(err);
+      }
+      setLoading(false);
+    }
+    setLoading(false);
+  }
+
   return (
     <AuthStateContext.Provider
       value={{
@@ -84,6 +87,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         loading,
         setLogin,
         setLogout,
+        loadUserFromCookies,
       }}
     >
       {children}

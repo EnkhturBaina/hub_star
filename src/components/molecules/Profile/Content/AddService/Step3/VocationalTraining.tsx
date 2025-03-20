@@ -1,15 +1,10 @@
-'use client';
-
-import { motion } from 'framer-motion';
-import { Checkbox, Input, Textarea } from '@heroui/react';
-import { BsImage } from 'react-icons/bs';
-import { ICreateAd } from '@/interfaces/request.interface';
-import ImageUpload from '@components/molecules/Image/image-upload';
-import Image from 'next/image';
+import React from 'react';
+import { Input, Textarea } from '@heroui/react';
 import AdvImageUpload from '../AdvImageUpload';
+import { CreateAdvertisement } from '@typeDefs/advertisement';
 interface IProps {
-  adData: ICreateAd;
-  setAdData: React.Dispatch<React.SetStateAction<ICreateAd>>;
+  adData: CreateAdvertisement;
+  setAdData: React.Dispatch<React.SetStateAction<CreateAdvertisement>>;
 }
 const VocationalTraining: React.FC<IProps> = ({ adData, setAdData }) => {
   return (
@@ -30,7 +25,7 @@ const VocationalTraining: React.FC<IProps> = ({ adData, setAdData }) => {
           }}
           value={adData?.unitAmount?.toString()}
           onValueChange={e => {
-            setAdData((prevState: ICreateAd) => ({
+            setAdData((prevState: CreateAdvertisement) => ({
               ...prevState,
               unitAmount: parseInt(e),
             }));
@@ -51,7 +46,7 @@ const VocationalTraining: React.FC<IProps> = ({ adData, setAdData }) => {
         }}
         value={adData?.desciption}
         onValueChange={e => {
-          setAdData((prevState: ICreateAd) => ({
+          setAdData((prevState: CreateAdvertisement) => ({
             ...prevState,
             desciption: e,
           }));
@@ -73,7 +68,7 @@ const VocationalTraining: React.FC<IProps> = ({ adData, setAdData }) => {
           }}
           value={adData?.email}
           onValueChange={e => {
-            setAdData((prevState: ICreateAd) => ({
+            setAdData((prevState: CreateAdvertisement) => ({
               ...prevState,
               email: e,
             }));
@@ -94,7 +89,7 @@ const VocationalTraining: React.FC<IProps> = ({ adData, setAdData }) => {
           }}
           value={adData?.phone}
           onValueChange={e => {
-            setAdData((prevState: ICreateAd) => ({
+            setAdData((prevState: CreateAdvertisement) => ({
               ...prevState,
               phone: e,
             }));

@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { AuthService } from '@services/authentication/authentication.service';
 import { OtpType } from '@typeDefs/reference';
 import Users from '@typeDefs/user';
-import { Button } from '@heroui/react';
 import { useRouter } from 'next/router';
 import toast from 'react-hot-toast';
 import ExpiredTimer from '@components/atoms/expiredTimer';
-import { OtpField } from '@components/atoms/otpField';
+import OtpField from '@components/atoms/otpField';
+import MyButton from '@components/atoms/button';
+import AuthService from '@services/auth';
 
 type Props = {
   details: string;
@@ -73,22 +73,17 @@ const Verification: React.FC<Props> = ({
         <OtpField length={6} onComplete={setOtp} />
         <ExpiredTimer secound={60} handleClick={handleResend} />
       </div>
-      <Button
-        radius="full"
-        className="mb-2 w-full rounded-md bg-mainColor font-bold leading-none text-white"
-        onPress={verification}
-      >
+      <MyButton className="mb-2" onClick={verification}>
         Баталгаажуулах
-      </Button>
-      <Button
-        radius="full"
-        className="mb-2 w-full rounded-md font-bold leading-none"
-        onPress={() => {
+      </MyButton>
+      <MyButton
+        variant="link"
+        onClick={() => {
           setStep(step - 1);
         }}
       >
         Буцах
-      </Button>
+      </MyButton>
     </div>
   );
 };
