@@ -16,7 +16,7 @@ const ServiceHistory: React.FC<Props> = ({ userId = 0 }) => {
   const [advertisements, setAdvertisements] = useState<Advertisement[]>([]);
 
   const getData = useCallback(async () => {
-    await AdvertisementService.get({
+    await AdvertisementService.getAd({
       page: 1,
       limit: 10,
       order: 'DESC',

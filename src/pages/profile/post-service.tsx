@@ -7,8 +7,11 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { IoAddCircle } from 'react-icons/io5';
 import { useAuthState } from '@context/auth';
+import { useTranslations } from 'next-intl';
+import Head from 'next/head';
 
 const PostService: NextPage = () => {
+  const t = useTranslations('profile');
   const { user } = useAuthState();
   const [isAddService, setIsAddService] = useState<boolean>(false);
   const [isSpecial, setIsSpecial] = useState<boolean>(false);
@@ -21,10 +24,14 @@ const PostService: NextPage = () => {
     setIsAddService(true);
     setIsSpecial(isSpecial);
   };
-  if (isAddService) return <AddService isSpecial={isSpecial} setIsAddService={setIsAddService} />;
-  else {
-    if (!user?.isConfirm)
-      return (
+  return (
+    <>
+      <Head>
+        <title>{t('postService')} | Hub Star</title>
+      </Head>
+      {isAddService ? (
+        <AddService isSpecial={isSpecial} setIsAddService={setIsAddService} />
+      ) : !user?.isConfirm ? (
         <Card className="bg-orange-300 my-5">
           <CardBody>
             <p>
@@ -33,25 +40,25 @@ const PostService: NextPage = () => {
             </p>
           </CardBody>
         </Card>
-      );
-  }
-  return (
-    <div className="flex flex-col md:flex-row justify-center items-start gap-6">
-      <div
-        className="flex h-50 md:w-1/2 w-full p-2 flex-col justify-center items-center gap-2 rounded bg-slate-100 flex-grow flex-shrink-0"
-        onClick={() => handleChoose(true)}
-      >
-        <IoAddCircle className="text-[150px] text-mainBgGray hover:text-mainBlue cursor-pointer" />
-        <div className="font-medium text-center text-2xl">Онцгой үйлчилгээ</div>
-      </div>
-      <div
-        className="flex h-50 md:w-1/2 w-full p-2 flex-col justify-center items-center gap-2 rounded bg-slate-100 flex-grow flex-shrink-0"
-        onClick={() => handleChoose(false)}
-      >
-        <IoAddCircle className="text-[150px] text-mainBgGray hover:text-mainBlue cursor-pointer" />
-        <div className="font-medium text-center text-2xl">Энгийн үйлчилгээ</div>
-      </div>
-    </div>
+      ) : (
+        <div className="flex flex-col md:flex-row justify-center items-start gap-6">
+          <div
+            className="flex h-50 md:w-1/2 w-full p-2 flex-col justify-center items-center gap-2 rounded bg-slate-100 flex-grow flex-shrink-0"
+            onClick={() => handleChoose(true)}
+          >
+            <IoAddCircle className="text-[150px] text-mainBgGray hover:text-mainBlue cursor-pointer" />
+            <div className="font-medium text-center text-2xl">Онцгой үйлчилгээ</div>
+          </div>
+          <div
+            className="flex h-50 md:w-1/2 w-full p-2 flex-col justify-center items-center gap-2 rounded bg-slate-100 flex-grow flex-shrink-0"
+            onClick={() => handleChoose(false)}
+          >
+            <IoAddCircle className="text-[150px] text-mainBgGray hover:text-mainBlue cursor-pointer" />
+            <div className="font-medium text-center text-2xl">Энгийн үйлчилгээ</div>
+          </div>
+        </div>
+      )}
+    </>
   );
 };
 

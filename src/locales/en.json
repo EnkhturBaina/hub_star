@@ -25,5 +25,49 @@
   "laboratoryMaterial": "Material Laboratory Examination",
   "makeBudget": "Make Budget",
   "advices": "Advices",
-  "totalValue": "Total value"
+  "totalValue": "Total value",
+  "home": {
+    "home": "Home"
+  },
+  "auth": {
+    "lastName": "Last name",
+    "firstName": "First name",
+    "phone": "Phone",
+    "email": "E-mail",
+    "organizationName": "Organization name",
+    "organizationRegno": "Organization register no",
+    "jobPosition": "Job position",
+    "address": "Address"
+  },
+  "introduction": {
+    "introduction": "Introduction"
+  },
+  "terms": {
+    "terms": "Terms of condition"
+  },
+  "advertisement": {},
+  "advice": {},
+  "feedback": {},
+  "news": {},
+  "otherProfile": {
+    "otherProfile": "Other profile",
+    "workDone": "Work done",
+    "contact": "Contact us"
+  },
+  "profile": {
+    "profile": "Profile",
+    "confirmation": "Confirmation",
+    "postService": "Post service",
+    "postedService": "Posted service",
+    "doingService": "Doing service",
+    "savedServices": "Saved services",
+    "serviceHistory": "Service History",
+    "bankAccount": "Bank account",
+    "changePassword": "Change Password",
+    "notification": "Notification"
+  },
+  "partnership": {
+    "partnership": "Partnership"
+  },
+  "special": {}
 }

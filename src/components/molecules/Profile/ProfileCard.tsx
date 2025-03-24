@@ -1,26 +1,24 @@
 import React from 'react';
-import { useAuthState } from '@context/auth';
 import CoverUpload from './coverUpload';
 import AvatarUpload from './avatarUpload';
+import Users from '@typeDefs/user';
 
-interface ProfileCardProps {
-  name?: string;
-  role?: string;
-  imageUrl?: string;
-  description?: string;
-  email?: string;
+interface IProps {
+  user: Users;
+  edit?: boolean;
 }
 
-const ProfileCard: React.FC<ProfileCardProps> = () => {
-  const { user } = useAuthState();
-
+const ProfileCard: React.FC<IProps> = ({ user = null, edit = false }) => {
   return (
     <div className="md:max-w-full rounded-lg shadow-lg bg-white overflow-hidden">
-      <CoverUpload coverId={user?.coverId} />
+      <CoverUpload coverId={user?.coverId} edit={edit} />
       <div className="px-6 pb-6 md:flex md:items-start justify-between">
         <div className="md:flex md:items-start">
           {/* Profile image overlapping the cover */}
-          <AvatarUpload user={{ avatarId: user?.avatarId, firstName: user?.firstName }} />
+          <AvatarUpload
+            user={{ avatarId: user?.avatarId, firstName: user?.firstName }}
+            edit={edit}
+          />
           <div className="text-center mt-3 md:text-left md:ml-6">
             <div className="flex items-baseline justify-center md:justify-start">
               <h2 className="text-xl font-bold text-gray-800">

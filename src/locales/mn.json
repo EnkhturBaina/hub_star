@@ -25,5 +25,49 @@
   "laboratoryMaterial": "Материалын лаборатори шинжилгээ",
   "makeBudget": "Төсөв гаргах",
   "advices": "Зөвлөмжүүд",
-  "totalValue": "Нийт утга"
+  "totalValue": "Нийт утга",
+  "home": {
+    "home": "Нүүр"
+  },
+  "auth": {
+    "lastName": "Овог",
+    "firstName": "Нэр",
+    "phone": "Утас",
+    "email": "И-мэйл",
+    "organizationName": "Байгууллагын нэр",
+    "organizationRegno": "Organization register no",
+    "jobPosition": "Job position",
+    "address": "Address"
+  },
+  "introduction": {
+    "introduction": "Танилцуулга"
+  },
+  "terms": {
+    "terms": "Үйлчилгээний нөхцөл"
+  },
+  "advertisement": {},
+  "advice": {},
+  "feedback": {},
+  "news": {},
+  "otherProfile": {
+    "otherProfile": "Бусдын профайл",
+    "workDone": "Хийсэн ажилууд",
+    "contact": "Холбогдох"
+  },
+  "profile": {
+    "profile": "Профайл",
+    "confirmation": "Баталгаажуулалт",
+    "postService": "Үйлчилгээ байршуулах",
+    "postedService": "Байршуулсан үйлчилгээ",
+    "doingService": "Хийгдэж буй ажил",
+    "savedServices": "Хадгалсан үйлчилгээнүүд",
+    "serviceHistory": "Үйлчилгээний түүх",
+    "bankAccount": "Дансны мэдээлэл",
+    "changePassword": "Нууц үг солих",
+    "notification": "Мэдэгдэл"
+  },
+  "partnership": {
+    "partnership": "Салбарын байгууллага"
+  },
+  "special": {}
 }

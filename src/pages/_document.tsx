@@ -17,7 +17,10 @@ class MyDocument extends Document<Props> {
     return (
       <Html lang={currentLocale}>
         <Head title="Hubstar">
-          <meta name="description" content="HUBSTAR ALL AT ONCE" />
+          <meta name="viewport" content="width=device-width, initial-scale=1" />
+          <meta name="description" content="All at once" />
+          <meta name="keywords" content="Meta Start LLC, All at once, Hubstar" />
+          <meta name="author" content="G.Ulziikhutag" />
           <link rel="icon" href="/images/favicon.ico" />
         </Head>
         <body>

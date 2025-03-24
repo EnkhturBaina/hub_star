@@ -12,8 +12,11 @@ import toast from 'react-hot-toast';
 import { useAuthState } from '@context/auth';
 import AdvertisementService from '@services/advertisement';
 import IApiResponse from '@typeDefs/response';
+import { useTranslations } from 'next-intl';
+import Head from 'next/head';
 
 const PostedServices: NextPage = () => {
+  const t = useTranslations('profile');
   const { user } = useAuthState();
   const [isGrid, setIsGrid] = useState(true);
   const [advertisements, setAdvertisements] = useState<Advertisement[]>([]);
@@ -54,60 +57,65 @@ const PostedServices: NextPage = () => {
   };
 
   return (
-    <div className="mb-4 w-full overflow-hidden ">
-      <div className="flex justify-end">
-        <Button
-          className="min-w-unit-12 !px-0"
-          radius="sm"
-          onPress={() => {
-            setIsGrid(!isGrid);
-          }}
-        >
-          {isGrid ? <CiGrid2H className="text-4xl" /> : <CiGrid41 className="text-4xl" />}
-        </Button>
-      </div>
-      {advertisements.length == 0 ? (
-        <Empty />
-      ) : (
-        <div className="mx-auto mt-4 max-w-c-1280">
-          {isEditService ? (
-            <AddService
-              isSpecial={isSpecial}
-              setIsAddService={setIsEditService}
-              updateAdv={updateAdv}
-            />
-          ) : isGrid ? (
-            <GridServices
-              servicesData={advertisements}
-              isStars={false}
-              editAdv={advertisement => {
-                setIsEditService(true);
-                setIsSpecial(advertisement.specialService !== null);
-                setUpdateAdv({
-                  ...advertisement,
-                  imageIds: advertisement.images.map(item => item.id),
-                });
-              }}
-              removeAdv={id => removeAdv(id)}
-            />
-          ) : (
-            <ListServices
-              servicesData={advertisements}
-              isStars={false}
-              editAdv={advertisement => {
-                setIsEditService(true);
-                setIsSpecial(advertisement.specialService !== null);
-                setUpdateAdv({
-                  ...advertisement,
-                  imageIds: advertisement.images.map(item => item.id),
-                });
-              }}
-              removeAdv={id => removeAdv(id)}
-            />
-          )}
+    <>
+      <Head>
+        <title>{t('postedService')} | Hub Star</title>
+      </Head>
+      <div className="mb-4 w-full overflow-hidden ">
+        <div className="flex justify-end">
+          <Button
+            className="min-w-unit-12 !px-0"
+            radius="sm"
+            onPress={() => {
+              setIsGrid(!isGrid);
+            }}
+          >
+            {isGrid ? <CiGrid2H className="text-4xl" /> : <CiGrid41 className="text-4xl" />}
+          </Button>
         </div>
-      )}
-    </div>
+        {advertisements.length == 0 ? (
+          <Empty />
+        ) : (
+          <div className="mx-auto mt-4 max-w-c-1280">
+            {isEditService ? (
+              <AddService
+                isSpecial={isSpecial}
+                setIsAddService={setIsEditService}
+                updateAdv={updateAdv}
+              />
+            ) : isGrid ? (
+              <GridServices
+                servicesData={advertisements}
+                isStars={false}
+                editAdv={advertisement => {
+                  setIsEditService(true);
+                  setIsSpecial(advertisement.specialService !== null);
+                  setUpdateAdv({
+                    ...advertisement,
+                    imageIds: advertisement.images.map(item => item.id),
+                  });
+                }}
+                removeAdv={id => removeAdv(id)}
+              />
+            ) : (
+              <ListServices
+                servicesData={advertisements}
+                isStars={false}
+                editAdv={advertisement => {
+                  setIsEditService(true);
+                  setIsSpecial(advertisement.specialService !== null);
+                  setUpdateAdv({
+                    ...advertisement,
+                    imageIds: advertisement.images.map(item => item.id),
+                  });
+                }}
+                removeAdv={id => removeAdv(id)}
+              />
+            )}
+          </div>
+        )}
+      </div>
+    </>
   );
 };
 export default withAuth(PostedServices);

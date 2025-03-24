@@ -8,8 +8,11 @@ import classNames from '@utils/classNames';
 import AuthService from '@services/auth';
 import MyButton from '@components/atoms/button';
 import NumberField from '@components/atoms/numberField';
+import { useTranslations } from 'next-intl';
+import Head from 'next/head';
 
 const Confirmation = () => {
+  const t = useTranslations('profile');
   const router = useRouter();
   const [type, setType] = useState('');
   const [orgRegno, setOrgregno] = useState<number>();
@@ -42,6 +45,9 @@ const Confirmation = () => {
   };
   return (
     <>
+      <Head>
+        <title>{t('confirmation')} | Hub Star</title>
+      </Head>
       <div className="flex flex-col md:flex-row justify-center items-start gap-6">
         <MyButton
           className="flex h-50 md:w-1/2 w-full p-2 flex-col justify-center items-center gap-2 rounded bg-slate-100 flex-grow flex-shrink-0"

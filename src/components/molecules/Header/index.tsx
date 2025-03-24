@@ -103,7 +103,7 @@ const Header = () => {
 
                 <div className="flex w-30 flex-row justify-around gap-2">
                   <Link href="/profile/notification">
-                    <Badge content={0}>
+                    <Badge color={isConnected ? 'success' : 'danger'}>
                       <svg
                         width="26"
                         height="26"

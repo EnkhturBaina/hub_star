@@ -21,7 +21,7 @@ const ProfileLayout: React.FC<IProps> = ({ children }) => {
     return (
       <section className="bg-gray-100 py-18 lg:py-18 xl:py-18">
         <div className="mx-auto max-w-screen-xl md:px-4 xl:px-0">
-          <ProfileCard />
+          <ProfileCard user={user} edit={true} />
         </div>
         <SidebarPushable
           as={Segment}

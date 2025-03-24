@@ -8,8 +8,11 @@ import AuthService from '@services/auth';
 import PasswordField from '@components/atoms/passwordField';
 import MyButton from '@components/atoms/button';
 import IApiResponse from '@typeDefs/response';
+import { useTranslations } from 'next-intl';
+import Head from 'next/head';
 
 const Password = () => {
+  const t = useTranslations('profile');
   const { user } = useAuthState();
   const router = useRouter();
   const [oldPassword, setOldPassword] = useState<string>('');
@@ -52,52 +55,57 @@ const Password = () => {
     setRepeatPassword('');
   };
   return (
-    <motion.div
-      variants={{
-        hidden: {
-          opacity: 0,
-          y: -20,
-        },
+    <>
+      <Head>
+        <title>{t('changePassword')} | Hub Star</title>
+      </Head>
+      <motion.div
+        variants={{
+          hidden: {
+            opacity: 0,
+            y: -20,
+          },
 
-        visible: {
-          opacity: 1,
-          y: 0,
-        },
-      }}
-      initial="hidden"
-      whileInView="visible"
-      transition={{ duration: 1, delay: 0.5 }}
-      viewport={{ once: true }}
-      className="mb-4 grid w-full grid-cols-1 gap-y-4 overflow-hidden p-2"
-    >
-      <PasswordField
-        label="Хуучин нууц үг"
-        placeholder="Хуучин нууц үг"
-        value={oldPassword}
-        handleChange={setOldPassword}
-      />
-      <PasswordField
-        label="Шинэ нууц үг"
-        placeholder="Шинэ нууц үг"
-        value={newPassword}
-        handleChange={setNewPassword}
-      />
-      <PasswordField
-        label="Нууц үг давтах"
-        placeholder="Нууц үг давтах"
-        value={repeatPassword}
-        handleChange={setRepeatPassword}
-      />
+          visible: {
+            opacity: 1,
+            y: 0,
+          },
+        }}
+        initial="hidden"
+        whileInView="visible"
+        transition={{ duration: 1, delay: 0.5 }}
+        viewport={{ once: true }}
+        className="mb-4 grid w-full grid-cols-1 gap-y-4 overflow-hidden p-2"
+      >
+        <PasswordField
+          label="Хуучин нууц үг"
+          placeholder="Хуучин нууц үг"
+          value={oldPassword}
+          handleChange={setOldPassword}
+        />
+        <PasswordField
+          label="Шинэ нууц үг"
+          placeholder="Шинэ нууц үг"
+          value={newPassword}
+          handleChange={setNewPassword}
+        />
+        <PasswordField
+          label="Нууц үг давтах"
+          placeholder="Нууц үг давтах"
+          value={repeatPassword}
+          handleChange={setRepeatPassword}
+        />
 
-      <div className="flex flex-row justify-end">
-        <MyButton className="mr-4" onClick={handleChangePassword}>
-          Хадгалах
-        </MyButton>
-        <MyButton variant="secondary" onClick={handleClear}>
-          Цуцлах
-        </MyButton>
-      </div>
-    </motion.div>
+        <div className="flex flex-row justify-end">
+          <MyButton className="mr-4" onClick={handleChangePassword}>
+            Хадгалах
+          </MyButton>
+          <MyButton variant="secondary" onClick={handleClear}>
+            Цуцлах
+          </MyButton>
+        </div>
+      </motion.div>
+    </>
   );
 };
 

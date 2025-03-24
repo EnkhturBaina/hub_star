@@ -4,15 +4,17 @@ import GalleryIcon from '@components/atoms/icons/GalleryIcon';
 import IApiResponse from '@typeDefs/response';
 import AuthService from '@services/auth';
 import { useAuthState } from '@context/auth';
+import classNames from '@utils/classNames';
 
 interface CoverUploadProps {
-  coverId?: string;
+  coverId?: number;
+  edit?: boolean;
 }
 
-const CoverUpload: React.FC<CoverUploadProps> = ({ coverId }) => {
+const CoverUpload: React.FC<CoverUploadProps> = ({ coverId, edit = false }) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { loadUserFromCookies } = useAuthState();
-  const [fileId, setFileId] = useState<string>(coverId);
+  const [fileId, setFileId] = useState<number>(coverId);
   const [isLoading, setIsLoading] = useState(false);
 
   const handleFileSelect = async (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -35,13 +37,16 @@ const CoverUpload: React.FC<CoverUploadProps> = ({ coverId }) => {
   };
 
   const handleClick = () => {
-    fileInputRef.current?.click();
+    if (edit) fileInputRef.current?.click();
   };
 
   return (
     <div
       onClick={handleClick}
-      className="relative w-full h-[200px] bg-gray-100 rounded overflow-hidden flex items-center justify-center cursor-pointer"
+      className={classNames(
+        'relative w-full h-[200px] bg-gray-100 rounded overflow-hidden flex items-center justify-center',
+        edit ? 'cursor-pointer' : ''
+      )}
     >
       <input
         type="file"
@@ -57,7 +62,7 @@ const CoverUpload: React.FC<CoverUploadProps> = ({ coverId }) => {
         </>
       ) : isLoading ? (
         <h2>Уншиж байна...</h2>
-      ) : (
+      ) : edit ? (
         <div className="text-center">
           <button
             className="absolute bottom-4 right-4 p-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors"
@@ -66,7 +71,7 @@ const CoverUpload: React.FC<CoverUploadProps> = ({ coverId }) => {
             <GalleryIcon />
           </button>
         </div>
-      )}
+      ) : null}
     </div>
   );
 };

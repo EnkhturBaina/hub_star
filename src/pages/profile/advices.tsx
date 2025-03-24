@@ -8,8 +8,11 @@ import AdviceItem from '@components/molecules/Advertisement/AdviceItem';
 import Empty from '@components/molecules/Empty';
 import withAuth from '@components/atoms/withAuth';
 import { useAuthState } from '@context/auth';
+import { useTranslations } from 'next-intl';
+import Head from 'next/head';
 
 const Advices = () => {
+  const t = useTranslations();
   const { user } = useAuthState();
   const [params] = useState({
     page: 1,
@@ -38,11 +41,13 @@ const Advices = () => {
     };
     getData();
   }, [params]);
-  if (advices.length) {
-    return <Empty />;
-  } else
-    return (
-      <>
+
+  return (
+    <>
+      <Head>
+        <title>{t('advices')} | Hub Star</title>
+      </Head>
+      {advices.length > 0 ? (
         <motion.div
           variants={{
             hidden: {
@@ -64,10 +69,13 @@ const Advices = () => {
           {advices.map((item, index) => {
             return <AdviceItem advice={item} key={index} />;
           })}
+          <PaginationComp page={pageMeta.page} pageCount={pageMeta.pageCount} />
         </motion.div>
-        <PaginationComp page={pageMeta.page} pageCount={pageMeta.pageCount} />
-      </>
-    );
+      ) : (
+        <Empty />
+      )}
+    </>
+  );
 };
 
 export default withAuth(Advices);

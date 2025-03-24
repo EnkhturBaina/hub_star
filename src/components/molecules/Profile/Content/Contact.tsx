@@ -15,7 +15,7 @@ const Contact: React.FC<Props> = ({ user }) => {
 
   useEffect(() => {
     const getData = async () => {
-      await AdvertisementService.get({
+      await AdvertisementService.getAd({
         page: 1,
         limit: 300,
         order: 'DESC',

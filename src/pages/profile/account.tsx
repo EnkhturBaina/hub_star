@@ -8,8 +8,11 @@ import { useAuthState } from '@context/auth';
 import AuthService from '@services/auth';
 import TextField from '@components/atoms/textField';
 import MyButton from '@components/atoms/button';
+import { useTranslations } from 'next-intl';
+import Head from 'next/head';
 
 const Account: React.FC = () => {
+  const t = useTranslations('profile');
   const { user } = useAuthState();
   const [values, setValues] = useState<Users>(user);
   const [buttonLoader, setButtonLoader] = useState<boolean>(false);
@@ -41,42 +44,47 @@ const Account: React.FC = () => {
   if (!values) return <AccountFields />;
   else
     return (
-      <motion.div
-        variants={{
-          hidden: {
-            opacity: 0,
-            y: -20,
-          },
+      <>
+        <Head>
+          <title>{t('bankAccount')} | Hub Star</title>
+        </Head>
+        <motion.div
+          variants={{
+            hidden: {
+              opacity: 0,
+              y: -20,
+            },
 
-          visible: {
-            opacity: 1,
-            y: 0,
-          },
-        }}
-        initial="hidden"
-        whileInView="visible"
-        transition={{ duration: 1, delay: 0.5 }}
-        viewport={{ once: true }}
-        className="mb-4 grid w-full grid-cols-1 gap-y-4 overflow-hidden p-2"
-      >
-        <TextField
-          label="Банкны нэр"
-          placeholder="--"
-          value={values.bank}
-          handleChange={handleChange('bank')}
-        />
-        <TextField
-          label="Дансны дугаар"
-          placeholder="--"
-          value={values.bankAccountNo}
-          handleChange={handleChange('bankAccountNo')}
-        />
-        <div className="flex flex-row justify-end">
-          <MyButton onClick={handleSubmit} loading={buttonLoader}>
-            Хадгалах
-          </MyButton>
-        </div>
-      </motion.div>
+            visible: {
+              opacity: 1,
+              y: 0,
+            },
+          }}
+          initial="hidden"
+          whileInView="visible"
+          transition={{ duration: 1, delay: 0.5 }}
+          viewport={{ once: true }}
+          className="mb-4 grid w-full grid-cols-1 gap-y-4 overflow-hidden p-2"
+        >
+          <TextField
+            label="Банкны нэр"
+            placeholder="--"
+            value={values.bank}
+            handleChange={handleChange('bank')}
+          />
+          <TextField
+            label="Дансны дугаар"
+            placeholder="--"
+            value={values.bankAccountNo}
+            handleChange={handleChange('bankAccountNo')}
+          />
+          <div className="flex flex-row justify-end">
+            <MyButton onClick={handleSubmit} loading={buttonLoader}>
+              Хадгалах
+            </MyButton>
+          </div>
+        </motion.div>
+      </>
     );
 };
 export default withAuth(Account);

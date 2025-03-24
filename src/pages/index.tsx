@@ -1,17 +1,20 @@
 import React from 'react';
 import Hero from '@components/molecules/Hero';
-import { Metadata, NextPage } from 'next';
+import { NextPage } from 'next';
+import Head from 'next/head';
+import { useTranslations } from 'next-intl';
 
-export const metadata: Metadata = {
-  title: 'Hub star',
-  description: 'All at once',
-  // other metadata
-};
 const HomePage: NextPage = () => {
+  const t = useTranslations('home');
   return (
-    <main>
-      <Hero />
-    </main>
+    <>
+      <Head>
+        <title>{t('home')} | Hub Star</title>
+      </Head>
+      <main>
+        <Hero />
+      </main>
+    </>
   );
 };
 

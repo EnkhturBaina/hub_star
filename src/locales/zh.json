@@ -25,5 +25,49 @@
   "laboratoryMaterial": "材料實驗室檢驗",
   "makeBudget": "制定預算",
   "advices": "建議",
-  "totalValue": "總價值"
+  "totalValue": "總價值",
+  "home": {
+    "home": "家"
+  },
+  "auth": {
+    "lastName": "姓",
+    "firstName": "名",
+    "phone": "電話",
+    "email": "電子郵件",
+    "organizationName": "組織名稱",
+    "organizationRegno": "組織機構",
+    "jobPosition": "職位",
+    "address": "地址"
+  },
+  "introduction": {
+    "introduction": "介紹"
+  },
+  "terms": {
+    "terms": "服務條款"
+  },
+  "advertisement": {},
+  "advice": {},
+  "feedback": {},
+  "news": {},
+  "otherProfile": {
+    "otherProfile": "其他資料",
+    "workDone": "已完成工作",
+    "contact": "有關的"
+  },
+  "profile": {
+    "profile": "輪廓",
+    "confirmation": "確認",
+    "postService": "服務部署",
+    "postedService": "已部署的服務",
+    "doingService": "正在進行中",
+    "savedServices": "儲存服務",
+    "serviceHistory": "服役歷史",
+    "bankAccount": "銀行帳戶",
+    "changePassword": "更改密碼",
+    "notification": "公告"
+  },
+  "partnership": {
+    "partnership": "產業組織"
+  },
+  "special": {}
 }

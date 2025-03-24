@@ -8,12 +8,13 @@ import { RiLoaderLine } from 'react-icons/ri';
 
 interface AvatarUploadProps {
   user: {
-    avatarId?: string;
+    avatarId?: number;
     firstName?: string;
   };
+  edit?: boolean;
 }
 
-const AvatarUpload: React.FC<AvatarUploadProps> = ({ user }) => {
+const AvatarUpload: React.FC<AvatarUploadProps> = ({ user, edit = false }) => {
   const { loadUserFromCookies } = useAuthState();
   const [avatarUrl, setAvatarUrl] = useState(
     process.env.MEDIA_URL + user?.avatarId || '/images/user/user.png'
@@ -47,14 +48,16 @@ const AvatarUpload: React.FC<AvatarUploadProps> = ({ user }) => {
         fill
         className="rounded-full object-cover border-4 border-white"
       />
-      <label
-        className="absolute bottom-0 right-0 p-1 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors cursor-pointer"
-        title="Change avatar"
-        style={{ transform: 'translate(25%, 25%)' }}
-      >
-        <input type="file" className="hidden" accept="image/*" onChange={handleFileChange} />
-        {isLoading ? <RiLoaderLine /> : <GalleryIcon />}
-      </label>
+      {edit ? (
+        <label
+          className="absolute bottom-0 right-0 p-1 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors cursor-pointer"
+          title="Change avatar"
+          style={{ transform: 'translate(25%, 25%)' }}
+        >
+          <input type="file" className="hidden" accept="image/*" onChange={handleFileChange} />
+          {isLoading ? <RiLoaderLine /> : <GalleryIcon />}
+        </label>
+      ) : null}
     </div>
   );
 };

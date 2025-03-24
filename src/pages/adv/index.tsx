@@ -14,6 +14,7 @@ import AdvertisementService from '@services/advertisement';
 import { useMainState } from '@context/main';
 import AdvertisementCard from '@components/atoms/advertisement';
 import SelectField from '@components/atoms/selectField';
+import Head from 'next/head';
 
 const AdvertisementPage: NextPage = () => {
   const t = useTranslations();
@@ -120,6 +121,9 @@ const AdvertisementPage: NextPage = () => {
 
   return (
     <>
+      <Head>
+        <title>{t('services')} | Hub Star</title>
+      </Head>
       <section className="xl:pt-48 pt-46">
         <div className="mb-1 bg-gray-100 py-2 mt-4 flex justify-center">
           <div className="2xl:max-w-screen-2xl w-[90%] sm:px-6 sm:pt-0 pt-1">

@@ -29,6 +29,7 @@ import { useAuthState } from '@context/auth';
 import ImageGallery from '@components/atoms/gallery';
 import AdvertisementCard from '@components/atoms/advertisement';
 import AdvertisementService from '@services/advertisement';
+import Head from 'next/head';
 
 const SingleBlogPage: NextPage = () => {
   const t = useTranslations();
@@ -158,6 +159,9 @@ const SingleBlogPage: NextPage = () => {
 
   return (
     <>
+      <Head>
+        <title>{t('service')} | Hub Star</title>
+      </Head>
       <section className="pt-35 lg:pt-40 xl:pt-42.5">
         <Fragment>
           <div className="bg-gray-100 px-4 md:px-8 2xl:px-0 ">

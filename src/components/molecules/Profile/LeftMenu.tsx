@@ -198,7 +198,7 @@ const LeftMenu = () => {
                   isDisabled={delValue !== '448302'}
                   onPress={() => {
                     onClose();
-                    AdvertisementService.get({
+                    AdvertisementService.getAd({
                       userBy: user.id,
                       process: 'DOING',
                       order: 'ASC',
