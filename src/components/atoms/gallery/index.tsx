@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import classNames from '@utils/classNames';
 
@@ -6,6 +6,11 @@ const ImageGallery = (props: { images: string[] }) => {
   const [mainImage, setMainImage] = useState(props.images[0]);
   const currentIndex = props.images.indexOf(mainImage);
 
+  useEffect(() => {
+    if (props.images.length > 0) {
+      setMainImage(props.images[0]);
+    }
+  }, [props.images]);
   const handlePrevImage = () => {
     const newIndex = currentIndex === 0 ? props.images.length - 1 : currentIndex - 1;
     setMainImage(props.images[newIndex]);

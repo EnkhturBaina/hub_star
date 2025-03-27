@@ -37,7 +37,7 @@ const AdvertisementCard = ({ advertisement }: { advertisement: Advertisement }) 
     if (advertisement.images?.length == 0) {
       setImagePath('/images/blog_img.jpg');
     } else {
-      setImagePath(process.env.NEXT_PUBLIC_MEDIA_URL + advertisement.images[0]?.id);
+      setImagePath(process.env.MEDIA_URL + advertisement.images[0]?.id);
     }
   }, []);
 

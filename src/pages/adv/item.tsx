@@ -1,4 +1,4 @@
-import React, { Fragment, useCallback, useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import {
   Button,
   Image,
@@ -66,15 +66,18 @@ const SingleBlogPage: NextPage = () => {
     }
   };
 
-  const getData = useCallback(async () => {
-    if (router.query?.id) {
+  const getData = async () => {
+    if (!router.query?.id) return;
+    try {
       await AdvertisementService.getById(router.query?.id).then(res => {
         if (res.success) {
           setData(res.response);
         }
       });
+    } catch (error) {
+      console.log('ad noop =>', error);
     }
-  }, [router.query?.id]);
+  };
 
   const getAdvice = () => {
     ReferenceService.getAdvice({
@@ -142,7 +145,7 @@ const SingleBlogPage: NextPage = () => {
   };
   useEffect(() => {
     getData();
-  }, [getData]);
+  }, [router.query?.id]);
 
   useEffect(() => {
     if (data) {
@@ -153,7 +156,7 @@ const SingleBlogPage: NextPage = () => {
   useEffect(() => {
     if (data) {
       getAdvice();
-      setSlideImages(data.images.map(item => process.env.NEXT_PUBLIC_MEDIA_URL + item.id));
+      setSlideImages(data.images.map(item => process.env.MEDIA_URL + item.id));
     }
   }, [data]);
 
@@ -183,7 +186,7 @@ const SingleBlogPage: NextPage = () => {
               <div className="animate_top">
                 <div className="mb-10 w-full overflow-hidden ">
                   <div className="relative aspect-[97/60] w-full sm:aspect-[97/44]">
-                    {slideImages && <ImageGallery images={slideImages} />}
+                    {slideImages ? <ImageGallery images={slideImages} /> : null}
                   </div>
                 </div>
 
