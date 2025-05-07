@@ -23,7 +23,7 @@ const AdvertisementSection = () => {
   useEffect(() => {
     const loadAdvertisement = async () => {
       try {
-        const result = await AdvertisementService.getAd(router.query);
+        const result = await AdvertisementService.getAd({ process: 'CREATED', ...router.query });
         if (result.success) {
           setAdvertisements(result.response.data);
           setPageMeta(result.response?.meta);

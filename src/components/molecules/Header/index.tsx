@@ -172,7 +172,6 @@ const Header = () => {
               </>
             )}
           </div>
-          useSocket: {isConnected ? 'true' : 'false'}
         </div>
       </div>
       <div className="mx-4 mt-2 block md:hidden">

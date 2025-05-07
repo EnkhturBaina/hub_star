@@ -17,6 +17,7 @@ import ScrollToTop from '@components/molecules/ScrollToTop';
 import { MainProvider } from '@context/main';
 import { SocketProvider } from '@context/socketContext';
 import ProfileLayout from '@components/molecules/Layouts/ProfileLayout';
+import Head from 'next/head';
 
 const roboto = Nunito_Sans({
   subsets: ['latin'],
@@ -36,66 +37,75 @@ function MyApp({ Component, pageProps }: MyAppProps) {
   const isProfileRoute = router.pathname.startsWith('/profile');
 
   return (
-    <NextIntlClientProvider
-      messages={pageProps.messages}
-      locale={locale}
-      timeZone="Asia/Ulaanbaatar"
-    >
-      <div className={`dark:bg-black ${roboto.className}`}>
-        <HeroUIProvider>
-          <ThemeProvider enableSystem={false} attribute="class" defaultTheme="light">
-            <AuthProvider>
-              <SocketProvider>
-                <div className="w-full min-h-screen h-fit flex flex-col justify-between">
-                  {isAuthRoute ? (
-                    <>
-                      <Component {...pageProps} />
-                      <LanguageSwitcher />
-                      <Footer />
-                    </>
-                  ) : isProfileRoute ? (
-                    <>
-                      <Toaster
-                        position="top-right"
-                        reverseOrder={false}
-                        gutter={8}
-                        containerClassName="custom-toast-container"
-                        toastOptions={{
-                          duration: 5000,
-                        }}
-                      />
-                      <Header />
-                      <ProfileLayout>
+    <>
+      <Head>
+        <meta name="viewport" content="viewport-fit=cover" />
+        <meta name="description" content="All at once" />
+        <meta name="keywords" content="Meta Start LLC, All at once, Hubstar" />
+        <meta name="author" content="G.Ulziikhutag" />
+        <link rel="icon" href="/images/favicon.ico" />
+      </Head>
+      <NextIntlClientProvider
+        messages={pageProps.messages}
+        locale={locale}
+        timeZone="Asia/Ulaanbaatar"
+      >
+        <div className={`dark:bg-black ${roboto.className}`}>
+          <HeroUIProvider>
+            <ThemeProvider enableSystem={false} attribute="class" defaultTheme="light">
+              <AuthProvider>
+                <SocketProvider>
+                  <div className="w-full min-h-screen h-fit flex flex-col justify-between">
+                    {isAuthRoute ? (
+                      <>
                         <Component {...pageProps} />
-                      </ProfileLayout>
-                      <LanguageSwitcher />
-                      <Footer />
-                    </>
-                  ) : (
-                    <MainProvider>
-                      <Toaster
-                        position="top-right"
-                        reverseOrder={false}
-                        gutter={8}
-                        containerClassName="custom-toast-container"
-                        toastOptions={{
-                          duration: 5000,
-                        }}
-                      />
-                      <Header />
-                      <Component {...pageProps} />
-                      <LanguageSwitcher />
-                      <Footer />
-                      <ScrollToTop />
-                    </MainProvider>
-                  )}
-                </div>
-              </SocketProvider>
-            </AuthProvider>
-          </ThemeProvider>
-        </HeroUIProvider>
-      </div>
-    </NextIntlClientProvider>
+                        <LanguageSwitcher />
+                        <Footer />
+                      </>
+                    ) : isProfileRoute ? (
+                      <>
+                        <Toaster
+                          position="top-right"
+                          reverseOrder={false}
+                          gutter={8}
+                          containerClassName="custom-toast-container"
+                          toastOptions={{
+                            duration: 5000,
+                          }}
+                        />
+                        <Header />
+                        <ProfileLayout>
+                          <Component {...pageProps} />
+                        </ProfileLayout>
+                        <LanguageSwitcher />
+                        <Footer />
+                      </>
+                    ) : (
+                      <MainProvider>
+                        <Toaster
+                          position="top-right"
+                          reverseOrder={false}
+                          gutter={8}
+                          containerClassName="custom-toast-container"
+                          toastOptions={{
+                            duration: 5000,
+                          }}
+                        />
+                        <Header />
+                        <Component {...pageProps} />
+                        <LanguageSwitcher />
+                        <Footer />
+                        <ScrollToTop />
+                      </MainProvider>
+                    )}
+                  </div>
+                </SocketProvider>
+              </AuthProvider>
+            </ThemeProvider>
+          </HeroUIProvider>
+        </div>
+      </NextIntlClientProvider>
+    </>
   );
 }
 MyApp.getInitialProps = async (appContext: any) => {

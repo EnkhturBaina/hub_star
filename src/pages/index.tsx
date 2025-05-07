@@ -9,7 +9,7 @@ const HomePage: NextPage = () => {
   return (
     <>
       <Head>
-        <title>{t('home')} | Hub Star</title>
+        <title>{`${t('home')} | Hub Star`}</title>
       </Head>
       <main>
         <Hero />

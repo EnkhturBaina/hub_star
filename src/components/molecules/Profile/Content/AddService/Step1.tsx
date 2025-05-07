@@ -12,7 +12,7 @@ import { CreateAdvertisement } from '@typeDefs/advertisement';
 interface IProps {
   isSpecial: boolean;
   adData: CreateAdvertisement;
-  setAdData: React.Dispatch<React.SetStateAction<any>>;
+  setAdData: React.Dispatch<React.SetStateAction<CreateAdvertisement>>;
 }
 const Step1: React.FC<IProps> = ({ isSpecial, adData, setAdData }) => {
   const t = useTranslations();
@@ -77,6 +77,9 @@ const Step1: React.FC<IProps> = ({ isSpecial, adData, setAdData }) => {
     loadSubDirection();
   }, [adData.directionId]);
 
+  const handleChange = (prop: keyof CreateAdvertisement) => (value: any) => {
+    setAdData({ ...adData, [prop]: value });
+  };
   return (
     <motion.div
       variants={{
@@ -100,38 +103,33 @@ const Step1: React.FC<IProps> = ({ isSpecial, adData, setAdData }) => {
         <SelectField
           label="Онцгой үйлчилгээ"
           options={SpecialServiceData.map(item => ({ value: item.type, label: t(item.title) }))}
-          onChange={value => setAdData(prevState => ({ ...prevState, specialService: value }))}
+          onChange={handleChange('specialService')}
         />
       ) : (
         <>
           <SelectField
             label="Хэрэглэгчийн төрөл"
             options={UserTabData.map(item => ({ value: item.type, label: t(item.title) }))}
-            onChange={value => setAdData(prevState => ({ ...prevState, userType: value }))}
+            onChange={handleChange('userType')}
           />
           <SelectField
             label="Үйл ажиллагааны үндсэн чиглэл"
             options={mainDirections.map(item => ({ value: item.id, label: item.name }))}
-            onChange={value => setAdData(prevState => ({ ...prevState, mainDirectionId: value }))}
+            onChange={value => handleChange('mainDirectionId')(parseInt(value))}
           />
         </>
       )}
       <SelectField
         label="Үйл ажиллагааны чиглэл"
         options={directions.map(item => ({ value: item.id, label: item.name }))}
-        onChange={value => setAdData(prevState => ({ ...prevState, directionId: value }))}
+        onChange={value => handleChange('directionId')(parseInt(value))}
       />
 
       <SelectField
         label="Үйл ажиллагааны нэр"
         value={adData?.subDirectionId}
-        onChange={value => {
-          setAdData((adData: any) => ({
-            ...adData,
-            subDirectionId: value,
-          }));
-        }}
         options={subDirections.map(item => ({ value: item.id, label: item.name }))}
+        onChange={value => handleChange('subDirectionId')(parseInt(value))}
       />
     </motion.div>
   );
