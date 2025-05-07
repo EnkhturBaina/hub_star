@@ -195,6 +195,7 @@ const SingleBlogPage: NextPage = () => {
                     {data?.createdUser?.organizationName}
                   </p>
                 </div>
+                <p className="m-0 p-0 font-medium text-lg bold">{data?.desciption}</p>
               </div>
             </div>
             <div className="border-l px-4 md:w-2/5">
